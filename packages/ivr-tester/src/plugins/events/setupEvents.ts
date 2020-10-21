@@ -1,0 +1,32 @@
+import { Call } from "../../twilio";
+import { Server } from "ws";
+
+export interface CallRequestedEvent {
+  call: Call;
+  total: number;
+  current: number;
+}
+
+export interface CallRequestErroredEvent {
+  error: Error;
+}
+
+export interface CallHandlingServerErroredEvent {
+  error: Error;
+}
+
+export interface CallHandlingServerStartedEvent {
+  // TODO Abstract to something with `abortTests`
+  server: Server;
+}
+
+/**
+ * Lifecycle events for setting up a test
+ */
+export type SetupEvents = {
+  callRequested: CallRequestedEvent;
+  callRequestErrored: CallRequestErroredEvent;
+  callHandlingServerStarted: CallHandlingServerStartedEvent;
+  callHandlingServerStopped: undefined;
+  callHandlingServerErrored: CallHandlingServerErroredEvent;
+};

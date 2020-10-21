@@ -1,0 +1,19 @@
+{
+  "name": "root",
+  "private": true,
+  "license": "MIT",
+  "devDependencies": {
+    "lerna": "^3.22.1"
+  },
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ],
+  "scripts": {
+    "build": "lerna run build",
+    "lint": "lerna run lint"
+  },
+  "engines": {
+    "node": ">= 10.14.2"
+  }
+}
