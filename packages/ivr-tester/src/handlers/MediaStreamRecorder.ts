@@ -31,8 +31,6 @@ export class MediaStreamRecorder {
     private readonly config: RecorderConfig,
     private readonly test: IvrTest
   ) {
-    this.connection = connection;
-
     this.#onMessageFunc = this.processMessage.bind(this);
     this.#onCloseFunc = this.close.bind(this);
     connection.on(WebSocketEvents.Message, this.#onMessageFunc);
