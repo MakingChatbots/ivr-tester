@@ -1,6 +1,6 @@
 import { DtmfBufferGenerator } from "./dtmf/DtmfPlayer";
 import { Transcriber } from "./transcribers/Transcriber";
-import { Twilio } from "./twilio";
+import { Twilio } from "twilio";
 import { StreamDetails } from "./handlers/MediaStreamRecorder";
 import { IvrTesterPlugin } from "./plugins/plugin";
 

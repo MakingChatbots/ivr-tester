@@ -1,4 +1,4 @@
-import { Twilio, twiml } from "./twilio";
+import { Twilio, twiml } from "twilio";
 import * as getenv from "getenv";
 import {
   CallHandlingServer,
