@@ -11,7 +11,7 @@ type TranscriberFactory = () => Transcriber;
 
 export interface Config {
   dtmfGenerator?: DtmfBufferGenerator;
-  transcriber: TranscriberFactory;
+  transcriber?: TranscriberFactory;
   recording?: {
     outputPath: string;
     filename?: string | ((stream: StreamDetails) => string);

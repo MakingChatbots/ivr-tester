@@ -19,7 +19,7 @@ export interface TestContainer {
 }
 
 export interface IvrTest {
-  name: string;
+  name: string; // TODO Enforce that test names are defined and unique
   test: TestContainer;
 }
 

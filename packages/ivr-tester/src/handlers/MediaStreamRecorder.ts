@@ -11,7 +11,7 @@ import { IvrTest } from "./TestHandler";
 
 export interface StreamDetails {
   sid: string;
-  phoneNumbers: { from: string; to: string };
+  phoneNumbers: { from: string; to: string; };
 }
 
 export interface RecorderConfig {
@@ -22,19 +22,19 @@ export interface RecorderConfig {
 export class MediaStreamRecorder {
   private static readonly FILE_EXT = "wav";
 
-  #writeStream: WriteStream;
-  readonly #onMessageFunc: (event: any) => void;
-  readonly #onCloseFunc: (event: any) => void;
+  private writeStream: WriteStream;
+  private readonly onMessageFunc: (event: any) => void;
+  private readonly onCloseFunc: (event: any) => void;
 
   constructor(
     private readonly connection: ws,
     private readonly config: RecorderConfig,
     private readonly test: IvrTest
   ) {
-    this.#onMessageFunc = this.processMessage.bind(this);
-    this.#onCloseFunc = this.close.bind(this);
-    connection.on(WebSocketEvents.Message, this.#onMessageFunc);
-    connection.on(WebSocketEvents.Close, this.#onCloseFunc);
+    this.onMessageFunc = this.processMessage.bind(this);
+    this.onCloseFunc = this.close.bind(this);
+    connection.on(WebSocketEvents.Message, this.onMessageFunc);
+    connection.on(WebSocketEvents.Close, this.onCloseFunc);
   }
 
   private processMessage(message: string) {
@@ -80,18 +80,18 @@ export class MediaStreamRecorder {
 
     console.log(`Recording inbound stream to '${filepath}'`);
     mkdirSync(this.config.outputPath, { recursive: true });
-    this.#writeStream = createWriteStream(filepath);
+    this.writeStream = createWriteStream(filepath);
   }
 
   private writeToFile(data: Buffer): void {
-    this.#writeStream.write(data);
+    this.writeStream.write(data);
   }
 
   private close() {
-    this.connection.off(WebSocketEvents.Message, this.#onMessageFunc);
-    this.connection.off(WebSocketEvents.Close, this.#onCloseFunc);
+    this.connection.off(WebSocketEvents.Message, this.onMessageFunc);
+    this.connection.off(WebSocketEvents.Close, this.onCloseFunc);
 
-    this.#writeStream.close();
-    this.#writeStream = null;
+    this.writeStream.close();
+    this.writeStream = null;
   }
 }

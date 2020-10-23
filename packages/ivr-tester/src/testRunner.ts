@@ -13,6 +13,7 @@ import { createLifecycleEventEmitter } from "./plugins/events/eventEmitter";
 import { consoleLogger } from "./plugins/consoleLogger";
 import { StopWhenAllTestsComplete } from "./plugins/StopWhenAllTestsComplete";
 import { URL } from "url";
+import {mulawGoogleSpeechToText} from "./transcribers/MulawGoogleSpeechToText";
 
 // TODO Replace with avj or maybe https://www.npmjs.com/package/convict
 const populateDefaults = (config: Config): Config => {
@@ -24,7 +25,7 @@ const populateDefaults = (config: Config): Config => {
 
   return {
     dtmfGenerator: config.dtmfGenerator || new UlawDtmfBufferGenerator(),
-    transcriber: config.transcriber,
+    transcriber: config.transcriber || mulawGoogleSpeechToText(),
     localServerPort: getenv.int("LOCAL_SERVER_PORT", config.localServerPort),
     plugins: config.plugins || [consoleLogger, new StopWhenAllTestsComplete()],
     publicServerUrl:
