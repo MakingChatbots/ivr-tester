@@ -13,7 +13,7 @@ import { createLifecycleEventEmitter } from "./plugins/events/eventEmitter";
 import { consoleLogger } from "./plugins/consoleLogger";
 import { StopWhenAllTestsComplete } from "./plugins/StopWhenAllTestsComplete";
 import { URL } from "url";
-import {mulawGoogleSpeechToText} from "./transcribers/MulawGoogleSpeechToText";
+import { mulawGoogleSpeechToText } from "./transcribers/MulawGoogleSpeechToText";
 
 // TODO Replace with avj or maybe https://www.npmjs.com/package/convict
 const populateDefaults = (config: Config): Config => {

@@ -11,7 +11,7 @@ import { IvrTest } from "./TestHandler";
 
 export interface StreamDetails {
   sid: string;
-  phoneNumbers: { from: string; to: string; };
+  phoneNumbers: { from: string; to: string };
 }
 
 export interface RecorderConfig {

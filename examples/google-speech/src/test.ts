@@ -1,7 +1,16 @@
-import {Config, contains, doNothing, IvrTest, ordered, press, testRunner, TestSubject,} from "ivr-tester";
+import {
+  Config,
+  contains,
+  doNothing,
+  IvrTest,
+  ordered,
+  press,
+  testRunner,
+  TestSubject,
+} from "ivr-tester";
 import path from "path";
 
-require('dotenv').config();
+require("dotenv").config();
 
 const call: TestSubject = {
   from: process.env.FROM_PHONE_NUMBER,
