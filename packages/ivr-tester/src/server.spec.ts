@@ -1,7 +1,7 @@
 import WebSocket from "ws";
 import ws from "ws";
 import waitForExpect from "wait-for-expect";
-import {CallHandlingServer, startServerListening} from "./server";
+import { CallHandlingServer, startServerListening } from "./server";
 import { IvrTest } from "./handlers/TestHandler";
 import { Transcriber, TranscriptEvent } from "./transcribers/Transcriber";
 import { DtmfBufferGenerator } from "./dtmf/DtmfPlayer";
@@ -53,12 +53,11 @@ const fiveSeconds = 5 * 1000;
 jest.setTimeout(fiveSeconds);
 
 describe("server", () => {
-
   let server: CallHandlingServer;
   let ws: WebSocket;
 
   afterAll((done) => {
-    if(server){
+    if (server) {
       server.wss.close(done);
     }
   });
