@@ -1,7 +1,7 @@
 import WebSocket from "ws";
 import ws from "ws";
 import waitForExpect from "wait-for-expect";
-import { startServerListening } from "./server";
+import {CallHandlingServer, startServerListening} from "./server";
 import { IvrTest } from "./handlers/TestHandler";
 import { Transcriber, TranscriptEvent } from "./transcribers/Transcriber";
 import { DtmfBufferGenerator } from "./dtmf/DtmfPlayer";
@@ -53,6 +53,16 @@ const fiveSeconds = 5 * 1000;
 jest.setTimeout(fiveSeconds);
 
 describe("server", () => {
+
+  let server: CallHandlingServer;
+  let ws: WebSocket;
+
+  afterAll((done) => {
+    if(server){
+      server.wss.close(done);
+    }
+  });
+
   test("recipient's audio transcribed for test then server shutdown", async () => {
     const transcriber = new TranscriberTestDouble();
 
@@ -72,10 +82,10 @@ describe("server", () => {
       on: jest.fn(),
     };
 
-    const server = await startServerListening(config, [test], emitter);
+    server = await startServerListening(config, [test], emitter);
     const { port } = server.wss.address() as AddressInfo;
 
-    const ws = new WebSocket(`ws://localhost:${port}/`);
+    ws = new WebSocket(`ws://localhost:${port}/`);
     await waitForConnection(ws);
 
     jest.spyOn(transcriber, "transcribe").mockImplementation(() => {
