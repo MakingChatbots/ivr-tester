@@ -1,6 +1,9 @@
 import ws, { AddressInfo, Server } from "ws";
 import { TranscriptionHandler } from "./handlers/TranscriptionHandler";
-import { MediaStreamRecorder } from "./handlers/MediaStreamRecorder";
+import {
+  MediaStreamRecorder,
+  StreamDetails,
+} from "./handlers/MediaStreamRecorder";
 import {
   IvrTest,
   TestConditionMet,
@@ -8,10 +11,11 @@ import {
   TestHandler,
   TestPassed,
 } from "./handlers/TestHandler";
-import { Config } from "./Config";
 import { TwilioCall } from "./handlers/TwilioCall";
 import { TestLifecycleEventEmitter } from "./plugins/events/eventEmitter";
 import { URL } from "url";
+import { DtmfBufferGenerator } from "./dtmf/DtmfPlayer";
+import { Transcriber } from "./transcribers/Transcriber";
 
 export const formatServerUrl = (server: CallHandlingServer): URL => {
   const address = server.wss.address() as AddressInfo;
@@ -26,10 +30,30 @@ export const formatServerUrl = (server: CallHandlingServer): URL => {
   }
 };
 
+/**
+ * Factory to create a instance of a transcriber per test
+ */
+type TranscriberFactory = () => Transcriber;
+
+export interface ServerConfig {
+  dtmfGenerator?: DtmfBufferGenerator;
+  transcriber?: TranscriberFactory;
+  recording?: {
+    outputPath: string;
+    filename?: string | ((stream: StreamDetails) => string);
+  };
+
+  /**
+   * Port that server is to listen on.
+   * This value can be overridden by setting the environment variable LOCAL_SERVER_PORT
+   */
+  localServerPort?: number | undefined;
+}
+
 const initialiseConnectionHandlers = (
   wss: Server,
   ws: ws,
-  config: Config,
+  config: ServerConfig,
   ivrTest: IvrTest,
   testEventEmitter: TestLifecycleEventEmitter
 ) => {
@@ -60,7 +84,7 @@ export interface CallHandlingServer {
 }
 
 export const startServerListening = (
-  config: Config,
+  config: ServerConfig,
   ivrTest: IvrTest[],
   testEventEmitter: TestLifecycleEventEmitter
 ): Promise<CallHandlingServer> => {

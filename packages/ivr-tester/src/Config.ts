@@ -1,39 +1,31 @@
-import { DtmfBufferGenerator } from "./dtmf/DtmfPlayer";
-import { Transcriber } from "./transcribers/Transcriber";
+import { ServerConfig } from "./server";
 import { Twilio } from "twilio";
-import { StreamDetails } from "./handlers/MediaStreamRecorder";
-import { IvrTesterPlugin } from "./plugins/plugin";
+import * as getenv from "getenv";
+import { UlawDtmfBufferGenerator } from "./dtmf/UlawDtmfBufferGenerator";
+import { mulawGoogleSpeechToText } from "./transcribers/MulawGoogleSpeechToText";
+import { consoleLogger } from "./plugins/consoleLogger";
+import { StopWhenAllTestsComplete } from "./plugins/StopWhenAllTestsComplete";
+import { TestRunnerConfig } from "./testRunner";
 
-/**
- * Factory to create a instance of a transcriber per test
- */
-type TranscriberFactory = () => Transcriber;
+export interface Config extends ServerConfig, TestRunnerConfig {}
 
-export interface Config {
-  dtmfGenerator?: DtmfBufferGenerator;
-  transcriber?: TranscriberFactory;
-  recording?: {
-    outputPath: string;
-    filename?: string | ((stream: StreamDetails) => string);
+// TODO Replace with avj or maybe https://www.npmjs.com/package/convict
+export const populateDefaults = (config: Config): Config => {
+  const createDefaultClient = () =>
+    new Twilio(
+      getenv.string("TWILIO_ACCOUNT_SID"),
+      getenv.string("TWILIO_AUTH_TOKEN")
+    );
+
+  return {
+    dtmfGenerator: config.dtmfGenerator || new UlawDtmfBufferGenerator(),
+    transcriber: config.transcriber || mulawGoogleSpeechToText(),
+    localServerPort: getenv.int("LOCAL_SERVER_PORT", config.localServerPort),
+    plugins: config.plugins || [consoleLogger, new StopWhenAllTestsComplete()],
+    publicServerUrl:
+      getenv.string("PUBLIC_SERVER_URL", config.publicServerUrl || "") ||
+      undefined,
+    recording: config.recording,
+    twilioClient: config.twilioClient || createDefaultClient(),
   };
-
-  /**
-   * Twilio client used to initiate the call to the IVR
-   */
-  twilioClient?: Twilio;
-
-  /**
-   * URL of the server that is publicly accessible. This is the
-   * server that Twilio connects to when creating the bi-directional
-   * stream of the call
-   * This value can be overridden by setting the environment variable PUBLIC_SERVER_URL
-   */
-  publicServerUrl?: string | undefined;
-
-  /**
-   * Port that server is to listen on.
-   * This value can be overridden by setting the environment variable LOCAL_SERVER_PORT
-   */
-  localServerPort?: number | undefined;
-  plugins?: IvrTesterPlugin[];
-}
+};
