@@ -65,7 +65,7 @@ describe("server", () => {
     }
   });
 
-  test("recipient's audio transcribed for test then server shutdown", async () => {
+  test("recipient's audio transcribed for test", async () => {
     const transcriber = new TranscriberTestDouble();
 
     const config: ServerConfig = {
