@@ -43,10 +43,15 @@ testRunner()(
 
 ## How it works
 
+<p align="center">
+  <img src="docs/flow.jpg">
+</p>
+
 Under the hood this orchestrates: 
  1. Making a call to the IVR flow - using [Twilio](https://www.twilio.com/)
- 2. Transcribing the voice responses from the flow - using [Google Speech-to-Text](https://cloud.google.com/speech-to-text)
- 3. Using the test to conditionally respond with DTMF tones to transcripts
+ 2. Receiving the bi-directional audio stream of the call
+ 3. Transcribing the voice responses from the flow - using [Google Speech-to-Text](https://cloud.google.com/speech-to-text)
+ 4. Using the test to conditionally respond with DTMF tones to transcripts
 
 ## Getting Started
 
