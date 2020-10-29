@@ -54,19 +54,55 @@ Under the hood this orchestrates:
 
 ## Getting Started
 
-1. Start ngrok 
-   ```shell
-   ngrok http 8080
-   ```
-2. Run the tests
-   ```shell
-   # Port the IVR Tester's server should listen on
-   export LOCAL_SERVER_PORT=8080
-   # Public ngrok URL that forwards locally to the IVR Tester's server
-   export PUBLIC_SERVER_URL=$(curl -s localhost:4040/api/tunnels | jq -r .tunnels[0].public_url)
+The first 3 steps take you through configuring IVR Tester's dependencies, which are:
+* [Twilio](https://www.twilio.com/) - This calls your IVR flow and connects the bi-directional audio stream to the server IVR Tester hosts on the
+machine it runs on
+* [Google Cloud Speech-to-Text](https://cloud.google.com/speech-to-text) - This performs the speech-to-text conversion
+* [ngrok](https://ngrok.com/) - Run locally this exposes IVR Tester's server to the internet so Twilio can access it
+
+1. Configure your [authentication token for Twilio](https://support.twilio.com/hc/en-us/articles/223136027-Auth-Tokens-and-How-to-Change-Them)
    
-   ts-node src/test.ts
+   _These are used to instructing Twilio to call your IVR flow.
+   Remember to [keep your auth token secret](https://www.twilio.com/blog/protect-phishing-auth-token-fraud)._
+   
+   ```shell
+   export TWILIO_ACCOUNT_SID=ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+   export TWILIO_AUTH_TOKEN=your_auth_token
    ```
+
+2. Setup Google Cloud's Speech-to-Text service 
+   Follow GCP's [quick-start guide](https://cloud.google.com/speech-to-text/docs/quickstart-client-libraries) to:
+   1. Setup a Google Cloud project
+   2. Create a service account, then set the environment variable to the path of the JSON file that contains the service account's key.
+
+   ```shell
+   export GOOGLE_APPLICATION_CREDENTIALS=/path/to/key.json
+   ```
+
+3. Install and start [ngrok](https://ngrok.com/)
+
+   1. [Install ngrok](https://ngrok.com/download)
+   2. Run ngrok - we'll only be using its basic features, so you don't need to signup
+       ```shell
+       ngrok http 8080
+       ```
+   
+2. Run the tests
+
+   1. Set the port IVR Tester should listen on for calls. This is the port that you told ngrok to forward connections
+      to in step 3.2 above 
+      ```shell
+      export LOCAL_SERVER_PORT=8080
+      ```
+   2. Set the public URL that ngrok created for us in step 3.2 above. We can use it's API to retrieve this for us,
+      otherwise it will be available in ngrok's console output
+      ```shell
+      export PUBLIC_SERVER_URL=$(curl -s localhost:4040/api/tunnels | jq -r .tunnels[0].public_url)
+      ```
+   3. Execute your test
+      ```
+      node test.js
+      ```
 
 ## Writing tests
 
