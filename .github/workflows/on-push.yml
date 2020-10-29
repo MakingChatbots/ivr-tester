@@ -3,30 +3,46 @@ name: On Push
 on: [push]
 
 jobs:
-  lint:
+#  lint:
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - uses: actions/checkout@v1
+#      - name: Setup Node
+#        uses: actions/setup-node@v1
+#        with:
+#          node-version: 12.x
+#      - run: yarn
+#      - run: yarn lint
+#        env:
+#          CI: true
+#
+#  test:
+#    runs-on: ubuntu-latest
+#    timeout-minutes: 30
+#
+#    steps:
+#      - uses: actions/checkout@v1
+#      - name: Setup Node
+#        uses: actions/setup-node@v1
+#        with:
+#          node-version: 12.x
+#      - run: yarn
+#      - run: yarn build
+#      - run: yarn test
+
+  publish-npm:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
-      - name: Setup Node
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
         with:
-          node-version: 12.x
-      - run: yarn
-      - run: yarn lint
+          node-version: '12'
+          registry-url: 'https://registry.npmjs.org'
+      - run: yarn --frozen-lockfile
+        # Flag --no-verify-access is necessary to skip user and access validation due to third-party registry
+        # Alternatively set command.publish.registry in root lerna.json
+      - run: yarn lerna publish from-package --yes --no-verify-access
         env:
-          CI: true
-
-  test:
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-
-    steps:
-      - uses: actions/checkout@v1
-      - name: Setup Node
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12.x
-      - run: yarn
-      - run: yarn build
-      - run: yarn test
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

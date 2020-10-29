@@ -1,6 +1,6 @@
 {
   "name": "ivr-tester",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "An automated testing framework for IVR call flows",
   "license": "MIT",
   "repository": {
@@ -66,5 +66,8 @@
   },
   "engines": {
     "node": ">= 10.14.2"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
