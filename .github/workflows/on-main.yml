@@ -1,8 +1,12 @@
-name: On Release
+name: Release From Main
 
 on:
-  release:
-    types: [created]
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build:
