@@ -1,39 +1,32 @@
-import { Twilio, twiml } from "./twilio";
-import * as getenv from "getenv";
+import { Twilio, twiml } from "twilio";
 import {
   CallHandlingServer,
   formatServerUrl,
   startServerListening,
 } from "./server";
 import { IvrTest, TestSubject } from "./handlers/TestHandler";
-import { Config } from "./Config";
-import { UlawDtmfBufferGenerator } from "./dtmf/UlawDtmfBufferGenerator";
+import { Config, populateDefaults } from "./Config";
 import { callParameterSerializer } from "./twilio";
 import { createLifecycleEventEmitter } from "./plugins/events/eventEmitter";
-import { consoleLogger } from "./plugins/consoleLogger";
-import { StopWhenAllTestsComplete } from "./plugins/StopWhenAllTestsComplete";
 import { URL } from "url";
+import { IvrTesterPlugin } from "./plugins/plugin";
 
-// TODO Replace with avj or maybe https://www.npmjs.com/package/convict
-const populateDefaults = (config: Config): Config => {
-  const createDefaultClient = () =>
-    new Twilio(
-      getenv.string("TWILIO_ACCOUNT_SID"),
-      getenv.string("TWILIO_AUTH_TOKEN")
-    );
+export interface TestRunnerConfig {
+  /**
+   * Twilio client used to initiate the call to the IVR
+   */
+  twilioClient?: Twilio;
 
-  return {
-    dtmfGenerator: config.dtmfGenerator || new UlawDtmfBufferGenerator(),
-    transcriber: config.transcriber,
-    localServerPort: getenv.int("LOCAL_SERVER_PORT", config.localServerPort),
-    plugins: config.plugins || [consoleLogger, new StopWhenAllTestsComplete()],
-    publicServerUrl:
-      getenv.string("PUBLIC_SERVER_URL", config.publicServerUrl || "") ||
-      undefined,
-    recording: config.recording,
-    twilioClient: config.twilioClient || createDefaultClient(),
-  };
-};
+  /**
+   * URL of the server that is publicly accessible. This is the
+   * server that Twilio connects to when creating the bi-directional
+   * stream of the call
+   * This value can be overridden by setting the environment variable PUBLIC_SERVER_URL
+   */
+  publicServerUrl?: string | undefined;
+
+  plugins?: IvrTesterPlugin[];
+}
 
 const createPublicStreamUrl = (
   config: Config,

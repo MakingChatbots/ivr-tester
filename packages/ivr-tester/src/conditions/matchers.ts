@@ -1,7 +1,4 @@
 import { compareTwoStrings } from "string-similarity";
-// const stringSimilarity = require('string-similarity');
-
-// const similarity = stringSimilarity.compareTwoStrings("healed", "sealed");
 
 export interface When {
   describe(): string;

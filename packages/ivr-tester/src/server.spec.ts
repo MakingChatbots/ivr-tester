@@ -1,11 +1,14 @@
 import WebSocket from "ws";
 import ws from "ws";
 import waitForExpect from "wait-for-expect";
-import { startServerListening } from "./server";
+import {
+  CallHandlingServer,
+  ServerConfig,
+  startServerListening,
+} from "./server";
 import { IvrTest } from "./handlers/TestHandler";
 import { Transcriber, TranscriptEvent } from "./transcribers/Transcriber";
 import { DtmfBufferGenerator } from "./dtmf/DtmfPlayer";
-import { Config } from "./Config";
 import { EventEmitter } from "events";
 import { AddressInfo } from "net";
 import { ordered } from "./handlers/ordered";
@@ -53,10 +56,19 @@ const fiveSeconds = 5 * 1000;
 jest.setTimeout(fiveSeconds);
 
 describe("server", () => {
-  test("recipient's audio transcribed for test then server shutdown", async () => {
+  let server: CallHandlingServer;
+  let ws: WebSocket;
+
+  afterAll((done) => {
+    if (server) {
+      server.wss.close(done);
+    }
+  });
+
+  test("recipient's audio transcribed for test", async () => {
     const transcriber = new TranscriberTestDouble();
 
-    const config: Config = {
+    const config: ServerConfig = {
       localServerPort: await getPort(),
       dtmfGenerator: createMockDtmfGenerator(),
       transcriber: () => transcriber,
@@ -72,10 +84,10 @@ describe("server", () => {
       on: jest.fn(),
     };
 
-    const server = await startServerListening(config, [test], emitter);
+    server = await startServerListening(config, [test], emitter);
     const { port } = server.wss.address() as AddressInfo;
 
-    const ws = new WebSocket(`ws://localhost:${port}/`);
+    ws = new WebSocket(`ws://localhost:${port}/`);
     await waitForConnection(ws);
 
     jest.spyOn(transcriber, "transcribe").mockImplementation(() => {
@@ -98,11 +110,6 @@ describe("server", () => {
         "ivrTestPassed",
         expect.any(Object)
       );
-    });
-
-    await waitForExpect(() => {
-      // expect(server.httpServer.listening).toBe(false); TODO Any wss equivalent
-      expect(ws.readyState).toBe(ws.CLOSED);
     });
   });
 });

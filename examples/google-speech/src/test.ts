@@ -3,7 +3,6 @@ import {
   contains,
   doNothing,
   IvrTest,
-  mulawGoogleSpeechToText,
   ordered,
   press,
   testRunner,
@@ -11,13 +10,15 @@ import {
 } from "ivr-tester";
 import path from "path";
 
+require("dotenv").config();
+
 const call: TestSubject = {
-  from: "xx",
-  to: "xx",
+  from: process.env.FROM_PHONE_NUMBER,
+  to: process.env.TO_PHONE_NUMBER,
 };
 
 const test: IvrTest = {
-  name: "Pressing 4 exits the flow", // TODO Enforce that test names are defined and unique
+  name: "Pressing 4 exits the flow",
   test: ordered([
     {
       when: contains("this will allow you to adjust call recording behaviour"),
@@ -31,7 +32,6 @@ const test: IvrTest = {
 };
 
 const config: Config = {
-  transcriber: mulawGoogleSpeechToText(),
   recording: {
     outputPath: path.join(__dirname, "../recordings"),
   },
