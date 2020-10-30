@@ -26,9 +26,11 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: 12
-          registry-url: https://registry.npmjs.org/
+          node-version: '12'
+          registry-url: 'https://registry.npmjs.org'
       - run: yarn --frozen-lockfile
-      - run: yarn lerna publish from-package --yes
+        # Flag --no-verify-access is necessary to skip user and access validation due to third-party registry
+        # Alternatively set command.publish.registry in root lerna.json
+      - run: yarn lerna publish from-package --yes --no-verify-access
         env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

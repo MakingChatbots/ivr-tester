@@ -20,8 +20,7 @@
     "lint:eslint": "eslint 'src/**/*.ts'",
     "lint": "yarn lint:prettier && yarn lint:eslint",
     "copy:dtmf-tones": "copyfiles -u 1 src/**/dtmf/**/*.raw dist",
-    "prepare" : "yarn build",
-    "prepublishOnly" : "yarn lint && yarn test"
+    "prepare" : "yarn build"
   },
   "files": [
     "/dist"
