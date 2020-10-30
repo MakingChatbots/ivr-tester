@@ -140,12 +140,3 @@ Instead of say `contains` which would hide the fact a question is being asked to
   then: press("18121985"),
 }
 ```
-
-## Development
-
-### How to publish a release
-
-1. Merge functionality to master along with an increase in the package's version
-2. Create a release in GitHub - the version will be the package's version prefixed with 'v'
-
-Creating the release with trigger the [GitHub workflow](./.github/workflows/on-release.yml) that will publish to npmjs.com
