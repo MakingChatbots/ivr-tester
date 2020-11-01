@@ -1,23 +1,19 @@
 import { compareTwoStrings } from "string-similarity";
 
 export interface When {
-  describe(): string;
   check(transcript: string): boolean;
 }
 
 export const or = (...whens: When[]): When => ({
   check: (transcript: string) => whens.some((when) => when.check(transcript)),
-  describe: () => `either:\n${whens.map((w) => w.describe()).join("\n")}`,
 });
 
 export const matches = (pattern: RegExp): When => ({
   check: (transcript: string) => pattern.test(transcript),
-  describe: () => `matches regex pattern ${pattern}`,
 });
 
 export const contains = (partial: string): When => ({
   check: (transcript: string) => transcript.includes(partial),
-  describe: () => `contains ${partial}`,
 });
 
 export const part = (when: When): When => ({
@@ -36,7 +32,6 @@ export const part = (when: When): When => ({
 
     return false;
   },
-  describe: () => "", // TODO This pattern has broken down
 });
 
 /**
@@ -54,5 +49,4 @@ export const similarTo = (
 ): When => ({
   check: (transcript: string) =>
     compareTwoStrings(similarText, transcript) >= similarityThreshold,
-  describe: () => `similar to "${similarText}"`,
 });

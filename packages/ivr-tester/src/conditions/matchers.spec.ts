@@ -52,7 +52,6 @@ describe("Matchers", () => {
   test("part calls matcher with every part of a sentence", () => {
     const mockWhen: jest.Mocked<When> = {
       check: jest.fn(),
-      describe: jest.fn(),
     };
 
     part(mockWhen).check("this is. a test");
@@ -73,7 +72,6 @@ describe("Matchers", () => {
   test("part returns when matcher has a match", () => {
     const mockWhen: When = {
       check: (text: string) => text === "this is",
-      describe: () => "",
     };
 
     expect(part(mockWhen).check("this is a test")).toBe(true);
