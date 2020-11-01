@@ -1,7 +1,3 @@
-import { When } from "./When";
-import { matches } from "./matches";
-import { contains } from "./contains";
-import { part } from "./part";
 import { similarTo } from "./similarTo";
 
 test.each([

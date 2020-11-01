@@ -1,7 +1,6 @@
-import {Then} from "./Then";
+import { Then } from "./Then";
 
 export const doNothing = (): Then => ({
-    do: () => {
-    },
-    describe: () => "do nothing",
+  do: () => {},
+  describe: () => "do nothing",
 });

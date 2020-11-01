@@ -1,4 +1,4 @@
-import {Call} from "../../handlers/ordered";
+import { Call } from "../../handlers/ordered";
 
 /**
  * An action performed when a condition is met
@@ -14,4 +14,3 @@ export interface Then {
 
   do(call: Call): void;
 }
-

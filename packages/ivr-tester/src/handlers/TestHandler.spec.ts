@@ -6,8 +6,8 @@ import { when } from "jest-when";
 import { ordered } from "./ordered";
 import { TwilioCall } from "./TwilioCall";
 import { contains } from "../conditions/when/contains";
-import {press} from "../conditions/then/press";
-import {doNothing} from "../conditions/then/doNothing";
+import { press } from "../conditions/then/press";
+import { doNothing } from "../conditions/then/doNothing";
 
 class WsTestDouble extends EventEmitter implements Pick<ws, "send"> {
   constructor(
