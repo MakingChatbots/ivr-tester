@@ -18,7 +18,7 @@ describe("Matchers", () => {
       false,
     ],
   ])("similarTo ('%s')", (transcript, actual, expected) =>
-    expect(similarTo(actual).check(transcript)).toBe(expected)
+    expect(similarTo(actual)(transcript)).toBe(expected)
   );
 
   test.each([
@@ -35,7 +35,7 @@ describe("Matchers", () => {
     ["press to try again", "press two to try again", false],
     ["Press To Try Again", "press to try again", false],
   ])("contains ('%s')", (transcript, actual, expected) =>
-    expect(contains(actual).check(transcript)).toBe(expected)
+    expect(contains(actual)(transcript)).toBe(expected)
   );
 
   test.each([
@@ -46,35 +46,31 @@ describe("Matchers", () => {
     ],
     ["press to try again", /test/, false],
   ])("matches ('%s')", (transcript, actual, expected) =>
-    expect(matches(actual).check(transcript)).toBe(expected)
+    expect(matches(actual)(transcript)).toBe(expected)
   );
 
   test("part calls matcher with every part of a sentence", () => {
-    const mockWhen: jest.Mocked<When> = {
-      check: jest.fn(),
-    };
+    const mockWhen: jest.Mocked<When> = jest.fn();
 
-    part(mockWhen).check("this is. a test");
+    part(mockWhen)("this is. a test");
 
-    expect(mockWhen.check).toBeCalledWith("this");
-    expect(mockWhen.check).toBeCalledWith("this is.");
-    expect(mockWhen.check).toBeCalledWith("this is. a");
-    expect(mockWhen.check).toBeCalledWith("this is. a test");
-    expect(mockWhen.check).toBeCalledWith("is.");
-    expect(mockWhen.check).toBeCalledWith("is. a");
-    expect(mockWhen.check).toBeCalledWith("is. a test");
-    expect(mockWhen.check).toBeCalledWith("a");
-    expect(mockWhen.check).toBeCalledWith("a test");
-    expect(mockWhen.check).toBeCalledWith("test");
-    expect(mockWhen.check).toBeCalledTimes(10);
+    expect(mockWhen).toBeCalledWith("this");
+    expect(mockWhen).toBeCalledWith("this is.");
+    expect(mockWhen).toBeCalledWith("this is. a");
+    expect(mockWhen).toBeCalledWith("this is. a test");
+    expect(mockWhen).toBeCalledWith("is.");
+    expect(mockWhen).toBeCalledWith("is. a");
+    expect(mockWhen).toBeCalledWith("is. a test");
+    expect(mockWhen).toBeCalledWith("a");
+    expect(mockWhen).toBeCalledWith("a test");
+    expect(mockWhen).toBeCalledWith("test");
+    expect(mockWhen).toBeCalledTimes(10);
   });
 
   test("part returns when matcher has a match", () => {
-    const mockWhen: When = {
-      check: (text: string) => text === "this is",
-    };
+    const mockWhen: When = (text: string) => text === "this is";
 
-    expect(part(mockWhen).check("this is a test")).toBe(true);
-    expect(part(mockWhen).check("hello world")).toBe(false);
+    expect(part(mockWhen)("this is a test")).toBe(true);
+    expect(part(mockWhen)("hello world")).toBe(false);
   });
 });
