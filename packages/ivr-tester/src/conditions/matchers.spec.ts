@@ -1,4 +1,4 @@
-import { contains, matches, similarTo } from "./matchers";
+import { contains, matches, part, similarTo, When } from "./matchers";
 
 describe("Matchers", () => {
   test.each([
@@ -48,4 +48,35 @@ describe("Matchers", () => {
   ])("matches ('%s')", (transcript, actual, expected) =>
     expect(matches(actual).check(transcript)).toBe(expected)
   );
+
+  test("part calls matcher with every part of a sentence", () => {
+    const mockWhen: jest.Mocked<When> = {
+      check: jest.fn(),
+      describe: jest.fn(),
+    };
+
+    part(mockWhen).check("this is. a test");
+
+    expect(mockWhen.check).toBeCalledWith("this");
+    expect(mockWhen.check).toBeCalledWith("this is.");
+    expect(mockWhen.check).toBeCalledWith("this is. a");
+    expect(mockWhen.check).toBeCalledWith("this is. a test");
+    expect(mockWhen.check).toBeCalledWith("is.");
+    expect(mockWhen.check).toBeCalledWith("is. a");
+    expect(mockWhen.check).toBeCalledWith("is. a test");
+    expect(mockWhen.check).toBeCalledWith("a");
+    expect(mockWhen.check).toBeCalledWith("a test");
+    expect(mockWhen.check).toBeCalledWith("test");
+    expect(mockWhen.check).toBeCalledTimes(10);
+  });
+
+  test("part returns when matcher has a match", () => {
+    const mockWhen: When = {
+      check: (text: string) => text === "this is",
+      describe: () => "",
+    };
+
+    expect(part(mockWhen).check("this is a test")).toBe(true);
+    expect(part(mockWhen).check("hello world")).toBe(false);
+  });
 });

@@ -20,6 +20,25 @@ export const contains = (partial: string): When => ({
   describe: () => `contains ${partial}`,
 });
 
+export const part = (when: When): When => ({
+  check: (transcript: string) => {
+    const words = transcript.split(" ");
+    const totalWords = words.length;
+
+    for (let start = 0; start <= totalWords; start++) {
+      for (let end = start; end < totalWords; end++) {
+        const sliceOfSentence = words.slice(start, end + 1).join(" ");
+        if (when.check(sliceOfSentence)) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  },
+  describe: () => "", // TODO This pattern has broken down
+});
+
 /**
  * Compares two strings to determine if they're similar.
  * See https://www.npmjs.com/package/string-similarity#api to read how similarity is calculated.

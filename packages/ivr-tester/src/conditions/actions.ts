@@ -22,5 +22,5 @@ export const press = (dtmfSequence: string): Then => ({
 
 export const doNothing = (): Then => ({
   do: () => {},
-  describe: () => `do nothing`,
+  describe: () => "do nothing",
 });
