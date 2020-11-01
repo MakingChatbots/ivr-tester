@@ -1,6 +1,6 @@
-import { contains } from "../conditions/matchers";
-import { press } from "../conditions/actions";
 import { Call, ordered } from "./ordered";
+import { contains } from "../conditions/when/contains";
+import {press} from "../conditions/then/press";
 
 describe("ordered conditions", () => {
   test("test passes if no conditions provided", () => {

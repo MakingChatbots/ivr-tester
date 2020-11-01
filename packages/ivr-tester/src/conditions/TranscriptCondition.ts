@@ -1,5 +1,5 @@
-import { Then } from "./actions";
-import { When } from "./matchers";
+import { Then } from "./then";
+import { When } from "./when";
 
 export interface TranscriptCondition {
   when: When;

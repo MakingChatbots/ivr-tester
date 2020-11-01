@@ -1,5 +1,5 @@
-export * from "./conditions/actions";
-export * from "./conditions/matchers";
+export * from "./conditions/when";
+export * from "./conditions/then";
 export * from "./conditions/TranscriptCondition";
 
 export * from "./plugins/consoleLogger";
@@ -17,5 +17,3 @@ export * from "./transcribers/MulawGoogleSpeechToText";
 export * from "./transcribers/Transcriber";
 
 export { TestSubject, IvrTest } from "./handlers/TestHandler";
-
-export { ordered } from "./handlers/ordered";

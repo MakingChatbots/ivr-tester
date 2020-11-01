@@ -4877,19 +4877,6 @@ istanbul-reports@^3.0.2:
     html-escaper "^2.0.0"
     istanbul-lib-report "^3.0.0"
 
-ivr-tester@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/ivr-tester/-/ivr-tester-0.0.1.tgz#d0a8ffbc6c133ce6fd5b450998bca6a8a408a7b0"
-  integrity sha512-CQ5n7eFJUm1IU3oO9ooyvm2nnfbOZZuwJ4uDFMTDA/yjurMF45TzEmXEFfEDnXvrRJnIa8Kvop4qsnqYe6MfGA==
-  dependencies:
-    "@google-cloud/speech" "^4.1.3"
-    chalk "^4.1.0"
-    getenv "^1.0.0"
-    log-symbols "^4.0.0"
-    string-similarity "^4.0.2"
-    twilio "^3.49.0"
-    ws "^7.3.1"
-
 jest-changed-files@^26.6.0:
   version "26.6.0"
   resolved "https://registry.yarnpkg.com/jest-changed-files/-/jest-changed-files-26.6.0.tgz#63b04aa261b5733c6ade96b7dd24784d12d8bb2d"
