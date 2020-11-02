@@ -18,3 +18,12 @@ test("part calls matcher with every part of a sentence", () => {
   expect(mockWhen).toBeCalledWith("test");
   expect(mockWhen).toBeCalledTimes(10);
 });
+
+test("part calls matcher with empty string", () => {
+  const mockWhen: jest.Mocked<When> = jest.fn();
+
+  part(mockWhen)("");
+
+  expect(mockWhen).toBeCalledWith("");
+  expect(mockWhen).toBeCalledTimes(1);
+});
