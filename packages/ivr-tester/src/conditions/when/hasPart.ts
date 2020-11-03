@@ -17,7 +17,7 @@ const space = " ";
  * @param {function} when Called with each of part of the transcript
  * @return {boolean} True if argument succeeded when parts a part of the transcript, else False.
  */
-export const part = (when: When): When => (transcript: string) => {
+export const hasPart = (when: When): When => (transcript: string) => {
   const words = transcript.split(space);
   const totalWords = words.length;
 

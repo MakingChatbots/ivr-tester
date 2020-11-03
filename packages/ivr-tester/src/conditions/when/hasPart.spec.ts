@@ -1,10 +1,10 @@
 import { When } from "./When";
-import { part } from "./part";
+import { hasPart } from "./hasPart";
 
 test("part calls matcher with every part of a sentence", () => {
   const mockWhen: jest.Mocked<When> = jest.fn();
 
-  part(mockWhen)("this is. a test");
+  hasPart(mockWhen)("this is. a test");
 
   expect(mockWhen).toBeCalledWith("this");
   expect(mockWhen).toBeCalledWith("this is.");
@@ -22,7 +22,7 @@ test("part calls matcher with every part of a sentence", () => {
 test("part calls matcher with empty string", () => {
   const mockWhen: jest.Mocked<When> = jest.fn();
 
-  part(mockWhen)("");
+  hasPart(mockWhen)("");
 
   expect(mockWhen).toBeCalledWith("");
   expect(mockWhen).toBeCalledTimes(1);

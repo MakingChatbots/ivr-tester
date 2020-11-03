@@ -3,7 +3,7 @@ import {
   contains,
   doNothing,
   IvrTest,
-  part,
+  hasPart,
   press,
   similarTo,
   testRunner,
@@ -29,7 +29,7 @@ const test: IvrTest = {
       then: press("4"),
     },
     {
-      whenTranscript: part(similarTo("thanks for calling")),
+      whenTranscript: hasPart(similarTo("thanks for calling")),
       then: doNothing(),
     },
   ]),
