@@ -15,25 +15,25 @@ that manages to navigate a call flow using all of its conditions.
 testRunner()(
   { from: "0123 456 789", to: "0123 123 123" }, 
   { name: "Customer is asked to provide account number",
-    test: ordered([
+    test: inOrder([
       {
-        when: similarTo("Press 1 to update your account details"),
+        whenTranscript: similarTo("Press 1 to update your account details"),
         then: press("1"),
       },
       {
-        when: contains("enter your account number"),
+        whenTranscript: contains("enter your account number"),
         then: doNothing(),
       },
     ]),
   },
   { name: "Customer is told their option is unrecognised",
-    test: ordered([
+    test: inOrder([
       {
-        when: similarTo("Press 1 to update your account details"),
+        whenTranscript: similarTo("Press 1 to update your account details"),
         then: press("2"),
       },
       {
-        when: similarTo("Sorry, we did not understand your response"),
+        whenTranscript: similarTo("Sorry, we did not understand your response"),
         then: doNothing(),
       },
     ]),
@@ -127,7 +127,7 @@ to understanding the flow I would use `similarTo`, which matches based on a degr
 
 ```typescript
 {
-  when: similarTo("Please enter your date of birth"),
+  whenTranscript: similarTo("Please enter your date of birth"),
   then: press("18121985"),
 }
 ```
@@ -136,7 +136,7 @@ Instead of say `contains` which would hide the fact a question is being asked to
 
 ```typescript
 {
-  when: contains("date of birth"),
+  whenTranscript: contains("date of birth"),
   then: press("18121985"),
 }
 ```

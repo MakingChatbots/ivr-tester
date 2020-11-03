@@ -1,4 +1,4 @@
-import { Call } from "../handlers/ordered";
+import { Call } from "../../handlers/inOrder";
 
 /**
  * An action performed when a condition is met
@@ -14,13 +14,3 @@ export interface Then {
 
   do(call: Call): void;
 }
-
-export const press = (dtmfSequence: string): Then => ({
-  do: (call: Call) => call.sendDtmfTone(dtmfSequence),
-  describe: () => `press key(s) ${dtmfSequence}`,
-});
-
-export const doNothing = (): Then => ({
-  do: () => {},
-  describe: () => `do nothing`,
-});

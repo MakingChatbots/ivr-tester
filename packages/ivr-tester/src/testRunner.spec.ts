@@ -2,7 +2,7 @@ import { Config } from "./Config";
 import { testRunner } from "./testRunner";
 import { createMockDtmfGenerator, createMockTranscriber } from "./server.spec";
 import { IvrTest, TestSubject } from "./handlers/TestHandler";
-import { ordered } from "./handlers/ordered";
+import { inOrder } from "./handlers/inOrder";
 import getPort from "get-port";
 
 describe("testRunner", () => {
@@ -63,7 +63,7 @@ describe("testRunner", () => {
     };
     const ivrTest: IvrTest = {
       name: "",
-      test: ordered([]),
+      test: inOrder([]),
     };
 
     await expect(() =>
@@ -87,7 +87,7 @@ describe("testRunner", () => {
     };
 
     try {
-      await testRunner(config)(call, { name: "", test: ordered([]) });
+      await testRunner(config)(call, { name: "", test: inOrder([]) });
     } catch (err) {
       /* Intentionally ignore*/
     }
@@ -115,7 +115,7 @@ describe("testRunner", () => {
     };
 
     try {
-      await testRunner(config)(call, { name: "", test: ordered([]) });
+      await testRunner(config)(call, { name: "", test: inOrder([]) });
     } catch (err) {
       /* Intentionally ignore*/
     }

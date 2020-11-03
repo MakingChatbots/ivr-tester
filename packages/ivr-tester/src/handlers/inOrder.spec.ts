@@ -1,6 +1,7 @@
-import { contains } from "../conditions/matchers";
-import { press } from "../conditions/actions";
-import { Call, ordered } from "./ordered";
+import { Call, inOrder } from "./inOrder";
+import { contains } from "../conditions/when/contains";
+import { press } from "../conditions/then/press";
+import { TranscriptCondition } from "..";
 
 describe("ordered conditions", () => {
   test("test passes if no conditions provided", () => {
@@ -8,7 +9,7 @@ describe("ordered conditions", () => {
       sendDtmfTone: jest.fn(),
       sendMedia: jest.fn(),
     };
-    const orderedConditions = ordered([]);
+    const orderedConditions = inOrder([]);
 
     const testOutcome = orderedConditions.test("Hello", dtmfGenerator);
     expect(dtmfGenerator.sendDtmfTone).not.toHaveBeenCalled();
@@ -18,17 +19,17 @@ describe("ordered conditions", () => {
   });
 
   test("all match and test passes for last one", () => {
-    const conditions = [
+    const conditions: TranscriptCondition[] = [
       {
-        when: contains("Hello"),
+        whenTranscript: contains("Hello"),
         then: press("1"),
       },
       {
-        when: contains("Jane"),
+        whenTranscript: contains("Jane"),
         then: press("2"),
       },
       {
-        when: contains("Austen"),
+        whenTranscript: contains("Austen"),
         then: press("3"),
       },
     ];
@@ -37,7 +38,7 @@ describe("ordered conditions", () => {
       sendDtmfTone: jest.fn(),
       sendMedia: jest.fn(),
     };
-    const orderedConditions = ordered(conditions);
+    const orderedConditions = inOrder(conditions);
 
     const testOutcome1 = orderedConditions.test("Hello", call);
     expect(call.sendDtmfTone).toHaveBeenCalled();
@@ -62,13 +63,13 @@ describe("ordered conditions", () => {
   });
 
   test("test failed when second condition doesn't match", () => {
-    const conditions = [
+    const conditions: TranscriptCondition[] = [
       {
-        when: contains("Hello"),
+        whenTranscript: contains("Hello"),
         then: press("1"),
       },
       {
-        when: contains("Jane"),
+        whenTranscript: contains("Jane"),
         then: press("2"),
       },
     ];
@@ -77,7 +78,7 @@ describe("ordered conditions", () => {
       sendDtmfTone: jest.fn(),
       sendMedia: jest.fn(),
     };
-    const orderedConditions = ordered(conditions);
+    const orderedConditions = inOrder(conditions);
 
     const testOutcome1 = orderedConditions.test("Hello", call);
     expect(call.sendDtmfTone).toHaveBeenCalled();

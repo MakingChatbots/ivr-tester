@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "dotenv": "^8.2.0",
-    "ivr-tester": "^0.0.1"
+    "ivr-tester": "^0.0.7"
   },
   "scripts": {
     "test:ivr": "export LOCAL_SERVER_PORT=8080 && export PUBLIC_SERVER_URL=$(curl -s localhost:4040/api/tunnels | jq -r .tunnels[0].public_url) && node --require ts-node/register src/test.ts",

@@ -6,7 +6,7 @@ export interface Call {
   sendMedia(buffer: Buffer): void;
 }
 
-export const ordered: (
+export const inOrder: (
   conditions: ReadonlyArray<TranscriptCondition>
 ) => TestContainer = (conditions) => {
   let nextConditionIndex: number = 0;
@@ -20,7 +20,7 @@ export const ordered: (
         return { result: "pass" };
       }
 
-      const isMatch = condition.when.check(transcript);
+      const isMatch = condition.whenTranscript(transcript);
       if (!isMatch) {
         return { result: "fail" };
       }

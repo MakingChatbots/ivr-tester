@@ -1,12 +1,13 @@
 import { IvrTest, TestHandler } from "./TestHandler";
 import { EventEmitter } from "events";
-import { contains } from "../conditions/matchers";
 import ws from "ws";
 import { DtmfBufferGenerator } from "../dtmf/DtmfPlayer";
 import { when } from "jest-when";
-import { doNothing, press } from "../conditions/actions";
-import { ordered } from "./ordered";
+import { inOrder } from "./inOrder";
 import { TwilioCall } from "./TwilioCall";
+import { contains } from "../conditions/when/contains";
+import { press } from "../conditions/then/press";
+import { doNothing } from "../conditions/then/doNothing";
 
 class WsTestDouble extends EventEmitter implements Pick<ws, "send"> {
   constructor(
@@ -38,9 +39,9 @@ describe("Then response", () => {
     const transcriptionHandler = new EventEmitter();
     const testWithSingleCondition: IvrTest = {
       name: "",
-      test: ordered([
+      test: inOrder([
         {
-          when: contains("Hello"),
+          whenTranscript: contains("Hello"),
           then: press("123"),
         },
       ]),
@@ -86,7 +87,7 @@ describe("When conditions", () => {
     const transcriptionHandler = new EventEmitter();
     const testWithEmptyConditions: IvrTest = {
       name: "",
-      test: ordered([]),
+      test: inOrder([]),
     };
 
     const call = new TwilioCall((new WsTestDouble() as any) as ws, {
@@ -109,13 +110,13 @@ describe("When conditions", () => {
     const transcriptionHandler = new EventEmitter();
     const testWithTwoCondition: IvrTest = {
       name: "",
-      test: ordered([
+      test: inOrder([
         {
-          when: contains("1"),
+          whenTranscript: contains("1"),
           then: doNothing(),
         },
         {
-          when: contains("2"),
+          whenTranscript: contains("2"),
           then: doNothing(),
         },
       ]),
@@ -145,13 +146,13 @@ describe("When conditions", () => {
     const transcriptionHandler = new EventEmitter();
     const testWithTwoConditions: IvrTest = {
       name: "",
-      test: ordered([
+      test: inOrder([
         {
-          when: contains("1"),
+          whenTranscript: contains("1"),
           then: doNothing(),
         },
         {
-          when: contains("3"),
+          whenTranscript: contains("3"),
           then: doNothing(),
         },
       ]),
@@ -179,13 +180,13 @@ describe("When conditions", () => {
     const transcriptionHandler = new EventEmitter();
     const twoConditions: IvrTest = {
       name: "",
-      test: ordered([
+      test: inOrder([
         {
-          when: contains("3"),
+          whenTranscript: contains("3"),
           then: doNothing(),
         },
         {
-          when: contains("2"),
+          whenTranscript: contains("2"),
           then: doNothing(),
         },
       ]),
