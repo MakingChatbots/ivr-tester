@@ -1,4 +1,4 @@
-import { Call } from "./ordered";
+import { Call } from "./inOrder";
 import ws from "ws";
 import { DtmfBufferGenerator } from "../dtmf/DtmfPlayer";
 import { TwilioConnectionEvents } from "../twilio";

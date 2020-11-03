@@ -11,7 +11,7 @@ import { Transcriber, TranscriptEvent } from "./transcribers/Transcriber";
 import { DtmfBufferGenerator } from "./dtmf/DtmfPlayer";
 import { EventEmitter } from "events";
 import { AddressInfo } from "net";
-import { ordered } from "./handlers/ordered";
+import { inOrder } from "./handlers/inOrder";
 import getPort from "get-port";
 import { TestLifecycleEventEmitter } from "./plugins/events/eventEmitter";
 
@@ -75,7 +75,7 @@ describe("server", () => {
     };
     const test: IvrTest = {
       name: "",
-      test: ordered([]),
+      test: inOrder([]),
     };
 
     const emitter: jest.Mocked<TestLifecycleEventEmitter> = {

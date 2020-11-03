@@ -6,7 +6,7 @@ export interface Call {
   sendMedia(buffer: Buffer): void;
 }
 
-export const ordered: (
+export const inOrder: (
   conditions: ReadonlyArray<TranscriptCondition>
 ) => TestContainer = (conditions) => {
   let nextConditionIndex: number = 0;

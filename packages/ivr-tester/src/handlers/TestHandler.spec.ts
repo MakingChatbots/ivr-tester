@@ -3,7 +3,7 @@ import { EventEmitter } from "events";
 import ws from "ws";
 import { DtmfBufferGenerator } from "../dtmf/DtmfPlayer";
 import { when } from "jest-when";
-import { ordered } from "./ordered";
+import { inOrder } from "./inOrder";
 import { TwilioCall } from "./TwilioCall";
 import { contains } from "../conditions/when/contains";
 import { press } from "../conditions/then/press";
@@ -39,7 +39,7 @@ describe("Then response", () => {
     const transcriptionHandler = new EventEmitter();
     const testWithSingleCondition: IvrTest = {
       name: "",
-      test: ordered([
+      test: inOrder([
         {
           whenTranscript: contains("Hello"),
           then: press("123"),
@@ -87,7 +87,7 @@ describe("When conditions", () => {
     const transcriptionHandler = new EventEmitter();
     const testWithEmptyConditions: IvrTest = {
       name: "",
-      test: ordered([]),
+      test: inOrder([]),
     };
 
     const call = new TwilioCall((new WsTestDouble() as any) as ws, {
@@ -110,7 +110,7 @@ describe("When conditions", () => {
     const transcriptionHandler = new EventEmitter();
     const testWithTwoCondition: IvrTest = {
       name: "",
-      test: ordered([
+      test: inOrder([
         {
           whenTranscript: contains("1"),
           then: doNothing(),
@@ -146,7 +146,7 @@ describe("When conditions", () => {
     const transcriptionHandler = new EventEmitter();
     const testWithTwoConditions: IvrTest = {
       name: "",
-      test: ordered([
+      test: inOrder([
         {
           whenTranscript: contains("1"),
           then: doNothing(),
@@ -180,7 +180,7 @@ describe("When conditions", () => {
     const transcriptionHandler = new EventEmitter();
     const twoConditions: IvrTest = {
       name: "",
-      test: ordered([
+      test: inOrder([
         {
           whenTranscript: contains("3"),
           then: doNothing(),

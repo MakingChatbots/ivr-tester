@@ -1,7 +1,7 @@
 import { EventEmitter } from "events";
 import { TranscriptEvent } from "../transcribers/Transcriber";
 import { TranscriptCondition } from "../conditions/TranscriptCondition";
-import { Call } from "./ordered";
+import { Call } from "./inOrder";
 
 export interface TestSubject {
   from: string;

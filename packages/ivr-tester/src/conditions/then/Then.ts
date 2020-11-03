@@ -1,4 +1,4 @@
-import { Call } from "../../handlers/ordered";
+import { Call } from "../../handlers/inOrder";
 
 /**
  * An action performed when a condition is met

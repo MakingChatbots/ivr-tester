@@ -1,4 +1,4 @@
-import { Call, ordered } from "./ordered";
+import { Call, inOrder } from "./inOrder";
 import { contains } from "../conditions/when/contains";
 import { press } from "../conditions/then/press";
 import { TranscriptCondition } from "..";
@@ -9,7 +9,7 @@ describe("ordered conditions", () => {
       sendDtmfTone: jest.fn(),
       sendMedia: jest.fn(),
     };
-    const orderedConditions = ordered([]);
+    const orderedConditions = inOrder([]);
 
     const testOutcome = orderedConditions.test("Hello", dtmfGenerator);
     expect(dtmfGenerator.sendDtmfTone).not.toHaveBeenCalled();
@@ -38,7 +38,7 @@ describe("ordered conditions", () => {
       sendDtmfTone: jest.fn(),
       sendMedia: jest.fn(),
     };
-    const orderedConditions = ordered(conditions);
+    const orderedConditions = inOrder(conditions);
 
     const testOutcome1 = orderedConditions.test("Hello", call);
     expect(call.sendDtmfTone).toHaveBeenCalled();
@@ -78,7 +78,7 @@ describe("ordered conditions", () => {
       sendDtmfTone: jest.fn(),
       sendMedia: jest.fn(),
     };
-    const orderedConditions = ordered(conditions);
+    const orderedConditions = inOrder(conditions);
 
     const testOutcome1 = orderedConditions.test("Hello", call);
     expect(call.sendDtmfTone).toHaveBeenCalled();

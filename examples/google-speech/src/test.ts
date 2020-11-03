@@ -7,7 +7,7 @@ import {
   press,
   similarTo,
   testRunner,
-  ordered,
+  inOrder,
   TestSubject,
 } from "ivr-tester";
 import path from "path";
@@ -21,7 +21,7 @@ const call: TestSubject = {
 
 const test: IvrTest = {
   name: "Pressing 4 exits the flow",
-  test: ordered([
+  test: inOrder([
     {
       whenTranscript: contains(
         "this will allow you to adjust call recording behaviour"

@@ -1,4 +1,4 @@
-import { Call } from "../../handlers/ordered";
+import { Call } from "../../handlers/inOrder";
 import { Then } from "./Then";
 
 export const press = (dtmfSequence: string): Then => ({
