@@ -41,7 +41,7 @@ describe("Then response", () => {
       name: "",
       test: ordered([
         {
-          when: contains("Hello"),
+          whenTranscript: contains("Hello"),
           then: press("123"),
         },
       ]),
@@ -112,11 +112,11 @@ describe("When conditions", () => {
       name: "",
       test: ordered([
         {
-          when: contains("1"),
+          whenTranscript: contains("1"),
           then: doNothing(),
         },
         {
-          when: contains("2"),
+          whenTranscript: contains("2"),
           then: doNothing(),
         },
       ]),
@@ -148,11 +148,11 @@ describe("When conditions", () => {
       name: "",
       test: ordered([
         {
-          when: contains("1"),
+          whenTranscript: contains("1"),
           then: doNothing(),
         },
         {
-          when: contains("3"),
+          whenTranscript: contains("3"),
           then: doNothing(),
         },
       ]),
@@ -182,11 +182,11 @@ describe("When conditions", () => {
       name: "",
       test: ordered([
         {
-          when: contains("3"),
+          whenTranscript: contains("3"),
           then: doNothing(),
         },
         {
-          when: contains("2"),
+          whenTranscript: contains("2"),
           then: doNothing(),
         },
       ]),

@@ -20,7 +20,7 @@ export const ordered: (
         return { result: "pass" };
       }
 
-      const isMatch = condition.when(transcript);
+      const isMatch = condition.whenTranscript(transcript);
       if (!isMatch) {
         return { result: "fail" };
       }

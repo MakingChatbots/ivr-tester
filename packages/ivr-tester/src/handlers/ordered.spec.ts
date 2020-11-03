@@ -1,6 +1,7 @@
 import { Call, ordered } from "./ordered";
 import { contains } from "../conditions/when/contains";
 import { press } from "../conditions/then/press";
+import { TranscriptCondition } from "..";
 
 describe("ordered conditions", () => {
   test("test passes if no conditions provided", () => {
@@ -18,17 +19,17 @@ describe("ordered conditions", () => {
   });
 
   test("all match and test passes for last one", () => {
-    const conditions = [
+    const conditions: TranscriptCondition[] = [
       {
-        when: contains("Hello"),
+        whenTranscript: contains("Hello"),
         then: press("1"),
       },
       {
-        when: contains("Jane"),
+        whenTranscript: contains("Jane"),
         then: press("2"),
       },
       {
-        when: contains("Austen"),
+        whenTranscript: contains("Austen"),
         then: press("3"),
       },
     ];
@@ -62,13 +63,13 @@ describe("ordered conditions", () => {
   });
 
   test("test failed when second condition doesn't match", () => {
-    const conditions = [
+    const conditions: TranscriptCondition[] = [
       {
-        when: contains("Hello"),
+        whenTranscript: contains("Hello"),
         then: press("1"),
       },
       {
-        when: contains("Jane"),
+        whenTranscript: contains("Jane"),
         then: press("2"),
       },
     ];
