@@ -13,7 +13,6 @@ export * from "./testRunner";
 
 export * from "./Config";
 
-export * from "./transcribers/MulawGoogleSpeechToText";
 export * from "./transcribers/Transcriber";
 
 export { TestSubject, IvrTest } from "./handlers/TestHandler";
