@@ -13,7 +13,7 @@ describe("server", () => {
   let serverConfig: ServerConfig;
 
   beforeEach(async () => {
-    serverConfig = { localServerPort: await getPort() };
+    serverConfig = { localServerPort: await getPort(), transcriber: jest.fn() };
   });
 
   afterAll((done) => {

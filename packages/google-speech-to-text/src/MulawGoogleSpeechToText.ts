@@ -1,12 +1,7 @@
 import { EventEmitter } from "events";
 import { protos, SpeechClient } from "@google-cloud/speech";
-import { Transcriber, TranscriptEvent } from "./Transcriber";
-
-interface Transcript {
-  isFinal: boolean;
-  stability: number;
-  alternatives: { transcript: string }[];
-}
+import { Transcriber, TranscriptEvent } from "ivr-tester";
+import { Transcript } from "./Transcript";
 
 export class MulawGoogleSpeechToText
   extends EventEmitter
@@ -94,7 +89,7 @@ export class MulawGoogleSpeechToText
   }
 }
 
-export const mulawGoogleSpeechToText = (
+export const googleSpeechToText = (
   speechPhrases: string[] = [],
   useEnhanced = true,
   speechClient = new SpeechClient()

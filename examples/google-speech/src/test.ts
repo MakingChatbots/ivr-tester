@@ -11,6 +11,7 @@ import {
   TestSubject,
 } from "ivr-tester";
 import path from "path";
+import { googleSpeechToText } from "ivr-tester-google-speech-to-text";
 
 require("dotenv").config();
 
@@ -36,6 +37,7 @@ const test: IvrTest = {
 };
 
 const config: Config = {
+  transcriber: googleSpeechToText(),
   recording: {
     outputPath: path.join(__dirname, "../recordings"),
   },
