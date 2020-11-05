@@ -13,6 +13,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest src",
+    "test:integration": "jest __tests__",
     "clean": "rimraf dist/",
     "build": "yarn clean && tsc --declaration",
     "lint:prettier": "prettier --list-different '{src,__tests__}/**/*.ts'",
