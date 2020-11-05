@@ -15,7 +15,7 @@
     "test": "jest src",
     "clean": "rimraf dist/",
     "build": "yarn clean && tsc --declaration",
-    "lint:prettier": "prettier --list-different 'src/**/*.ts'",
+    "lint:prettier": "prettier --list-different '{src,__tests__}/**/*.ts'",
     "lint:eslint": "eslint 'src/**/*.ts'",
     "lint": "yarn lint:prettier && yarn lint:eslint",
     "prepare" : "yarn build"

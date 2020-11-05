@@ -3,7 +3,9 @@ import { protos, SpeechClient } from "@google-cloud/speech";
 import { Transcriber, TranscriptEvent } from "ivr-tester";
 import { Transcript } from "./Transcript";
 
-class MulawGoogleSpeechToText extends EventEmitter implements Transcriber {
+export class MulawGoogleSpeechToText
+  extends EventEmitter
+  implements Transcriber {
   private static createConfig(
     speechPhrases: string[],
     useEnhanced: boolean
