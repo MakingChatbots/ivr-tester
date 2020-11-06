@@ -127,14 +127,14 @@ export class AmazonTranscribeService extends EventEmitter implements Transcriber
     super();
     const awsUrl = getSignedTranscribeWebsocketUrl();
     this.awsWebSocket = new WebSocket(awsUrl);
-    this.awsWsStream = WebSocket.createWebSocketStream(this.awsWebSocket, { encoding: 'utf8' });
+    this.awsWsStream = WebSocket.createWebSocketStream(this.awsWebSocket, { encoding: 'binary' });
     // this.awsWsStream = websocket(awsUrl, {
     //   @ts-ignore
       // binaryType: "arraybuffer",
     // });
     this.awsWsStream.on("error", (error) => {
-      console.log(error);
-    })
+      console.error(error);
+    });
 
     this.audioEventMessageTransformer = getAudioEventMessageTransformer();
     this.awsEventTransformerStream = getAwsEventTransformerStream();

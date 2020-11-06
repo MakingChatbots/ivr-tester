@@ -4,7 +4,7 @@ import {TranscriptEvent} from "ivr-tester";
 import {amazonTranscribe, AmazonTranscribeService} from "../src/AmazonTranscribe";
 // import {Transform} from "stream";
 
-jest.setTimeout(50 * 1000);
+jest.setTimeout(80 * 1000);
 describe("Google Speech-to-Text", () => {
     const audioFilePath = path.join(__dirname, "test-data/mulaw-01.wav");
     let transcriber: AmazonTranscribeService;
