@@ -1,0 +1,1 @@
+export { amazonTranscribe } from "./AmazonTranscribe";

@@ -1,14 +1,20 @@
 {
-  "name": "ivr-tester-google-speech-to-text",
+  "name": "ivr-tester-amazon-transcribe",
   "version": "0.0.1",
-  "description": "Google Speech-to-Text integration for IVR Tester",
+  "description": "Amazon transcribe integration for IVR Tester",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/SketchingDev/ivr-tester.git"
   },
   "homepage": "https://github.com/SketchingDev/ivr-tester#ivr-tester",
-  "keywords": ["ivr", "call flow", "test", "google", "speech-to-text"],
+  "keywords": [
+    "ivr",
+    "call flow",
+    "test",
+    "amazon",
+    "transcribe"
+  ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -19,13 +25,17 @@
     "lint:prettier": "prettier --list-different '{src,__tests__}/**/*.ts'",
     "lint:eslint": "eslint 'src/**/*.ts'",
     "lint": "yarn lint:prettier && yarn lint:eslint",
-    "prepare" : "yarn build"
+    "prepare": "yarn build"
   },
   "files": [
     "/dist"
   ],
   "dependencies": {
-    "@google-cloud/speech": "^4.1.3"
+    "@aws-sdk/eventstream-marshaller": "0.1.0-preview.2",
+    "@aws-sdk/util-utf8-node": "0.1.0-preview.1",
+    "wavefile": "^11.0.0",
+    "query-string": "^6.11.1",
+    "ws": "^7.3.1"
   },
   "devDependencies": {
     "@types/getenv": "^1.0.0",
@@ -37,6 +47,7 @@
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-jest": "^24.0.2",
+    "ivr-tester": "0.x",
     "jest": "^26.4.2",
     "jest-when": "^2.7.2",
     "prettier": "^2.1.2",
@@ -44,8 +55,7 @@
     "ts-jest": "^26.4.0",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.3",
-    "wait-for-expect": "^3.0.2",
-    "ivr-tester": "0.x"
+    "wait-for-expect": "^3.0.2"
   },
   "peerDependencies": {
     "ivr-tester": "0.x"
