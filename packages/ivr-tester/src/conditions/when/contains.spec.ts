@@ -12,7 +12,7 @@ test.each([
     true,
   ],
   ["press to try again", "press two to try again", false],
-  ["Press To Try Again", "press to try again", false],
+  ["Press To Try Again", "press to try again", true],
 ])("contains ('%s')", (transcript, actual, expected) =>
   expect(contains(actual)(transcript)).toBe(expected)
 );
