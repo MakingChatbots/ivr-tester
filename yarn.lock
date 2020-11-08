@@ -2274,6 +2274,18 @@ aws-sign2@~0.7.0:
   resolved "https://registry.yarnpkg.com/aws-sign2/-/aws-sign2-0.7.0.tgz#b46e890934a9591f2d2f6f86d7e6a9f1b3fe76a8"
   integrity sha1-tG6JCTSpWR8tL2+G1+ap8bP+dqg=
 
+aws-transcribe@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/aws-transcribe/-/aws-transcribe-1.1.0.tgz#7b4cf5ea134cc9f75fbb3af0b1748bdf3851f284"
+  integrity sha512-IzweFXora1NlVmmzNDsLCIZF9+FGkxvzK6EKgG1I8XP7s1hTI1S5jkVZSvZylSKG1R0Jp59jKTXeZe58uY7nuA==
+  dependencies:
+    "@aws-sdk/eventstream-marshaller" "0.1.0-preview.2"
+    "@aws-sdk/util-utf8-node" "0.1.0-preview.1"
+    crypto "^1.0.1"
+    debug "^4.1.1"
+    query-string "^6.11.1"
+    ws "^7.2.3"
+
 aws4@^1.8.0:
   version "1.10.1"
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.10.1.tgz#e1e82e4f3e999e2cfd61b161280d16a111f86428"
@@ -2990,6 +3002,11 @@ cross-spawn@^7.0.0, cross-spawn@^7.0.2:
     path-key "^3.1.0"
     shebang-command "^2.0.0"
     which "^2.0.1"
+
+crypto@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/crypto/-/crypto-1.0.1.tgz#2af1b7cad8175d24c8a1b0778255794a21803037"
+  integrity sha512-VxBKmeNcqQdiUQUW2Tzq0t377b54N2bMtXO/qiLa+6eRRmmC4qT3D4OnTGoT/U6O9aklQ/jTwbOtRMTTY8G0Ig==
 
 cssom@^0.4.4:
   version "0.4.4"

@@ -1,36 +1,46 @@
 import * as fs from "fs";
 import path from "path";
-import {TranscriptEvent} from "ivr-tester";
-import {amazonTranscribe, AmazonTranscribeService} from "../src/AmazonTranscribe";
-// import {Transform} from "stream";
+import { Transcriber } from "ivr-tester";
+import { amazonTranscribe } from "../src";
 
-jest.setTimeout(80 * 1000);
+jest.setTimeout(30 * 1000);
 describe("Google Speech-to-Text", () => {
-    const audioFilePath = path.join(__dirname, "test-data/mulaw-01.wav");
-    let transcriber: AmazonTranscribeService;
+  const msBetweenSendingBuffer = 250;
+  const bufferSize = 5000;
 
-    beforeEach(() => {
+  const audioFilePath = path.join(__dirname, "test-data/mulaw-01.wav");
+  let transcriber: Transcriber;
 
+  beforeEach(() => {
+    transcriber = amazonTranscribe("us-east-1", "en-GB")();
+  });
 
+  afterEach(() => transcriber.close());
+
+  test("Transcribe mulaw audio", async () => {
+    const transcriptions: string[] = [];
+    transcriber.on("transcription", ({ transcription }) => {
+      transcriptions.push(transcription);
     });
 
-    afterEach(() => transcriber.close());
+    const audioFile = fs.readFileSync(audioFilePath);
 
-    test("Transcribe mulaw audio", async () => {
-      process.env.AWS_REGION = "us-east-1";
+    // Kludge to slowdown the rate at which data is sent to AWS
+    let buffer: number[] = [];
+    for (const item of audioFile) {
+      buffer.push(item);
+      if (buffer.length >= bufferSize) {
+        transcriber.transcribe(Buffer.from(buffer));
 
-        const audioFileStream = fs.createReadStream(audioFilePath);
-        // const abc = audioFileStream.pipe(new Transform({
-        //     transform: (chunk, encoding, callback) => callback(null, chunk.toString('base64'))
-        // }));
-
-        // transcriber.transcribe(audioFile.toString("base64"));
-        const transcriberFactory = amazonTranscribe();
-        transcriber = transcriberFactory(audioFileStream);
-
-        const {transcription}: TranscriptEvent = await new Promise((resolve) =>
-            transcriber.on("transcription", resolve)
+        buffer = [];
+        await new Promise((resolve) =>
+          setTimeout(resolve, msBetweenSendingBuffer)
         );
-        expect(transcription).toContain("this will allow you");
-    });
+      }
+    }
+
+    expect(transcriptions.join(" ")).toContain(
+      "adjust call recording behaviour"
+    );
+  });
 });

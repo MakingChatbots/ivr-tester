@@ -2,6 +2,7 @@ import { EventEmitter } from "events";
 import { protos, SpeechClient } from "@google-cloud/speech";
 import { Transcriber, TranscriptEvent } from "ivr-tester";
 import { Transcript } from "./Transcript";
+import internal from "stream";
 
 export class MulawGoogleSpeechToText
   extends EventEmitter
@@ -25,11 +26,11 @@ export class MulawGoogleSpeechToText
     };
   }
 
-  readonly #config: Readonly<
+  private readonly config: Readonly<
     protos.google.cloud.speech.v1.IStreamingRecognitionConfig
   >;
-  #stream: any; // TODO Type this
-  #streamCreatedAt: Date;
+  private stream: internal.Writable;
+  private streamCreatedAt: Date;
 
   constructor(
     private speechPhrases: string[] = [],
@@ -37,42 +38,42 @@ export class MulawGoogleSpeechToText
     private readonly speechClient = new SpeechClient()
   ) {
     super();
-    this.#config = MulawGoogleSpeechToText.createConfig(
+    this.config = MulawGoogleSpeechToText.createConfig(
       speechPhrases,
       useEnhanced
     );
   }
 
-  public transcribe(payload: string) {
-    this.getStream().write(payload);
+  public transcribe(payload: Buffer) {
+    this.getStream().write(payload.toString("base64"));
   }
 
   public close() {
-    if (this.#stream) {
-      this.#stream.destroy();
+    if (this.stream) {
+      this.stream.destroy();
     }
   }
 
   private newStreamRequired() {
-    if (!this.#stream) {
+    if (!this.stream) {
       return true;
     } else {
       const now = new Date();
       const timeSinceStreamCreated =
-        now.valueOf() - this.#streamCreatedAt.valueOf();
+        now.valueOf() - this.streamCreatedAt.valueOf();
       return timeSinceStreamCreated / 1000 > 60;
     }
   }
 
   public getStream() {
     if (this.newStreamRequired()) {
-      if (this.#stream) {
-        this.#stream.destroy();
+      if (this.stream) {
+        this.stream.destroy();
       }
 
-      this.#streamCreatedAt = new Date();
-      this.#stream = this.speechClient
-        .streamingRecognize(this.#config)
+      this.streamCreatedAt = new Date();
+      this.stream = this.speechClient
+        .streamingRecognize(this.config)
         .on("error", console.error)
         .on("data", (data: { results: Transcript[] }) => {
           const result = data.results[0];
@@ -85,13 +86,6 @@ export class MulawGoogleSpeechToText
         });
     }
 
-    return this.#stream;
+    return this.stream;
   }
 }
-
-export const googleSpeechToText = (
-  speechPhrases: string[] = [],
-  useEnhanced = true,
-  speechClient = new SpeechClient()
-) => () =>
-  new MulawGoogleSpeechToText(speechPhrases, useEnhanced, speechClient);

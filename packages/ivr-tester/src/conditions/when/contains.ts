@@ -1,4 +1,14 @@
 import { When } from "./When";
 
-export const contains = (partial: string): When => (transcript: string) =>
-  transcript.includes(partial);
+export interface containsConfig {
+  ignoreCasing: boolean;
+}
+
+export const contains = (
+  partial: string,
+  config: containsConfig = { ignoreCasing: true }
+): When => (transcript: string) => {
+  return config.ignoreCasing
+    ? transcript.toLowerCase().includes(partial.toLowerCase())
+    : transcript.includes(partial);
+};

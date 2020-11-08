@@ -33,7 +33,7 @@ export const formatServerUrl = (server: CallHandlingServer): URL => {
 /**
  * Factory to create a instance of a transcriber per test
  */
-type TranscriberFactory = () => Transcriber;
+export type TranscriberFactory = () => Transcriber;
 
 export interface ServerConfig {
   dtmfGenerator?: DtmfBufferGenerator;

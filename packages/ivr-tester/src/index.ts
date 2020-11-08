@@ -13,6 +13,8 @@ export * from "./testRunner";
 
 export * from "./Config";
 
+export { TranscriberFactory } from "./server";
+
 export * from "./transcribers/Transcriber";
 
 export { TestSubject, IvrTest } from "./handlers/TestHandler";

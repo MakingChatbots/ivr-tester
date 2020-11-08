@@ -18,7 +18,7 @@ describe("Google Speech-to-Text", () => {
 
   test("Transcribe mulaw audio", async () => {
     const audioFile = fs.readFileSync(audioFilePath);
-    transcriber.transcribe(audioFile.toString("base64"));
+    transcriber.transcribe(audioFile);
 
     const { transcription }: TranscriptEvent = await new Promise((resolve) =>
       transcriber.on("transcription", resolve)

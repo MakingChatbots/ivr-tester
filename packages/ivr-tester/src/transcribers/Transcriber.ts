@@ -6,7 +6,7 @@ export interface TranscriptEvent {
 
 export interface Transcriber extends EventEmitter {
   close(): void;
-  transcribe(payload: string): void;
+  transcribe(payload: Buffer): void;
   emit(event: "transcription", args: TranscriptEvent): boolean;
   on(event: "transcription", listener: (args: TranscriptEvent) => void): this;
 }
