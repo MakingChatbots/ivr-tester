@@ -21,7 +21,7 @@
     "test:integration": "jest __tests__",
     "clean": "rimraf dist/",
     "build": "yarn clean && tsc --declaration",
-    "lint:prettier": "prettier --list-different '{src,__tests__}/**/*.ts'",
+    "lint:prettier": "prettier --list-different '{src,__tests__}/**/*.ts' --write",
     "lint:eslint": "eslint 'src/**/*.ts'",
     "lint": "yarn lint:prettier && yarn lint:eslint",
     "prepare": "yarn build"

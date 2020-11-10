@@ -1,8 +1,8 @@
-import { IvrTesterPlugin } from "./plugin";
-import { LifecycleEventEmitter } from "./events/eventEmitter";
-import { CallAssignedTestEvent } from "./events/testEvents";
+import { IvrTesterPlugin } from "./IvrTesterPlugin";
+import { CallAssignedTestEvent } from "./events/TestEvents";
 import { Server } from "ws";
-import { CallHandlingServerStartedEvent } from "./events/setupEvents";
+import { CallHandlingServerStartedEvent } from "./events/SetupEvents";
+import {LifecycleEventEmitter} from "./events/LifecycleEventEmitter";
 
 export class StopWhenAllTestsComplete implements IvrTesterPlugin {
   private server: Server;

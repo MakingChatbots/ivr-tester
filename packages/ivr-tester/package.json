@@ -16,7 +16,7 @@
     "clean": "rimraf dist/",
     "build": "yarn clean && tsc --declaration",
     "postbuild": "yarn copy:dtmf-tones",
-    "lint:prettier": "prettier --list-different 'src/**/*.ts'",
+    "lint:prettier": "prettier --list-different 'src/**/*.ts' --write",
     "lint:eslint": "eslint 'src/**/*.ts'",
     "lint": "yarn lint:prettier && yarn lint:eslint",
     "copy:dtmf-tones": "copyfiles -u 1 src/**/dtmf/**/*.raw dist",

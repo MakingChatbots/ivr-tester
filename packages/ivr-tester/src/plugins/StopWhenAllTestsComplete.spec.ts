@@ -6,7 +6,7 @@ import {
 } from "../server";
 import { StopWhenAllTestsComplete } from "./StopWhenAllTestsComplete";
 import getPort from "get-port";
-import { createLifecycleEventEmitter } from "./events/eventEmitter";
+import {createLifecycleEventEmitter} from "./events/LifecycleEventEmitter";
 
 describe("server", () => {
   let server: CallHandlingServer;

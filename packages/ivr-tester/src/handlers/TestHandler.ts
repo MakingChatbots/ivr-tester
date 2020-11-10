@@ -1,5 +1,5 @@
 import { EventEmitter } from "events";
-import { TranscriptEvent } from "../transcribers/Transcriber";
+import { TranscriptEvent } from "../plugins/Transcriber";
 import { TranscriptCondition } from "../conditions/TranscriptCondition";
 import { Call } from "./inOrder";
 

@@ -1,7 +1,3 @@
-import { TestEvents } from "./testEvents";
-import { SetupEvents } from "./setupEvents";
-import { EventEmitter } from "events";
-
 // https://rjzaworski.com/2019/10/event-emitters-in-typescript
 
 type EventMap = Record<string, any>;
@@ -14,12 +10,3 @@ export interface Emitter<T extends EventMap> {
   off<K extends EventKey<T>>(eventName: K, fn: EventReceiver<T[K]>): void;
   emit<K extends EventKey<T>>(eventName: K, params: T[K]): void;
 }
-
-export interface TestLifecycleEventEmitter extends Emitter<TestEvents> {}
-export interface SetupLifecycleEventEmitter extends Emitter<SetupEvents> {}
-
-export interface LifecycleEventEmitter
-  extends Emitter<TestEvents & SetupEvents> {}
-
-export const createLifecycleEventEmitter = (): LifecycleEventEmitter =>
-  new EventEmitter();

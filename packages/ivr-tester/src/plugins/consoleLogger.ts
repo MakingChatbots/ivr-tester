@@ -1,8 +1,8 @@
-import { IvrTesterPlugin } from "./plugin";
-import { LifecycleEventEmitter } from "./events/eventEmitter";
+import { IvrTesterPlugin } from "./IvrTesterPlugin";
 import { AddressInfo } from "ws";
 import chalk from "chalk";
 import logSymbols from "log-symbols";
+import {LifecycleEventEmitter} from "./events/LifecycleEventEmitter";
 
 const ivrTestPassed = (emitter: LifecycleEventEmitter): void =>
   emitter.on("ivrTestPassed", (event) =>

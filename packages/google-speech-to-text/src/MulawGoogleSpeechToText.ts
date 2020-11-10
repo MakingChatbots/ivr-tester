@@ -21,7 +21,7 @@ export class MulawGoogleSpeechToText
         speechContexts: [{ phrases: speechPhrases }],
         useEnhanced,
       },
-      interimResults: false, // TODO Because this is false I can remove the isFinal check elsewhere
+      interimResults: false,
       singleUtterance: false,
     };
   }

@@ -3,11 +3,11 @@ export * from "./conditions/then";
 export * from "./conditions/TranscriptCondition";
 
 export * from "./plugins/consoleLogger";
-export * from "./plugins/plugin";
+export * from "./plugins/IvrTesterPlugin";
 export * from "./plugins/StopWhenAllTestsComplete";
-export * from "./plugins/events/eventEmitter";
-export * from "./plugins/events/setupEvents";
-export * from "./plugins/events/testEvents";
+export * from "./plugins/events/Emitter";
+export * from "./plugins/events/SetupEvents";
+export * from "./plugins/events/TestEvents";
 
 export * from "./testRunner";
 
@@ -15,7 +15,7 @@ export * from "./Config";
 
 export { TranscriberFactory } from "./server";
 
-export * from "./transcribers/Transcriber";
+export * from "./plugins/Transcriber";
 
 export { TestSubject, IvrTest } from "./handlers/TestHandler";
 export { inOrder } from "./handlers/inOrder";

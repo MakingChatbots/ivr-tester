@@ -1,6 +1,6 @@
 import ws from "ws";
 import { EventEmitter } from "events";
-import { Transcriber, TranscriptEvent } from "../transcribers/Transcriber";
+import { Transcriber, TranscriptEvent } from "../plugins/Transcriber";
 import { WebSocketEvents } from "./TwilioCall";
 import { TwilioConnectionEvents } from "../twilio";
 

@@ -7,9 +7,9 @@ import {
 import { IvrTest, TestSubject } from "./handlers/TestHandler";
 import { Config, populateDefaults } from "./Config";
 import { callParameterSerializer } from "./twilio";
-import { createLifecycleEventEmitter } from "./plugins/events/eventEmitter";
 import { URL } from "url";
-import { IvrTesterPlugin } from "./plugins/plugin";
+import { IvrTesterPlugin } from "./plugins/IvrTesterPlugin";
+import {createLifecycleEventEmitter} from "./plugins/events/LifecycleEventEmitter";
 
 export interface TestRunnerConfig {
   /**

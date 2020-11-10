@@ -12,10 +12,10 @@ import {
   TestPassed,
 } from "./handlers/TestHandler";
 import { TwilioCall } from "./handlers/TwilioCall";
-import { TestLifecycleEventEmitter } from "./plugins/events/eventEmitter";
 import { URL } from "url";
 import { DtmfBufferGenerator } from "./dtmf/DtmfPlayer";
-import { Transcriber } from "./transcribers/Transcriber";
+import { Transcriber } from "./plugins/Transcriber";
+import { TestEventEmitter } from "./plugins/events/LifecycleEventEmitter";
 
 export const formatServerUrl = (server: CallHandlingServer): URL => {
   const address = server.wss.address() as AddressInfo;
@@ -55,7 +55,7 @@ const initialiseConnectionHandlers = (
   ws: ws,
   config: ServerConfig,
   ivrTest: IvrTest,
-  testEventEmitter: TestLifecycleEventEmitter
+  testEventEmitter: TestEventEmitter
 ) => {
   const call = new TwilioCall(ws, config.dtmfGenerator);
 
@@ -86,7 +86,7 @@ export interface CallHandlingServer {
 export const startServerListening = (
   config: ServerConfig,
   ivrTest: IvrTest[],
-  testEventEmitter: TestLifecycleEventEmitter
+  testEventEmitter: TestEventEmitter
 ): Promise<CallHandlingServer> => {
   const testIterator = ivrTest.entries();
 

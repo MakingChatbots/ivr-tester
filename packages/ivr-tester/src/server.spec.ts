@@ -1,19 +1,15 @@
 import WebSocket from "ws";
 import ws from "ws";
 import waitForExpect from "wait-for-expect";
-import {
-  CallHandlingServer,
-  ServerConfig,
-  startServerListening,
-} from "./server";
-import { IvrTest } from "./handlers/TestHandler";
-import { Transcriber, TranscriptEvent } from "./transcribers/Transcriber";
-import { DtmfBufferGenerator } from "./dtmf/DtmfPlayer";
-import { EventEmitter } from "events";
-import { AddressInfo } from "net";
-import { inOrder } from "./handlers/inOrder";
+import {CallHandlingServer, ServerConfig, startServerListening,} from "./server";
+import {IvrTest} from "./handlers/TestHandler";
+import {Transcriber, TranscriptEvent} from "./plugins/Transcriber";
+import {DtmfBufferGenerator} from "./dtmf/DtmfPlayer";
+import {EventEmitter} from "events";
+import {AddressInfo} from "net";
+import {inOrder} from "./handlers/inOrder";
 import getPort from "get-port";
-import { TestLifecycleEventEmitter } from "./plugins/events/eventEmitter";
+import {TestEventEmitter} from "./plugins/events/LifecycleEventEmitter";
 
 export const waitForConnection = async (ws: ws) =>
   new Promise((resolve) => ws.on("open", resolve));
@@ -33,22 +29,10 @@ class TranscriberTestDouble extends EventEmitter implements Transcriber {
 }
 
 export const createMockTranscriber = (): jest.Mocked<Transcriber> => ({
-  addListener: jest.fn(),
-  eventNames: jest.fn(),
-  getMaxListeners: jest.fn(),
-  listenerCount: jest.fn(),
-  listeners: jest.fn(),
   off: jest.fn(),
-  once: jest.fn(),
-  prependListener: jest.fn(),
-  prependOnceListener: jest.fn(),
-  rawListeners: jest.fn(),
-  removeAllListeners: jest.fn(),
-  removeListener: jest.fn(),
-  setMaxListeners: jest.fn(),
-  transcribe: jest.fn(),
   emit: jest.fn(),
   on: jest.fn(),
+  transcribe: jest.fn(),
   close: jest.fn(),
 });
 
@@ -78,7 +62,7 @@ describe("server", () => {
       test: inOrder([]),
     };
 
-    const emitter: jest.Mocked<TestLifecycleEventEmitter> = {
+    const emitter: jest.Mocked<TestEventEmitter> = {
       emit: jest.fn(),
       off: jest.fn(),
       on: jest.fn(),
