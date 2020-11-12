@@ -2,8 +2,8 @@ import { ServerConfig } from "./server";
 import { Twilio } from "twilio";
 import * as getenv from "getenv";
 import { UlawDtmfBufferGenerator } from "./dtmf/UlawDtmfBufferGenerator";
-import { consoleLogger } from "./plugins/consoleLogger";
-import { StopWhenAllTestsComplete } from "./plugins/StopWhenAllTestsComplete";
+import { consoleLogger } from "./plugins/lifecycle/consoleLogger";
+import { StopWhenAllTestsComplete } from "./plugins/lifecycle/StopWhenAllTestsComplete";
 import { TestRunnerConfig } from "./testRunner";
 
 export interface Config extends ServerConfig, TestRunnerConfig {}

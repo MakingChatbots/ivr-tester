@@ -3,10 +3,10 @@ import {
   CallHandlingServer,
   ServerConfig,
   startServerListening,
-} from "../server";
+} from "../../server";
 import { StopWhenAllTestsComplete } from "./StopWhenAllTestsComplete";
 import getPort from "get-port";
-import {createLifecycleEventEmitter} from "./events/LifecycleEventEmitter";
+import { createLifecycleEventEmitter } from "./LifecycleEventEmitter";
 
 describe("server", () => {
   let server: CallHandlingServer;

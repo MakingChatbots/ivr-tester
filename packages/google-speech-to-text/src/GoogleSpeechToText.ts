@@ -1,12 +1,12 @@
 import { EventEmitter } from "events";
 import { protos, SpeechClient } from "@google-cloud/speech";
-import { Transcriber, TranscriptEvent } from "ivr-tester";
+import { TranscriberPlugin, TranscriptEvent } from "ivr-tester";
 import { Transcript } from "./Transcript";
 import internal from "stream";
 
-export class MulawGoogleSpeechToText
+export class GoogleSpeechToText
   extends EventEmitter
-  implements Transcriber {
+  implements TranscriberPlugin {
   private static createConfig(
     speechPhrases: string[],
     useEnhanced: boolean
@@ -16,12 +16,12 @@ export class MulawGoogleSpeechToText
         encoding:
           protos.google.cloud.speech.v1.RecognitionConfig.AudioEncoding.MULAW,
         sampleRateHertz: 8000,
-        languageCode: "en-GB",
+        languageCode: "en-GB", // TODO Allow to be customised
         model: "phone_call",
         speechContexts: [{ phrases: speechPhrases }],
         useEnhanced,
       },
-      interimResults: false,
+      interimResults: true,
       singleUtterance: false,
     };
   }
@@ -38,10 +38,7 @@ export class MulawGoogleSpeechToText
     private readonly speechClient = new SpeechClient()
   ) {
     super();
-    this.config = MulawGoogleSpeechToText.createConfig(
-      speechPhrases,
-      useEnhanced
-    );
+    this.config = GoogleSpeechToText.createConfig(speechPhrases, useEnhanced);
   }
 
   public transcribe(payload: Buffer) {
@@ -80,6 +77,7 @@ export class MulawGoogleSpeechToText
           if (result?.alternatives[0] !== undefined) {
             const event: TranscriptEvent = {
               transcription: result.alternatives[0].transcript.trim(),
+              isFinal: result.isFinal,
             };
             this.emit("transcription", event);
           }

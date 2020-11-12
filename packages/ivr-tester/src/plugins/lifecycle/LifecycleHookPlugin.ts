@@ -1,9 +1,10 @@
+import { LifecycleEventEmitter } from "./LifecycleEventEmitter";
+
 /**
  * Interface for developing a plugin that hooks into the life-cycle of a
  * test.
  */
-import {LifecycleEventEmitter} from "./events/LifecycleEventEmitter";
-
-export interface IvrTesterPlugin {
+export interface LifecycleHookPlugin {
+  name(): string;
   initialise(eventEmitter: LifecycleEventEmitter): void;
 }

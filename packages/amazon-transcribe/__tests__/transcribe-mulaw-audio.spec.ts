@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import path from "path";
-import { Transcriber } from "ivr-tester";
 import { amazonTranscribe } from "../src";
+import { TranscriberPlugin } from "ivr-tester";
 
 jest.setTimeout(30 * 1000);
 describe("Google Speech-to-Text", () => {
@@ -9,7 +9,7 @@ describe("Google Speech-to-Text", () => {
   const bufferSize = 5000;
 
   const audioFilePath = path.join(__dirname, "test-data/mulaw-01.wav");
-  let transcriber: Transcriber;
+  let transcriber: TranscriberPlugin;
 
   beforeEach(() => {
     transcriber = amazonTranscribe("us-east-1", "en-GB")();

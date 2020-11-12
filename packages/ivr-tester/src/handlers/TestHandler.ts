@@ -1,7 +1,7 @@
 import { EventEmitter } from "events";
-import { TranscriptEvent } from "../plugins/Transcriber";
 import { TranscriptCondition } from "../conditions/TranscriptCondition";
 import { Call } from "./inOrder";
+import { TranscriptHandlerEvent } from "./TranscriptionHandler";
 
 export interface TestSubject {
   from: string;
@@ -60,7 +60,7 @@ export class TestHandler extends EventEmitter {
     );
   }
 
-  private processTranscript({ transcription }: TranscriptEvent): void {
+  private processTranscript({ transcription }: TranscriptHandlerEvent): void {
     const testOutcome = this.ivrTest.test.test(transcription, this.call);
     switch (testOutcome.result) {
       case "continue":

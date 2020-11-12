@@ -14,8 +14,8 @@ import {
 import { TwilioCall } from "./handlers/TwilioCall";
 import { URL } from "url";
 import { DtmfBufferGenerator } from "./dtmf/DtmfPlayer";
-import { Transcriber } from "./plugins/Transcriber";
-import { TestEventEmitter } from "./plugins/events/LifecycleEventEmitter";
+import { TestEventEmitter } from "./plugins/lifecycle/LifecycleEventEmitter";
+import { TranscriberFactory } from "./plugins/transcription/TranscriberFactory";
 
 export const formatServerUrl = (server: CallHandlingServer): URL => {
   const address = server.wss.address() as AddressInfo;
@@ -29,11 +29,6 @@ export const formatServerUrl = (server: CallHandlingServer): URL => {
       throw new Error(`Unrecognised '${address.family}' address family`);
   }
 };
-
-/**
- * Factory to create a instance of a transcriber per test
- */
-export type TranscriberFactory = () => Transcriber;
 
 export interface ServerConfig {
   dtmfGenerator?: DtmfBufferGenerator;

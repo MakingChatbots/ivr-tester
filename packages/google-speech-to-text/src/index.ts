@@ -1,10 +1,10 @@
 import { SpeechClient } from "@google-cloud/speech";
 import { TranscriberFactory } from "ivr-tester";
-import { MulawGoogleSpeechToText } from "./MulawGoogleSpeechToText";
+import { GoogleSpeechToText } from "./GoogleSpeechToText";
 
 export const googleSpeechToText = (
   speechPhrases: string[] = [],
   useEnhanced = true,
   speechClient = new SpeechClient()
 ): TranscriberFactory => () =>
-  new MulawGoogleSpeechToText(speechPhrases, useEnhanced, speechClient);
+  new GoogleSpeechToText(speechPhrases, useEnhanced, speechClient);

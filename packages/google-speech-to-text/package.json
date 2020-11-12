@@ -12,7 +12,6 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "jest src",
     "test:integration": "jest __tests__",
     "clean": "rimraf dist/",
     "build": "yarn clean && tsc --declaration",

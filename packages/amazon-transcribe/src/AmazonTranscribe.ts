@@ -1,12 +1,12 @@
-import { EventEmitter } from "events";
-import { Transcriber, TranscriptEvent } from "ivr-tester";
+import { TranscriberPlugin, TranscriptEvent } from "ivr-tester";
 import { AwsTranscribe, StreamingClient } from "aws-transcribe";
 import { WaveFile } from "wavefile";
 import { AVAILABLE_REGIONS, LANGUAGES } from "aws-transcribe/dist/types";
+import { EventEmitter } from "events";
 
 export class AmazonTranscribeService
   extends EventEmitter
-  implements Transcriber {
+  implements TranscriberPlugin {
   private transcribeStream: StreamingClient;
 
   constructor(
@@ -58,17 +58,14 @@ export class AmazonTranscribeService
           }
 
           const result = results[0];
-          const final = !result.IsPartial;
-          const prefix = final ? "recognized" : "recognizing";
-          const text = result.Alternatives[0].Transcript;
-          console.log(`${prefix} text: ${text}`);
+          const isFinal = !result.IsPartial;
+          const transcription = result.Alternatives[0].Transcript;
 
-          if (final) {
-            const event: TranscriptEvent = {
-              transcription: text,
-            };
-            this.emit("transcription", event);
-          }
+          const event: TranscriptEvent = {
+            transcription,
+            isFinal,
+          };
+          this.emit("transcription", event);
         })
     );
   }

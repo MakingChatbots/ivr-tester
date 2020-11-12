@@ -1,17 +1,15 @@
 import { googleSpeechToText } from "../src";
 import * as fs from "fs";
 import path from "path";
-import { TranscriptEvent } from "ivr-tester";
-import { MulawGoogleSpeechToText } from "../src/MulawGoogleSpeechToText";
+import { TranscriberPlugin, TranscriptEvent } from "ivr-tester";
 
 jest.setTimeout(20 * 1000);
 describe("Google Speech-to-Text", () => {
   const audioFilePath = path.join(__dirname, "test-data/mulaw-01.wav");
-  let transcriber: MulawGoogleSpeechToText;
+  let transcriber: TranscriberPlugin;
 
   beforeEach(() => {
-    const transcriberFactory = googleSpeechToText();
-    transcriber = transcriberFactory();
+    transcriber = googleSpeechToText()();
   });
 
   afterEach(() => transcriber.close());

@@ -1,15 +1,22 @@
 import WebSocket from "ws";
 import ws from "ws";
 import waitForExpect from "wait-for-expect";
-import {CallHandlingServer, ServerConfig, startServerListening,} from "./server";
-import {IvrTest} from "./handlers/TestHandler";
-import {Transcriber, TranscriptEvent} from "./plugins/Transcriber";
-import {DtmfBufferGenerator} from "./dtmf/DtmfPlayer";
-import {EventEmitter} from "events";
-import {AddressInfo} from "net";
-import {inOrder} from "./handlers/inOrder";
+import {
+  CallHandlingServer,
+  ServerConfig,
+  startServerListening,
+} from "./server";
+import { IvrTest } from "./handlers/TestHandler";
+import { DtmfBufferGenerator } from "./dtmf/DtmfPlayer";
+import { EventEmitter } from "events";
+import { AddressInfo } from "net";
+import { inOrder } from "./handlers/inOrder";
 import getPort from "get-port";
-import {TestEventEmitter} from "./plugins/events/LifecycleEventEmitter";
+import { TestEventEmitter } from "./plugins/lifecycle/LifecycleEventEmitter";
+import {
+  TranscriberPlugin,
+  TranscriptEvent,
+} from "./plugins/transcription/TranscriberPlugin";
 
 export const waitForConnection = async (ws: ws) =>
   new Promise((resolve) => ws.on("open", resolve));
@@ -18,17 +25,17 @@ export const createMockDtmfGenerator = (): jest.Mocked<
   DtmfBufferGenerator
 > => ({ generate: jest.fn() });
 
-class TranscriberTestDouble extends EventEmitter implements Transcriber {
+class TranscriberTestDouble extends EventEmitter implements TranscriberPlugin {
   public close(): void {}
   public transcribe(payload: any): void {}
 
   public produceTranscriptionEvent(transcription: string) {
-    const event: TranscriptEvent = { transcription };
+    const event: TranscriptEvent = { transcription, isFinal: true };
     this.emit("transcription", event);
   }
 }
 
-export const createMockTranscriber = (): jest.Mocked<Transcriber> => ({
+export const createMockTranscriber = (): jest.Mocked<TranscriberPlugin> => ({
   off: jest.fn(),
   emit: jest.fn(),
   on: jest.fn(),
