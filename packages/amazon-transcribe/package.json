@@ -30,9 +30,7 @@
     "/dist"
   ],
   "dependencies": {
-    "@aws-sdk/eventstream-marshaller": "0.1.0-preview.2",
-    "@aws-sdk/util-utf8-node": "0.1.0-preview.1",
-    "aws-transcribe": "^1.1.0",
+    "aws-transcribe": "1.1.0",
     "query-string": "^6.11.1",
     "wavefile": "^11.0.0",
     "ws": "^7.3.1"

@@ -1,10 +1,10 @@
 import * as fs from "fs";
 import path from "path";
 import { amazonTranscribe } from "../src";
-import { TranscriberPlugin } from "ivr-tester";
+import { TranscriberPlugin, TranscriptEvent } from "ivr-tester";
 
 jest.setTimeout(30 * 1000);
-describe("Google Speech-to-Text", () => {
+describe("Amazon Transcribe", () => {
   const msBetweenSendingBuffer = 250;
   const bufferSize = 5000;
 
@@ -19,7 +19,7 @@ describe("Google Speech-to-Text", () => {
 
   test("Transcribe mulaw audio", async () => {
     const transcriptions: string[] = [];
-    transcriber.on("transcription", ({ transcription }) => {
+    transcriber.on("transcription", ({ transcription }: TranscriptEvent) => {
       transcriptions.push(transcription);
     });
 
