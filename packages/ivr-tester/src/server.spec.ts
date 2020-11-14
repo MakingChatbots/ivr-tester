@@ -85,7 +85,7 @@ describe("server", () => {
       transcriber.produceTranscriptionEvent("hello world");
     });
 
-    const callMediaPayload = "base-64-encoded-payload";
+    const callMediaPayload = Buffer.from([0, 1, 2, 3]).toString("base64");
     ws.send(
       JSON.stringify({
         event: "media",
@@ -96,7 +96,7 @@ describe("server", () => {
     );
 
     await waitForExpect(() => {
-      expect(transcriber.transcribe).toBeCalledWith(callMediaPayload);
+      expect(transcriber.transcribe).toBeCalledWith(Buffer.from([0, 1, 2, 3]));
       expect(emitter.emit).toHaveBeenCalledWith(
         "ivrTestPassed",
         expect.any(Object)
