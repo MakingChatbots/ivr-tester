@@ -37,7 +37,7 @@ const test: IvrTest = {
 };
 
 const config: Config = {
-  transcriber: googleSpeechToText(),
+  transcriber: googleSpeechToText(["call", "calling"], true),
   recording: {
     outputPath: path.join(__dirname, "../recordings"),
   },
