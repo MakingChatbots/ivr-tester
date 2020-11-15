@@ -1,5 +1,5 @@
 {
-  "name": "ivr-tester-amazon-transcribe",
+  "name": "ivr-tester-transcriber-amazon-transcribe",
   "version": "0.0.1",
   "description": "Amazon transcribe integration for IVR Tester",
   "license": "MIT",

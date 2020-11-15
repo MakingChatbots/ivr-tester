@@ -11,7 +11,7 @@ import {
   TestSubject,
 } from "ivr-tester";
 import path from "path";
-import { amazonTranscribe } from "ivr-tester-amazon-transcribe";
+import { amazonTranscribe } from "ivr-tester-transcriber-amazon-transcribe";
 
 require("dotenv").config();
 

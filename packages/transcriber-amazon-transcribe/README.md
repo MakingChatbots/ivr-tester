@@ -1,5 +1,7 @@
 # Amazon Transcribe
 
+![npm](https://img.shields.io/npm/v/ivr-tester-transcriber-amazon-transcribe)
+
 ## Testing
 
 Integration tests exist to assert it integrates properly with the real Amazon Transcribe service. This means it costs
