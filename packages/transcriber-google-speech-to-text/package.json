@@ -7,8 +7,14 @@
     "type": "git",
     "url": "https://github.com/SketchingDev/ivr-tester.git"
   },
-  "homepage": "https://github.com/SketchingDev/ivr-tester#ivr-tester",
-  "keywords": ["ivr", "call flow", "test", "google", "speech-to-text"],
+  "homepage": "https://github.com/SketchingDev/ivr-tester/tree/main/packages/transcriber-google-speech-to-text#google-speech-to-text-transcriber",
+  "keywords": [
+    "ivr",
+    "call flow",
+    "test",
+    "google speech-to-text",
+    "transcriber"
+  ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {

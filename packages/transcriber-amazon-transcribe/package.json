@@ -1,19 +1,19 @@
 {
   "name": "ivr-tester-transcriber-amazon-transcribe",
   "version": "0.0.1",
-  "description": "Amazon transcribe integration for IVR Tester",
+  "description": "Amazon Transcribe integration for IVR Tester",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/SketchingDev/ivr-tester.git"
   },
-  "homepage": "https://github.com/SketchingDev/ivr-tester#ivr-tester",
+  "homepage": "https://github.com/SketchingDev/ivr-tester/tree/main/packages/transcriber-amazon-transcribe#amazon-transcribe",
   "keywords": [
     "ivr",
     "call flow",
     "test",
-    "amazon",
-    "transcribe"
+    "amazon transcribe",
+    "transcriber"
   ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
