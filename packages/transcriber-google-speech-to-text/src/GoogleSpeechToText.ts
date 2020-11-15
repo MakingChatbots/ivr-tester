@@ -1,11 +1,12 @@
 import { EventEmitter } from "events";
 import { protos, SpeechClient } from "@google-cloud/speech";
-import { Transcriber, TranscriptEvent } from "ivr-tester";
+import { TranscriberPlugin, TranscriptEvent } from "ivr-tester";
 import { Transcript } from "./Transcript";
+import internal from "stream";
 
-export class MulawGoogleSpeechToText
+export class GoogleSpeechToText
   extends EventEmitter
-  implements Transcriber {
+  implements TranscriberPlugin {
   private static createConfig(
     speechPhrases: string[],
     useEnhanced: boolean
@@ -15,21 +16,21 @@ export class MulawGoogleSpeechToText
         encoding:
           protos.google.cloud.speech.v1.RecognitionConfig.AudioEncoding.MULAW,
         sampleRateHertz: 8000,
-        languageCode: "en-GB",
+        languageCode: "en-GB", // TODO Allow to be customised
         model: "phone_call",
         speechContexts: [{ phrases: speechPhrases }],
         useEnhanced,
       },
-      interimResults: false, // TODO Because this is false I can remove the isFinal check elsewhere
+      interimResults: true,
       singleUtterance: false,
     };
   }
 
-  readonly #config: Readonly<
+  private readonly config: Readonly<
     protos.google.cloud.speech.v1.IStreamingRecognitionConfig
   >;
-  #stream: any; // TODO Type this
-  #streamCreatedAt: Date;
+  private stream: internal.Writable;
+  private streamCreatedAt: Date;
 
   constructor(
     private speechPhrases: string[] = [],
@@ -37,61 +38,52 @@ export class MulawGoogleSpeechToText
     private readonly speechClient = new SpeechClient()
   ) {
     super();
-    this.#config = MulawGoogleSpeechToText.createConfig(
-      speechPhrases,
-      useEnhanced
-    );
+    this.config = GoogleSpeechToText.createConfig(speechPhrases, useEnhanced);
   }
 
-  public transcribe(payload: string) {
-    this.getStream().write(payload);
+  public transcribe(payload: Buffer) {
+    this.getStream().write(payload.toString("base64"));
   }
 
   public close() {
-    if (this.#stream) {
-      this.#stream.destroy();
+    if (this.stream) {
+      this.stream.destroy();
     }
   }
 
   private newStreamRequired() {
-    if (!this.#stream) {
+    if (!this.stream) {
       return true;
     } else {
       const now = new Date();
       const timeSinceStreamCreated =
-        now.valueOf() - this.#streamCreatedAt.valueOf();
+        now.valueOf() - this.streamCreatedAt.valueOf();
       return timeSinceStreamCreated / 1000 > 60;
     }
   }
 
   public getStream() {
     if (this.newStreamRequired()) {
-      if (this.#stream) {
-        this.#stream.destroy();
+      if (this.stream) {
+        this.stream.destroy();
       }
 
-      this.#streamCreatedAt = new Date();
-      this.#stream = this.speechClient
-        .streamingRecognize(this.#config)
+      this.streamCreatedAt = new Date();
+      this.stream = this.speechClient
+        .streamingRecognize(this.config)
         .on("error", console.error)
         .on("data", (data: { results: Transcript[] }) => {
           const result = data.results[0];
           if (result?.alternatives[0] !== undefined) {
             const event: TranscriptEvent = {
               transcription: result.alternatives[0].transcript.trim(),
+              isFinal: result.isFinal,
             };
             this.emit("transcription", event);
           }
         });
     }
 
-    return this.#stream;
+    return this.stream;
   }
 }
-
-export const googleSpeechToText = (
-  speechPhrases: string[] = [],
-  useEnhanced = true,
-  speechClient = new SpeechClient()
-) => () =>
-  new MulawGoogleSpeechToText(speechPhrases, useEnhanced, speechClient);

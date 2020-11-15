@@ -22,7 +22,7 @@ export interface IvrTestFailed {
 }
 
 /**
- * Lifecycle events for performing the tests
+ * Lifecycle events during testing
  */
 export type TestEvents = {
   callConnected: undefined;

@@ -7,13 +7,16 @@ import {
   startServerListening,
 } from "./server";
 import { IvrTest } from "./handlers/TestHandler";
-import { Transcriber, TranscriptEvent } from "./transcribers/Transcriber";
 import { DtmfBufferGenerator } from "./dtmf/DtmfPlayer";
 import { EventEmitter } from "events";
 import { AddressInfo } from "net";
 import { inOrder } from "./handlers/inOrder";
 import getPort from "get-port";
-import { TestLifecycleEventEmitter } from "./plugins/events/eventEmitter";
+import { TestEventEmitter } from "./plugins/lifecycle/LifecycleEventEmitter";
+import {
+  TranscriberPlugin,
+  TranscriptEvent,
+} from "./plugins/transcription/TranscriberPlugin";
 
 export const waitForConnection = async (ws: ws) =>
   new Promise((resolve) => ws.on("open", resolve));
@@ -22,33 +25,21 @@ export const createMockDtmfGenerator = (): jest.Mocked<
   DtmfBufferGenerator
 > => ({ generate: jest.fn() });
 
-class TranscriberTestDouble extends EventEmitter implements Transcriber {
+class TranscriberTestDouble extends EventEmitter implements TranscriberPlugin {
   public close(): void {}
   public transcribe(payload: any): void {}
 
   public produceTranscriptionEvent(transcription: string) {
-    const event: TranscriptEvent = { transcription };
+    const event: TranscriptEvent = { transcription, isFinal: true };
     this.emit("transcription", event);
   }
 }
 
-export const createMockTranscriber = (): jest.Mocked<Transcriber> => ({
-  addListener: jest.fn(),
-  eventNames: jest.fn(),
-  getMaxListeners: jest.fn(),
-  listenerCount: jest.fn(),
-  listeners: jest.fn(),
+export const createMockTranscriber = (): jest.Mocked<TranscriberPlugin> => ({
   off: jest.fn(),
-  once: jest.fn(),
-  prependListener: jest.fn(),
-  prependOnceListener: jest.fn(),
-  rawListeners: jest.fn(),
-  removeAllListeners: jest.fn(),
-  removeListener: jest.fn(),
-  setMaxListeners: jest.fn(),
-  transcribe: jest.fn(),
   emit: jest.fn(),
   on: jest.fn(),
+  transcribe: jest.fn(),
   close: jest.fn(),
 });
 
@@ -78,7 +69,7 @@ describe("server", () => {
       test: inOrder([]),
     };
 
-    const emitter: jest.Mocked<TestLifecycleEventEmitter> = {
+    const emitter: jest.Mocked<TestEventEmitter> = {
       emit: jest.fn(),
       off: jest.fn(),
       on: jest.fn(),
@@ -94,7 +85,7 @@ describe("server", () => {
       transcriber.produceTranscriptionEvent("hello world");
     });
 
-    const callMediaPayload = "base-64-encoded-payload";
+    const callMediaPayload = Buffer.from([0, 1, 2, 3]).toString("base64");
     ws.send(
       JSON.stringify({
         event: "media",
@@ -105,7 +96,7 @@ describe("server", () => {
     );
 
     await waitForExpect(() => {
-      expect(transcriber.transcribe).toBeCalledWith(callMediaPayload);
+      expect(transcriber.transcribe).toBeCalledWith(Buffer.from([0, 1, 2, 3]));
       expect(emitter.emit).toHaveBeenCalledWith(
         "ivrTestPassed",
         expect.any(Object)

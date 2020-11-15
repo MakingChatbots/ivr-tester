@@ -2,16 +2,16 @@ import {
   Config,
   contains,
   doNothing,
-  IvrTest,
   hasPart,
+  inOrder,
+  IvrTest,
   press,
   similarTo,
   testRunner,
-  inOrder,
   TestSubject,
 } from "ivr-tester";
 import path from "path";
-import { googleSpeechToText } from "ivr-tester-google-speech-to-text";
+import { googleSpeechToText } from "ivr-tester-transcriber-google-speech-to-text";
 
 require("dotenv").config();
 
@@ -25,7 +25,7 @@ const test: IvrTest = {
   test: inOrder([
     {
       whenTranscript: contains(
-        "this will allow you to adjust call recording behaviour"
+        "will allow you to adjust call recording behaviour"
       ),
       then: press("4"),
     },
@@ -37,7 +37,10 @@ const test: IvrTest = {
 };
 
 const config: Config = {
-  transcriber: googleSpeechToText(),
+  transcriber: googleSpeechToText(
+    ["will allow you to adjust call recording behaviour"],
+    true
+  ),
   recording: {
     outputPath: path.join(__dirname, "../recordings"),
   },

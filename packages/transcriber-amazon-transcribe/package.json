@@ -1,62 +1,62 @@
 {
-  "name": "ivr-tester",
-  "version": "0.0.9",
-  "description": "An automated testing framework for IVR call flows",
+  "name": "ivr-tester-transcriber-amazon-transcribe",
+  "version": "0.0.1",
+  "description": "Amazon transcribe integration for IVR Tester",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/SketchingDev/ivr-tester.git"
   },
   "homepage": "https://github.com/SketchingDev/ivr-tester#ivr-tester",
-  "keywords": ["ivr", "call flow", "test"],
+  "keywords": [
+    "ivr",
+    "call flow",
+    "test",
+    "amazon",
+    "transcribe"
+  ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "jest src",
+    "test:integration": "jest __tests__",
     "clean": "rimraf dist/",
     "build": "yarn clean && tsc --declaration",
-    "postbuild": "yarn copy:dtmf-tones",
-    "lint:prettier": "prettier --list-different 'src/**/*.ts' --write",
+    "lint:prettier": "prettier --list-different '{src,__tests__}/**/*.ts' --write",
     "lint:eslint": "eslint 'src/**/*.ts'",
     "lint": "yarn lint:prettier && yarn lint:eslint",
-    "copy:dtmf-tones": "copyfiles -u 1 src/**/dtmf/**/*.raw dist",
-    "prepare" : "yarn build"
+    "prepare": "yarn build"
   },
   "files": [
     "/dist"
   ],
   "dependencies": {
-    "chalk": "^4.1.0",
-    "getenv": "^1.0.0",
-    "log-symbols": "^4.0.0",
-    "string-similarity": "^4.0.2",
-    "twilio": "^3.49.0",
+    "aws-transcribe": "1.1.0",
+    "query-string": "^6.11.1",
+    "wavefile": "^11.0.0",
     "ws": "^7.3.1"
   },
   "devDependencies": {
     "@types/getenv": "^1.0.0",
     "@types/jest": "^26.0.14",
-    "@types/jest-when": "^2.7.1",
     "@types/node": "^14.6.4",
-    "@types/string-similarity": "^3.0.0",
-    "@types/ws": "^7.2.6",
     "@typescript-eslint/eslint-plugin": "^4.3.0",
     "@typescript-eslint/parser": "^4.3.0",
-    "copyfiles": "^2.4.0",
     "eslint": "^7.10.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-jest": "^24.0.2",
-    "get-port": "^5.1.1",
+    "ivr-tester": "0.x",
     "jest": "^26.4.2",
     "jest-when": "^2.7.2",
-    "ngrok": "^3.2.7",
     "prettier": "^2.1.2",
     "rimraf": "^3.0.2",
     "ts-jest": "^26.4.0",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.3",
     "wait-for-expect": "^3.0.2"
+  },
+  "peerDependencies": {
+    "ivr-tester": "0.x"
   },
   "jest": {
     "preset": "ts-jest",

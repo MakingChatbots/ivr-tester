@@ -1,7 +1,7 @@
 {
-  "name": "ivr-tester-google-speech-to-text",
+  "name": "ivr-tester-transcriber-google-speech-to-text",
   "version": "0.0.1",
-  "description": "Google Speech-to-text transcriber",
+  "description": "Google Speech-to-Text integration for IVR Tester",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -12,11 +12,10 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "jest src",
     "test:integration": "jest __tests__",
     "clean": "rimraf dist/",
     "build": "yarn clean && tsc --declaration",
-    "lint:prettier": "prettier --list-different '{src,__tests__}/**/*.ts'",
+    "lint:prettier": "prettier --list-different '{src,__tests__}/**/*.ts' --write",
     "lint:eslint": "eslint 'src/**/*.ts'",
     "lint": "yarn lint:prettier && yarn lint:eslint",
     "prepare" : "yarn build"

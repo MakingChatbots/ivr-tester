@@ -11,16 +11,16 @@ export enum WebSocketEvents {
 }
 
 export class TwilioCall implements Call {
-  readonly #processMessageReference: (event: any) => void;
+  private readonly processMessageReference: (event: any) => void;
 
-  #streamSid: string | undefined;
+  private streamSid: string | undefined;
 
   constructor(
     private readonly connection: ws,
     private readonly dtmfGenerator: DtmfBufferGenerator
   ) {
-    this.#processMessageReference = this.processMessage.bind(this);
-    connection.on(WebSocketEvents.Message, this.#processMessageReference);
+    this.processMessageReference = this.processMessage.bind(this);
+    connection.on(WebSocketEvents.Message, this.processMessageReference);
   }
 
   private processMessage(message: string) {
@@ -28,10 +28,10 @@ export class TwilioCall implements Call {
 
     // Add debug output for all from https://www.twilio.com/blog/multiple-twilio-streams-javascript
     if (data.event === TwilioConnectionEvents.MediaStreamStart) {
-      this.#streamSid = data.streamSid;
+      this.streamSid = data.streamSid;
       this.connection.off(
         WebSocketEvents.Message,
-        this.#processMessageReference
+        this.processMessageReference
       );
     }
   }
@@ -41,13 +41,13 @@ export class TwilioCall implements Call {
   }
 
   public sendMedia(payload: Buffer): void {
-    if (!this.#streamSid) {
+    if (!this.streamSid) {
       throw new Error("Stream SID must be set before media can be sent");
     }
 
     const message = {
       event: TwilioConnectionEvents.Media,
-      streamSid: this.#streamSid,
+      streamSid: this.streamSid,
       media: {
         payload: payload.toString("base64"),
       },

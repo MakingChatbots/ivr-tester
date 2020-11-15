@@ -1,5 +1,6 @@
 # IVR Tester
 
+![npm](https://img.shields.io/npm/v/ivr-tester)
 ![](https://github.com/SketchingDev/ivr-tester/workflows/On%20Push/badge.svg)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/SketchingDev/ivr-tester.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/SketchingDev/ivr-tester/context:javascript)
 

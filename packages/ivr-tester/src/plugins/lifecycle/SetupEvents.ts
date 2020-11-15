@@ -21,7 +21,7 @@ export interface CallHandlingServerStartedEvent {
 }
 
 /**
- * Lifecycle events for setting up a test
+ * Lifecycle events of setting up a test
  */
 export type SetupEvents = {
   callRequested: CallRequestedEvent;

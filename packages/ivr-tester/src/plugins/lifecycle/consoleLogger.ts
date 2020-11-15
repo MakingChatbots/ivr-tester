@@ -1,8 +1,8 @@
-import { IvrTesterPlugin } from "./plugin";
-import { LifecycleEventEmitter } from "./events/eventEmitter";
+import { LifecycleHookPlugin } from "./LifecycleHookPlugin";
 import { AddressInfo } from "ws";
 import chalk from "chalk";
 import logSymbols from "log-symbols";
+import { LifecycleEventEmitter } from "./LifecycleEventEmitter";
 
 const ivrTestPassed = (emitter: LifecycleEventEmitter): void =>
   emitter.on("ivrTestPassed", (event) =>
@@ -69,7 +69,9 @@ const ivrTestConditionMet = (emitter: LifecycleEventEmitter): void =>
     )
   );
 
-export const consoleLogger: IvrTesterPlugin = {
+const pluginName = "ConsoleLogger";
+export const consoleLogger: LifecycleHookPlugin = {
+  name: () => pluginName,
   initialise(eventEmitter: LifecycleEventEmitter): void {
     ivrTestPassed(eventEmitter);
     ivrTestFailed(eventEmitter);

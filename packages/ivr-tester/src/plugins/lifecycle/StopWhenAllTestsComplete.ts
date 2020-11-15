@@ -1,13 +1,18 @@
-import { IvrTesterPlugin } from "./plugin";
-import { LifecycleEventEmitter } from "./events/eventEmitter";
-import { CallAssignedTestEvent } from "./events/testEvents";
+import { LifecycleHookPlugin } from "./LifecycleHookPlugin";
+import { CallAssignedTestEvent } from "./TestEvents";
 import { Server } from "ws";
-import { CallHandlingServerStartedEvent } from "./events/setupEvents";
+import { CallHandlingServerStartedEvent } from "./SetupEvents";
+import { LifecycleEventEmitter } from "./LifecycleEventEmitter";
 
-export class StopWhenAllTestsComplete implements IvrTesterPlugin {
+export class StopWhenAllTestsComplete implements LifecycleHookPlugin {
+  private static readonly PluginName = "StopWhenAllTestsComplete";
   private server: Server;
   private totalTests: number = 0;
   private testsCompleted: number = 0;
+
+  name(): string {
+    return StopWhenAllTestsComplete.PluginName;
+  }
 
   public initialise(eventEmitter: LifecycleEventEmitter): void {
     eventEmitter.on("ivrTestPassed", this.testCompleted.bind(this));

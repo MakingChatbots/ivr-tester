@@ -12,10 +12,10 @@ import {
   TestPassed,
 } from "./handlers/TestHandler";
 import { TwilioCall } from "./handlers/TwilioCall";
-import { TestLifecycleEventEmitter } from "./plugins/events/eventEmitter";
 import { URL } from "url";
 import { DtmfBufferGenerator } from "./dtmf/DtmfPlayer";
-import { Transcriber } from "./transcribers/Transcriber";
+import { TestEventEmitter } from "./plugins/lifecycle/LifecycleEventEmitter";
+import { TranscriberFactory } from "./plugins/transcription/TranscriberFactory";
 
 export const formatServerUrl = (server: CallHandlingServer): URL => {
   const address = server.wss.address() as AddressInfo;
@@ -29,11 +29,6 @@ export const formatServerUrl = (server: CallHandlingServer): URL => {
       throw new Error(`Unrecognised '${address.family}' address family`);
   }
 };
-
-/**
- * Factory to create a instance of a transcriber per test
- */
-type TranscriberFactory = () => Transcriber;
 
 export interface ServerConfig {
   dtmfGenerator?: DtmfBufferGenerator;
@@ -55,7 +50,7 @@ const initialiseConnectionHandlers = (
   ws: ws,
   config: ServerConfig,
   ivrTest: IvrTest,
-  testEventEmitter: TestLifecycleEventEmitter
+  testEventEmitter: TestEventEmitter
 ) => {
   const call = new TwilioCall(ws, config.dtmfGenerator);
 
@@ -86,7 +81,7 @@ export interface CallHandlingServer {
 export const startServerListening = (
   config: ServerConfig,
   ivrTest: IvrTest[],
-  testEventEmitter: TestLifecycleEventEmitter
+  testEventEmitter: TestEventEmitter
 ): Promise<CallHandlingServer> => {
   const testIterator = ivrTest.entries();
 

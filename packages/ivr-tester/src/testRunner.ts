@@ -7,9 +7,9 @@ import {
 import { IvrTest, TestSubject } from "./handlers/TestHandler";
 import { Config, populateDefaults } from "./Config";
 import { callParameterSerializer } from "./twilio";
-import { createLifecycleEventEmitter } from "./plugins/events/eventEmitter";
 import { URL } from "url";
-import { IvrTesterPlugin } from "./plugins/plugin";
+import { LifecycleHookPlugin } from "./plugins/lifecycle/LifecycleHookPlugin";
+import { PluginManager } from "./plugins/PluginManager";
 
 export interface TestRunnerConfig {
   /**
@@ -25,7 +25,7 @@ export interface TestRunnerConfig {
    */
   publicServerUrl?: string | undefined;
 
-  plugins?: IvrTesterPlugin[];
+  plugins?: LifecycleHookPlugin[];
 }
 
 const createPublicStreamUrl = (
@@ -64,11 +64,11 @@ export const testRunner = (config: Config) => async (
   ivrTest: IvrTest[] | IvrTest
 ): Promise<void> => {
   config = populateDefaults(config);
-
   const tests = Array.isArray(ivrTest) ? ivrTest : [ivrTest];
 
-  const emitter = createLifecycleEventEmitter();
-  config.plugins.forEach((plugin) => plugin.initialise(emitter));
+  const pluginManager = new PluginManager();
+  pluginManager.loadPlugins(config.plugins);
+  const emitter = pluginManager.getEmitter();
 
   const server = await startServerListening(config, tests, emitter);
   emitter.emit("callHandlingServerStarted", { server: server.wss });
