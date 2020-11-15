@@ -1,6 +1,6 @@
 # Amazon Transcribe
 
-![npm](https://img.shields.io/npm/v/ivr-tester-transcriber-amazon-transcribe)
+[![npm](https://img.shields.io/npm/v/ivr-tester-transcriber-amazon-transcribe)](https://www.npmjs.com/package/ivr-tester-transcriber-amazon-transcribe)
 
 ## Testing
 
