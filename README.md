@@ -4,8 +4,6 @@
 ![](https://github.com/SketchingDev/ivr-tester/workflows/On%20Push/badge.svg)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/SketchingDev/ivr-tester.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/SketchingDev/ivr-tester/context:javascript)
 
-WARNING: This project is under heavy development so APIs are likely to change.
-
 An automated testing framework for Interactive Voice Response (IVR) call flows.
 
 IVR Tester calls a phone number and impersonates a human. It does this by automatically transcribing voice responses
