@@ -38,8 +38,11 @@ const test: IvrTest = {
 
 const config: Config = {
   transcriber: googleSpeechToText(
-    ["will allow you to adjust call recording behaviour"],
-    true
+      {
+        languageCode: "en-GB",
+        speechPhrases: ["will allow you to adjust call recording behaviour"],
+        useEnhanced: true
+      }
   ),
   recording: {
     outputPath: path.join(__dirname, "../recordings"),

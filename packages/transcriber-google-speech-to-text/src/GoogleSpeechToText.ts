@@ -8,6 +8,7 @@ export class GoogleSpeechToText
   extends EventEmitter
   implements TranscriberPlugin {
   private static createConfig(
+    languageCode: string,
     speechPhrases: string[],
     useEnhanced: boolean
   ): Readonly<protos.google.cloud.speech.v1.IStreamingRecognitionConfig> {
@@ -16,7 +17,7 @@ export class GoogleSpeechToText
         encoding:
           protos.google.cloud.speech.v1.RecognitionConfig.AudioEncoding.MULAW,
         sampleRateHertz: 8000,
-        languageCode: "en-GB", // TODO Allow to be customised
+        languageCode,
         model: "phone_call",
         speechContexts: [{ phrases: speechPhrases }],
         useEnhanced,
@@ -33,12 +34,13 @@ export class GoogleSpeechToText
   private streamCreatedAt: Date;
 
   constructor(
-    private speechPhrases: string[] = [],
-    private useEnhanced = true,
-    private readonly speechClient = new SpeechClient()
+      languageCode: string,
+      speechPhrases: string[] = [],
+      useEnhanced = false,
+      private readonly speechClient = new SpeechClient()
   ) {
     super();
-    this.config = GoogleSpeechToText.createConfig(speechPhrases, useEnhanced);
+    this.config = GoogleSpeechToText.createConfig(languageCode, speechPhrases, useEnhanced);
   }
 
   public transcribe(payload: Buffer) {
