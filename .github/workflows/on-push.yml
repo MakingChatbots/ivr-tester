@@ -25,6 +25,7 @@ jobs:
         with:
           node-version: 12.x
       - run: yarn
+      - run: yarn build
       - run: yarn docs:verify
 
   test:
