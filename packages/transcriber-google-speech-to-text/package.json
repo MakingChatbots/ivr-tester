@@ -25,7 +25,7 @@
     "lint:eslint": "eslint 'src/**/*.ts'",
     "lint": "yarn lint:prettier && yarn lint:eslint",
     "prepare": "yarn build",
-    "postbuild": "mkdir docs && jsdoc2md dist/*.js > docs/api.md"
+    "postbuild": "mkdir -p docs && jsdoc2md dist/*.js > docs/api.md"
   },
   "files": [
     "/dist"
