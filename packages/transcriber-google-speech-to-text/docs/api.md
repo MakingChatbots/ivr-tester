@@ -5,7 +5,7 @@ Factory for creating a Google Speech-to-Text transcriber plugin that is preconfi
 phone-calls - specifically 8-bit PCM mono uLaw with a sampling rate of 8Khz.
 
 **Kind**: global function  
-**Returns**: <code>object</code> - Factory for creating Google Speech-to-Text plugin  
+**Returns**: <code>object</code> - Factory for creating a Google Speech-to-Text transcriber  
 **See**: [Google Speech-to-Text's config documentation](https://cloud.google.com/speech-to-text/docs/reference/rest/v1/RecognitionConfig)  
 
 | Param | Type | Default | Description |

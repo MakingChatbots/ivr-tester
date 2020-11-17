@@ -20,6 +20,8 @@ npm install ivr-tester-transcriber-amazon-transcribe
 
 ## Configuration
 
+See the [API documentation](./docs/api.md) for details of each parameter.
+
 Ensure AWS credentials are defined in environment variables:
 
 ```shell

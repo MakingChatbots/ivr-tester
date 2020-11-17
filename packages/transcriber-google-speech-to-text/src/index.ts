@@ -30,7 +30,7 @@ const defaults: GoogleSpeechToTextOptions = {
  *        available for the language code provided. Be aware that
  *        [enhanced models]{@link https://cloud.google.com/speech-to-text/docs/enhanced-models} are more expensive.
  * @param {SpeechClient} [speechClient=SpeechClient] {@link https://googleapis.dev/nodejs/speech/latest/v1.SpeechClient.html|SpeechClient} service that implements Google Cloud Speech API
- * @return {object} Factory for creating Google Speech-to-Text plugin
+ * @return {object} Factory for creating a Google Speech-to-Text transcriber
  * @see {@link https://cloud.google.com/speech-to-text/docs/reference/rest/v1/RecognitionConfig|Google Speech-to-Text's config documentation}
  */
 export const googleSpeechToText = (

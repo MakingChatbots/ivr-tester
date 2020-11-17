@@ -24,7 +24,10 @@
     "lint:prettier": "prettier --list-different '{src,__tests__}/**/*.ts' --write",
     "lint:eslint": "eslint 'src/**/*.ts'",
     "lint": "yarn lint:prettier && yarn lint:eslint",
-    "prepare": "yarn build"
+    "prepare": "yarn build",
+    "docs": "mkdir -p docs && jsdoc2md dist/*.js > docs/api.md",
+    "docs:verify": "yarn build && git diff --exit-code docs/api.md",
+    "postbuild": "yarn docs"
   },
   "files": [
     "/dist"
@@ -48,6 +51,7 @@
     "ivr-tester": "0.x",
     "jest": "^26.4.2",
     "jest-when": "^2.7.2",
+    "jsdoc-to-markdown": "^6.0.1",
     "prettier": "^2.1.2",
     "rimraf": "^3.0.2",
     "ts-jest": "^26.4.0",
