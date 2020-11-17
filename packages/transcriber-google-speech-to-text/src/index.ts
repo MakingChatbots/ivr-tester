@@ -20,14 +20,14 @@ const defaults: GoogleSpeechToTextOptions = {
  *
  * @param {Object} [options] - The configuration object. See the subsequent
  *   parameters for more details.
- * @param {string} options.languageCode - Language of the supplied audio as a BCP-47 language tag.
- *        Defaults to "en-US". See [Language Support]{@link https://cloud.google.com/speech-to-text/docs/languages} for
- *        a list of the currently supported language codes.
- * @param {string[]} [options.speechPhrases=[]] - A list of strings containing words and phrases "hints" so that the speech
- *        recognition is more likely to recognize them. This can be used to improve the accuracy for specific words and
- *        phrases.
- * @param {boolean} [options.useEnhanced=false] - Set to true to use an enhanced model for speech recognition if it available
- *        for the language code provided. Be aware that
+ * @param {string} [options.languageCode=en-US] - Language of the supplied audio as a BCP-47 language tag.
+ *        See [Language Support]{@link https://cloud.google.com/speech-to-text/docs/languages} for a list of the
+ *        currently supported language codes.
+ * @param {string[]} [options.speechPhrases=[]] - A list of strings containing words and phrases "hints" so that the
+ *        speech recognition is more likely to recognize them. This can be used to improve the accuracy for specific
+ *        words and phrases.
+ * @param {boolean} [options.useEnhanced=false] - Set to true to use an enhanced model for speech recognition if it
+ *        available for the language code provided. Be aware that
  *        [enhanced models]{@link https://cloud.google.com/speech-to-text/docs/enhanced-models} are more expensive.
  * @param {SpeechClient} [speechClient=SpeechClient] {@link https://googleapis.dev/nodejs/speech/latest/v1.SpeechClient.html|SpeechClient} service that implements Google Cloud Speech API
  * @return {object} Factory for creating Google Speech-to-Text plugin
