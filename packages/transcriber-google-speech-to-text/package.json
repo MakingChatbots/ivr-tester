@@ -24,7 +24,8 @@
     "lint:prettier": "prettier --list-different '{src,__tests__}/**/*.ts' --write",
     "lint:eslint": "eslint 'src/**/*.ts'",
     "lint": "yarn lint:prettier && yarn lint:eslint",
-    "prepare" : "yarn build"
+    "prepare": "yarn build",
+    "postbuild": "mkdir docs && jsdoc2md dist/*.js > docs/api.md"
   },
   "files": [
     "/dist"
@@ -42,15 +43,16 @@
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-jest": "^24.0.2",
+    "ivr-tester": "0.x",
     "jest": "^26.4.2",
     "jest-when": "^2.7.2",
+    "jsdoc-to-markdown": "^6.0.1",
     "prettier": "^2.1.2",
     "rimraf": "^3.0.2",
     "ts-jest": "^26.4.0",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.3",
-    "wait-for-expect": "^3.0.2",
-    "ivr-tester": "0.x"
+    "wait-for-expect": "^3.0.2"
   },
   "peerDependencies": {
     "ivr-tester": "0.x"
