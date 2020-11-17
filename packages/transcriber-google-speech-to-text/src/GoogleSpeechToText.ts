@@ -34,13 +34,17 @@ export class GoogleSpeechToText
   private streamCreatedAt: Date;
 
   constructor(
-      languageCode: string,
-      speechPhrases: string[] = [],
-      useEnhanced = false,
-      private readonly speechClient = new SpeechClient()
+    languageCode: string,
+    speechPhrases: string[] = [],
+    useEnhanced = false,
+    private readonly speechClient = new SpeechClient()
   ) {
     super();
-    this.config = GoogleSpeechToText.createConfig(languageCode, speechPhrases, useEnhanced);
+    this.config = GoogleSpeechToText.createConfig(
+      languageCode,
+      speechPhrases,
+      useEnhanced
+    );
   }
 
   public transcribe(payload: Buffer) {

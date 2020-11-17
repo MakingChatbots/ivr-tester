@@ -3,16 +3,16 @@ import { TranscriberFactory } from "ivr-tester";
 import { GoogleSpeechToText } from "./GoogleSpeechToText";
 
 export interface GoogleSpeechToTextOptions {
-    languageCode?: string;
-    speechPhrases?: string[];
-    useEnhanced?: boolean;
+  languageCode?: string;
+  speechPhrases?: string[];
+  useEnhanced?: boolean;
 }
 
 const defaults: GoogleSpeechToTextOptions = {
-    languageCode: "en-US",
-    speechPhrases: [],
-    useEnhanced: false
-}
+  languageCode: "en-US",
+  speechPhrases: [],
+  useEnhanced: false,
+};
 
 /**
  * Factory for creating a Google Speech-to-Text transcriber plugin that is preconfigured for
@@ -37,10 +37,15 @@ export const googleSpeechToText = (
   options?: GoogleSpeechToTextOptions,
   speechClient = new SpeechClient()
 ): TranscriberFactory => () => {
-    const ops = {
-        ...defaults,
-        ...options || {},
-    }
+  const ops = {
+    ...defaults,
+    ...(options || {}),
+  };
 
-   return new GoogleSpeechToText(ops.languageCode, ops.speechPhrases, ops.useEnhanced, speechClient);
-}
+  return new GoogleSpeechToText(
+    ops.languageCode,
+    ops.speechPhrases,
+    ops.useEnhanced,
+    speechClient
+  );
+};
