@@ -16,7 +16,7 @@ jobs:
         env:
           CI: true
 
-  test:
+  build-and-test:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -28,3 +28,15 @@ jobs:
       - run: yarn
       - run: yarn build
       - run: yarn test
+
+  update-docs:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update documentation
+        uses: EndBug/add-and-commit@v5
+        with:
+          message: "Update documentation"
+          add: "**/docs/*"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
