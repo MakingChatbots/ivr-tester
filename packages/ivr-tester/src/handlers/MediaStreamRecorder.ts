@@ -9,22 +9,25 @@ import {
 } from "../twilio";
 import { IvrTest } from "./TestHandler";
 
+/** @internal */
 export interface StreamDetails {
   sid: string;
   phoneNumbers: { from: string; to: string };
 }
 
+/** @internal */
 export interface RecorderConfig {
   outputPath: string;
   filename?: string | ((stream: StreamDetails, test: IvrTest) => string);
 }
 
+/** @internal */
 export class MediaStreamRecorder {
   private static readonly FILE_EXT = "wav";
 
   private writeStream: WriteStream;
-  private readonly onMessageFunc: (event: any) => void;
-  private readonly onCloseFunc: (event: any) => void;
+  private readonly onMessageFunc: (message: string) => void;
+  private readonly onCloseFunc: () => void;
 
   constructor(
     private readonly connection: ws,

@@ -17,6 +17,7 @@ import { DtmfBufferGenerator } from "./dtmf/DtmfPlayer";
 import { TestEventEmitter } from "./plugins/lifecycle/LifecycleEventEmitter";
 import { TranscriberFactory } from "./plugins/transcription/TranscriberFactory";
 
+/** @internal */
 export const formatServerUrl = (server: CallHandlingServer): URL => {
   const address = server.wss.address() as AddressInfo;
 
@@ -74,10 +75,12 @@ const initialiseConnectionHandlers = (
     });
 };
 
+/** @internal */
 export interface CallHandlingServer {
   wss: Server;
 }
 
+/** @internal */
 export const startServerListening = (
   config: ServerConfig,
   ivrTest: IvrTest[],

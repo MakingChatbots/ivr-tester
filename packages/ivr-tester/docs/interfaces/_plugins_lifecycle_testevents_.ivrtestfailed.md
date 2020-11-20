@@ -19,9 +19,9 @@
 
 ### test
 
-•  **test**: [IvrTest](_handlers_testhandler_.ivrtest.md)
+•  **test**: IvrTest
 
-*Defined in [packages/ivr-tester/src/plugins/lifecycle/TestEvents.ts:21](https://github.com/SketchingDev/ivr-tester/blob/f08915c/packages/ivr-tester/src/plugins/lifecycle/TestEvents.ts#L21)*
+*Defined in [packages/ivr-tester/src/plugins/lifecycle/TestEvents.ts:21](https://github.com/SketchingDev/ivr-tester/blob/e6cabf9/packages/ivr-tester/src/plugins/lifecycle/TestEvents.ts#L21)*
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 •  **transcription**: string
 
-*Defined in [packages/ivr-tester/src/plugins/lifecycle/TestEvents.ts:20](https://github.com/SketchingDev/ivr-tester/blob/f08915c/packages/ivr-tester/src/plugins/lifecycle/TestEvents.ts#L20)*
+*Defined in [packages/ivr-tester/src/plugins/lifecycle/TestEvents.ts:20](https://github.com/SketchingDev/ivr-tester/blob/e6cabf9/packages/ivr-tester/src/plugins/lifecycle/TestEvents.ts#L20)*

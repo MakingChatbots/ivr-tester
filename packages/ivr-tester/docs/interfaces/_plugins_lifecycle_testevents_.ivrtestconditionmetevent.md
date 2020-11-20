@@ -22,15 +22,15 @@
 
 •  **condition**: [TranscriptCondition](_conditions_transcriptcondition_.transcriptcondition.md)
 
-*Defined in [packages/ivr-tester/src/plugins/lifecycle/TestEvents.ts:12](https://github.com/SketchingDev/ivr-tester/blob/f08915c/packages/ivr-tester/src/plugins/lifecycle/TestEvents.ts#L12)*
+*Defined in [packages/ivr-tester/src/plugins/lifecycle/TestEvents.ts:12](https://github.com/SketchingDev/ivr-tester/blob/e6cabf9/packages/ivr-tester/src/plugins/lifecycle/TestEvents.ts#L12)*
 
 ___
 
 ### test
 
-•  **test**: [IvrTest](_handlers_testhandler_.ivrtest.md)
+•  **test**: IvrTest
 
-*Defined in [packages/ivr-tester/src/plugins/lifecycle/TestEvents.ts:10](https://github.com/SketchingDev/ivr-tester/blob/f08915c/packages/ivr-tester/src/plugins/lifecycle/TestEvents.ts#L10)*
+*Defined in [packages/ivr-tester/src/plugins/lifecycle/TestEvents.ts:10](https://github.com/SketchingDev/ivr-tester/blob/e6cabf9/packages/ivr-tester/src/plugins/lifecycle/TestEvents.ts#L10)*
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 •  **transcription**: string
 
-*Defined in [packages/ivr-tester/src/plugins/lifecycle/TestEvents.ts:11](https://github.com/SketchingDev/ivr-tester/blob/f08915c/packages/ivr-tester/src/plugins/lifecycle/TestEvents.ts#L11)*
+*Defined in [packages/ivr-tester/src/plugins/lifecycle/TestEvents.ts:11](https://github.com/SketchingDev/ivr-tester/blob/e6cabf9/packages/ivr-tester/src/plugins/lifecycle/TestEvents.ts#L11)*

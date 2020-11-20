@@ -43,8 +43,12 @@ export interface TranscriptHandlerEvent {
   transcription: string;
 }
 
+/**
+ * @internal
+ **/
 export class TranscriptionHandler extends EventEmitter {
-  private static readonly TRANSCRIPTION_EVENT = "transcription";
+
+  public static readonly TRANSCRIPTION_EVENT = "transcription";
   private static readonly FOUR_SECONDS_IN_MS = 4 * 1000;
 
   constructor(

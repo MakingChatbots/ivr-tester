@@ -20,4 +20,4 @@
 
 •  **error**: Error
 
-*Defined in [packages/ivr-tester/src/plugins/lifecycle/SetupEvents.ts:11](https://github.com/SketchingDev/ivr-tester/blob/f08915c/packages/ivr-tester/src/plugins/lifecycle/SetupEvents.ts#L11)*
+*Defined in [packages/ivr-tester/src/plugins/lifecycle/SetupEvents.ts:11](https://github.com/SketchingDev/ivr-tester/blob/e6cabf9/packages/ivr-tester/src/plugins/lifecycle/SetupEvents.ts#L11)*

@@ -6,10 +6,6 @@
 
 ## Index
 
-### Classes
-
-* [TranscriptionHandler](../classes/_handlers_transcriptionhandler_.transcriptionhandler.md)
-
 ### Interfaces
 
 * [TranscriptHandlerEvent](../interfaces/_handlers_transcriptionhandler_.transcripthandlerevent.md)

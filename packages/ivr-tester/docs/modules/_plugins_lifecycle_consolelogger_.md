@@ -16,7 +16,7 @@
 
 ▪ `Const` **consoleLogger**: object
 
-*Defined in [packages/ivr-tester/src/plugins/lifecycle/consoleLogger.ts:73](https://github.com/SketchingDev/ivr-tester/blob/f08915c/packages/ivr-tester/src/plugins/lifecycle/consoleLogger.ts#L73)*
+*Defined in [packages/ivr-tester/src/plugins/lifecycle/consoleLogger.ts:73](https://github.com/SketchingDev/ivr-tester/blob/e6cabf9/packages/ivr-tester/src/plugins/lifecycle/consoleLogger.ts#L73)*
 
 #### Properties:
 

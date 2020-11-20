@@ -4,6 +4,7 @@ import { WaveFile } from "wavefile";
 import { AVAILABLE_REGIONS, LANGUAGES } from "aws-transcribe/dist/types";
 import { EventEmitter } from "events";
 
+/** @internal */
 export class AmazonTranscribeService
   extends EventEmitter
   implements TranscriberPlugin {

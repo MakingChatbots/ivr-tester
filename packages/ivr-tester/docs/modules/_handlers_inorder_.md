@@ -6,10 +6,6 @@
 
 ## Index
 
-### Interfaces
-
-* [Call](../interfaces/_handlers_inorder_.call.md)
-
 ### Functions
 
 * [inOrder](_handlers_inorder_.md#inorder)
@@ -20,7 +16,7 @@
 
 ▸ `Const`**inOrder**(`conditions`: ReadonlyArray\<[TranscriptCondition](../interfaces/_conditions_transcriptcondition_.transcriptcondition.md)>): object
 
-*Defined in [packages/ivr-tester/src/handlers/inOrder.ts:11](https://github.com/SketchingDev/ivr-tester/blob/f08915c/packages/ivr-tester/src/handlers/inOrder.ts#L11)*
+*Defined in [packages/ivr-tester/src/handlers/inOrder.ts:12](https://github.com/SketchingDev/ivr-tester/blob/e6cabf9/packages/ivr-tester/src/handlers/inOrder.ts#L12)*
 
 #### Parameters:
 
@@ -32,4 +28,4 @@ Name | Type |
 
 Name | Type |
 ------ | ------ |
-`test` | (transcript: string, call: [Call](../interfaces/_handlers_inorder_.call.md)) => [TestResult](../interfaces/_handlers_testhandler_.testresult.md) |
+`test` | (transcript: string, call: Call) => TestResult |

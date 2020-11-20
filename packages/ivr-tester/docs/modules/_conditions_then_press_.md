@@ -16,7 +16,7 @@
 
 ▸ `Const`**press**(`dtmfSequence`: string): [Then](../interfaces/_conditions_then_then_.then.md)
 
-*Defined in [packages/ivr-tester/src/conditions/then/press.ts:4](https://github.com/SketchingDev/ivr-tester/blob/f08915c/packages/ivr-tester/src/conditions/then/press.ts#L4)*
+*Defined in [packages/ivr-tester/src/conditions/then/press.ts:4](https://github.com/SketchingDev/ivr-tester/blob/e6cabf9/packages/ivr-tester/src/conditions/then/press.ts#L4)*
 
 #### Parameters:
 

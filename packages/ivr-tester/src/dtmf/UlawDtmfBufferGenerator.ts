@@ -4,6 +4,7 @@ import { DtmfBufferGenerator } from "./DtmfPlayer";
 
 /**
  * Generates stream of DTMF encoded in an 8 bit PCM encoding (MULAW) at 8000 Hertz
+ * @internal
  */
 export class UlawDtmfBufferGenerator implements DtmfBufferGenerator {
   private static readonly VALID_DTMF_DIGITS = [

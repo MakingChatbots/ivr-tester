@@ -3,35 +3,42 @@ import { TranscriptCondition } from "../conditions/TranscriptCondition";
 import { Call } from "./inOrder";
 import { TranscriptHandlerEvent } from "./TranscriptionHandler";
 
+/** @internal */
 export interface TestSubject {
   from: string;
   to: string;
 }
 
+/** @internal */
 export interface TestResult {
   matchedCondition?: TranscriptCondition;
   result: "continue" | "fail" | "pass";
 }
 
 // TODO Is there a better name?
+/** @internal */
 export interface TestContainer {
   test(transcript: string, call: Call): TestResult;
 }
 
+/** @internal */
 export interface IvrTest {
   name: string; // TODO Enforce that test names are defined and unique
   test: TestContainer;
 }
 
+/** @internal */
 export interface TestFailed {
   test: IvrTest;
   transcription: string;
 }
 
+/** @internal */
 export interface TestPassed {
   test: IvrTest;
 }
 
+/** @internal */
 export interface TestConditionMet {
   test: IvrTest;
   transcription: string;
@@ -40,6 +47,7 @@ export interface TestConditionMet {
 
 /**
  * Conditions have to have been met in sequence
+ * @internal
  */
 export class TestHandler extends EventEmitter {
   private static readonly TRANSCRIPTION_EVENT = "transcription";

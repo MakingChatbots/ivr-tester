@@ -23,7 +23,7 @@ An action performed when a condition is met
 
 ▸ **describe**(): string
 
-*Defined in [packages/ivr-tester/src/conditions/then/Then.ts:13](https://github.com/SketchingDev/ivr-tester/blob/f08915c/packages/ivr-tester/src/conditions/then/Then.ts#L13)*
+*Defined in [packages/ivr-tester/src/conditions/then/Then.ts:13](https://github.com/SketchingDev/ivr-tester/blob/e6cabf9/packages/ivr-tester/src/conditions/then/Then.ts#L13)*
 
 Returns a description of this action e.g. "press the keys 123#"
 
@@ -36,14 +36,14 @@ ___
 
 ### do
 
-▸ **do**(`call`: [Call](_handlers_inorder_.call.md)): void
+▸ **do**(`call`: Call): void
 
-*Defined in [packages/ivr-tester/src/conditions/then/Then.ts:15](https://github.com/SketchingDev/ivr-tester/blob/f08915c/packages/ivr-tester/src/conditions/then/Then.ts#L15)*
+*Defined in [packages/ivr-tester/src/conditions/then/Then.ts:15](https://github.com/SketchingDev/ivr-tester/blob/e6cabf9/packages/ivr-tester/src/conditions/then/Then.ts#L15)*
 
 #### Parameters:
 
 Name | Type |
 ------ | ------ |
-`call` | [Call](_handlers_inorder_.call.md) |
+`call` | Call |
 
 **Returns:** void
