@@ -5,8 +5,7 @@
     "jest/globals": true
   },
   "extends": [
-    "eslint:recommended",
-    "google",
+    "plugin:@typescript-eslint/recommended",
     "prettier"
   ],
   "parser": "@typescript-eslint/parser",
@@ -16,9 +15,10 @@
   },
   "plugins": [
     "@typescript-eslint",
-    "jest"
+    "jest",
+    "eslint-plugin-tsdoc"
   ],
   "rules": {
-    "require-jsdoc": 0
+    "tsdoc/syntax": "warn"
   }
 }

@@ -12,6 +12,6 @@ import { When } from "./When";
  */
 export const similarTo = (
   similarText: string,
-  similarityThreshold: number = 0.8
+  similarityThreshold = 0.8
 ): When => (transcript: string) =>
   compareTwoStrings(similarText, transcript) >= similarityThreshold;

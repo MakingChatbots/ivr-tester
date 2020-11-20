@@ -1,19 +1,19 @@
 {
   "name": "ivr-tester-transcriber-amazon-transcribe",
   "version": "0.0.1",
-  "description": "Amazon transcribe integration for IVR Tester",
+  "description": "Amazon Transcribe integration for IVR Tester",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/SketchingDev/ivr-tester.git"
   },
-  "homepage": "https://github.com/SketchingDev/ivr-tester#ivr-tester",
+  "homepage": "https://github.com/SketchingDev/ivr-tester/tree/main/packages/transcriber-amazon-transcribe#amazon-transcribe",
   "keywords": [
     "ivr",
     "call flow",
     "test",
-    "amazon",
-    "transcribe"
+    "amazon transcribe",
+    "transcriber"
   ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -24,7 +24,9 @@
     "lint:prettier": "prettier --list-different '{src,__tests__}/**/*.ts' --write",
     "lint:eslint": "eslint 'src/**/*.ts'",
     "lint": "yarn lint:prettier && yarn lint:eslint",
-    "prepare": "yarn build"
+    "prepare": "yarn build",
+    "docs": "yarn typedoc",
+    "postbuild": "yarn docs"
   },
   "files": [
     "/dist"
@@ -39,15 +41,10 @@
     "@types/getenv": "^1.0.0",
     "@types/jest": "^26.0.14",
     "@types/node": "^14.6.4",
-    "@typescript-eslint/eslint-plugin": "^4.3.0",
-    "@typescript-eslint/parser": "^4.3.0",
-    "eslint": "^7.10.0",
-    "eslint-config-google": "^0.14.0",
-    "eslint-config-prettier": "^6.12.0",
-    "eslint-plugin-jest": "^24.0.2",
     "ivr-tester": "0.x",
     "jest": "^26.4.2",
     "jest-when": "^2.7.2",
+    "jsdoc-to-markdown": "^6.0.1",
     "prettier": "^2.1.2",
     "rimraf": "^3.0.2",
     "ts-jest": "^26.4.0",

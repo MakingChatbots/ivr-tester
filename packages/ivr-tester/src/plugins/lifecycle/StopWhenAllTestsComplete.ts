@@ -1,5 +1,4 @@
 import { LifecycleHookPlugin } from "./LifecycleHookPlugin";
-import { CallAssignedTestEvent } from "./TestEvents";
 import { Server } from "ws";
 import { CallHandlingServerStartedEvent } from "./SetupEvents";
 import { LifecycleEventEmitter } from "./LifecycleEventEmitter";
@@ -7,8 +6,8 @@ import { LifecycleEventEmitter } from "./LifecycleEventEmitter";
 export class StopWhenAllTestsComplete implements LifecycleHookPlugin {
   private static readonly PluginName = "StopWhenAllTestsComplete";
   private server: Server;
-  private totalTests: number = 0;
-  private testsCompleted: number = 0;
+  private totalTests = 0;
+  private testsCompleted = 0;
 
   name(): string {
     return StopWhenAllTestsComplete.PluginName;
@@ -30,7 +29,7 @@ export class StopWhenAllTestsComplete implements LifecycleHookPlugin {
     this.server = server;
   }
 
-  private callAssignedTest(event: CallAssignedTestEvent): void {
+  private callAssignedTest(): void {
     this.totalTests++;
   }
 

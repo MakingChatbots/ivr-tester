@@ -1,6 +1,8 @@
 import { Then } from "./Then";
 
 export const doNothing = (): Then => ({
-  do: () => {},
+  do: () => {
+    // Intentionally empty
+  },
   describe: () => "do nothing",
 });

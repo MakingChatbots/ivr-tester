@@ -3,8 +3,8 @@ import { SetupEvents } from "./SetupEvents";
 import { EventEmitter } from "events";
 import { Emitter } from "../Emitter";
 
-export interface SetupEventEmitter extends Emitter<SetupEvents & TestEvents> {}
-export interface TestEventEmitter extends Emitter<SetupEvents & TestEvents> {}
+export type SetupEventEmitter = Emitter<SetupEvents & TestEvents>;
+export type TestEventEmitter = Emitter<SetupEvents & TestEvents>;
 
 export interface LifecycleEventEmitter
   extends SetupEventEmitter,

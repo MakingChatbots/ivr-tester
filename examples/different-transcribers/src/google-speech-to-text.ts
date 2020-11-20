@@ -13,6 +13,7 @@ import {
 import path from "path";
 import { googleSpeechToText } from "ivr-tester-transcriber-google-speech-to-text";
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 require("dotenv").config();
 
 const call: TestSubject = {
@@ -37,10 +38,11 @@ const test: IvrTest = {
 };
 
 const config: Config = {
-  transcriber: googleSpeechToText(
-    ["will allow you to adjust call recording behaviour"],
-    true
-  ),
+  transcriber: googleSpeechToText({
+    languageCode: "en-GB",
+    speechPhrases: ["will allow you to adjust call recording behaviour"],
+    useEnhanced: true,
+  }),
   recording: {
     outputPath: path.join(__dirname, "../recordings"),
   },
