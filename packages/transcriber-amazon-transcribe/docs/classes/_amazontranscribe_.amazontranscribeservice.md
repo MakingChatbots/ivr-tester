@@ -60,7 +60,7 @@
 
 *Overrides void*
 
-*Defined in [packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts:10](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts#L10)*
+*Defined in [packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts:10](https://github.com/SketchingDev/ivr-tester/blob/f08915c/packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts#L10)*
 
 #### Parameters:
 
@@ -77,7 +77,7 @@ Name | Type |
 
 • `Private` `Readonly` **languageCode**: LANGUAGES
 
-*Defined in [packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts:14](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts#L14)*
+*Defined in [packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts:14](https://github.com/SketchingDev/ivr-tester/blob/f08915c/packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts#L14)*
 
 ___
 
@@ -85,7 +85,7 @@ ___
 
 • `Private` `Readonly` **region**: AVAILABLE\_REGIONS
 
-*Defined in [packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts:13](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts#L13)*
+*Defined in [packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts:13](https://github.com/SketchingDev/ivr-tester/blob/f08915c/packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts#L13)*
 
 ___
 
@@ -93,7 +93,7 @@ ___
 
 • `Private` **transcribeStream**: StreamingClient
 
-*Defined in [packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts:10](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts#L10)*
+*Defined in [packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts:10](https://github.com/SketchingDev/ivr-tester/blob/f08915c/packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts#L10)*
 
 ___
 
@@ -148,7 +148,7 @@ ___
 
 ▸ **close**(): void
 
-*Defined in [packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts:74](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts#L74)*
+*Defined in [packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts:74](https://github.com/SketchingDev/ivr-tester/blob/f08915c/packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts#L74)*
 
 **Returns:** void
 
@@ -158,7 +158,7 @@ ___
 
 ▸ `Private`**createStream**(): StreamingClient
 
-*Defined in [packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts:37](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts#L37)*
+*Defined in [packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts:37](https://github.com/SketchingDev/ivr-tester/blob/f08915c/packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts#L37)*
 
 **Returns:** StreamingClient
 
@@ -211,7 +211,7 @@ ___
 
 ▸ `Private`**getStream**(): StreamingClient
 
-*Defined in [packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts:28](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts#L28)*
+*Defined in [packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts:28](https://github.com/SketchingDev/ivr-tester/blob/f08915c/packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts#L28)*
 
 **Returns:** StreamingClient
 
@@ -425,7 +425,7 @@ ___
 
 ▸ **transcribe**(`payload`: Buffer): void
 
-*Defined in [packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts:79](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts#L79)*
+*Defined in [packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts:79](https://github.com/SketchingDev/ivr-tester/blob/f08915c/packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts#L79)*
 
 #### Parameters:
 
@@ -441,7 +441,7 @@ ___
 
 ▸ `Static` `Private`**convertAudioEncoding**(`data`: ArrayLike\<unknown>): Buffer
 
-*Defined in [packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts:19](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts#L19)*
+*Defined in [packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts:19](https://github.com/SketchingDev/ivr-tester/blob/f08915c/packages/transcriber-amazon-transcribe/src/AmazonTranscribe.ts#L19)*
 
 #### Parameters:
 

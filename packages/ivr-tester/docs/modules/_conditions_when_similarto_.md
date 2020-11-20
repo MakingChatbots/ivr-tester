@@ -16,7 +16,7 @@
 
 ▸ `Const`**similarTo**(`similarText`: string, `similarityThreshold?`: number): [When](_conditions_when_when_.md#when)
 
-*Defined in [packages/ivr-tester/src/conditions/when/similarTo.ts:13](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/ivr-tester/src/conditions/when/similarTo.ts#L13)*
+*Defined in [packages/ivr-tester/src/conditions/when/similarTo.ts:13](https://github.com/SketchingDev/ivr-tester/blob/f08915c/packages/ivr-tester/src/conditions/when/similarTo.ts#L13)*
 
 Compares two strings to determine if they're similar.
 See https://www.npmjs.com/package/string-similarity#api to read how similarity is calculated.

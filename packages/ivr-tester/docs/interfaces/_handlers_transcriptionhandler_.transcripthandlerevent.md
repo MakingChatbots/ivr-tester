@@ -20,4 +20,4 @@
 
 •  **transcription**: string
 
-*Defined in [packages/ivr-tester/src/handlers/TranscriptionHandler.ts:43](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/ivr-tester/src/handlers/TranscriptionHandler.ts#L43)*
+*Defined in [packages/ivr-tester/src/handlers/TranscriptionHandler.ts:43](https://github.com/SketchingDev/ivr-tester/blob/f08915c/packages/ivr-tester/src/handlers/TranscriptionHandler.ts#L43)*

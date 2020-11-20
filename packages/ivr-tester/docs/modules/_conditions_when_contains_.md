@@ -20,7 +20,7 @@
 
 ▸ `Const`**contains**(`partial`: string, `config?`: [containsConfig](../interfaces/_conditions_when_contains_.containsconfig.md)): [When](_conditions_when_when_.md#when)
 
-*Defined in [packages/ivr-tester/src/conditions/when/contains.ts:7](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/ivr-tester/src/conditions/when/contains.ts#L7)*
+*Defined in [packages/ivr-tester/src/conditions/when/contains.ts:7](https://github.com/SketchingDev/ivr-tester/blob/f08915c/packages/ivr-tester/src/conditions/when/contains.ts#L7)*
 
 #### Parameters:
 

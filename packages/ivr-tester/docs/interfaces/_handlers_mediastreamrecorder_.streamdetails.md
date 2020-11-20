@@ -21,7 +21,7 @@
 
 •  **phoneNumbers**: { from: string ; to: string  }
 
-*Defined in [packages/ivr-tester/src/handlers/MediaStreamRecorder.ts:14](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/ivr-tester/src/handlers/MediaStreamRecorder.ts#L14)*
+*Defined in [packages/ivr-tester/src/handlers/MediaStreamRecorder.ts:14](https://github.com/SketchingDev/ivr-tester/blob/f08915c/packages/ivr-tester/src/handlers/MediaStreamRecorder.ts#L14)*
 
 #### Type declaration:
 
@@ -36,4 +36,4 @@ ___
 
 •  **sid**: string
 
-*Defined in [packages/ivr-tester/src/handlers/MediaStreamRecorder.ts:13](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/ivr-tester/src/handlers/MediaStreamRecorder.ts#L13)*
+*Defined in [packages/ivr-tester/src/handlers/MediaStreamRecorder.ts:13](https://github.com/SketchingDev/ivr-tester/blob/f08915c/packages/ivr-tester/src/handlers/MediaStreamRecorder.ts#L13)*

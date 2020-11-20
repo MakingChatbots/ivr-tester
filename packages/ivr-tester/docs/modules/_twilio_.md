@@ -25,7 +25,7 @@
 
 ▪ `Const` **callParameterSerializer**: object
 
-*Defined in [packages/ivr-tester/src/twilio.ts:23](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/ivr-tester/src/twilio.ts#L23)*
+*Defined in [packages/ivr-tester/src/twilio.ts:23](https://github.com/SketchingDev/ivr-tester/blob/f08915c/packages/ivr-tester/src/twilio.ts#L23)*
 
 #### Properties:
 

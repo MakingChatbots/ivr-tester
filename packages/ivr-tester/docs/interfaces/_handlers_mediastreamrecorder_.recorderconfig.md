@@ -21,7 +21,7 @@
 
 • `Optional` **filename**: string \| (stream: [StreamDetails](_handlers_mediastreamrecorder_.streamdetails.md), test: [IvrTest](_handlers_testhandler_.ivrtest.md)) => string
 
-*Defined in [packages/ivr-tester/src/handlers/MediaStreamRecorder.ts:19](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/ivr-tester/src/handlers/MediaStreamRecorder.ts#L19)*
+*Defined in [packages/ivr-tester/src/handlers/MediaStreamRecorder.ts:19](https://github.com/SketchingDev/ivr-tester/blob/f08915c/packages/ivr-tester/src/handlers/MediaStreamRecorder.ts#L19)*
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 •  **outputPath**: string
 
-*Defined in [packages/ivr-tester/src/handlers/MediaStreamRecorder.ts:18](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/ivr-tester/src/handlers/MediaStreamRecorder.ts#L18)*
+*Defined in [packages/ivr-tester/src/handlers/MediaStreamRecorder.ts:18](https://github.com/SketchingDev/ivr-tester/blob/f08915c/packages/ivr-tester/src/handlers/MediaStreamRecorder.ts#L18)*
