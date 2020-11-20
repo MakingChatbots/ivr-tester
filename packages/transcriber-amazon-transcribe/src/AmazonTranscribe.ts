@@ -16,10 +16,11 @@ export class AmazonTranscribeService
     super();
   }
 
-  private static convertAudioEncoding(data: ArrayLike<any>) {
+  private static convertAudioEncoding(data: ArrayLike<unknown>) {
     const wav = new WaveFile();
     wav.fromScratch(1, 8000, "8m", data);
     wav.fromMuLaw();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return Buffer.from(wav.data.samples);
   }

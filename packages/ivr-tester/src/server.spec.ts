@@ -18,7 +18,7 @@ import {
   TranscriptEvent,
 } from "./plugins/transcription/TranscriberPlugin";
 
-export const waitForConnection = async (ws: ws) =>
+export const waitForConnection = async (ws: ws): Promise<void> =>
   new Promise((resolve) => ws.on("open", resolve));
 
 export const createMockDtmfGenerator = (): jest.Mocked<
@@ -26,8 +26,12 @@ export const createMockDtmfGenerator = (): jest.Mocked<
 > => ({ generate: jest.fn() });
 
 class TranscriberTestDouble extends EventEmitter implements TranscriberPlugin {
-  public close(): void {}
-  public transcribe(payload: any): void {}
+  public close(): void {
+    // Intentionally empty
+  }
+  public transcribe(): void {
+    // Intentionally empty
+  }
 
   public produceTranscriptionEvent(transcription: string) {
     const event: TranscriptEvent = { transcription, isFinal: true };

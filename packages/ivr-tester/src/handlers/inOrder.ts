@@ -9,7 +9,7 @@ export interface Call {
 export const inOrder: (
   conditions: ReadonlyArray<TranscriptCondition>
 ) => TestContainer = (conditions) => {
-  let nextConditionIndex: number = 0;
+  let nextConditionIndex = 0;
 
   const clonedConditions = Array.isArray(conditions) ? [...conditions] : [];
 

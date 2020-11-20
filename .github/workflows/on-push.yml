@@ -16,18 +16,6 @@ jobs:
         env:
           CI: true
 
-  docs:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - name: Setup Node
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12.x
-      - run: yarn
-      - run: yarn build
-      - run: yarn docs:verify
-
   test:
     runs-on: ubuntu-latest
     timeout-minutes: 30

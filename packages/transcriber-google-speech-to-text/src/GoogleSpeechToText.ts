@@ -47,11 +47,11 @@ export class GoogleSpeechToText
     );
   }
 
-  public transcribe(payload: Buffer) {
+  public transcribe(payload: Buffer): void {
     this.getStream().write(payload.toString("base64"));
   }
 
-  public close() {
+  public close(): void {
     if (this.stream) {
       this.stream.destroy();
     }
@@ -68,7 +68,7 @@ export class GoogleSpeechToText
     }
   }
 
-  public getStream() {
+  public getStream(): internal.Writable {
     if (this.newStreamRequired()) {
       if (this.stream) {
         this.stream.destroy();

@@ -2,50 +2,47 @@ import { SpeechClient } from "@google-cloud/speech";
 import { TranscriberFactory } from "ivr-tester";
 import { GoogleSpeechToText } from "./GoogleSpeechToText";
 
+/**
+ * Options used when starting a transcription stream to Google's Speech-to-Text service. See [Google's documentation
+ * for more detailed info](https://cloud.google.com/speech-to-text/docs/reference/rest/v1/RecognitionConfig)
+ */
 export interface GoogleSpeechToTextOptions {
+  /**
+   * Language of the supplied audio as a BCP-47 language tag.
+   *
+   * See [Language Support](https://cloud.google.com/speech-to-text/docs/languages) for a list of the
+   * currently supported language codes.
+   */
   languageCode?: string;
+  /**
+   * A list of strings containing words and phrases "hints" so that the speech recognition is more likely to recognize
+   * them. This can be used to improve the accuracy for specific words and phrases.
+   */
   speechPhrases?: string[];
+
+  /**
+   * Whether to use an enhanced model for speech recognition if it is available for the language code provided.
+   *
+   * Be aware that [enhanced models cost more](https://cloud.google.com/speech-to-text/docs/enhanced-models).
+   */
   useEnhanced?: boolean;
 }
-
-const defaults: GoogleSpeechToTextOptions = {
-  languageCode: "en-US",
-  speechPhrases: [],
-  useEnhanced: false,
-};
 
 /**
  * Factory for creating a Google Speech-to-Text transcriber plugin that is preconfigured for
  * phone-calls - specifically 8-bit PCM mono uLaw with a sampling rate of 8Khz.
- *
- * @param {Object} [options] - The configuration object. See the subsequent
- *   parameters for more details.
- * @param {string} [options.languageCode=en-US] - Language of the supplied audio as a BCP-47 language tag.
- *        See [Language Support]{@link https://cloud.google.com/speech-to-text/docs/languages} for a list of the
- *        currently supported language codes.
- * @param {string[]} [options.speechPhrases=[]] - A list of strings containing words and phrases "hints" so that the
- *        speech recognition is more likely to recognize them. This can be used to improve the accuracy for specific
- *        words and phrases.
- * @param {boolean} [options.useEnhanced=false] - Set to true to use an enhanced model for speech recognition if it
- *        available for the language code provided. Be aware that
- *        [enhanced models]{@link https://cloud.google.com/speech-to-text/docs/enhanced-models} are more expensive.
- * @param {SpeechClient} [speechClient=SpeechClient] {@link https://googleapis.dev/nodejs/speech/latest/v1.SpeechClient.html|SpeechClient} service that implements Google Cloud Speech API
- * @return {object} Factory for creating a Google Speech-to-Text transcriber
- * @see {@link https://cloud.google.com/speech-to-text/docs/reference/rest/v1/RecognitionConfig|Google Speech-to-Text's config documentation}
  */
 export const googleSpeechToText = (
-  options?: GoogleSpeechToTextOptions,
+  {
+    languageCode = "en-US",
+    speechPhrases = [],
+    useEnhanced = false,
+  }: GoogleSpeechToTextOptions,
   speechClient = new SpeechClient()
-): TranscriberFactory => () => {
-  const ops = {
-    ...defaults,
-    ...(options || {}),
-  };
-
-  return new GoogleSpeechToText(
-    ops.languageCode,
-    ops.speechPhrases,
-    ops.useEnhanced,
+): TranscriberFactory => () =>
+  new GoogleSpeechToText(
+    languageCode,
+    speechPhrases,
+    useEnhanced,
     speechClient
   );
-};

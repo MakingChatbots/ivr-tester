@@ -9,7 +9,7 @@ export class PluginManager {
     private readonly lifecycleEventEmitter = createLifecycleEventEmitter()
   ) {}
 
-  public loadPlugins(plugins: LifecycleHookPlugin[]) {
+  public loadPlugins(plugins: LifecycleHookPlugin[]): void {
     for (const plugin of plugins) {
       plugin.initialise(this.lifecycleEventEmitter);
     }

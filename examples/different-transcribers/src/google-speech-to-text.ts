@@ -13,6 +13,7 @@ import {
 import path from "path";
 import { googleSpeechToText } from "ivr-tester-transcriber-google-speech-to-text";
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 require("dotenv").config();
 
 const call: TestSubject = {

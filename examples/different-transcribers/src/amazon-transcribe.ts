@@ -13,6 +13,7 @@ import {
 import path from "path";
 import { amazonTranscribe } from "ivr-tester-transcriber-amazon-transcribe";
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 require("dotenv").config();
 
 const call: TestSubject = {
