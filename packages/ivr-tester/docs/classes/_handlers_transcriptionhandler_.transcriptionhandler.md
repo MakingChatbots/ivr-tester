@@ -55,7 +55,7 @@
 
 *Overrides void*
 
-*Defined in [packages/ivr-tester/src/handlers/TranscriptionHandler.ts:48](https://github.com/SketchingDev/ivr-tester/blob/cbdfab7/packages/ivr-tester/src/handlers/TranscriptionHandler.ts#L48)*
+*Defined in [packages/ivr-tester/src/handlers/TranscriptionHandler.ts:48](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/ivr-tester/src/handlers/TranscriptionHandler.ts#L48)*
 
 #### Parameters:
 
@@ -72,7 +72,7 @@ Name | Type |
 
 • `Private` `Readonly` **connection**: ws
 
-*Defined in [packages/ivr-tester/src/handlers/TranscriptionHandler.ts:51](https://github.com/SketchingDev/ivr-tester/blob/cbdfab7/packages/ivr-tester/src/handlers/TranscriptionHandler.ts#L51)*
+*Defined in [packages/ivr-tester/src/handlers/TranscriptionHandler.ts:51](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/ivr-tester/src/handlers/TranscriptionHandler.ts#L51)*
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 • `Private` `Readonly` **transcriber**: [TranscriberPlugin](../interfaces/_plugins_transcription_transcriberplugin_.transcriberplugin.md)
 
-*Defined in [packages/ivr-tester/src/handlers/TranscriptionHandler.ts:52](https://github.com/SketchingDev/ivr-tester/blob/cbdfab7/packages/ivr-tester/src/handlers/TranscriptionHandler.ts#L52)*
+*Defined in [packages/ivr-tester/src/handlers/TranscriptionHandler.ts:52](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/ivr-tester/src/handlers/TranscriptionHandler.ts#L52)*
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 ▪ `Static` `Private` `Readonly` **FOUR\_SECONDS\_IN\_MS**: number = 4 * 1000
 
-*Defined in [packages/ivr-tester/src/handlers/TranscriptionHandler.ts:48](https://github.com/SketchingDev/ivr-tester/blob/cbdfab7/packages/ivr-tester/src/handlers/TranscriptionHandler.ts#L48)*
+*Defined in [packages/ivr-tester/src/handlers/TranscriptionHandler.ts:48](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/ivr-tester/src/handlers/TranscriptionHandler.ts#L48)*
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 ▪ `Static` `Private` `Readonly` **TRANSCRIPTION\_EVENT**: \"transcription\" = "transcription"
 
-*Defined in [packages/ivr-tester/src/handlers/TranscriptionHandler.ts:47](https://github.com/SketchingDev/ivr-tester/blob/cbdfab7/packages/ivr-tester/src/handlers/TranscriptionHandler.ts#L47)*
+*Defined in [packages/ivr-tester/src/handlers/TranscriptionHandler.ts:47](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/ivr-tester/src/handlers/TranscriptionHandler.ts#L47)*
 
 ___
 
@@ -151,7 +151,7 @@ ___
 
 ▸ `Private`**close**(): void
 
-*Defined in [packages/ivr-tester/src/handlers/TranscriptionHandler.ts:83](https://github.com/SketchingDev/ivr-tester/blob/cbdfab7/packages/ivr-tester/src/handlers/TranscriptionHandler.ts#L83)*
+*Defined in [packages/ivr-tester/src/handlers/TranscriptionHandler.ts:83](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/ivr-tester/src/handlers/TranscriptionHandler.ts#L83)*
 
 **Returns:** void
 
@@ -335,7 +335,7 @@ ___
 
 ▸ `Private`**processMessage**(`message`: string): void
 
-*Defined in [packages/ivr-tester/src/handlers/TranscriptionHandler.ts:71](https://github.com/SketchingDev/ivr-tester/blob/cbdfab7/packages/ivr-tester/src/handlers/TranscriptionHandler.ts#L71)*
+*Defined in [packages/ivr-tester/src/handlers/TranscriptionHandler.ts:71](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/ivr-tester/src/handlers/TranscriptionHandler.ts#L71)*
 
 #### Parameters:
 
@@ -351,7 +351,7 @@ ___
 
 ▸ `Private`**processTranscript**(`transcription`: string): void
 
-*Defined in [packages/ivr-tester/src/handlers/TranscriptionHandler.ts:66](https://github.com/SketchingDev/ivr-tester/blob/cbdfab7/packages/ivr-tester/src/handlers/TranscriptionHandler.ts#L66)*
+*Defined in [packages/ivr-tester/src/handlers/TranscriptionHandler.ts:66](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/ivr-tester/src/handlers/TranscriptionHandler.ts#L66)*
 
 #### Parameters:
 

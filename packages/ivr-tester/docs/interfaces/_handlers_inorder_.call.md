@@ -25,7 +25,7 @@
 
 ▸ **sendDtmfTone**(`dtmfSequence`: string): void
 
-*Defined in [packages/ivr-tester/src/handlers/inOrder.ts:5](https://github.com/SketchingDev/ivr-tester/blob/cbdfab7/packages/ivr-tester/src/handlers/inOrder.ts#L5)*
+*Defined in [packages/ivr-tester/src/handlers/inOrder.ts:5](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/ivr-tester/src/handlers/inOrder.ts#L5)*
 
 #### Parameters:
 
@@ -41,7 +41,7 @@ ___
 
 ▸ **sendMedia**(`buffer`: Buffer): void
 
-*Defined in [packages/ivr-tester/src/handlers/inOrder.ts:6](https://github.com/SketchingDev/ivr-tester/blob/cbdfab7/packages/ivr-tester/src/handlers/inOrder.ts#L6)*
+*Defined in [packages/ivr-tester/src/handlers/inOrder.ts:6](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/ivr-tester/src/handlers/inOrder.ts#L6)*
 
 #### Parameters:
 

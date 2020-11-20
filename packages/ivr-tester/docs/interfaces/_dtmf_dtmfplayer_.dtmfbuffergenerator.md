@@ -26,7 +26,7 @@ Generator of DTMF sequences
 
 ▸ **generate**(`digits`: string): Buffer
 
-*Defined in [packages/ivr-tester/src/dtmf/DtmfPlayer.ts:8](https://github.com/SketchingDev/ivr-tester/blob/cbdfab7/packages/ivr-tester/src/dtmf/DtmfPlayer.ts#L8)*
+*Defined in [packages/ivr-tester/src/dtmf/DtmfPlayer.ts:8](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/ivr-tester/src/dtmf/DtmfPlayer.ts#L8)*
 
 #### Parameters:
 

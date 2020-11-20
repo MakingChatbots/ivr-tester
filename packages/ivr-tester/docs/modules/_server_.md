@@ -22,7 +22,7 @@
 
 ▸ `Const`**formatServerUrl**(`server`: [CallHandlingServer](../interfaces/_server_.callhandlingserver.md)): URL
 
-*Defined in [packages/ivr-tester/src/server.ts:20](https://github.com/SketchingDev/ivr-tester/blob/cbdfab7/packages/ivr-tester/src/server.ts#L20)*
+*Defined in [packages/ivr-tester/src/server.ts:20](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/ivr-tester/src/server.ts#L20)*
 
 #### Parameters:
 
@@ -38,7 +38,7 @@ ___
 
 ▸ `Const`**startServerListening**(`config`: [ServerConfig](../interfaces/_server_.serverconfig.md), `ivrTest`: [IvrTest](../interfaces/_handlers_testhandler_.ivrtest.md)[], `testEventEmitter`: [TestEventEmitter](_plugins_lifecycle_lifecycleeventemitter_.md#testeventemitter)): Promise\<[CallHandlingServer](../interfaces/_server_.callhandlingserver.md)>
 
-*Defined in [packages/ivr-tester/src/server.ts:81](https://github.com/SketchingDev/ivr-tester/blob/cbdfab7/packages/ivr-tester/src/server.ts#L81)*
+*Defined in [packages/ivr-tester/src/server.ts:81](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/ivr-tester/src/server.ts#L81)*
 
 #### Parameters:
 

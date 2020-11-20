@@ -22,7 +22,7 @@
 
 •  **call**: [Call](_twilio_.call.md)
 
-*Defined in [packages/ivr-tester/src/plugins/lifecycle/SetupEvents.ts:5](https://github.com/SketchingDev/ivr-tester/blob/cbdfab7/packages/ivr-tester/src/plugins/lifecycle/SetupEvents.ts#L5)*
+*Defined in [packages/ivr-tester/src/plugins/lifecycle/SetupEvents.ts:5](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/ivr-tester/src/plugins/lifecycle/SetupEvents.ts#L5)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 •  **current**: number
 
-*Defined in [packages/ivr-tester/src/plugins/lifecycle/SetupEvents.ts:7](https://github.com/SketchingDev/ivr-tester/blob/cbdfab7/packages/ivr-tester/src/plugins/lifecycle/SetupEvents.ts#L7)*
+*Defined in [packages/ivr-tester/src/plugins/lifecycle/SetupEvents.ts:7](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/ivr-tester/src/plugins/lifecycle/SetupEvents.ts#L7)*
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 •  **total**: number
 
-*Defined in [packages/ivr-tester/src/plugins/lifecycle/SetupEvents.ts:6](https://github.com/SketchingDev/ivr-tester/blob/cbdfab7/packages/ivr-tester/src/plugins/lifecycle/SetupEvents.ts#L6)*
+*Defined in [packages/ivr-tester/src/plugins/lifecycle/SetupEvents.ts:6](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/ivr-tester/src/plugins/lifecycle/SetupEvents.ts#L6)*

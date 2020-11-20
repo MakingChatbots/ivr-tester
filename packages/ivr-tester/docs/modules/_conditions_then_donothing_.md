@@ -16,6 +16,6 @@
 
 ▸ `Const`**doNothing**(): [Then](../interfaces/_conditions_then_then_.then.md)
 
-*Defined in [packages/ivr-tester/src/conditions/then/doNothing.ts:3](https://github.com/SketchingDev/ivr-tester/blob/cbdfab7/packages/ivr-tester/src/conditions/then/doNothing.ts#L3)*
+*Defined in [packages/ivr-tester/src/conditions/then/doNothing.ts:3](https://github.com/SketchingDev/ivr-tester/blob/a93dd5f/packages/ivr-tester/src/conditions/then/doNothing.ts#L3)*
 
 **Returns:** [Then](../interfaces/_conditions_then_then_.then.md)
