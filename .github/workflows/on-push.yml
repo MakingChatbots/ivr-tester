@@ -38,8 +38,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
-        - run: yarn
-        - run: yarn build
+      - run: yarn
+      - run: yarn build
       - name: Update documentation
         uses: EndBug/add-and-commit@v5
         with:
