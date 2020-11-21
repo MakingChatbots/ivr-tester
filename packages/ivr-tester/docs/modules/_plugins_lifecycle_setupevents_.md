@@ -23,7 +23,7 @@
 
 Ƭ  **SetupEvents**: { callHandlingServerErrored: [CallHandlingServerErroredEvent](../interfaces/_plugins_lifecycle_setupevents_.callhandlingservererroredevent.md) ; callHandlingServerStarted: [CallHandlingServerStartedEvent](../interfaces/_plugins_lifecycle_setupevents_.callhandlingserverstartedevent.md) ; callHandlingServerStopped: undefined ; callRequestErrored: [CallRequestErroredEvent](../interfaces/_plugins_lifecycle_setupevents_.callrequesterroredevent.md) ; callRequested: [CallRequestedEvent](../interfaces/_plugins_lifecycle_setupevents_.callrequestedevent.md)  }
 
-*Defined in [packages/ivr-tester/src/plugins/lifecycle/SetupEvents.ts:26](https://github.com/SketchingDev/ivr-tester/blob/e6cabf9/packages/ivr-tester/src/plugins/lifecycle/SetupEvents.ts#L26)*
+*Defined in [packages/ivr-tester/src/plugins/lifecycle/SetupEvents.ts:26](https://github.com/SketchingDev/ivr-tester/blob/7751f4b/packages/ivr-tester/src/plugins/lifecycle/SetupEvents.ts#L26)*
 
 Lifecycle events of setting up a test
 

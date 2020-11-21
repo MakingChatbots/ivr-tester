@@ -1,6 +1,5 @@
 /**
  * Generator of DTMF sequences
- * @internal
  */
 export interface DtmfBufferGenerator {
   /**
