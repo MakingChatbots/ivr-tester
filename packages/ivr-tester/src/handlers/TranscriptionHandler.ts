@@ -49,7 +49,7 @@ export interface TranscriptHandlerEvent {
 export class TranscriptionHandler extends EventEmitter {
 
   public static readonly TRANSCRIPTION_EVENT = "transcription";
-  private static readonly FOUR_SECONDS_IN_MS = 4 * 1000;
+  private static readonly FOUR_SECONDS_IN_MS = 5 * 1000;
 
   constructor(
     private readonly connection: ws,

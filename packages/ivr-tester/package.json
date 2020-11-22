@@ -15,7 +15,7 @@
     "test": "jest src",
     "clean": "rimraf dist/",
     "build": "yarn clean && tsc --declaration",
-    "postbuild": "yarn copy:dtmf-tones && yarn docs",
+    "postbuild": "yarn copy:dtmf-tones",
     "lint:prettier": "prettier --list-different 'src/**/*.ts' --write",
     "lint:eslint": "eslint 'src/**/*.ts'",
     "lint": "yarn lint:prettier && yarn lint:eslint",

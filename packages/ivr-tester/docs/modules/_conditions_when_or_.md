@@ -16,7 +16,7 @@
 
 ▸ `Const`**or**(...`whens`: [When](_conditions_when_when_.md#when)[]): [When](_conditions_when_when_.md#when)
 
-*Defined in [packages/ivr-tester/src/conditions/when/or.ts:3](https://github.com/SketchingDev/ivr-tester/blob/7751f4b/packages/ivr-tester/src/conditions/when/or.ts#L3)*
+*Defined in [packages/ivr-tester/src/conditions/when/or.ts:3](https://github.com/SketchingDev/ivr-tester/blob/adf22c5/packages/ivr-tester/src/conditions/when/or.ts#L3)*
 
 #### Parameters:
 

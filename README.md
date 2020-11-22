@@ -141,6 +141,22 @@ Instead of say `contains` which would hide the fact a question is being asked to
 }
 ```
 
+## Development
+
+### Documentation
+
+Where possible the documentation is generated from the code using the following script in the root directory or
+individual packages:
+
+```shell
+yarn docs
+```
+
+Documentation is automatically built and committed as part of the CI pipeline when merged to the main branch.
+
+Previously coupled to the `postbuild` script it has since been decoupled since the documentation changes everytime there
+ is a new commit (typedoc references commit hashes when linking to code) which drowned out the real changes.
 
 ## License
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSketchingDev%2Fivr-tester.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FSketchingDev%2Fivr-tester?ref=badge_large)
+

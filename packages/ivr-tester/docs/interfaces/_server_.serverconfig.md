@@ -23,9 +23,9 @@
 
 ### dtmfGenerator
 
-• `Optional` **dtmfGenerator**: DtmfBufferGenerator
+• `Optional` **dtmfGenerator**: [DtmfBufferGenerator](_dtmf_dtmfplayer_.dtmfbuffergenerator.md)
 
-*Defined in [packages/ivr-tester/src/server.ts:35](https://github.com/SketchingDev/ivr-tester/blob/7751f4b/packages/ivr-tester/src/server.ts#L35)*
+*Defined in [packages/ivr-tester/src/server.ts:35](https://github.com/SketchingDev/ivr-tester/blob/adf22c5/packages/ivr-tester/src/server.ts#L35)*
 
 ___
 
@@ -33,7 +33,7 @@ ___
 
 • `Optional` **localServerPort**: number \| undefined
 
-*Defined in [packages/ivr-tester/src/server.ts:46](https://github.com/SketchingDev/ivr-tester/blob/7751f4b/packages/ivr-tester/src/server.ts#L46)*
+*Defined in [packages/ivr-tester/src/server.ts:46](https://github.com/SketchingDev/ivr-tester/blob/adf22c5/packages/ivr-tester/src/server.ts#L46)*
 
 Port that server is to listen on.
 This value can be overridden by setting the environment variable LOCAL_SERVER_PORT
@@ -44,7 +44,7 @@ ___
 
 • `Optional` **recording**: { filename?: string \| (stream: StreamDetails) => string ; outputPath: string  }
 
-*Defined in [packages/ivr-tester/src/server.ts:37](https://github.com/SketchingDev/ivr-tester/blob/7751f4b/packages/ivr-tester/src/server.ts#L37)*
+*Defined in [packages/ivr-tester/src/server.ts:37](https://github.com/SketchingDev/ivr-tester/blob/adf22c5/packages/ivr-tester/src/server.ts#L37)*
 
 #### Type declaration:
 
@@ -59,4 +59,4 @@ ___
 
 •  **transcriber**: [TranscriberFactory](../modules/_plugins_transcription_transcriberfactory_.md#transcriberfactory)
 
-*Defined in [packages/ivr-tester/src/server.ts:36](https://github.com/SketchingDev/ivr-tester/blob/7751f4b/packages/ivr-tester/src/server.ts#L36)*
+*Defined in [packages/ivr-tester/src/server.ts:36](https://github.com/SketchingDev/ivr-tester/blob/adf22c5/packages/ivr-tester/src/server.ts#L36)*
