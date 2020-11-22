@@ -43,9 +43,7 @@ export interface TranscriptHandlerEvent {
   transcription: string;
 }
 
-/**
- * @internal
- **/
+/** @internal */
 export class TranscriptionHandler extends EventEmitter {
 
   public static readonly TRANSCRIPTION_EVENT = "transcription";
