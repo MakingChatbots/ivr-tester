@@ -3,6 +3,7 @@ import ws from "ws";
 import { DtmfBufferGenerator } from "../dtmf/DtmfPlayer";
 import { TwilioConnectionEvents } from "../twilio";
 
+/** @internal */
 export enum WebSocketEvents {
   // eslint-disable-next-line no-unused-vars
   Message = "message",
@@ -10,6 +11,7 @@ export enum WebSocketEvents {
   Close = "close",
 }
 
+/** @internal */
 export class TwilioCall implements Call {
   private readonly processMessageReference: (message: string) => void;
 

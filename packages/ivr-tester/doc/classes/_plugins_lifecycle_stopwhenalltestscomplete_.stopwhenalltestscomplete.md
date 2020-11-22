@@ -35,7 +35,7 @@
 
 • `Private` **server**: Server
 
-*Defined in [packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts:8](https://github.com/SketchingDev/ivr-tester/blob/1691bd9/packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts#L8)*
+*Defined in [packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts:8](https://github.com/SketchingDev/ivr-tester/blob/19f91d1/packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts#L8)*
 
 ___
 
@@ -43,7 +43,7 @@ ___
 
 • `Private` **testsCompleted**: number = 0
 
-*Defined in [packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts:10](https://github.com/SketchingDev/ivr-tester/blob/1691bd9/packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts#L10)*
+*Defined in [packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts:10](https://github.com/SketchingDev/ivr-tester/blob/19f91d1/packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts#L10)*
 
 ___
 
@@ -51,7 +51,7 @@ ___
 
 • `Private` **totalTests**: number = 0
 
-*Defined in [packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts:9](https://github.com/SketchingDev/ivr-tester/blob/1691bd9/packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts#L9)*
+*Defined in [packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts:9](https://github.com/SketchingDev/ivr-tester/blob/19f91d1/packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts#L9)*
 
 ___
 
@@ -59,7 +59,7 @@ ___
 
 ▪ `Static` `Private` `Readonly` **PluginName**: \"StopWhenAllTestsComplete\" = "StopWhenAllTestsComplete"
 
-*Defined in [packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts:7](https://github.com/SketchingDev/ivr-tester/blob/1691bd9/packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts#L7)*
+*Defined in [packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts:7](https://github.com/SketchingDev/ivr-tester/blob/19f91d1/packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts#L7)*
 
 ## Methods
 
@@ -67,7 +67,7 @@ ___
 
 ▸ `Private`**callAssignedTest**(): void
 
-*Defined in [packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts:32](https://github.com/SketchingDev/ivr-tester/blob/1691bd9/packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts#L32)*
+*Defined in [packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts:32](https://github.com/SketchingDev/ivr-tester/blob/19f91d1/packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts#L32)*
 
 **Returns:** void
 
@@ -77,7 +77,7 @@ ___
 
 ▸ `Private`**callHandlingServerStarted**(`__namedParameters`: { server: Server  }): void
 
-*Defined in [packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts:26](https://github.com/SketchingDev/ivr-tester/blob/1691bd9/packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts#L26)*
+*Defined in [packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts:26](https://github.com/SketchingDev/ivr-tester/blob/19f91d1/packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts#L26)*
 
 #### Parameters:
 
@@ -95,7 +95,7 @@ ___
 
 *Implementation of [LifecycleHookPlugin](../interfaces/_plugins_lifecycle_lifecyclehookplugin_.lifecyclehookplugin.md)*
 
-*Defined in [packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts:16](https://github.com/SketchingDev/ivr-tester/blob/1691bd9/packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts#L16)*
+*Defined in [packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts:16](https://github.com/SketchingDev/ivr-tester/blob/19f91d1/packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts#L16)*
 
 #### Parameters:
 
@@ -113,7 +113,7 @@ ___
 
 *Implementation of [LifecycleHookPlugin](../interfaces/_plugins_lifecycle_lifecyclehookplugin_.lifecyclehookplugin.md)*
 
-*Defined in [packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts:12](https://github.com/SketchingDev/ivr-tester/blob/1691bd9/packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts#L12)*
+*Defined in [packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts:12](https://github.com/SketchingDev/ivr-tester/blob/19f91d1/packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts#L12)*
 
 **Returns:** string
 
@@ -123,6 +123,6 @@ ___
 
 ▸ `Private`**testCompleted**(): void
 
-*Defined in [packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts:36](https://github.com/SketchingDev/ivr-tester/blob/1691bd9/packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts#L36)*
+*Defined in [packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts:36](https://github.com/SketchingDev/ivr-tester/blob/19f91d1/packages/ivr-tester/src/plugins/lifecycle/StopWhenAllTestsComplete.ts#L36)*
 
 **Returns:** void
