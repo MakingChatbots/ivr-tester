@@ -1,4 +1,7 @@
 {
   "extends": "../../typedoc.json",
-  "name": "Amazon Transcribe Transcriber"
+  "name": "Amazon Transcribe Transcriber",
+  "exclude": [
+    "**/*+(.spec|.test).ts"
+  ]
 }

@@ -33,7 +33,7 @@ export GOOGLE_APPLICATION_CREDENTIALS=/path/to/key.json
 
 ### Usage
 
-See the [API documentation](./docs/api.md) for details of each parameter.
+See the [API's documentation](./docs/modules/_index_.md) for details of each parameter.
 
 ```typescript
 import { googleSpeechToText } from "ivr-tester-transcriber-google-speech-to-text";
