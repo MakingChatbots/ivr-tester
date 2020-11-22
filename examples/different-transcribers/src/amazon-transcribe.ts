@@ -2,7 +2,6 @@ import {
   Config,
   contains,
   doNothing,
-  hasPart,
   inOrder,
   IvrTest,
   press,
@@ -31,14 +30,14 @@ const test: IvrTest = {
       then: press("4"),
     },
     {
-      whenTranscript: hasPart(similarTo("thanks for calling")),
+      whenTranscript: contains(similarTo("thanks for calling")),
       then: doNothing(),
     },
   ]),
 };
 
 const config: Config = {
-  transcriber: amazonTranscribe("us-east-1", "en-GB"),
+  transcriber: amazonTranscribe({region:"us-east-1", languageCode: "en-GB"}),
   recording: {
     outputPath: path.join(__dirname, "../recordings"),
   },

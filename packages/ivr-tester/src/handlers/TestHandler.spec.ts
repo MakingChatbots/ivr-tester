@@ -1,13 +1,13 @@
 import { IvrTest, TestHandler } from "./TestHandler";
 import { EventEmitter } from "events";
 import ws from "ws";
-import { DtmfBufferGenerator } from "../dtmf/DtmfPlayer";
+import { DtmfBufferGenerator } from "../call/dtmf/DtmfBufferGenerator";
 import { when } from "jest-when";
 import { inOrder } from "./inOrder";
-import { TwilioCall } from "./TwilioCall";
-import { contains } from "../conditions/when/contains";
-import { press } from "../conditions/then/press";
-import { doNothing } from "../conditions/then/doNothing";
+import { TwilioCall } from "../call/TwilioCall";
+import { contains } from "../testing/conditions/when";
+import { press } from "../testing/conditions/then";
+import { doNothing } from "../testing/conditions/then";
 
 class WsTestDouble extends EventEmitter implements Pick<ws, "send"> {
   constructor(

@@ -18,15 +18,15 @@
 
 ### contains
 
-▸ `Const`**contains**(`partial`: string, `config?`: [containsConfig](../interfaces/_conditions_when_contains_.containsconfig.md)): [When](_conditions_when_when_.md#when)
+▸ `Const`**contains**(`partial`: string, `__namedParameters?`: { ignoreCasing: boolean = true }): [When](_conditions_when_when_.md#when)
 
-*Defined in [packages/ivr-tester/src/conditions/when/contains.ts:7](https://github.com/SketchingDev/ivr-tester/blob/19f91d1/packages/ivr-tester/src/conditions/when/contains.ts#L7)*
+*Defined in [packages/ivr-tester/src/conditions/when/contains.ts:7](https://github.com/SketchingDev/ivr-tester/blob/f35425d/packages/ivr-tester/src/conditions/when/contains.ts#L7)*
 
 #### Parameters:
 
 Name | Type | Default value |
 ------ | ------ | ------ |
 `partial` | string | - |
-`config` | [containsConfig](../interfaces/_conditions_when_contains_.containsconfig.md) | { ignoreCasing: true } |
+`__namedParameters` | { ignoreCasing: boolean = true } | {} |
 
 **Returns:** [When](_conditions_when_when_.md#when)

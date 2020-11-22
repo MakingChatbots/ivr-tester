@@ -1,132 +1,175 @@
-import { Config } from "./Config";
+import { Config } from "./configuration/Config";
 import { testRunner } from "./testRunner";
-import { createMockDtmfGenerator, createMockTranscriber } from "./server.spec";
-import { IvrTest, TestSubject } from "./handlers/TestHandler";
+import { TestSubject } from "./handlers/TestHandler";
 import { inOrder } from "./handlers/inOrder";
 import getPort from "get-port";
 import { Twilio } from "twilio";
+import {
+  TranscriberPlugin,
+  TranscriptEvent,
+} from "./call/transcription/plugin/TranscriberPlugin";
+import { EventEmitter } from "events";
+import WebSocket from "ws";
+import waitForExpect from "wait-for-expect";
+
+const waitForConnection = async (ws: WebSocket): Promise<void> =>
+  new Promise((resolve) => ws.on("open", resolve));
+
+const TwilioPacketGenerator = {
+  sendMedia: (ws: WebSocket, data: Buffer) => {
+    const payload = {
+      event: "media",
+      media: {
+        payload: data.toString("base64"),
+      },
+    };
+
+    ws.send(JSON.stringify(payload));
+  },
+};
+
+class TranscriberTestDouble extends EventEmitter implements TranscriberPlugin {
+  public close(): void {
+    //Intentionally empty
+  }
+  public transcribe(): void {
+    //Intentionally empty
+  }
+
+  public produceTranscriptionEvent(transcription: string) {
+    const event: TranscriptEvent = { transcription, isFinal: true };
+    this.emit("transcription", event);
+  }
+}
 
 describe("testRunner", () => {
+  let callServerPort: number;
   let twilioClient: { calls: { create: jest.Mock } };
+  let config: Config;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     twilioClient = {
       calls: {
         create: jest.fn(),
       },
     };
+
+    callServerPort = await getPort();
+    config = {
+      localServerPort: callServerPort,
+      twilioClient: (twilioClient as unknown) as Twilio,
+      dtmfGenerator: { generate: jest.fn() },
+      transcriber: () => new TranscriberTestDouble(),
+    };
   });
 
-  // test("Promise resolves when server closes", async () => {
-  //   twilioClient.calls.create.mockResolvedValue(undefined);
-  //
-  //   const config: Config = {
-  //     twilioClient: twilioClient as any,
-  //     dtmfGenerator: createMockDtmfGenerator(),
-  //     transcriber: createMockTranscriber(),
-  //     onPassedTest() {},
-  //     onFailedTest() {},
-  //   };
-  //   const ivrTest: IvrTest = {
-  //     call: { from: "", to: "" },
-  //     test: [],
-  //   };
-  //
-  //   const testRunnerPromise = testRunner(config, ivrTest);
-  //
-  //   // Wait for server then call to be made
-  //   await waitForExpect(() => {
-  //     expect(twilioClient.calls.create).toBeCalled();
-  //   });
-  //
-  //   // const calls = twilioClient.calls.create.mock.calls;
-  //   const [[{ url }]] = twilioClient.calls.create.mock.calls;
-  //   const streamUrl = new URL(url);
-  //   streamUrl.pathname = "/stream";
-  //   streamUrl.protocol = "ws";
-  //
-  //   console.log(streamUrl.toString());
-  //
-  //   const ws = new WebSocket(streamUrl.toString());
-  //   await waitForConnection(ws);
-  //
-  // });
+  test("HTTPS public server URL converted to WSS URL in TWIML", async () => {
+    twilioClient.calls.create.mockRejectedValue(new Error());
 
-  test("failure making a call results in test-runner failing", async () => {
+    const runner = await testRunner({
+      ...config,
+      publicServerUrl: "https://example.test/",
+    });
+
+    try {
+      await runner({ from: "", to: "" }, { name: "", test: inOrder([]) });
+    } catch (err) {
+      /* Intentionally ignore*/
+    }
+
+    expect(twilioClient.calls.create).toBeCalledWith(
+      expect.objectContaining({
+        twiml:
+          '<?xml version="1.0" encoding="UTF-8"?><Response><Connect><Stream url="wss://example.test/"><Parameter name="from" value=""/><Parameter name="to" value=""/></Stream></Connect></Response>',
+      })
+    );
+  });
+
+  test("HTTP public server URL converted to WS URL in TWIML", async () => {
+    twilioClient.calls.create.mockRejectedValue(new Error());
+
+    const runner = await testRunner({
+      ...config,
+      publicServerUrl: "http://example.test/",
+    });
+
+    try {
+      await runner({ from: "", to: "" }, { name: "", test: inOrder([]) });
+    } catch (err) {
+      /* Intentionally ignore*/
+    }
+
+    expect(twilioClient.calls.create).toBeCalledWith(
+      expect.objectContaining({
+        twiml:
+          '<?xml version="1.0" encoding="UTF-8"?><Response><Connect><Stream url="ws://example.test/"><Parameter name="from" value=""/><Parameter name="to" value=""/></Stream></Connect></Response>',
+      })
+    );
+  });
+
+  test("twilio called with phone-numbers and TWIML", async () => {
+    twilioClient.calls.create.mockRejectedValue(new Error());
+
+    const call: TestSubject = {
+      from: "test-from-number",
+      to: "test-to-number",
+    };
+
+    try {
+      await testRunner(config)(call, { name: "", test: inOrder([]) });
+    } catch (err) {
+      /* Intentionally ignore*/
+    }
+
+    expect(twilioClient.calls.create).toBeCalledWith({
+      from: "test-from-number",
+      to: "test-to-number",
+      twiml: `<?xml version="1.0" encoding="UTF-8"?><Response><Connect><Stream url="ws://[::]:${callServerPort}/"><Parameter name="from" value="test-from-number"/><Parameter name="to" value="test-to-number"/></Stream></Connect></Response>`,
+    });
+  });
+
+  test("server closed when failure making call", async () => {
     twilioClient.calls.create.mockRejectedValue(new Error("Error Occurred"));
 
-    const config: Config = {
-      publicServerUrl: "http://example.test/",
-      localServerPort: await getPort(),
-      twilioClient: (twilioClient as unknown) as Twilio,
-      dtmfGenerator: createMockDtmfGenerator(),
-      transcriber: () => createMockTranscriber(),
-    };
-    const ivrTest: IvrTest = {
-      name: "",
-      test: inOrder([]),
-    };
-
     await expect(() =>
-      testRunner(config)({ from: "", to: "" }, ivrTest)
+      testRunner(config)({ from: "", to: "" }, { name: "", test: inOrder([]) })
     ).rejects.toThrowError(new Error("Error Occurred"));
   });
 
-  test("twilio called with public URL to twiml and phone-numbers", async () => {
-    twilioClient.calls.create.mockRejectedValue(new Error());
+  test("Call Server closed when test finishes", async () => {
+    twilioClient.calls.create.mockResolvedValue(undefined);
 
-    const config: Config = {
-      publicServerUrl: "http://example.test/",
-      localServerPort: await getPort(),
-      twilioClient: (twilioClient as unknown) as Twilio,
-      dtmfGenerator: createMockDtmfGenerator(),
-      transcriber: () => createMockTranscriber(),
-    };
-    const call: TestSubject = {
-      from: "test-from-number",
-      to: "test-to-number",
-    };
-
-    try {
-      await testRunner(config)(call, { name: "", test: inOrder([]) });
-    } catch (err) {
-      /* Intentionally ignore*/
-    }
-
-    expect(twilioClient.calls.create).toBeCalledWith({
-      from: "test-from-number",
-      to: "test-to-number",
-      twiml:
-        '<?xml version="1.0" encoding="UTF-8"?><Response><Connect><Stream url="wss://example.test/"><Parameter name="from" value="test-from-number"/><Parameter name="to" value="test-to-number"/></Stream></Connect></Response>',
+    const transcriber = new TranscriberTestDouble();
+    jest.spyOn(transcriber, "transcribe").mockImplementation(() => {
+      transcriber.produceTranscriptionEvent("hello world");
     });
-  });
 
-  test("twilio called with URL of local server if no public URL configured", async () => {
-    twilioClient.calls.create.mockRejectedValue(new Error());
-
-    const config: Config = {
-      localServerPort: await getPort(),
-      twilioClient: (twilioClient as unknown) as Twilio,
-      dtmfGenerator: createMockDtmfGenerator(),
-      transcriber: () => createMockTranscriber(),
-    };
-    const call: TestSubject = {
-      from: "",
-      to: "",
+    const abcConfig: Config = {
+      ...config,
+      pauseAtEndOfTranscript: 1,
+      transcriber: () => transcriber,
     };
 
-    try {
-      await testRunner(config)(call, { name: "", test: inOrder([]) });
-    } catch (err) {
-      /* Intentionally ignore*/
-    }
+    const runner = testRunner(abcConfig);
+    const runnerPromise = runner(
+      { from: "", to: "" },
+      { name: "", test: inOrder([]) }
+    );
 
-    expect(twilioClient.calls.create).toBeCalledWith({
-      from: "",
-      to: "",
-      twiml: expect.stringMatching(
-        /<\?xml version="1\.0" encoding="UTF-8"\?><Response><Connect><Stream url="wss:\/\/\[::]:\d+\/"><Parameter name="from" value=""\/><Parameter name="to" value=""\/><\/Stream><\/Connect><\/Response>/
-      ),
+    // Wait for calls to be made
+    await waitForExpect(() => {
+      expect(twilioClient.calls.create).toBeCalled();
     });
+
+    // Simulate Twilio connecting a call's stream
+    const ws = new WebSocket(`ws://[::]:${callServerPort}/`);
+    await waitForConnection(ws);
+
+    TwilioPacketGenerator.sendMedia(ws, Buffer.from([0, 1, 2, 3]));
+
+    await Promise.all([
+      waitForExpect(() => expect(ws.readyState).toBe(ws.CLOSED)),
+      runnerPromise,
+    ]);
   });
 });

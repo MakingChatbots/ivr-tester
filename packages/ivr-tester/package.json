@@ -8,7 +8,11 @@
     "url": "https://github.com/SketchingDev/ivr-tester.git"
   },
   "homepage": "https://github.com/SketchingDev/ivr-tester#ivr-tester",
-  "keywords": ["ivr", "call flow", "test"],
+  "keywords": [
+    "ivr",
+    "call flow",
+    "test"
+  ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -21,13 +25,14 @@
     "lint": "yarn lint:prettier && yarn lint:eslint",
     "copy:dtmf-tones": "copyfiles -u 1 src/**/dtmf/**/*.raw dist",
     "doc": "yarn typedoc",
-    "prepare" : "yarn build"
+    "prepare": "yarn build"
   },
   "files": [
     "/dist"
   ],
   "dependencies": {
     "chalk": "^4.1.0",
+    "filenamify": "^4.2.0",
     "getenv": "^1.0.0",
     "log-symbols": "^4.0.0",
     "string-similarity": "^4.0.2",
@@ -35,6 +40,7 @@
     "ws": "^7.3.1"
   },
   "devDependencies": {
+    "@types/filenamify": "^2.0.2",
     "@types/getenv": "^1.0.0",
     "@types/jest": "^26.0.14",
     "@types/jest-when": "^2.7.1",

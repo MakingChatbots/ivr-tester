@@ -1,14 +1,11 @@
-import { TranscriptCondition } from "../conditions/TranscriptCondition";
+import { AssertThen } from "../testing/conditions/AssertThen";
 import { TestContainer, TestResult } from "./TestHandler";
 
-/** @internal */
-export interface Call {
-  sendDtmfTone(dtmfSequence: string): void;
-  sendMedia(buffer: Buffer): void;
-}
-
+/**
+ * Executes {@link AssertThen}'s in order
+ */
 export const inOrder: (
-  conditions: ReadonlyArray<TranscriptCondition>
+  conditions: ReadonlyArray<AssertThen>
 ) => TestContainer = (conditions) => {
   let nextConditionIndex = 0;
 

@@ -1,4 +1,4 @@
-import { Call } from "../../twilio";
+import { Call } from "../../call/twilio";
 import { Server } from "ws";
 
 export interface CallRequestedEvent {

@@ -18,6 +18,6 @@
 
 ### ignoreCasing
 
-•  **ignoreCasing**: boolean
+• `Optional` **ignoreCasing**: boolean
 
-*Defined in [packages/ivr-tester/src/conditions/when/contains.ts:4](https://github.com/SketchingDev/ivr-tester/blob/19f91d1/packages/ivr-tester/src/conditions/when/contains.ts#L4)*
+*Defined in [packages/ivr-tester/src/conditions/when/contains.ts:4](https://github.com/SketchingDev/ivr-tester/blob/f35425d/packages/ivr-tester/src/conditions/when/contains.ts#L4)*

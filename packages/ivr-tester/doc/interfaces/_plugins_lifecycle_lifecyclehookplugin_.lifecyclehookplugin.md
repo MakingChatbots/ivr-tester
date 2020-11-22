@@ -28,7 +28,7 @@ test.
 
 ▸ **initialise**(`eventEmitter`: [LifecycleEventEmitter](_plugins_lifecycle_lifecycleeventemitter_.lifecycleeventemitter.md)): void
 
-*Defined in [packages/ivr-tester/src/plugins/lifecycle/LifecycleHookPlugin.ts:9](https://github.com/SketchingDev/ivr-tester/blob/19f91d1/packages/ivr-tester/src/plugins/lifecycle/LifecycleHookPlugin.ts#L9)*
+*Defined in [packages/ivr-tester/src/plugins/lifecycle/LifecycleHookPlugin.ts:9](https://github.com/SketchingDev/ivr-tester/blob/f35425d/packages/ivr-tester/src/plugins/lifecycle/LifecycleHookPlugin.ts#L9)*
 
 #### Parameters:
 
@@ -44,6 +44,6 @@ ___
 
 ▸ **name**(): string
 
-*Defined in [packages/ivr-tester/src/plugins/lifecycle/LifecycleHookPlugin.ts:8](https://github.com/SketchingDev/ivr-tester/blob/19f91d1/packages/ivr-tester/src/plugins/lifecycle/LifecycleHookPlugin.ts#L8)*
+*Defined in [packages/ivr-tester/src/plugins/lifecycle/LifecycleHookPlugin.ts:8](https://github.com/SketchingDev/ivr-tester/blob/f35425d/packages/ivr-tester/src/plugins/lifecycle/LifecycleHookPlugin.ts#L8)*
 
 **Returns:** string

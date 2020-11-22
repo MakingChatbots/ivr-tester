@@ -1,21 +1,24 @@
-export * from "./conditions/when";
-export * from "./conditions/then";
-export * from "./conditions/TranscriptCondition";
+export * from "./testing/conditions/when";
+export * from "./testing/conditions/then";
+export * from "./testing/conditions/AssertThen";
 
-export * from "./plugins/lifecycle/consoleLogger";
+export * from "./testing/reporting/consoleLogger";
 export * from "./plugins/lifecycle/LifecycleHookPlugin";
-export * from "./plugins/lifecycle/StopWhenAllTestsComplete";
+export * from "./testing/CloseServerWhenTestsComplete";
 export * from "./plugins/Emitter";
 export * from "./plugins/lifecycle/SetupEvents";
 export * from "./plugins/lifecycle/TestEvents";
 
 export * from "./testRunner";
 
-export * from "./Config";
+export * from "./configuration/Config";
 
-export * from "./plugins/transcription/TranscriberPlugin";
-export * from "./plugins/transcription/TranscriberFactory";
+export * from "./call/transcription/plugin/TranscriberPlugin";
+export * from "./call/transcription/plugin/TranscriberFactory";
 
 export { TestSubject, IvrTest } from "./handlers/TestHandler";
 export { inOrder } from "./handlers/inOrder";
 export { PluginManager } from "./plugins/PluginManager";
+export { populateDefaults } from "./configuration/populateDefaults";
+export { TestRunnerConfig } from "./configuration/TestRunnerConfig";
+// export {makeCall} from "./call/IvrCaller";
