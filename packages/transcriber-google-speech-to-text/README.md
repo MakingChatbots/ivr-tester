@@ -40,11 +40,11 @@ import { googleSpeechToText } from "ivr-tester-transcriber-google-speech-to-text
 
 const config: Config = {
   transcriber: googleSpeechToText(
-      {
-        languageCode: "en-GB",
-        speechPhrases: [],
-        useEnhanced: true
-      }
+    {
+      languageCode: "en-GB",
+      speechPhrases: [],
+      useEnhanced: true
+    }
   ),
 };
 ```
