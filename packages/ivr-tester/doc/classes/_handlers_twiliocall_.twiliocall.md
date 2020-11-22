@@ -37,7 +37,7 @@
 
 \+ **new TwilioCall**(`connection`: ws, `dtmfGenerator`: [DtmfBufferGenerator](../interfaces/_dtmf_dtmfplayer_.dtmfbuffergenerator.md)): [TwilioCall](_handlers_twiliocall_.twiliocall.md)
 
-*Defined in [packages/ivr-tester/src/handlers/TwilioCall.ts:16](https://github.com/SketchingDev/ivr-tester/blob/86cd37b/packages/ivr-tester/src/handlers/TwilioCall.ts#L16)*
+*Defined in [packages/ivr-tester/src/handlers/TwilioCall.ts:16](https://github.com/SketchingDev/ivr-tester/blob/8c13d10/packages/ivr-tester/src/handlers/TwilioCall.ts#L16)*
 
 #### Parameters:
 
@@ -54,7 +54,7 @@ Name | Type |
 
 • `Private` `Readonly` **connection**: ws
 
-*Defined in [packages/ivr-tester/src/handlers/TwilioCall.ts:19](https://github.com/SketchingDev/ivr-tester/blob/86cd37b/packages/ivr-tester/src/handlers/TwilioCall.ts#L19)*
+*Defined in [packages/ivr-tester/src/handlers/TwilioCall.ts:19](https://github.com/SketchingDev/ivr-tester/blob/8c13d10/packages/ivr-tester/src/handlers/TwilioCall.ts#L19)*
 
 ___
 
@@ -62,7 +62,7 @@ ___
 
 • `Private` `Readonly` **dtmfGenerator**: [DtmfBufferGenerator](../interfaces/_dtmf_dtmfplayer_.dtmfbuffergenerator.md)
 
-*Defined in [packages/ivr-tester/src/handlers/TwilioCall.ts:20](https://github.com/SketchingDev/ivr-tester/blob/86cd37b/packages/ivr-tester/src/handlers/TwilioCall.ts#L20)*
+*Defined in [packages/ivr-tester/src/handlers/TwilioCall.ts:20](https://github.com/SketchingDev/ivr-tester/blob/8c13d10/packages/ivr-tester/src/handlers/TwilioCall.ts#L20)*
 
 ___
 
@@ -70,7 +70,7 @@ ___
 
 • `Private` `Readonly` **processMessageReference**: (message: string) => void
 
-*Defined in [packages/ivr-tester/src/handlers/TwilioCall.ts:14](https://github.com/SketchingDev/ivr-tester/blob/86cd37b/packages/ivr-tester/src/handlers/TwilioCall.ts#L14)*
+*Defined in [packages/ivr-tester/src/handlers/TwilioCall.ts:14](https://github.com/SketchingDev/ivr-tester/blob/8c13d10/packages/ivr-tester/src/handlers/TwilioCall.ts#L14)*
 
 ___
 
@@ -78,7 +78,7 @@ ___
 
 • `Private` **streamSid**: string \| undefined
 
-*Defined in [packages/ivr-tester/src/handlers/TwilioCall.ts:16](https://github.com/SketchingDev/ivr-tester/blob/86cd37b/packages/ivr-tester/src/handlers/TwilioCall.ts#L16)*
+*Defined in [packages/ivr-tester/src/handlers/TwilioCall.ts:16](https://github.com/SketchingDev/ivr-tester/blob/8c13d10/packages/ivr-tester/src/handlers/TwilioCall.ts#L16)*
 
 ## Methods
 
@@ -86,7 +86,7 @@ ___
 
 ▸ `Private`**processMessage**(`message`: string): void
 
-*Defined in [packages/ivr-tester/src/handlers/TwilioCall.ts:26](https://github.com/SketchingDev/ivr-tester/blob/86cd37b/packages/ivr-tester/src/handlers/TwilioCall.ts#L26)*
+*Defined in [packages/ivr-tester/src/handlers/TwilioCall.ts:26](https://github.com/SketchingDev/ivr-tester/blob/8c13d10/packages/ivr-tester/src/handlers/TwilioCall.ts#L26)*
 
 #### Parameters:
 
@@ -102,7 +102,7 @@ ___
 
 ▸ **sendDtmfTone**(`dtmfSequence`: string): void
 
-*Defined in [packages/ivr-tester/src/handlers/TwilioCall.ts:39](https://github.com/SketchingDev/ivr-tester/blob/86cd37b/packages/ivr-tester/src/handlers/TwilioCall.ts#L39)*
+*Defined in [packages/ivr-tester/src/handlers/TwilioCall.ts:39](https://github.com/SketchingDev/ivr-tester/blob/8c13d10/packages/ivr-tester/src/handlers/TwilioCall.ts#L39)*
 
 #### Parameters:
 
@@ -118,7 +118,7 @@ ___
 
 ▸ **sendMedia**(`payload`: Buffer): void
 
-*Defined in [packages/ivr-tester/src/handlers/TwilioCall.ts:43](https://github.com/SketchingDev/ivr-tester/blob/86cd37b/packages/ivr-tester/src/handlers/TwilioCall.ts#L43)*
+*Defined in [packages/ivr-tester/src/handlers/TwilioCall.ts:43](https://github.com/SketchingDev/ivr-tester/blob/8c13d10/packages/ivr-tester/src/handlers/TwilioCall.ts#L43)*
 
 #### Parameters:
 

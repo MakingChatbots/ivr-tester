@@ -1,4 +1,4 @@
-import {When, WhenFactory} from "./When";
+import {When} from "./When";
 
-export const matches:WhenFactory<RegExp> = (pattern): When => (transcript: string) =>
+export const matches = (pattern:RegExp): When => (transcript: string) =>
   pattern.test(transcript);

@@ -1,4 +1,4 @@
-import {When, WhenFactory} from "./When";
+import {When} from "./When";
 
 const space = " ";
 
@@ -16,7 +16,7 @@ const space = " ";
  *
  * @param when - Called with each of part of the transcript
  */
-export const hasPart: WhenFactory<When> = (when): When => (transcript: string): boolean => {
+export const hasPart = (when: When): When => (transcript: string): boolean => {
   const words = transcript.split(space);
   const totalWords = words.length;
 

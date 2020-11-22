@@ -20,4 +20,4 @@
 
 •  **server**: Server
 
-*Defined in [packages/ivr-tester/src/plugins/lifecycle/SetupEvents.ts:20](https://github.com/SketchingDev/ivr-tester/blob/86cd37b/packages/ivr-tester/src/plugins/lifecycle/SetupEvents.ts#L20)*
+*Defined in [packages/ivr-tester/src/plugins/lifecycle/SetupEvents.ts:20](https://github.com/SketchingDev/ivr-tester/blob/8c13d10/packages/ivr-tester/src/plugins/lifecycle/SetupEvents.ts#L20)*
