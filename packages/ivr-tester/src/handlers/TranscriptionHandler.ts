@@ -19,8 +19,8 @@ const collectUntilPause = (
       finalTranscriptions.push(event);
     }
 
-    const prefix = event.isFinal ? "recognized" : "recognizing";
-    console.log(`${prefix} text: ${event.transcription}`);
+    // const prefix = event.isFinal ? "recognized" : "recognizing";
+    // console.log(`${prefix} text: ${event.transcription}`);
 
     if (timeout) {
       clearTimeout(timeout);
