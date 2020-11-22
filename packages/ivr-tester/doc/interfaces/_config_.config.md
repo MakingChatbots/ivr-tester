@@ -18,6 +18,7 @@
 
 * [dtmfGenerator](_config_.config.md#dtmfgenerator)
 * [localServerPort](_config_.config.md#localserverport)
+* [pauseAtEndOfTranscript](_config_.config.md#pauseatendoftranscript)
 * [plugins](_config_.config.md#plugins)
 * [publicServerUrl](_config_.config.md#publicserverurl)
 * [recording](_config_.config.md#recording)
@@ -32,7 +33,7 @@
 
 *Inherited from [ServerConfig](_server_.serverconfig.md).[dtmfGenerator](_server_.serverconfig.md#dtmfgenerator)*
 
-*Defined in [packages/ivr-tester/src/server.ts:35](https://github.com/SketchingDev/ivr-tester/blob/8c13d10/packages/ivr-tester/src/server.ts#L35)*
+*Defined in [packages/ivr-tester/src/server.ts:35](https://github.com/SketchingDev/ivr-tester/blob/1691bd9/packages/ivr-tester/src/server.ts#L35)*
 
 ___
 
@@ -42,10 +43,20 @@ ___
 
 *Inherited from [ServerConfig](_server_.serverconfig.md).[localServerPort](_server_.serverconfig.md#localserverport)*
 
-*Defined in [packages/ivr-tester/src/server.ts:46](https://github.com/SketchingDev/ivr-tester/blob/8c13d10/packages/ivr-tester/src/server.ts#L46)*
+*Defined in [packages/ivr-tester/src/server.ts:47](https://github.com/SketchingDev/ivr-tester/blob/1691bd9/packages/ivr-tester/src/server.ts#L47)*
 
 Port that server is to listen on.
 This value can be overridden by setting the environment variable LOCAL_SERVER_PORT
+
+___
+
+### pauseAtEndOfTranscript
+
+• `Optional` **pauseAtEndOfTranscript**: number
+
+*Inherited from [ServerConfig](_server_.serverconfig.md).[pauseAtEndOfTranscript](_server_.serverconfig.md#pauseatendoftranscript)*
+
+*Defined in [packages/ivr-tester/src/server.ts:37](https://github.com/SketchingDev/ivr-tester/blob/1691bd9/packages/ivr-tester/src/server.ts#L37)*
 
 ___
 
@@ -55,7 +66,7 @@ ___
 
 *Inherited from [TestRunnerConfig](_testrunner_.testrunnerconfig.md).[plugins](_testrunner_.testrunnerconfig.md#plugins)*
 
-*Defined in [packages/ivr-tester/src/testRunner.ts:28](https://github.com/SketchingDev/ivr-tester/blob/8c13d10/packages/ivr-tester/src/testRunner.ts#L28)*
+*Defined in [packages/ivr-tester/src/testRunner.ts:28](https://github.com/SketchingDev/ivr-tester/blob/1691bd9/packages/ivr-tester/src/testRunner.ts#L28)*
 
 ___
 
@@ -65,7 +76,7 @@ ___
 
 *Inherited from [TestRunnerConfig](_testrunner_.testrunnerconfig.md).[publicServerUrl](_testrunner_.testrunnerconfig.md#publicserverurl)*
 
-*Defined in [packages/ivr-tester/src/testRunner.ts:26](https://github.com/SketchingDev/ivr-tester/blob/8c13d10/packages/ivr-tester/src/testRunner.ts#L26)*
+*Defined in [packages/ivr-tester/src/testRunner.ts:26](https://github.com/SketchingDev/ivr-tester/blob/1691bd9/packages/ivr-tester/src/testRunner.ts#L26)*
 
 URL of the server that is publicly accessible. This is the
 server that Twilio connects to when creating the bi-directional
@@ -80,7 +91,7 @@ ___
 
 *Inherited from [ServerConfig](_server_.serverconfig.md).[recording](_server_.serverconfig.md#recording)*
 
-*Defined in [packages/ivr-tester/src/server.ts:37](https://github.com/SketchingDev/ivr-tester/blob/8c13d10/packages/ivr-tester/src/server.ts#L37)*
+*Defined in [packages/ivr-tester/src/server.ts:38](https://github.com/SketchingDev/ivr-tester/blob/1691bd9/packages/ivr-tester/src/server.ts#L38)*
 
 #### Type declaration:
 
@@ -97,7 +108,7 @@ ___
 
 *Inherited from [ServerConfig](_server_.serverconfig.md).[transcriber](_server_.serverconfig.md#transcriber)*
 
-*Defined in [packages/ivr-tester/src/server.ts:36](https://github.com/SketchingDev/ivr-tester/blob/8c13d10/packages/ivr-tester/src/server.ts#L36)*
+*Defined in [packages/ivr-tester/src/server.ts:36](https://github.com/SketchingDev/ivr-tester/blob/1691bd9/packages/ivr-tester/src/server.ts#L36)*
 
 ___
 
@@ -107,6 +118,6 @@ ___
 
 *Inherited from [TestRunnerConfig](_testrunner_.testrunnerconfig.md).[twilioClient](_testrunner_.testrunnerconfig.md#twilioclient)*
 
-*Defined in [packages/ivr-tester/src/testRunner.ts:18](https://github.com/SketchingDev/ivr-tester/blob/8c13d10/packages/ivr-tester/src/testRunner.ts#L18)*
+*Defined in [packages/ivr-tester/src/testRunner.ts:18](https://github.com/SketchingDev/ivr-tester/blob/1691bd9/packages/ivr-tester/src/testRunner.ts#L18)*
 
 Twilio client used to initiate the call to the IVR

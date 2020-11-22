@@ -16,7 +16,7 @@
 
 ▸ `Const`**inOrder**(`conditions`: ReadonlyArray\<[TranscriptCondition](../interfaces/_conditions_transcriptcondition_.transcriptcondition.md)>): object
 
-*Defined in [packages/ivr-tester/src/handlers/inOrder.ts:12](https://github.com/SketchingDev/ivr-tester/blob/8c13d10/packages/ivr-tester/src/handlers/inOrder.ts#L12)*
+*Defined in [packages/ivr-tester/src/handlers/inOrder.ts:12](https://github.com/SketchingDev/ivr-tester/blob/1691bd9/packages/ivr-tester/src/handlers/inOrder.ts#L12)*
 
 #### Parameters:
 
