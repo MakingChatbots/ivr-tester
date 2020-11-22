@@ -1,4 +1,7 @@
 {
   "extends": "../../typedoc.json",
-  "name": "Google Speech-to-Text Transcriber"
+  "name": "Google Speech-to-Text Transcriber",
+  "exclude": [
+    "**/*+(.spec|.test).ts"
+  ]
 }

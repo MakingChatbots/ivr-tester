@@ -1,3 +1,17 @@
 # IVR Tester
 
 An automated testing framework for Interactive Voice Response (IVR) call flows.
+
+
+## When
+
+* [contains](./doc/modules/_conditions_when_contains_.md)
+* [hasPart](./doc/modules/_conditions_when_haspart_.md)
+* [matches](./doc/modules/_conditions_when_matches_.md)
+* [or](./doc/modules/_conditions_when_or_.md)
+* [similarTo](./doc/modules/_conditions_when_similarto_.md)
+
+## Then
+
+* [doNothing](./doc/modules/_conditions_then_donothing_.md)
+* [press](./doc/modules/_conditions_then_press_.md)

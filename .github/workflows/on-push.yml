@@ -27,4 +27,5 @@ jobs:
           node-version: 12.x
       - run: yarn
       - run: yarn build
+      - run: yarn doc
       - run: yarn test

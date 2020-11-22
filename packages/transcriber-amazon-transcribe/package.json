@@ -1,6 +1,6 @@
 {
   "name": "ivr-tester-transcriber-amazon-transcribe",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Amazon Transcribe integration for IVR Tester",
   "license": "MIT",
   "repository": {
@@ -25,8 +25,7 @@
     "lint:eslint": "eslint 'src/**/*.ts'",
     "lint": "yarn lint:prettier && yarn lint:eslint",
     "prepare": "yarn build",
-    "docs": "yarn typedoc",
-    "postbuild": "yarn docs"
+    "doc": "yarn typedoc"
   },
   "files": [
     "/dist"

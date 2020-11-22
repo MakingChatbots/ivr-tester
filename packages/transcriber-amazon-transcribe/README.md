@@ -20,14 +20,16 @@ npm install ivr-tester-transcriber-amazon-transcribe
 
 ## Configuration
 
-See the [API documentation](./docs/api.md) for details of each parameter.
-
 Ensure AWS credentials are defined in environment variables:
 
 ```shell
 export AWS_ACCESS_KEY_ID=<Your access key ID>
 export AWS_SECRET_ACCESS_KEY=<Your secret access key>
 ```
+
+### Usage
+
+See the [API's documentation](./doc/modules/_index_.md) for details of each parameter.
 
 ```typescript
 import { amazonTranscribe } from "ivr-tester-transcriber-amazon-transcribe";

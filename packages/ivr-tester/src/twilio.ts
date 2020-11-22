@@ -1,12 +1,13 @@
+import VoiceResponse from "twilio/lib/twiml/VoiceResponse";
+
+/** @internal */
 export enum TwilioConnectionEvents {
-  // eslint-disable-next-line no-unused-vars
   MediaStreamStart = "start",
-  // eslint-disable-next-line no-unused-vars
   Media = "media",
-  // eslint-disable-next-line no-unused-vars
   CallEnded = "stop",
 }
 
+/** @internal */
 export interface TwilioMediaStreamStartEvent {
   event: TwilioConnectionEvents.MediaStreamStart;
   streamSid: string;
@@ -15,13 +16,15 @@ export interface TwilioMediaStreamStartEvent {
   };
 }
 
+/** @internal */
 export interface Call {
   from: string;
   to: string;
 }
 
+/** @internal */
 export const callParameterSerializer = {
-  addParameters(stream: any, call: Call): void {
+  addParameters(stream: VoiceResponse.Stream, call: Call): void {
     stream.parameter({ name: "from", value: call.from });
     stream.parameter({ name: "to", value: call.to });
   },

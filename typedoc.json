@@ -1,6 +1,6 @@
 {
   "readme": "none",
-  "out": "docs",
+  "out": "doc",
   "inputFiles": [
     "./src"
   ],

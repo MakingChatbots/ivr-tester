@@ -19,6 +19,7 @@ export const populateDefaults = (config: Config): Config => {
   return {
     dtmfGenerator: config.dtmfGenerator || new UlawDtmfBufferGenerator(),
     transcriber: config.transcriber,
+    pauseAtEndOfTranscript: config.pauseAtEndOfTranscript || 5 * 1000,
     localServerPort: getenv.int("LOCAL_SERVER_PORT", config.localServerPort),
     plugins: config.plugins || [consoleLogger, new StopWhenAllTestsComplete()],
     publicServerUrl:

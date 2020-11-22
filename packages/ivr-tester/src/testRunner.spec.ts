@@ -4,6 +4,7 @@ import { createMockDtmfGenerator, createMockTranscriber } from "./server.spec";
 import { IvrTest, TestSubject } from "./handlers/TestHandler";
 import { inOrder } from "./handlers/inOrder";
 import getPort from "get-port";
+import { Twilio } from "twilio";
 
 describe("testRunner", () => {
   let twilioClient: { calls: { create: jest.Mock } };
@@ -57,7 +58,7 @@ describe("testRunner", () => {
     const config: Config = {
       publicServerUrl: "http://example.test/",
       localServerPort: await getPort(),
-      twilioClient: twilioClient as any,
+      twilioClient: (twilioClient as unknown) as Twilio,
       dtmfGenerator: createMockDtmfGenerator(),
       transcriber: () => createMockTranscriber(),
     };
@@ -77,7 +78,7 @@ describe("testRunner", () => {
     const config: Config = {
       publicServerUrl: "http://example.test/",
       localServerPort: await getPort(),
-      twilioClient: twilioClient as any,
+      twilioClient: (twilioClient as unknown) as Twilio,
       dtmfGenerator: createMockDtmfGenerator(),
       transcriber: () => createMockTranscriber(),
     };
@@ -105,7 +106,7 @@ describe("testRunner", () => {
 
     const config: Config = {
       localServerPort: await getPort(),
-      twilioClient: twilioClient as any,
+      twilioClient: (twilioClient as unknown) as Twilio,
       dtmfGenerator: createMockDtmfGenerator(),
       transcriber: () => createMockTranscriber(),
     };

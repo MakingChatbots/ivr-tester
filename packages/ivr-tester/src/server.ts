@@ -17,6 +17,7 @@ import { DtmfBufferGenerator } from "./dtmf/DtmfPlayer";
 import { TestEventEmitter } from "./plugins/lifecycle/LifecycleEventEmitter";
 import { TranscriberFactory } from "./plugins/transcription/TranscriberFactory";
 
+/** @internal */
 export const formatServerUrl = (server: CallHandlingServer): URL => {
   const address = server.wss.address() as AddressInfo;
 
@@ -33,6 +34,7 @@ export const formatServerUrl = (server: CallHandlingServer): URL => {
 export interface ServerConfig {
   dtmfGenerator?: DtmfBufferGenerator;
   transcriber: TranscriberFactory;
+  pauseAtEndOfTranscript?: number;
   recording?: {
     outputPath: string;
     filename?: string | ((stream: StreamDetails) => string);
@@ -60,7 +62,8 @@ const initialiseConnectionHandlers = (
 
   const transcriptionHandler = new TranscriptionHandler(
     ws,
-    config.transcriber()
+    config.transcriber(),
+      config.pauseAtEndOfTranscript
   );
   new TestHandler(call, transcriptionHandler, ivrTest)
     .on("ConditionMet", (event: TestConditionMet) => {
@@ -74,10 +77,12 @@ const initialiseConnectionHandlers = (
     });
 };
 
+/** @internal */
 export interface CallHandlingServer {
   wss: Server;
 }
 
+/** @internal */
 export const startServerListening = (
   config: ServerConfig,
   ivrTest: IvrTest[],

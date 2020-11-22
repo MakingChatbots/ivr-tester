@@ -7,6 +7,7 @@ import { GoogleSpeechToText } from "./GoogleSpeechToText";
  * for more detailed info](https://cloud.google.com/speech-to-text/docs/reference/rest/v1/RecognitionConfig)
  */
 export interface GoogleSpeechToTextOptions {
+
   /**
    * Language of the supplied audio as a BCP-47 language tag.
    *
@@ -14,6 +15,7 @@ export interface GoogleSpeechToTextOptions {
    * currently supported language codes.
    */
   languageCode?: string;
+
   /**
    * A list of strings containing words and phrases "hints" so that the speech recognition is more likely to recognize
    * them. This can be used to improve the accuracy for specific words and phrases.

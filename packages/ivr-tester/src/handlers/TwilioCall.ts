@@ -3,6 +3,7 @@ import ws from "ws";
 import { DtmfBufferGenerator } from "../dtmf/DtmfPlayer";
 import { TwilioConnectionEvents } from "../twilio";
 
+/** @internal */
 export enum WebSocketEvents {
   // eslint-disable-next-line no-unused-vars
   Message = "message",
@@ -10,8 +11,9 @@ export enum WebSocketEvents {
   Close = "close",
 }
 
+/** @internal */
 export class TwilioCall implements Call {
-  private readonly processMessageReference: (event: any) => void;
+  private readonly processMessageReference: (message: string) => void;
 
   private streamSid: string | undefined;
 
@@ -23,7 +25,7 @@ export class TwilioCall implements Call {
     connection.on(WebSocketEvents.Message, this.processMessageReference);
   }
 
-  private processMessage(message: string) {
+  private processMessage(message: string): void {
     const data = JSON.parse(message);
 
     // Add debug output for all from https://www.twilio.com/blog/multiple-twilio-streams-javascript

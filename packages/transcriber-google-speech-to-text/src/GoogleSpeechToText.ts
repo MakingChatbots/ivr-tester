@@ -4,6 +4,7 @@ import { TranscriberPlugin, TranscriptEvent } from "ivr-tester";
 import { Transcript } from "./Transcript";
 import internal from "stream";
 
+/** @internal */
 export class GoogleSpeechToText
   extends EventEmitter
   implements TranscriberPlugin {

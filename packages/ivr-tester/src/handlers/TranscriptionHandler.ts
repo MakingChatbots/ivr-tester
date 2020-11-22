@@ -19,8 +19,8 @@ const collectUntilPause = (
       finalTranscriptions.push(event);
     }
 
-    const prefix = event.isFinal ? "recognized" : "recognizing";
-    console.log(`${prefix} text: ${event.transcription}`);
+    // const prefix = event.isFinal ? "recognized" : "recognizing";
+    // console.log(`${prefix} text: ${event.transcription}`);
 
     if (timeout) {
       clearTimeout(timeout);
@@ -43,13 +43,16 @@ export interface TranscriptHandlerEvent {
   transcription: string;
 }
 
+/** @internal */
 export class TranscriptionHandler extends EventEmitter {
-  private static readonly TRANSCRIPTION_EVENT = "transcription";
-  private static readonly FOUR_SECONDS_IN_MS = 4 * 1000;
+
+  public static readonly TRANSCRIPTION_EVENT = "transcription";
+  // private static readonly FOUR_SECONDS_IN_MS = 5 * 1000;
 
   constructor(
     private readonly connection: ws,
-    private readonly transcriber: TranscriberPlugin
+    private readonly transcriber: TranscriberPlugin,
+    private readonly pauseAtEndOfTranscript: number,
   ) {
     super();
     connection.on(WebSocketEvents.Message, this.processMessage.bind(this));
@@ -57,7 +60,7 @@ export class TranscriptionHandler extends EventEmitter {
     transcriber.on(
       TranscriptionHandler.TRANSCRIPTION_EVENT,
       collectUntilPause(
-        TranscriptionHandler.FOUR_SECONDS_IN_MS,
+        pauseAtEndOfTranscript,
         this.processTranscript.bind(this)
       )
     );

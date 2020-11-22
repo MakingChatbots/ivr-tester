@@ -4,6 +4,7 @@ import {
 } from "./lifecycle/LifecycleEventEmitter";
 import { LifecycleHookPlugin } from "./lifecycle/LifecycleHookPlugin";
 
+/** @internal */
 export class PluginManager {
   constructor(
     private readonly lifecycleEventEmitter = createLifecycleEventEmitter()

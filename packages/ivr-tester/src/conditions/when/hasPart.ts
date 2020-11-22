@@ -1,4 +1,4 @@
-import { When } from "./When";
+import {When} from "./When";
 
 const space = " ";
 
@@ -14,10 +14,9 @@ const space = " ";
  *   * key 1
  *   * 1
  *
- * @param {function} when Called with each of part of the transcript
- * @return {boolean} True if argument succeeded when parts a part of the transcript, else False.
+ * @param when - Called with each of part of the transcript
  */
-export const hasPart = (when: When): When => (transcript: string) => {
+export const hasPart = (when: When): When => (transcript: string): boolean => {
   const words = transcript.split(space);
   const totalWords = words.length;
 

@@ -1,6 +1,7 @@
 import { TranscriptCondition } from "../conditions/TranscriptCondition";
 import { TestContainer, TestResult } from "./TestHandler";
 
+/** @internal */
 export interface Call {
   sendDtmfTone(dtmfSequence: string): void;
   sendMedia(buffer: Buffer): void;

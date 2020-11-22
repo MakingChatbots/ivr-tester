@@ -44,7 +44,7 @@ testRunner()(
 ## How it works
 
 <p align="center">
-  <img src="docs/flow.jpg">
+  <img src="doc-assets/flow.jpg">
 </p>
 
 Under the hood this orchestrates: 
@@ -70,16 +70,14 @@ machine it runs on
    export TWILIO_AUTH_TOKEN=your_auth_token
    ```
 
-2. Setup Google Cloud's Speech-to-Text service 
-   Follow GCP's [quick-start guide](https://cloud.google.com/speech-to-text/docs/quickstart-client-libraries) to:
-   1. Setup a Google Cloud project
-   2. Create a service account, then set the environment variable to the path of the JSON file that contains the service account's key.
+2. Choose a transcriber
 
-   ```shell
-   export GOOGLE_APPLICATION_CREDENTIALS=/path/to/key.json
-   ```
+   The call's audio needs to be transcribed so that the tests can recognise what is being said. Follow the transcriber's
+   README to set it up:
+   * [Google's Speech-to-Text](packages/transcriber-google-speech-to-text)
+   * [Amazon Transcribe](packages/transcriber-amazon-transcribe)
 
-3. Install and start [ngrok](https://ngrok.com/)
+3. Start [ngrok](https://ngrok.com/)
 
    1. [Install ngrok](https://ngrok.com/download)
    2. Run ngrok - we'll only be using its basic features, so you don't need to signup
@@ -141,6 +139,22 @@ Instead of say `contains` which would hide the fact a question is being asked to
 }
 ```
 
+## Development
+
+### Documentation
+
+Where possible the documentation is generated from the code using the following script in the root directory or
+individual packages:
+
+```shell
+yarn docs
+```
+
+The documentation is automatically generated and committed as part of the CI pipeline when merged to the main branch.
+
+Previously coupled to the `postbuild` script it has since been decoupled since the documentation changes everytime there
+ is a new commit (typedoc references commit hashes when linking to code) which drowned out the real changes.
 
 ## License
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSketchingDev%2Fivr-tester.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FSketchingDev%2Fivr-tester?ref=badge_large)
+

@@ -17,7 +17,7 @@ class WsTestDouble extends EventEmitter implements Pick<ws, "send"> {
   }
 
   public send(
-    data: any,
+    data: unknown,
     options: {
       mask?: boolean;
       binary?: boolean;
@@ -27,9 +27,13 @@ class WsTestDouble extends EventEmitter implements Pick<ws, "send"> {
     cb?: (err?: Error) => void
   ): void;
   // eslint-disable-next-line no-dupe-class-members
-  public send(data: any, cb?: (err?: Error) => void): void;
+  public send(data: unknown, cb?: (err?: Error) => void): void;
   // eslint-disable-next-line no-dupe-class-members
-  public send(data: any, cbOrOptions: any, cb?: any): void {
+  public send(
+    data: unknown,
+    cbOrOptions: unknown,
+    cb?: (err?: Error) => void
+  ): void {
     this.sendMock(data, cbOrOptions, cb);
   }
 }
@@ -54,7 +58,7 @@ describe("Then response", () => {
     when(dtmfGenerator.generate).calledWith("123").mockReturnValue(dtmfBuffer);
 
     const testDouble = new WsTestDouble();
-    const call = new TwilioCall((testDouble as any) as ws, dtmfGenerator);
+    const call = new TwilioCall((testDouble as unknown) as ws, dtmfGenerator);
 
     new TestHandler(call, transcriptionHandler, testWithSingleCondition);
 
@@ -90,7 +94,7 @@ describe("When conditions", () => {
       test: inOrder([]),
     };
 
-    const call = new TwilioCall((new WsTestDouble() as any) as ws, {
+    const call = new TwilioCall((new WsTestDouble() as unknown) as ws, {
       generate: jest.fn(),
     });
 
@@ -122,7 +126,7 @@ describe("When conditions", () => {
       ]),
     };
 
-    const call = new TwilioCall((new WsTestDouble() as any) as ws, {
+    const call = new TwilioCall((new WsTestDouble() as unknown) as ws, {
       generate: jest.fn(),
     });
 
@@ -158,7 +162,7 @@ describe("When conditions", () => {
       ]),
     };
 
-    const call = new TwilioCall((new WsTestDouble() as any) as ws, {
+    const call = new TwilioCall((new WsTestDouble() as unknown) as ws, {
       generate: jest.fn(),
     });
     const handler = new TestHandler(
@@ -192,7 +196,7 @@ describe("When conditions", () => {
       ]),
     };
 
-    const call = new TwilioCall((new WsTestDouble() as any) as ws, {
+    const call = new TwilioCall((new WsTestDouble() as unknown) as ws, {
       generate: jest.fn(),
     });
     const handler = new TestHandler(call, transcriptionHandler, twoConditions);
