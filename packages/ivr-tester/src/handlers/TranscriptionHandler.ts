@@ -49,11 +49,12 @@ export interface TranscriptHandlerEvent {
 export class TranscriptionHandler extends EventEmitter {
 
   public static readonly TRANSCRIPTION_EVENT = "transcription";
-  private static readonly FOUR_SECONDS_IN_MS = 5 * 1000;
+  // private static readonly FOUR_SECONDS_IN_MS = 5 * 1000;
 
   constructor(
     private readonly connection: ws,
-    private readonly transcriber: TranscriberPlugin
+    private readonly transcriber: TranscriberPlugin,
+    private readonly pauseAtEndOfTranscript: number,
   ) {
     super();
     connection.on(WebSocketEvents.Message, this.processMessage.bind(this));
@@ -61,7 +62,7 @@ export class TranscriptionHandler extends EventEmitter {
     transcriber.on(
       TranscriptionHandler.TRANSCRIPTION_EVENT,
       collectUntilPause(
-        TranscriptionHandler.FOUR_SECONDS_IN_MS,
+        pauseAtEndOfTranscript,
         this.processTranscript.bind(this)
       )
     );

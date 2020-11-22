@@ -34,6 +34,7 @@ export const formatServerUrl = (server: CallHandlingServer): URL => {
 export interface ServerConfig {
   dtmfGenerator?: DtmfBufferGenerator;
   transcriber: TranscriberFactory;
+  pauseAtEndOfTranscript?: number;
   recording?: {
     outputPath: string;
     filename?: string | ((stream: StreamDetails) => string);
@@ -61,7 +62,8 @@ const initialiseConnectionHandlers = (
 
   const transcriptionHandler = new TranscriptionHandler(
     ws,
-    config.transcriber()
+    config.transcriber(),
+      config.pauseAtEndOfTranscript
   );
   new TestHandler(call, transcriptionHandler, ivrTest)
     .on("ConditionMet", (event: TestConditionMet) => {

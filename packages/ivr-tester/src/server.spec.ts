@@ -67,19 +67,20 @@ describe("server", () => {
       localServerPort: await getPort(),
       dtmfGenerator: createMockDtmfGenerator(),
       transcriber: () => transcriber,
+      pauseAtEndOfTranscript: 1
     };
     const test: IvrTest = {
       name: "",
       test: inOrder([]),
     };
 
-    const emitter: jest.Mocked<TestEventEmitter> = {
+    const testEventEmitter: jest.Mocked<TestEventEmitter> = {
       emit: jest.fn(),
       off: jest.fn(),
       on: jest.fn(),
     };
 
-    server = await startServerListening(config, [test], emitter);
+    server = await startServerListening(config, [test], testEventEmitter);
     const { port } = server.wss.address() as AddressInfo;
 
     ws = new WebSocket(`ws://localhost:${port}/`);
@@ -101,7 +102,7 @@ describe("server", () => {
 
     await waitForExpect(() => {
       expect(transcriber.transcribe).toBeCalledWith(Buffer.from([0, 1, 2, 3]));
-      expect(emitter.emit).toHaveBeenCalledWith(
+      expect(testEventEmitter.emit).toHaveBeenCalledWith(
         "ivrTestPassed",
         expect.any(Object)
       );
