@@ -31,7 +31,7 @@ jobs:
       - run: yarn build
       - run: yarn test
 
-  update-docs:
+  update-documentation:
     needs: build-and-test
     runs-on: ubuntu-latest
     steps:
@@ -43,17 +43,17 @@ jobs:
       - run: yarn
       - run: yarn build
       - name: Generate documentation
-        run: yarn docs
+        run: yarn doc
       - name: Commit updated documentation
         uses: EndBug/add-and-commit@v5
         with:
           message: "Update documentation"
-          add: "**/docs/*"
+          add: "**/doc/*"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   publish-npm:
-    needs: update-docs
+    needs: update-documentation
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

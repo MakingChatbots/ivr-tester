@@ -29,7 +29,7 @@ export AWS_SECRET_ACCESS_KEY=<Your secret access key>
 
 ### Usage
 
-See the [API's documentation](./docs/modules/_index_.md) for details of each parameter.
+See the [API's documentation](./doc/modules/_index_.md) for details of each parameter.
 
 ```typescript
 import { amazonTranscribe } from "ivr-tester-transcriber-amazon-transcribe";

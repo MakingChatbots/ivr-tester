@@ -20,7 +20,7 @@
     "lint:eslint": "eslint 'src/**/*.ts'",
     "lint": "yarn lint:prettier && yarn lint:eslint",
     "copy:dtmf-tones": "copyfiles -u 1 src/**/dtmf/**/*.raw dist",
-    "docs": "yarn typedoc",
+    "doc": "yarn typedoc",
     "prepare" : "yarn build"
   },
   "files": [

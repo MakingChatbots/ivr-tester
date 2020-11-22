@@ -25,7 +25,7 @@
     "lint:eslint": "eslint 'src/**/*.ts'",
     "lint": "yarn lint:prettier && yarn lint:eslint",
     "prepare": "yarn build",
-    "docs": "yarn typedoc"
+    "doc": "yarn typedoc"
   },
   "files": [
     "/dist"

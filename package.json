@@ -21,7 +21,7 @@
     "build": "lerna run build",
     "lint": "lerna run lint",
     "test": "lerna run test",
-    "docs": "lerna run docs"
+    "doc": "lerna run doc"
   },
   "engines": {
     "node": ">= 10.14.2"
