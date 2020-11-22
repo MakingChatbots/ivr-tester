@@ -1,5 +1,5 @@
-import { compareTwoStrings } from "string-similarity";
-import { When } from "./When";
+import {compareTwoStrings} from "string-similarity";
+import {When} from "./When";
 
 /**
  * Compares two strings to determine if they're similar.

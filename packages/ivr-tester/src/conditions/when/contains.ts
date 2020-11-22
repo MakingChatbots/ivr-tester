@@ -4,6 +4,7 @@ export interface containsConfig {
   ignoreCasing: boolean;
 }
 
+/** @category When */
 export const contains = (
   partial: string,
   config: containsConfig = { ignoreCasing: true }

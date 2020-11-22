@@ -34,7 +34,7 @@ Name | Type |
 
 ▸ **emit**\<K>(`eventName`: K, `params`: T[K]): void
 
-*Defined in [packages/ivr-tester/src/plugins/Emitter.ts:11](https://github.com/SketchingDev/ivr-tester/blob/72537d4/packages/ivr-tester/src/plugins/Emitter.ts#L11)*
+*Defined in [packages/ivr-tester/src/plugins/Emitter.ts:11](https://github.com/SketchingDev/ivr-tester/blob/86cd37b/packages/ivr-tester/src/plugins/Emitter.ts#L11)*
 
 #### Type parameters:
 
@@ -57,7 +57,7 @@ ___
 
 ▸ **off**\<K>(`eventName`: K, `fn`: EventReceiver\<T[K]>): void
 
-*Defined in [packages/ivr-tester/src/plugins/Emitter.ts:10](https://github.com/SketchingDev/ivr-tester/blob/72537d4/packages/ivr-tester/src/plugins/Emitter.ts#L10)*
+*Defined in [packages/ivr-tester/src/plugins/Emitter.ts:10](https://github.com/SketchingDev/ivr-tester/blob/86cd37b/packages/ivr-tester/src/plugins/Emitter.ts#L10)*
 
 #### Type parameters:
 
@@ -80,7 +80,7 @@ ___
 
 ▸ **on**\<K>(`eventName`: K, `fn`: EventReceiver\<T[K]>): void
 
-*Defined in [packages/ivr-tester/src/plugins/Emitter.ts:9](https://github.com/SketchingDev/ivr-tester/blob/72537d4/packages/ivr-tester/src/plugins/Emitter.ts#L9)*
+*Defined in [packages/ivr-tester/src/plugins/Emitter.ts:9](https://github.com/SketchingDev/ivr-tester/blob/86cd37b/packages/ivr-tester/src/plugins/Emitter.ts#L9)*
 
 #### Type parameters:
 

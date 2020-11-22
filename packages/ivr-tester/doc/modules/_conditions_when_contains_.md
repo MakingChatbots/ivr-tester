@@ -10,17 +10,17 @@
 
 * [containsConfig](../interfaces/_conditions_when_contains_.containsconfig.md)
 
-### Functions
+### When Functions
 
 * [contains](_conditions_when_contains_.md#contains)
 
-## Functions
+## When Functions
 
 ### contains
 
 ▸ `Const`**contains**(`partial`: string, `config?`: [containsConfig](../interfaces/_conditions_when_contains_.containsconfig.md)): [When](_conditions_when_when_.md#when)
 
-*Defined in [packages/ivr-tester/src/conditions/when/contains.ts:7](https://github.com/SketchingDev/ivr-tester/blob/72537d4/packages/ivr-tester/src/conditions/when/contains.ts#L7)*
+*Defined in [packages/ivr-tester/src/conditions/when/contains.ts:8](https://github.com/SketchingDev/ivr-tester/blob/86cd37b/packages/ivr-tester/src/conditions/when/contains.ts#L8)*
 
 #### Parameters:
 
