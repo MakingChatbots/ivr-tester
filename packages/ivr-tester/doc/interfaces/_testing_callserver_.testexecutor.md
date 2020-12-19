@@ -20,7 +20,7 @@
 
 ▸ **startTest**(`test`: IvrTest, `call`: [Call](_call_call_.call.md)): Promise\<IvrTest>
 
-*Defined in [packages/ivr-tester/src/testing/CallServer.ts:38](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/ivr-tester/src/testing/CallServer.ts#L38)*
+*Defined in [packages/ivr-tester/src/testing/CallServer.ts:38](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/testing/CallServer.ts#L38)*
 
 #### Parameters:
 

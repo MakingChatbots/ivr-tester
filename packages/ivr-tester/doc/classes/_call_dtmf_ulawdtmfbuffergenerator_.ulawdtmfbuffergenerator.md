@@ -39,7 +39,7 @@
 
 \+ **new UlawDtmfBufferGenerator**(`rawFilesBasePath?`: string): [UlawDtmfBufferGenerator](_call_dtmf_ulawdtmfbuffergenerator_.ulawdtmfbuffergenerator.md)
 
-*Defined in [packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts:28](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts#L28)*
+*Defined in [packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts:28](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts#L28)*
 
 #### Parameters:
 
@@ -55,7 +55,7 @@ Name | Type | Default value |
 
 • `Private` `Readonly` **paths**: Map\<string, string> = new Map\<string, string>()
 
-*Defined in [packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts:27](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts#L27)*
+*Defined in [packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts:27](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts#L27)*
 
 ___
 
@@ -63,7 +63,7 @@ ___
 
 • `Private` `Readonly` **rawCache**: Map\<string, Buffer> = new Map\<string, Buffer>()
 
-*Defined in [packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts:28](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts#L28)*
+*Defined in [packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts:28](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts#L28)*
 
 ___
 
@@ -71,7 +71,7 @@ ___
 
 ▪ `Static` `Private` `Readonly` **DEFAULT\_RAW\_BASE\_PATH**: string = path.join( \_\_dirname, "./raw/" )
 
-*Defined in [packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts:22](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts#L22)*
+*Defined in [packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts:22](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts#L22)*
 
 ___
 
@@ -79,7 +79,7 @@ ___
 
 ▪ `Static` `Private` `Readonly` **DIGIT\_SEPARATOR**: "" = ""
 
-*Defined in [packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts:21](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts#L21)*
+*Defined in [packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts:21](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts#L21)*
 
 ___
 
@@ -87,7 +87,7 @@ ___
 
 ▪ `Static` `Private` `Readonly` **VALID\_DTMF\_DIGITS**: string[] = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "*", "#", "w", ]
 
-*Defined in [packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts:6](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts#L6)*
+*Defined in [packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts:6](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts#L6)*
 
 ## Methods
 
@@ -97,7 +97,7 @@ ___
 
 *Implementation of [DtmfBufferGenerator](../interfaces/_call_dtmf_dtmfbuffergenerator_.dtmfbuffergenerator.md)*
 
-*Defined in [packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts:52](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts#L52)*
+*Defined in [packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts:52](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts#L52)*
 
 #### Parameters:
 
@@ -113,7 +113,7 @@ ___
 
 ▸ `Private`**getRawBuffer**(`digit`: string): Buffer
 
-*Defined in [packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts:66](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts#L66)*
+*Defined in [packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts:66](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts#L66)*
 
 #### Parameters:
 
@@ -129,7 +129,7 @@ ___
 
 ▸ `Private`**initiatePathsToRawFiles**(`basePath`: string): void
 
-*Defined in [packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts:36](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts#L36)*
+*Defined in [packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts:36](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts#L36)*
 
 #### Parameters:
 
@@ -145,7 +145,7 @@ ___
 
 ▸ `Static` `Private`**validateDigits**(`digits`: string[]): void
 
-*Defined in [packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts:77](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts#L77)*
+*Defined in [packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts:77](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/call/dtmf/UlawDtmfBufferGenerator.ts#L77)*
 
 #### Parameters:
 

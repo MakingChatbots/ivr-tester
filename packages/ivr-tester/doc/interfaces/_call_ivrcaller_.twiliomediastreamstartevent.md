@@ -22,7 +22,7 @@
 
 •  **event**: MediaStreamStart
 
-*Defined in [packages/ivr-tester/src/call/IvrCaller.ts:9](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/ivr-tester/src/call/IvrCaller.ts#L9)*
+*Defined in [packages/ivr-tester/src/call/IvrCaller.ts:9](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/call/IvrCaller.ts#L9)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 •  **start**: { customParameters: { from: string ; to: string  }  }
 
-*Defined in [packages/ivr-tester/src/call/IvrCaller.ts:11](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/ivr-tester/src/call/IvrCaller.ts#L11)*
+*Defined in [packages/ivr-tester/src/call/IvrCaller.ts:11](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/call/IvrCaller.ts#L11)*
 
 #### Type declaration:
 
@@ -44,4 +44,4 @@ ___
 
 •  **streamSid**: string
 
-*Defined in [packages/ivr-tester/src/call/IvrCaller.ts:10](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/ivr-tester/src/call/IvrCaller.ts#L10)*
+*Defined in [packages/ivr-tester/src/call/IvrCaller.ts:10](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/call/IvrCaller.ts#L10)*

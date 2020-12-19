@@ -16,7 +16,7 @@
 
 ▸ `Const`**testRunner**(`config`: [Config](../interfaces/_configuration_config_.config.md)): (Anonymous function)
 
-*Defined in [packages/ivr-tester/src/testRunner.ts:34](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/ivr-tester/src/testRunner.ts#L34)*
+*Defined in [packages/ivr-tester/src/testRunner.ts:34](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/testRunner.ts#L34)*
 
 #### Parameters:
 

@@ -37,7 +37,7 @@ Name | Type |
 
 *Overrides [Emitter](_plugins_emitter_.emitter.md).[emit](_plugins_emitter_.emitter.md#emit)*
 
-*Defined in [packages/ivr-tester/src/plugins/Emitter.ts:11](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/ivr-tester/src/plugins/Emitter.ts#L11)*
+*Defined in [packages/ivr-tester/src/plugins/Emitter.ts:11](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/plugins/Emitter.ts#L11)*
 
 #### Type parameters:
 
@@ -64,7 +64,7 @@ ___
 
 *Overrides [Emitter](_plugins_emitter_.emitter.md).[off](_plugins_emitter_.emitter.md#off)*
 
-*Defined in [packages/ivr-tester/src/plugins/Emitter.ts:10](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/ivr-tester/src/plugins/Emitter.ts#L10)*
+*Defined in [packages/ivr-tester/src/plugins/Emitter.ts:10](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/plugins/Emitter.ts#L10)*
 
 #### Type parameters:
 
@@ -91,7 +91,7 @@ ___
 
 *Overrides [Emitter](_plugins_emitter_.emitter.md).[on](_plugins_emitter_.emitter.md#on)*
 
-*Defined in [packages/ivr-tester/src/plugins/Emitter.ts:9](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/ivr-tester/src/plugins/Emitter.ts#L9)*
+*Defined in [packages/ivr-tester/src/plugins/Emitter.ts:9](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/plugins/Emitter.ts#L9)*
 
 #### Type parameters:
 
