@@ -9,7 +9,7 @@ describe("Google Speech-to-Text", () => {
   let transcriber: TranscriberPlugin;
 
   beforeEach(() => {
-    transcriber = googleSpeechToText({})();
+    transcriber = googleSpeechToText()();
   });
 
   afterEach(() => transcriber.close());

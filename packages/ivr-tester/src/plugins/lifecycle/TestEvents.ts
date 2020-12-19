@@ -1,5 +1,5 @@
 import { IvrTest } from "../../handlers/TestHandler";
-import { TranscriptCondition } from "../../conditions/TranscriptCondition";
+import { AssertThen } from "../../testing/conditions/AssertThen";
 
 export interface CallAssignedTestEvent {
   index: number;
@@ -9,7 +9,7 @@ export interface CallAssignedTestEvent {
 export interface IvrTestConditionMetEvent {
   test: IvrTest;
   transcription: string;
-  condition: TranscriptCondition;
+  condition: AssertThen;
 }
 
 export interface IvrTestSuccessEvent {

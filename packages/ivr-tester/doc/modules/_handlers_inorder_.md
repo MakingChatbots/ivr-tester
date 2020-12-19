@@ -14,18 +14,20 @@
 
 ### inOrder
 
-▸ `Const`**inOrder**(`conditions`: ReadonlyArray\<[TranscriptCondition](../interfaces/_conditions_transcriptcondition_.transcriptcondition.md)>): object
+▸ `Const`**inOrder**(`conditions`: ReadonlyArray\<[AssertThen](../interfaces/_testing_conditions_assertthen_.assertthen.md)>): object
 
-*Defined in [packages/ivr-tester/src/handlers/inOrder.ts:12](https://github.com/SketchingDev/ivr-tester/blob/f7aae90/packages/ivr-tester/src/handlers/inOrder.ts#L12)*
+*Defined in [packages/ivr-tester/src/handlers/inOrder.ts:9](https://github.com/SketchingDev/ivr-tester/blob/aac0a71/packages/ivr-tester/src/handlers/inOrder.ts#L9)*
+
+Executes [AssertThen](../interfaces/_testing_conditions_assertthen_.assertthen.md)'s in order
 
 #### Parameters:
 
 Name | Type |
 ------ | ------ |
-`conditions` | ReadonlyArray\<[TranscriptCondition](../interfaces/_conditions_transcriptcondition_.transcriptcondition.md)> |
+`conditions` | ReadonlyArray\<[AssertThen](../interfaces/_testing_conditions_assertthen_.assertthen.md)> |
 
 **Returns:** object
 
 Name | Type |
 ------ | ------ |
-`test` | (transcript: string, call: Call) => TestResult |
+`test` | (transcript: string, call: [Call](../interfaces/_call_call_.call.md)) => TestResult |

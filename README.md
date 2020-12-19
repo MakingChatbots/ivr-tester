@@ -5,15 +5,14 @@
 ![](https://github.com/SketchingDev/ivr-tester/workflows/On%20Push/badge.svg)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/SketchingDev/ivr-tester.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/SketchingDev/ivr-tester/context:javascript)
 
-An automated testing framework for Interactive Voice Response (IVR) call flows.
+An automated testing framework for Interactive Voice Response (IVR) flows.
 
-IVR Tester calls a phone number and impersonates a human. It does this by automatically transcribing voice responses
-to text and then uses these, along with a test definition, to determine how it should respond. A successful test is one
-that manages to navigate a call flow using all of its conditions.
+IVR Tester automates the testing of IVR flows by calling them, transcribing voice responses and replying with DTMF tones
+based on fluent test definitions.
 
 ```typescript
 testRunner()(
-  { from: "0123 456 789", to: "0123 123 123" }, 
+  { from: "0123 456 789", to: "0123 123 123" },
   { name: "Customer is asked to provide account number",
     test: inOrder([
       {

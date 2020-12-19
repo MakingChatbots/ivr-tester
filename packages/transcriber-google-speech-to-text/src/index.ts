@@ -39,7 +39,7 @@ export const googleSpeechToText = (
     languageCode = "en-US",
     speechPhrases = [],
     useEnhanced = false,
-  }: GoogleSpeechToTextOptions,
+  }: GoogleSpeechToTextOptions = {},
   speechClient = new SpeechClient()
 ): TranscriberFactory => () =>
   new GoogleSpeechToText(

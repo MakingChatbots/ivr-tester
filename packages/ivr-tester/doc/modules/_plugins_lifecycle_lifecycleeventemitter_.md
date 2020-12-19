@@ -25,7 +25,7 @@
 
 Ƭ  **SetupEventEmitter**: [Emitter](../interfaces/_plugins_emitter_.emitter.md)\<[SetupEvents](_plugins_lifecycle_setupevents_.md#setupevents) & [TestEvents](_plugins_lifecycle_testevents_.md#testevents)>
 
-*Defined in [packages/ivr-tester/src/plugins/lifecycle/LifecycleEventEmitter.ts:6](https://github.com/SketchingDev/ivr-tester/blob/f7aae90/packages/ivr-tester/src/plugins/lifecycle/LifecycleEventEmitter.ts#L6)*
+*Defined in [packages/ivr-tester/src/plugins/lifecycle/LifecycleEventEmitter.ts:6](https://github.com/SketchingDev/ivr-tester/blob/aac0a71/packages/ivr-tester/src/plugins/lifecycle/LifecycleEventEmitter.ts#L6)*
 
 ___
 
@@ -33,7 +33,7 @@ ___
 
 Ƭ  **TestEventEmitter**: [Emitter](../interfaces/_plugins_emitter_.emitter.md)\<[SetupEvents](_plugins_lifecycle_setupevents_.md#setupevents) & [TestEvents](_plugins_lifecycle_testevents_.md#testevents)>
 
-*Defined in [packages/ivr-tester/src/plugins/lifecycle/LifecycleEventEmitter.ts:7](https://github.com/SketchingDev/ivr-tester/blob/f7aae90/packages/ivr-tester/src/plugins/lifecycle/LifecycleEventEmitter.ts#L7)*
+*Defined in [packages/ivr-tester/src/plugins/lifecycle/LifecycleEventEmitter.ts:7](https://github.com/SketchingDev/ivr-tester/blob/aac0a71/packages/ivr-tester/src/plugins/lifecycle/LifecycleEventEmitter.ts#L7)*
 
 ## Functions
 
@@ -41,6 +41,6 @@ ___
 
 ▸ `Const`**createLifecycleEventEmitter**(): [LifecycleEventEmitter](../interfaces/_plugins_lifecycle_lifecycleeventemitter_.lifecycleeventemitter.md)
 
-*Defined in [packages/ivr-tester/src/plugins/lifecycle/LifecycleEventEmitter.ts:13](https://github.com/SketchingDev/ivr-tester/blob/f7aae90/packages/ivr-tester/src/plugins/lifecycle/LifecycleEventEmitter.ts#L13)*
+*Defined in [packages/ivr-tester/src/plugins/lifecycle/LifecycleEventEmitter.ts:13](https://github.com/SketchingDev/ivr-tester/blob/aac0a71/packages/ivr-tester/src/plugins/lifecycle/LifecycleEventEmitter.ts#L13)*
 
 **Returns:** [LifecycleEventEmitter](../interfaces/_plugins_lifecycle_lifecycleeventemitter_.lifecycleeventemitter.md)

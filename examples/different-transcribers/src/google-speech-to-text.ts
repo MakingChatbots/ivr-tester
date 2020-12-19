@@ -2,7 +2,6 @@ import {
   Config,
   contains,
   doNothing,
-  hasPart,
   inOrder,
   IvrTest,
   press,
@@ -31,7 +30,7 @@ const test: IvrTest = {
       then: press("4"),
     },
     {
-      whenTranscript: hasPart(similarTo("thanks for calling")),
+      whenTranscript: contains(similarTo("thanks for calling")),
       then: doNothing(),
     },
   ]),

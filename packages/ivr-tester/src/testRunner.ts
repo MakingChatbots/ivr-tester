@@ -1,89 +1,85 @@
-import { Twilio, twiml } from "twilio";
-import {
-  CallHandlingServer,
-  formatServerUrl,
-  startServerListening,
-} from "./server";
+import { CallServer, CallServerEventProbe } from "./testing/CallServer";
 import { IvrTest, TestSubject } from "./handlers/TestHandler";
-import { Config, populateDefaults } from "./Config";
-import { callParameterSerializer } from "./twilio";
-import { URL } from "url";
-import { LifecycleHookPlugin } from "./plugins/lifecycle/LifecycleHookPlugin";
+import { Config } from "./configuration/Config";
 import { PluginManager } from "./plugins/PluginManager";
+import { populateDefaults } from "./configuration/populateDefaults";
+import { IvrCaller } from "./call/IvrCaller";
+import {
+  IteratingTestAssigner,
+  TestAssignerEventProbe,
+} from "./testing/IteratingTestAssigner";
+import { MediaStreamRecorder } from "./call/recording/MediaStreamRecorder";
+import {
+  DefaultTestExecutor,
+  TestExecutorEventProbe,
+} from "./testing/DefaultTestExecutor";
+import { LifecycleEventEmitter } from "./plugins/lifecycle/LifecycleEventEmitter";
 
-export interface TestRunnerConfig {
-  /**
-   * Twilio client used to initiate the call to the IVR
-   */
-  twilioClient?: Twilio;
+const probeAdaptor = (
+  emitter: LifecycleEventEmitter
+): TestExecutorEventProbe & TestAssignerEventProbe & CallServerEventProbe => ({
+  callAssignedTest: (event) => emitter.emit("callAssignedTest", event),
+  callConnected: () => emitter.emit("callConnected", undefined),
+  ivrTestConditionMet: (event) => emitter.emit("ivrTestConditionMet", event),
+  ivrTestFailed: (event) => emitter.emit("ivrTestFailed", event),
+  ivrTestPassed: (event) => emitter.emit("ivrTestPassed", event),
+  callHungUpAsNoTestAssigned: (reason) =>
+    console.warn(`Hung-up call as no test was assigned. Reason: ${reason}`),
+});
 
-  /**
-   * URL of the server that is publicly accessible. This is the
-   * server that Twilio connects to when creating the bi-directional
-   * stream of the call
-   * This value can be overridden by setting the environment variable PUBLIC_SERVER_URL
-   */
-  publicServerUrl?: string | undefined;
-
-  plugins?: LifecycleHookPlugin[];
-}
-
-const createPublicStreamUrl = (
-  config: Config,
-  server: CallHandlingServer
-): URL => {
-  const serverUrl = config.publicServerUrl || formatServerUrl(server);
-
-  const streamUrl = new URL(serverUrl.toString());
-  streamUrl.pathname = "/";
-  streamUrl.protocol = "wss";
-
-  return streamUrl;
-};
-
-const makeCall = (config: Config, call: TestSubject, streamUrl: URL) => {
-  const response = new twiml.VoiceResponse();
-  const connect = response.connect();
-  const stream = connect.stream({ url: streamUrl.toString() });
-
-  callParameterSerializer.addParameters(stream, call);
-
-  return config.twilioClient.calls.create({
-    twiml: response.toString(),
-    ...call,
-  });
-};
-
-// eslint-disable-next-line no-unused-vars
-interface TestRunner {
-  abortAllTests(): void;
-}
+// interface TestRunner {
+//   abortAllTests(): void;
+// }
 
 export const testRunner = (config: Config) => async (
   call: TestSubject,
   ivrTest: IvrTest[] | IvrTest
 ): Promise<void> => {
   config = populateDefaults(config);
+
   const tests = Array.isArray(ivrTest) ? ivrTest : [ivrTest];
 
   const pluginManager = new PluginManager();
   pluginManager.loadPlugins(config.plugins);
-  const emitter = pluginManager.getEmitter();
 
-  const server = await startServerListening(config, tests, emitter);
+  const emitter = pluginManager.getEmitter();
+  const probe = probeAdaptor(emitter);
+
+  const testExecutor = new DefaultTestExecutor(
+    config.transcriber,
+    config.pauseAtEndOfTranscript,
+    probe
+  );
+
+  // TODO Tidy this
+  if (config.recording) {
+    testExecutor.addHandler((c, t) =>
+      MediaStreamRecorder.createFromConfiguration(config, c.getStream(), t)
+    );
+  }
+
+  const callServer = new CallServer(
+    config.dtmfGenerator,
+    new IteratingTestAssigner(tests, probe),
+    testExecutor,
+    probe
+  );
+  const server = await callServer.listen(config.localServerPort);
   emitter.emit("callHandlingServerStarted", { server: server.wss });
 
-  const callPromises = tests.map((test, index) => {
+  const ivrCaller = new IvrCaller(config.twilioClient);
+
+  const makeCalls = tests.map((test, index) => {
     emitter.emit("callRequested", {
       call,
       total: tests.length,
       current: index + 1,
     });
-    return makeCall(config, call, createPublicStreamUrl(config, server));
+    return ivrCaller.call(call, config.publicServerUrl || server.local);
   });
 
   return new Promise((resolve, reject) => {
-    Promise.all(callPromises)
+    Promise.all(makeCalls)
       .then(() => {
         server.wss.on("close", () => {
           emitter.emit("callHandlingServerStopped", undefined);

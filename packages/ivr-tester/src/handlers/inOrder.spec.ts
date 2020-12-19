@@ -1,25 +1,34 @@
-import { Call, inOrder } from "./inOrder";
-import { contains } from "../conditions/when/contains";
-import { press } from "../conditions/then/press";
-import { TranscriptCondition } from "..";
+import { inOrder } from "./inOrder";
+import { contains } from "../testing/conditions/when/contains";
+import { press } from "../testing/conditions/then/press";
+import { AssertThen } from "..";
+import { Call } from "../call/Call";
 
 describe("ordered conditions", () => {
-  test("test passes if no conditions provided", () => {
-    const dtmfGenerator: jest.Mocked<Call> = {
+  let call: jest.Mocked<Call>;
+
+  beforeEach(() => {
+    call = {
       sendDtmfTone: jest.fn(),
       sendMedia: jest.fn(),
+      getStream: jest.fn(),
+      hangUp: jest.fn(),
     };
+  });
+
+  test("test passes if no conditions provided", () => {
     const orderedConditions = inOrder([]);
 
-    const testOutcome = orderedConditions.test("Hello", dtmfGenerator);
-    expect(dtmfGenerator.sendDtmfTone).not.toHaveBeenCalled();
+    const testOutcome = orderedConditions.test("Hello", call);
+
+    expect(call.sendDtmfTone).not.toHaveBeenCalled();
     expect(testOutcome).toMatchObject({
       result: "pass",
     });
   });
 
   test("all match and test passes for last one", () => {
-    const conditions: TranscriptCondition[] = [
+    const conditions: AssertThen[] = [
       {
         whenTranscript: contains("Hello"),
         then: press("1"),
@@ -34,10 +43,6 @@ describe("ordered conditions", () => {
       },
     ];
 
-    const call: jest.Mocked<Call> = {
-      sendDtmfTone: jest.fn(),
-      sendMedia: jest.fn(),
-    };
     const orderedConditions = inOrder(conditions);
 
     const testOutcome1 = orderedConditions.test("Hello", call);
@@ -63,7 +68,7 @@ describe("ordered conditions", () => {
   });
 
   test("test failed when second condition doesn't match", () => {
-    const conditions: TranscriptCondition[] = [
+    const conditions: AssertThen[] = [
       {
         whenTranscript: contains("Hello"),
         then: press("1"),
@@ -74,10 +79,6 @@ describe("ordered conditions", () => {
       },
     ];
 
-    const call: jest.Mocked<Call> = {
-      sendDtmfTone: jest.fn(),
-      sendMedia: jest.fn(),
-    };
     const orderedConditions = inOrder(conditions);
 
     const testOutcome1 = orderedConditions.test("Hello", call);

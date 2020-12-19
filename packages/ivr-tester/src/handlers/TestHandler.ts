@@ -1,7 +1,7 @@
 import { EventEmitter } from "events";
-import { TranscriptCondition } from "../conditions/TranscriptCondition";
-import { Call } from "./inOrder";
-import { TranscriptHandlerEvent } from "./TranscriptionHandler";
+import { AssertThen } from "../testing/conditions/AssertThen";
+import { TranscriptHandlerEvent } from "../call/transcription/TranscriptionHandler";
+import { Call } from "../call/Call";
 
 /** @internal */
 export interface TestSubject {
@@ -11,13 +11,15 @@ export interface TestSubject {
 
 /** @internal */
 export interface TestResult {
-  matchedCondition?: TranscriptCondition;
+  matchedCondition?: AssertThen;
   result: "continue" | "fail" | "pass";
 }
 
 // TODO Is there a better name?
-/** @internal */
 export interface TestContainer {
+  /**
+   * Called each time with a transcript is received
+   */
   test(transcript: string, call: Call): TestResult;
 }
 
@@ -42,7 +44,7 @@ export interface TestPassed {
 export interface TestConditionMet {
   test: IvrTest;
   transcription: string;
-  condition: TranscriptCondition;
+  condition: AssertThen;
 }
 
 /**
@@ -110,7 +112,7 @@ export class TestHandler extends EventEmitter {
 
   private notifyOfConditionBeingMet(
     transcription: string,
-    condition: TranscriptCondition
+    condition: AssertThen
   ): void {
     const event: TestConditionMet = {
       test: this.ivrTest,

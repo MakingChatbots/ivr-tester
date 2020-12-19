@@ -12,7 +12,7 @@ describe("Amazon Transcribe", () => {
   let transcriber: TranscriberPlugin;
 
   beforeEach(() => {
-    transcriber = amazonTranscribe("us-east-1", "en-GB")();
+    transcriber = amazonTranscribe({region: "us-east-1", languageCode: "en-GB"})();
   });
 
   afterEach(() => transcriber.close());
