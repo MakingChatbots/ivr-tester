@@ -14,7 +14,7 @@ Name | Type |
 
 * **Emitter**
 
-  ↳ [TranscriberPlugin](_plugins_transcription_transcriberplugin_.transcriberplugin.md)
+  ↳ [TranscriberPlugin](_call_transcription_plugin_transcriberplugin_.transcriberplugin.md)
 
   ↳ [LifecycleEventEmitter](_plugins_lifecycle_lifecycleeventemitter_.lifecycleeventemitter.md)
 
@@ -34,7 +34,7 @@ Name | Type |
 
 ▸ **emit**\<K>(`eventName`: K, `params`: T[K]): void
 
-*Defined in [packages/ivr-tester/src/plugins/Emitter.ts:11](https://github.com/SketchingDev/ivr-tester/blob/f35425d/packages/ivr-tester/src/plugins/Emitter.ts#L11)*
+*Defined in [packages/ivr-tester/src/plugins/Emitter.ts:11](https://github.com/SketchingDev/ivr-tester/blob/aac0a71/packages/ivr-tester/src/plugins/Emitter.ts#L11)*
 
 #### Type parameters:
 
@@ -57,7 +57,7 @@ ___
 
 ▸ **off**\<K>(`eventName`: K, `fn`: EventReceiver\<T[K]>): void
 
-*Defined in [packages/ivr-tester/src/plugins/Emitter.ts:10](https://github.com/SketchingDev/ivr-tester/blob/f35425d/packages/ivr-tester/src/plugins/Emitter.ts#L10)*
+*Defined in [packages/ivr-tester/src/plugins/Emitter.ts:10](https://github.com/SketchingDev/ivr-tester/blob/aac0a71/packages/ivr-tester/src/plugins/Emitter.ts#L10)*
 
 #### Type parameters:
 
@@ -80,7 +80,7 @@ ___
 
 ▸ **on**\<K>(`eventName`: K, `fn`: EventReceiver\<T[K]>): void
 
-*Defined in [packages/ivr-tester/src/plugins/Emitter.ts:9](https://github.com/SketchingDev/ivr-tester/blob/f35425d/packages/ivr-tester/src/plugins/Emitter.ts#L9)*
+*Defined in [packages/ivr-tester/src/plugins/Emitter.ts:9](https://github.com/SketchingDev/ivr-tester/blob/aac0a71/packages/ivr-tester/src/plugins/Emitter.ts#L9)*
 
 #### Type parameters:
 
