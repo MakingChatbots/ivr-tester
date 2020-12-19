@@ -24,4 +24,4 @@
 
 •  **isAssigned**: boolean
 
-*Defined in [packages/ivr-tester/src/testing/CallServer.ts:20](https://github.com/SketchingDev/ivr-tester/blob/aac0a71/packages/ivr-tester/src/testing/CallServer.ts#L20)*
+*Defined in [packages/ivr-tester/src/testing/CallServer.ts:20](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/ivr-tester/src/testing/CallServer.ts#L20)*

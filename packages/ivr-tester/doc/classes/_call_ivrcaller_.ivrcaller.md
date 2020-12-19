@@ -30,7 +30,7 @@
 
 \+ **new IvrCaller**(`twilioClient?`: Twilio): [IvrCaller](_call_ivrcaller_.ivrcaller.md)
 
-*Defined in [packages/ivr-tester/src/call/IvrCaller.ts:16](https://github.com/SketchingDev/ivr-tester/blob/aac0a71/packages/ivr-tester/src/call/IvrCaller.ts#L16)*
+*Defined in [packages/ivr-tester/src/call/IvrCaller.ts:16](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/ivr-tester/src/call/IvrCaller.ts#L16)*
 
 #### Parameters:
 
@@ -46,7 +46,7 @@ Name | Type |
 
 • `Private` `Optional` `Readonly` **twilioClient**: Twilio
 
-*Defined in [packages/ivr-tester/src/call/IvrCaller.ts:17](https://github.com/SketchingDev/ivr-tester/blob/aac0a71/packages/ivr-tester/src/call/IvrCaller.ts#L17)*
+*Defined in [packages/ivr-tester/src/call/IvrCaller.ts:17](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/ivr-tester/src/call/IvrCaller.ts#L17)*
 
 ## Methods
 
@@ -54,7 +54,7 @@ Name | Type |
 
 ▸ **call**(`call`: TestSubject, `streamUrl`: URL \| string): Promise\<any>
 
-*Defined in [packages/ivr-tester/src/call/IvrCaller.ts:37](https://github.com/SketchingDev/ivr-tester/blob/aac0a71/packages/ivr-tester/src/call/IvrCaller.ts#L37)*
+*Defined in [packages/ivr-tester/src/call/IvrCaller.ts:37](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/ivr-tester/src/call/IvrCaller.ts#L37)*
 
 #### Parameters:
 
@@ -71,7 +71,7 @@ ___
 
 ▸ `Static` `Private`**addParameters**(`stream`: Stream, `call`: Call): void
 
-*Defined in [packages/ivr-tester/src/call/IvrCaller.ts:19](https://github.com/SketchingDev/ivr-tester/blob/aac0a71/packages/ivr-tester/src/call/IvrCaller.ts#L19)*
+*Defined in [packages/ivr-tester/src/call/IvrCaller.ts:19](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/ivr-tester/src/call/IvrCaller.ts#L19)*
 
 #### Parameters:
 
@@ -88,7 +88,7 @@ ___
 
 ▸ `Static`**extractParameters**(`event`: [TwilioMediaStreamStartEvent](../interfaces/_call_ivrcaller_.twiliomediastreamstartevent.md)): Call
 
-*Defined in [packages/ivr-tester/src/call/IvrCaller.ts:24](https://github.com/SketchingDev/ivr-tester/blob/aac0a71/packages/ivr-tester/src/call/IvrCaller.ts#L24)*
+*Defined in [packages/ivr-tester/src/call/IvrCaller.ts:24](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/ivr-tester/src/call/IvrCaller.ts#L24)*
 
 #### Parameters:
 

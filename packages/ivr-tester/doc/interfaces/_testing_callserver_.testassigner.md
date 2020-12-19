@@ -20,6 +20,6 @@
 
 ▸ **assign**(): [TestAssigned](_testing_callserver_.testassigned.md) \| [NoneAssigned](_testing_callserver_.noneassigned.md)
 
-*Defined in [packages/ivr-tester/src/testing/CallServer.ts:34](https://github.com/SketchingDev/ivr-tester/blob/aac0a71/packages/ivr-tester/src/testing/CallServer.ts#L34)*
+*Defined in [packages/ivr-tester/src/testing/CallServer.ts:34](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/ivr-tester/src/testing/CallServer.ts#L34)*
 
 **Returns:** [TestAssigned](_testing_callserver_.testassigned.md) \| [NoneAssigned](_testing_callserver_.noneassigned.md)

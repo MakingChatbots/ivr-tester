@@ -23,7 +23,7 @@
 
 ▸ **getStream**(): ws
 
-*Defined in [packages/ivr-tester/src/call/Call.ts:17](https://github.com/SketchingDev/ivr-tester/blob/aac0a71/packages/ivr-tester/src/call/Call.ts#L17)*
+*Defined in [packages/ivr-tester/src/call/Call.ts:17](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/ivr-tester/src/call/Call.ts#L17)*
 
 **Returns:** ws
 
@@ -33,7 +33,7 @@ ___
 
 ▸ **hangUp**(): void
 
-*Defined in [packages/ivr-tester/src/call/Call.ts:19](https://github.com/SketchingDev/ivr-tester/blob/aac0a71/packages/ivr-tester/src/call/Call.ts#L19)*
+*Defined in [packages/ivr-tester/src/call/Call.ts:19](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/ivr-tester/src/call/Call.ts#L19)*
 
 **Returns:** void
 
@@ -43,7 +43,7 @@ ___
 
 ▸ **sendDtmfTone**(`dtmfSequence`: string): void
 
-*Defined in [packages/ivr-tester/src/call/Call.ts:10](https://github.com/SketchingDev/ivr-tester/blob/aac0a71/packages/ivr-tester/src/call/Call.ts#L10)*
+*Defined in [packages/ivr-tester/src/call/Call.ts:10](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/ivr-tester/src/call/Call.ts#L10)*
 
 Sends DTMF tone to the call
 
@@ -61,7 +61,7 @@ ___
 
 ▸ **sendMedia**(`buffer`: Buffer): void
 
-*Defined in [packages/ivr-tester/src/call/Call.ts:15](https://github.com/SketchingDev/ivr-tester/blob/aac0a71/packages/ivr-tester/src/call/Call.ts#L15)*
+*Defined in [packages/ivr-tester/src/call/Call.ts:15](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/ivr-tester/src/call/Call.ts#L15)*
 
 Sends 8 bit PCM encoded (MULAW) at 8000 Hertz media to call
 

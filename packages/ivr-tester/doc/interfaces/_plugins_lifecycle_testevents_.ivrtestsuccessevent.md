@@ -20,4 +20,4 @@
 
 •  **test**: IvrTest
 
-*Defined in [packages/ivr-tester/src/plugins/lifecycle/TestEvents.ts:16](https://github.com/SketchingDev/ivr-tester/blob/aac0a71/packages/ivr-tester/src/plugins/lifecycle/TestEvents.ts#L16)*
+*Defined in [packages/ivr-tester/src/plugins/lifecycle/TestEvents.ts:16](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/ivr-tester/src/plugins/lifecycle/TestEvents.ts#L16)*

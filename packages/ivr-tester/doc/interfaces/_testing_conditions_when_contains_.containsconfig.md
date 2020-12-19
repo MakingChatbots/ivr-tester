@@ -20,4 +20,4 @@
 
 • `Optional` **ignoreCasing**: boolean
 
-*Defined in [packages/ivr-tester/src/testing/conditions/when/contains.ts:5](https://github.com/SketchingDev/ivr-tester/blob/aac0a71/packages/ivr-tester/src/testing/conditions/when/contains.ts#L5)*
+*Defined in [packages/ivr-tester/src/testing/conditions/when/contains.ts:5](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/ivr-tester/src/testing/conditions/when/contains.ts#L5)*

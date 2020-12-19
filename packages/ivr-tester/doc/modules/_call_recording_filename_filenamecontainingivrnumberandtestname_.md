@@ -16,7 +16,7 @@
 
 ▸ `Const`**filenameContainingIvrNumberAndTestName**(`__namedParameters`: { call: { from: string ; to: string  }  }, `test`: IvrTest): string
 
-*Defined in [packages/ivr-tester/src/call/recording/filename/filenameContainingIvrNumberAndTestName.ts:9](https://github.com/SketchingDev/ivr-tester/blob/aac0a71/packages/ivr-tester/src/call/recording/filename/filenameContainingIvrNumberAndTestName.ts#L9)*
+*Defined in [packages/ivr-tester/src/call/recording/filename/filenameContainingIvrNumberAndTestName.ts:9](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/ivr-tester/src/call/recording/filename/filenameContainingIvrNumberAndTestName.ts#L9)*
 
 Produces filename that looks like '<phone-number>-<datetime>-<test-name>.wav'
 

@@ -24,7 +24,7 @@ for more detailed info](https://cloud.google.com/speech-to-text/docs/reference/r
 
 • `Optional` **languageCode**: LANGUAGES
 
-*Defined in [packages/transcriber-amazon-transcribe/src/index.ts:19](https://github.com/SketchingDev/ivr-tester/blob/aac0a71/packages/transcriber-amazon-transcribe/src/index.ts#L19)*
+*Defined in [packages/transcriber-amazon-transcribe/src/index.ts:19](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/transcriber-amazon-transcribe/src/index.ts#L19)*
 
 Language of the supplied audio as a BCP-47 language tag.
 
@@ -34,6 +34,6 @@ ___
 
 •  **region**: AVAILABLE\_REGIONS
 
-*Defined in [packages/transcriber-amazon-transcribe/src/index.ts:14](https://github.com/SketchingDev/ivr-tester/blob/aac0a71/packages/transcriber-amazon-transcribe/src/index.ts#L14)*
+*Defined in [packages/transcriber-amazon-transcribe/src/index.ts:14](https://github.com/SketchingDev/ivr-tester/blob/dbcb3f7/packages/transcriber-amazon-transcribe/src/index.ts#L14)*
 
 AWS region of the Amazon Transcribe resource
