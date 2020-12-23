@@ -1,7 +1,10 @@
-import { EventEmitter } from "events";
 import { AssertThen } from "../testing/conditions/AssertThen";
-import { TranscriptHandlerEvent } from "../call/transcription/TranscriptionHandler";
+import {
+  CallTranscriptionEvent,
+  CallTranscriptionEvents,
+} from "../call/transcription/CallTranscriber";
 import { Call } from "../call/Call";
+import { Emitter, TypedEmitter } from "../Emitter";
 
 /** @internal */
 export interface TestSubject {
@@ -47,30 +50,32 @@ export interface TestConditionMet {
   condition: AssertThen;
 }
 
+export type TestHandlerEvents = {
+  TestFailed: TestFailed;
+  TestPassed: TestPassed;
+  ConditionMet: TestConditionMet;
+};
+
 /**
  * Conditions have to have been met in sequence
  * @internal
  */
-export class TestHandler extends EventEmitter {
-  private static readonly TRANSCRIPTION_EVENT = "transcription";
-
-  private static readonly TEST_FAILED_EVENT = "TestFailed";
-  private static readonly TEST_PASSED_EVENT = "TestPassed";
-  private static readonly TEST_CONDITION_MET_EVENT = "ConditionMet";
-
+export class TestHandler extends TypedEmitter<TestHandlerEvents> {
   constructor(
     private readonly call: Call,
-    private readonly transcriptionHandler: EventEmitter,
+    private readonly callTranscriber: Emitter<CallTranscriptionEvents>,
     private readonly ivrTest: IvrTest
   ) {
     super();
-    transcriptionHandler.on(
-      TestHandler.TRANSCRIPTION_EVENT,
-      this.processTranscript.bind(this)
-    );
+    callTranscriber.on("transcription", this.processTranscript.bind(this));
   }
 
-  private processTranscript({ transcription }: TranscriptHandlerEvent): void {
+  private processTranscript(event: CallTranscriptionEvent): void {
+    const { transcription } = event;
+    if (!event.isFinal) {
+      return;
+    }
+
     const testOutcome = this.ivrTest.test.test(transcription, this.call);
     switch (testOutcome.result) {
       case "continue":
@@ -98,16 +103,16 @@ export class TestHandler extends EventEmitter {
     }
   }
 
-  private notifyOfFailedTest(transcription: string): void {
-    const event: TestFailed = { transcription, test: this.ivrTest };
-    this.emit(TestHandler.TEST_FAILED_EVENT, event);
-  }
-
   private notifyOfPassedTest(): void {
     const event: TestPassed = {
       test: this.ivrTest,
     };
-    this.emit(TestHandler.TEST_PASSED_EVENT, event);
+    this.emit("TestPassed", event);
+  }
+
+  private notifyOfFailedTest(transcription: string): void {
+    const event: TestFailed = { transcription, test: this.ivrTest };
+    this.emit("TestFailed", event);
   }
 
   private notifyOfConditionBeingMet(
@@ -119,6 +124,6 @@ export class TestHandler extends EventEmitter {
       transcription,
       condition,
     };
-    this.emit(TestHandler.TEST_CONDITION_MET_EVENT, event);
+    this.emit("ConditionMet", event);
   }
 }

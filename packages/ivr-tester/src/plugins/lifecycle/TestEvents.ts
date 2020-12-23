@@ -21,12 +21,19 @@ export interface IvrTestFailed {
   test: IvrTest;
 }
 
+export interface IvrTranscription {
+  test: IvrTest;
+  transcription: string;
+  isFinal: boolean;
+}
+
 /**
  * Lifecycle events during testing
  */
 export type TestEvents = {
   callConnected: undefined;
   callAssignedTest: CallAssignedTestEvent;
+  ivrTranscription: IvrTranscription;
   ivrTestConditionMet: IvrTestConditionMetEvent;
   ivrTestPassed: IvrTestSuccessEvent;
   ivrTestFailed: IvrTestFailed;

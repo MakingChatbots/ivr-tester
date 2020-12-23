@@ -7,7 +7,6 @@ import { GoogleSpeechToText } from "./GoogleSpeechToText";
  * for more detailed info](https://cloud.google.com/speech-to-text/docs/reference/rest/v1/RecognitionConfig)
  */
 export interface GoogleSpeechToTextOptions {
-
   /**
    * Language of the supplied audio as a BCP-47 language tag.
    *

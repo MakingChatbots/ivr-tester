@@ -4,11 +4,22 @@ import chalk from "chalk";
 import logSymbols from "log-symbols";
 import { LifecycleEventEmitter } from "../../plugins/lifecycle/LifecycleEventEmitter";
 
+const ivrTranscription = (emitter: LifecycleEventEmitter): void =>
+  emitter.on("ivrTranscription", (event) => {
+    const state = chalk.blue.bold(
+      event.isFinal ? "Finished: " : "Transcribing: "
+    );
+
+    console.log(
+      state + chalk.blue(`${event.test.name}: ${event.transcription}`)
+    );
+  });
+
 const ivrTestPassed = (emitter: LifecycleEventEmitter): void =>
   emitter.on("ivrTestPassed", (event) =>
     console.log(
       logSymbols.success,
-      chalk.green(`Test Complete: ${event.test.name}`)
+      chalk.green(`Test Complete: ${event.test.name}...`)
     )
   );
 
@@ -49,11 +60,15 @@ const callHandlingServerErrored = (emitter: LifecycleEventEmitter): void =>
   );
 
 const callRequested = (emitter: LifecycleEventEmitter): void =>
-  emitter.on("callRequested", (event) =>
-    console.log(
-      `Telling Twilio call ${event.call.to} (${event.current} of ${event.total})`
-    )
-  );
+  emitter.on("callRequested", (event) => {
+    if (Buffer.isBuffer(event.call)) {
+      console.log(`Playing back audio (${event.current} of ${event.total})`);
+    } else {
+      console.log(
+        `Telling Twilio to call ${event.call.to} (${event.current} of ${event.total})`
+      );
+    }
+  });
 
 const callRequestErrored = (emitter: LifecycleEventEmitter): void =>
   emitter.on("callRequestErrored", (event) =>
@@ -83,5 +98,6 @@ export const consoleLogger: LifecycleHookPlugin = {
     callRequested(eventEmitter);
     callRequestErrored(eventEmitter);
     ivrTestConditionMet(eventEmitter);
+    ivrTranscription(eventEmitter);
   },
 };

@@ -1,4 +1,3 @@
-
 /**
  * Implementing class generates stream of DTMF encoded in an 8 bit PCM encoding (MULAW) at 8000 Hertz
  */

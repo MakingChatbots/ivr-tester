@@ -40,6 +40,10 @@ class TranscriberTestDouble extends EventEmitter implements TranscriberPlugin {
     const event: TranscriptEvent = { transcription, isFinal: true };
     this.emit("transcription", event);
   }
+
+  public transcriptionComplete(): void {
+    //Intentionally empty
+  }
 }
 
 describe("testRunner", () => {
@@ -146,7 +150,7 @@ describe("testRunner", () => {
 
     const abcConfig: Config = {
       ...config,
-      pauseAtEndOfTranscript: 1,
+      msPauseAtEndOfTranscript: 1,
       transcriber: () => transcriber,
     };
 

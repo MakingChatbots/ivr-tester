@@ -5,7 +5,6 @@ import {
   inOrder,
   IvrTest,
   press,
-  similarTo,
   testRunner,
   TestSubject,
 } from "ivr-tester";
@@ -20,26 +19,39 @@ const call: TestSubject = {
   to: process.env.TO_PHONE_NUMBER,
 };
 
-const test: IvrTest = {
-  name: "Pressing 4 exits the flow",
-  test: inOrder([
-    {
-      whenTranscript: contains(
-        "will allow you to adjust call recording behaviour"
-      ),
-      then: press("4"),
-    },
-    {
-      whenTranscript: contains(similarTo("thanks for calling")),
-      then: doNothing(),
-    },
-  ]),
-};
+const tests: IvrTest[] = [
+  {
+    name: "Keys pressed are read back",
+    test: inOrder([
+      {
+        whenTranscript: contains("please enter a number"),
+        then: press("0w1w2w3w4w5w6w7w8w9"),
+      },
+      {
+        whenTranscript: contains("you entered the values 0123456789"),
+        then: doNothing(),
+      },
+    ]),
+  },
+  {
+    name: "Times out when keys not pressed",
+    test: inOrder([
+      {
+        whenTranscript: contains("please enter a number"),
+        then: doNothing(),
+      },
+      {
+        whenTranscript: contains("you timed out"),
+        then: doNothing(),
+      },
+    ]),
+  },
+];
 
 const config: Config = {
   transcriber: googleSpeechToText({
     languageCode: "en-GB",
-    speechPhrases: ["will allow you to adjust call recording behaviour"],
+    speechPhrases: ["you entered the values", "you timed out"],
     useEnhanced: true,
   }),
   recording: {
@@ -47,4 +59,6 @@ const config: Config = {
   },
 };
 
-testRunner(config)(call, test);
+testRunner(config)(call, tests)
+  .then(() => process.exit(0))
+  .catch(() => process.exit(1));

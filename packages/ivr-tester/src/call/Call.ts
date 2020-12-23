@@ -1,8 +1,8 @@
+import ws from "ws";
+
 /**
  * Represents an active call
  */
-import ws from "ws";
-
 export interface Call {
   /**
    * Sends DTMF tone to the call

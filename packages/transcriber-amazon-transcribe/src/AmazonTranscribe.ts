@@ -1,20 +1,40 @@
-import { TranscriberPlugin, TranscriptEvent } from "ivr-tester";
+import {
+  TranscriberPlugin,
+  TranscriptEvent,
+  TranscriptionEvents,
+  TypedEmitter,
+} from "ivr-tester";
 import { AwsTranscribe, StreamingClient } from "aws-transcribe";
 import { WaveFile } from "wavefile";
-import { AVAILABLE_REGIONS, LANGUAGES } from "aws-transcribe/dist/types";
-import { EventEmitter } from "events";
+import {
+  AVAILABLE_REGIONS,
+  LANGUAGES,
+  TranscribeStreamConfig,
+} from "aws-transcribe/dist/types";
+import { Debugger } from "./Debugger";
 
 /** @internal */
-export class AmazonTranscribeService
-  extends EventEmitter
+export class AmazonTranscribe
+  extends TypedEmitter<TranscriptionEvents>
   implements TranscriberPlugin {
-  private transcribeStream: StreamingClient;
+  private static readonly debug = Debugger.getPackageDebugger();
+
+  private readonly config: TranscribeStreamConfig;
+
+  private stream: StreamingClient;
 
   constructor(
     private readonly region: AVAILABLE_REGIONS,
     private readonly languageCode: LANGUAGES
   ) {
     super();
+    this.config = {
+      region: this.region,
+      sampleRate: 8000,
+      languageCode: this.languageCode,
+    };
+
+    AmazonTranscribe.debug("Configuration: %O", this.config);
   }
 
   private static convertAudioEncoding(data: ArrayLike<unknown>) {
@@ -27,58 +47,64 @@ export class AmazonTranscribeService
   }
 
   private getStream() {
-    if (this.transcribeStream) {
-      return this.transcribeStream;
+    if (this.stream) {
+      return this.stream;
     } else {
-      this.transcribeStream = this.createStream();
-      return this.transcribeStream;
+      this.stream = this.createStream();
+      AmazonTranscribe.debug("New stream created");
+
+      return this.stream;
     }
   }
 
   private createStream() {
     const client = new AwsTranscribe();
-    return (
-      client
-        .createStreamingClient({
-          region: this.region,
-          sampleRate: 8000,
-          languageCode: this.languageCode,
-        })
-        // enums for returning the event names which the stream will emit
-        .on(StreamingClient.EVENTS.OPEN, () =>
-          console.log(`transcribe connection opened`)
-        )
-        .on(StreamingClient.EVENTS.ERROR, console.error)
-        .on(StreamingClient.EVENTS.CLOSE, () =>
-          console.log(`transcribe connection closed`)
-        )
-        .on(StreamingClient.EVENTS.DATA, (data) => {
-          const results = data.Transcript.Results;
+    return client
+      .createStreamingClient(this.config)
+      .on(StreamingClient.EVENTS.OPEN, () =>
+        AmazonTranscribe.debug("Connection with Amazon opened")
+      )
+      .on(StreamingClient.EVENTS.CLOSE, () =>
+        AmazonTranscribe.debug("Connection with Amazon closed")
+      )
+      .on(StreamingClient.EVENTS.ERROR, (error) => {
+        AmazonTranscribe.debug(error);
+        throw error;
+      })
+      .on(StreamingClient.EVENTS.DATA, (data) => {
+        AmazonTranscribe.debug("Data: %O", data.Transcript);
 
-          if (!results || results.length === 0) {
-            return;
-          }
+        const results = data.Transcript.Results;
+        if (!results || results.length === 0) {
+          return;
+        }
 
-          const result = results[0];
-          const isFinal = !result.IsPartial;
-          const transcription = result.Alternatives[0].Transcript;
+        const result = results[0];
 
-          const event: TranscriptEvent = {
-            transcription,
-            isFinal,
-          };
-          this.emit("transcription", event);
-        })
-    );
+        const event: TranscriptEvent = {
+          transcription: result.Alternatives[0].Transcript.trim(),
+          isFinal: !result.IsPartial,
+        };
+        this.emit("transcription", event);
+      });
   }
 
-  close(): void {
-    console.log("Closing, sending empty buffer to Transcribe");
-    this.transcribeStream.write(Buffer.from([]));
+  public close(): void {
+    if (this.stream) {
+      this.stream.removeAllListeners();
+      this.stream.write(Buffer.from([]));
+      this.stream.destroy();
+      this.stream = null;
+      AmazonTranscribe.debug("Stream destroyed");
+    }
   }
 
-  transcribe(payload: Buffer): void {
-    const pcmPayload = AmazonTranscribeService.convertAudioEncoding(payload);
+  public transcribe(payload: Buffer): void {
+    const pcmPayload = AmazonTranscribe.convertAudioEncoding(payload);
     this.getStream().write(pcmPayload);
+  }
+
+  public transcriptionComplete(): void {
+    this.close();
   }
 }

@@ -2,6 +2,7 @@
 export enum TwilioConnectionEvents {
   MediaStreamStart = "start",
   Media = "media",
+  Mark = "mark",
   CallEnded = "stop",
 }
 

@@ -2,7 +2,7 @@ import { Call } from "../../call/twilio";
 import { Server } from "ws";
 
 export interface CallRequestedEvent {
-  call: Call;
+  call: Call | Buffer;
   total: number;
   current: number;
 }
