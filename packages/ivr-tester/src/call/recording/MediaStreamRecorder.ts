@@ -9,7 +9,7 @@ import { FilenameFactory } from "./filename/FilenameFactory";
 import { filenameContainingIvrNumberAndTestName } from "./filename/filenameContainingIvrNumberAndTestName";
 import { Config } from "../../configuration/Config";
 import { ConfigurationError } from "../../configuration/ConfigurationError";
-import { IvrCaller, TwilioMediaStreamStartEvent } from "../IvrCaller";
+import { TwilioCaller, TwilioMediaStreamStartEvent } from "../TwilioCaller";
 
 /**
  * Details about the stream about to be recorded
@@ -30,18 +30,19 @@ export class MediaStreamRecorder {
   private static readonly FILE_EXT = "wav";
 
   private writeStream: WriteStream;
-  private readonly onMessageFunc: (message: string) => void;
-  private readonly onCloseFunc: () => void;
+  private readonly processMessageRef: (message: string) => void;
+  private readonly closeRef: () => void;
 
   constructor(
     private readonly connection: ws,
     private readonly test: IvrTest,
     private readonly config: RecorderConfig
   ) {
-    this.onMessageFunc = this.processMessage.bind(this);
-    this.onCloseFunc = this.close.bind(this);
-    connection.on(WebSocketEvents.Message, this.onMessageFunc);
-    connection.on(WebSocketEvents.Close, this.onCloseFunc);
+    this.processMessageRef = this.processMessage.bind(this);
+    this.closeRef = this.close.bind(this);
+    connection
+      .on(WebSocketEvents.Message, this.processMessageRef)
+      .on(WebSocketEvents.Close, this.closeRef);
   }
 
   public static createFromConfiguration(
@@ -81,15 +82,11 @@ export class MediaStreamRecorder {
       case TwilioConnectionEvents.Media:
         this.writeToFile(Buffer.from(data.media.payload, "base64"));
         break;
-      case TwilioConnectionEvents.CallEnded:
-        this.close();
-        console.log("Stopped recording");
-        break;
     }
   }
 
   private createFilename(event: TwilioMediaStreamStartEvent): string {
-    const call = IvrCaller.extractParameters(event);
+    const call = TwilioCaller.extractParameters(event);
     let filename: string;
 
     if (typeof this.config.filename === "string") {
@@ -121,8 +118,9 @@ export class MediaStreamRecorder {
   }
 
   private close() {
-    this.connection.off(WebSocketEvents.Message, this.onMessageFunc);
-    this.connection.off(WebSocketEvents.Close, this.onCloseFunc);
+    this.connection
+      .off(WebSocketEvents.Message, this.processMessageRef)
+      .off(WebSocketEvents.Close, this.closeRef);
 
     this.writeStream.close();
     this.writeStream = null;

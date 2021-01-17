@@ -48,3 +48,12 @@ const config: Config = {
   ),
 };
 ```
+
+## Debugging
+
+Console logging can be enabled by specifying the [package name in the `DEBUG` environment variable](https://github.com/visionmedia/debug#environment-variables):
+
+```
+DEBUG=ivr-tester-transcriber-google-speech-to-text
+DEBUG_DEPTH=5
+```

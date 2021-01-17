@@ -1,7 +1,7 @@
 import { When } from "./When";
 import { hasPart } from "./hasPart";
 
-export interface containsConfig {
+export interface ContainsConfig {
   ignoreCasing?: boolean;
 }
 
@@ -15,9 +15,15 @@ const containsText = (
     : transcript.includes(partial);
 
 /**
- * Evaluates whether a transcript contains either a piece of text or if
- * passed a When condition will pass then When condition every portion of
- * the transcript until it returns true, else will return false.
+ * Evaluates whether a transcript contains
+ * * Either a piece of text if a string is provided
+ * * Every piece of text if array is provided
+ * * When condition passes, having been passed every portion of
+ *   the transcript until it returns true, else will return false.
+ *
+ * ```
+ * contains(['test', 'transcript'])('this is a test transcript') //true
+ * ```
  *
  * ```
  * contains('test')('this is a test transcript') // true
@@ -28,11 +34,17 @@ const containsText = (
  * ```
  */
 export const contains = (
-  partialOrWhen: string | When,
-  { ignoreCasing = true }: containsConfig = {}
+  partialOrWhen: string | string[] | When,
+  { ignoreCasing = true }: ContainsConfig = {}
 ): When => (transcript: string) => {
   if (typeof partialOrWhen === "string") {
     return containsText(partialOrWhen, transcript, ignoreCasing);
+  }
+
+  if (Array.isArray(partialOrWhen)) {
+    return partialOrWhen.every((text) =>
+      containsText(text, transcript, ignoreCasing)
+    );
   }
 
   return hasPart(partialOrWhen)(transcript);

@@ -6,8 +6,9 @@ import { when } from "jest-when";
 import { inOrder } from "./inOrder";
 import { TwilioCall } from "../call/TwilioCall";
 import { contains } from "../testing/conditions/when";
-import { press } from "../testing/conditions/then";
-import { doNothing } from "../testing/conditions/then";
+import { doNothing, press } from "../testing/conditions/then";
+import { CallTranscriptionEvents } from "../call/transcription/CallTranscriber";
+import { Emitter } from "../Emitter";
 
 class WsTestDouble extends EventEmitter implements Pick<ws, "send"> {
   constructor(
@@ -40,7 +41,8 @@ class WsTestDouble extends EventEmitter implements Pick<ws, "send"> {
 
 describe("Then response", () => {
   test("payload from Then directive sent to Twilio when condition is met", async () => {
-    const transcriptionHandler = new EventEmitter();
+    const transcriptionHandler: Emitter<CallTranscriptionEvents> = new EventEmitter();
+
     const testWithSingleCondition: IvrTest = {
       name: "",
       test: inOrder([
@@ -57,12 +59,12 @@ describe("Then response", () => {
     };
     when(dtmfGenerator.generate).calledWith("123").mockReturnValue(dtmfBuffer);
 
-    const testDouble = new WsTestDouble();
-    const call = new TwilioCall((testDouble as unknown) as ws, dtmfGenerator);
+    const webSocket = new WsTestDouble();
+    const call = new TwilioCall((webSocket as unknown) as ws, dtmfGenerator);
 
     new TestHandler(call, transcriptionHandler, testWithSingleCondition);
 
-    testDouble.emit(
+    webSocket.emit(
       "message",
       JSON.stringify({ event: "start", streamSid: "test-stream-sid" })
     );
@@ -70,9 +72,10 @@ describe("Then response", () => {
 
     transcriptionHandler.emit("transcription", {
       transcription: "Hello World",
+      isFinal: true,
     });
 
-    expect(testDouble.sendMock).toHaveBeenCalledWith(
+    expect(webSocket.sendMock).toHaveBeenCalledWith(
       JSON.stringify({
         event: "media",
         streamSid: "test-stream-sid",
@@ -87,31 +90,40 @@ describe("Then response", () => {
 });
 
 describe("When conditions", () => {
-  test("passed event emitted if no conditions", (done) => {
-    const transcriptionHandler = new EventEmitter();
+  let call: TwilioCall;
+  let transcriptionHandler: Emitter<CallTranscriptionEvents>;
+
+  beforeEach(() => {
+    transcriptionHandler = new EventEmitter();
+    call = new TwilioCall((new WsTestDouble() as unknown) as ws, {
+      generate: jest.fn(),
+    });
+  });
+
+  test("passed event emitted if no conditions", () => {
     const testWithEmptyConditions: IvrTest = {
       name: "",
       test: inOrder([]),
     };
-
-    const call = new TwilioCall((new WsTestDouble() as unknown) as ws, {
-      generate: jest.fn(),
-    });
 
     const handler = new TestHandler(
       call,
       transcriptionHandler,
       testWithEmptyConditions
     );
-    handler.on("TestPassed", () => done());
+
+    const testPassedListener = jest.fn();
+    handler.on("TestPassed", testPassedListener);
 
     transcriptionHandler.emit("transcription", {
       transcription: "Hello World",
+      isFinal: true,
     });
+
+    expect(testPassedListener).toHaveBeenCalled();
   });
 
-  test("passed event emitted if all conditions pass", (done) => {
-    const transcriptionHandler = new EventEmitter();
+  test("passed event emitted if all conditions pass", () => {
     const testWithTwoCondition: IvrTest = {
       name: "",
       test: inOrder([
@@ -126,28 +138,28 @@ describe("When conditions", () => {
       ]),
     };
 
-    const call = new TwilioCall((new WsTestDouble() as unknown) as ws, {
-      generate: jest.fn(),
-    });
-
     const handler = new TestHandler(
       call,
       transcriptionHandler,
       testWithTwoCondition
     );
 
-    handler.on("TestPassed", () => done());
+    const testPassedListener = jest.fn();
+    handler.on("TestPassed", testPassedListener);
 
     transcriptionHandler.emit("transcription", {
       transcription: "Test transcript 1",
+      isFinal: true,
     });
     transcriptionHandler.emit("transcription", {
       transcription: "Test transcript 2",
+      isFinal: true,
     });
+
+    expect(testPassedListener).toHaveBeenCalled();
   });
 
-  test("failure event emitted if all but last condition fails", (done) => {
-    const transcriptionHandler = new EventEmitter();
+  test("failure event emitted if all but last condition fails", () => {
     const testWithTwoConditions: IvrTest = {
       name: "",
       test: inOrder([
@@ -162,26 +174,28 @@ describe("When conditions", () => {
       ]),
     };
 
-    const call = new TwilioCall((new WsTestDouble() as unknown) as ws, {
-      generate: jest.fn(),
-    });
     const handler = new TestHandler(
       call,
       transcriptionHandler,
       testWithTwoConditions
     );
-    handler.on("TestFailed", () => done());
+
+    const testFailedListener = jest.fn();
+    handler.on("TestFailed", testFailedListener);
 
     transcriptionHandler.emit("transcription", {
       transcription: "Test transcript 1",
+      isFinal: true,
     });
     transcriptionHandler.emit("transcription", {
       transcription: "Test transcript 2",
+      isFinal: true,
     });
+
+    expect(testFailedListener).toHaveBeenCalled();
   });
 
-  test("failure event emitted if first condition fails", (done) => {
-    const transcriptionHandler = new EventEmitter();
+  test("failure event emitted if first condition fails", () => {
     const twoConditions: IvrTest = {
       name: "",
       test: inOrder([
@@ -196,16 +210,20 @@ describe("When conditions", () => {
       ]),
     };
 
-    const call = new TwilioCall((new WsTestDouble() as unknown) as ws, {
-      generate: jest.fn(),
-    });
     const handler = new TestHandler(call, transcriptionHandler, twoConditions);
-    handler.on("TestFailed", () => done());
+
+    const testFailedListener = jest.fn();
+    handler.on("TestFailed", testFailedListener);
+
     transcriptionHandler.emit("transcription", {
       transcription: "Test transcript 1",
+      isFinal: true,
     });
     transcriptionHandler.emit("transcription", {
       transcription: "Test transcript 2",
+      isFinal: true,
     });
+
+    expect(testFailedListener).toHaveBeenCalled();
   });
 });

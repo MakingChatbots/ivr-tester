@@ -7,13 +7,18 @@ import {
   TestHandler,
   TestPassed,
 } from "../handlers/TestHandler";
-import { TranscriptionHandler } from "../call/transcription/TranscriptionHandler";
+import { CallTranscriber } from "../call/transcription/CallTranscriber";
 import { TestExecutor } from "./CallServer";
 
 export type Handler = (call: Call, test: IvrTest) => void;
 
 /** @internal */
 export interface TestExecutorEventProbe {
+  ivrTranscription: (event: {
+    test: IvrTest;
+    isFinal: boolean;
+    transcription: string;
+  }) => void;
   ivrTestConditionMet: (event: TestConditionMet) => void;
   ivrTestPassed: (event: TestPassed) => void;
   ivrTestFailed: (event: TestFailed) => void;
@@ -27,6 +32,7 @@ export class DefaultTestExecutor implements TestExecutor {
     private readonly transcriberFactory: TranscriberFactory,
     private readonly pauseAtEndOfTranscript: number,
     private readonly probe: TestExecutorEventProbe = {
+      ivrTranscription: () => undefined,
       ivrTestConditionMet: () => undefined,
       ivrTestPassed: () => undefined,
       ivrTestFailed: () => undefined,
@@ -37,19 +43,27 @@ export class DefaultTestExecutor implements TestExecutor {
     this.handlers.push(handler);
   }
 
-  public async startTest(test: IvrTest, call: Call): Promise<IvrTest> {
+  private initialiseCustomHandlers(test: IvrTest, call: Call): void {
     for (const handler of this.handlers) {
       handler(call, test);
     }
+  }
 
-    const transcriptionHandler = new TranscriptionHandler(
-      call.getStream(),
+  public async startTest(test: IvrTest, call: Call): Promise<IvrTest> {
+    this.initialiseCustomHandlers(test, call);
+
+    const callTranscriber = new CallTranscriber(
+      call,
       this.transcriberFactory(),
       this.pauseAtEndOfTranscript
     );
 
-    return new Promise<IvrTest>((resolve, reject) =>
-      new TestHandler(call, transcriptionHandler, test)
+    callTranscriber.on("transcription", (event) => {
+      this.probe.ivrTranscription({ test, ...event });
+    });
+
+    return new Promise<IvrTest>((resolve, reject) => {
+      return new TestHandler(call, callTranscriber, test)
         .on("ConditionMet", (event: TestConditionMet) => {
           this.probe.ivrTestConditionMet(event);
         })
@@ -60,7 +74,7 @@ export class DefaultTestExecutor implements TestExecutor {
         .on("TestFailed", (event: TestFailed) => {
           this.probe.ivrTestFailed(event);
           reject();
-        })
-    );
+        });
+    });
   }
 }

@@ -5,7 +5,7 @@ export * from "./testing/conditions/AssertThen";
 export * from "./testing/reporting/consoleLogger";
 export * from "./plugins/lifecycle/LifecycleHookPlugin";
 export * from "./testing/CloseServerWhenTestsComplete";
-export * from "./plugins/Emitter";
+export * from "./Emitter";
 export * from "./plugins/lifecycle/SetupEvents";
 export * from "./plugins/lifecycle/TestEvents";
 

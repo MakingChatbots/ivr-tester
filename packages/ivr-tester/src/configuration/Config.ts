@@ -5,7 +5,6 @@ import { Twilio } from "twilio";
 import { LifecycleHookPlugin } from "../plugins/lifecycle/LifecycleHookPlugin";
 
 export interface Config {
-  //extends ServerConfig, TestRunnerConfig {}
   /**
    * DTMF tone generator
    */
@@ -18,9 +17,10 @@ export interface Config {
 
   /**
    * How long to wait when receiving parts of a transcript to decide
-   * whether the transcribing has completed
+   * whether the transcribing has completed.
+   * Defaults to 2 seconds
    */
-  pauseAtEndOfTranscript?: number;
+  msPauseAtEndOfTranscript?: number;
 
   recording?: {
     outputPath: string;

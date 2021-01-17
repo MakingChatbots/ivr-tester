@@ -5,7 +5,6 @@ import {
   inOrder,
   IvrTest,
   press,
-  similarTo,
   testRunner,
   TestSubject,
 } from "ivr-tester";
@@ -21,26 +20,26 @@ const call: TestSubject = {
 };
 
 const test: IvrTest = {
-  name: "Pressing 4 exits the flow",
+  name: "Keys pressed are read back",
   test: inOrder([
     {
-      whenTranscript: contains(
-        "will allow you to adjust call recording behaviour"
-      ),
-      then: press("4"),
+      whenTranscript: contains("please enter a number"),
+      then: press("0w1w2w3w4w5w6w7w8w9"),
     },
     {
-      whenTranscript: contains(similarTo("thanks for calling")),
+      whenTranscript: contains(["you entered", "0123456789"]),
       then: doNothing(),
     },
   ]),
 };
 
 const config: Config = {
-  transcriber: amazonTranscribe({region:"us-east-1", languageCode: "en-GB"}),
+  transcriber: amazonTranscribe({ region: "us-east-1", languageCode: "en-GB" }),
   recording: {
     outputPath: path.join(__dirname, "../recordings"),
   },
 };
 
-testRunner(config)(call, test);
+testRunner(config)(call, test)
+  .then(() => process.exit(0))
+  .catch(() => process.exit(1));

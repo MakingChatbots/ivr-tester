@@ -9,4 +9,4 @@ import { IvrTest } from "../../../handlers/TestHandler";
 export const filenameContainingIvrNumberAndTestName: FilenameFactory = (
   { call }: StreamDetails,
   test: IvrTest
-) => filenamify(`${call.to}-${Date.now()}-${test.name}`);
+) => filenamify(`${Date.now()}-${call.to}-${test.name}`);
