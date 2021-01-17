@@ -34,7 +34,6 @@ export class TwilioCall implements Call {
 
   private processMessage(message: string): void {
     const data = JSON.parse(message);
-    TwilioCall.debug("Event received %O", data);
 
     switch (data.event) {
       case TwilioConnectionEvents.MediaStreamStart:

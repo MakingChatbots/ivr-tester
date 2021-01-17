@@ -2,27 +2,8 @@ import { URL } from "url";
 import { Caller } from "./Caller";
 import WebSocket from "ws";
 import { TwilioConnectionEvents } from "./twilio";
-import { Debugger } from "../Debugger";
-
-// interface TwilioMediaStreamStartEvent {
-//   event: TwilioConnectionEvents.MediaStreamStart;
-//   streamSid: string;
-// }
-//
-// interface TwilioMediaEvent {
-//   event: TwilioConnectionEvents.Media;
-//   streamSid: string;
-//   media: {
-//     payload: string;
-//   };
-// }
-//
-// interface TwilioCallEndedEvent {
-//   event: TwilioConnectionEvents.CallEnded;
-// }
 
 export class AudioPlaybackCaller implements Caller<Buffer> {
-  private static debug = Debugger.getPackageDebugger();
   private static msBetweenSendingBuffer = 250;
   private static bufferSize = 1000;
 

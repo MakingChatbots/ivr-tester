@@ -82,10 +82,6 @@ export class MediaStreamRecorder {
       case TwilioConnectionEvents.Media:
         this.writeToFile(Buffer.from(data.media.payload, "base64"));
         break;
-      // case TwilioConnectionEvents.CallEnded:
-      //   this.close();
-      //   console.log("Stopped recording as call has ended");
-      //   break;
     }
   }
 
@@ -128,6 +124,5 @@ export class MediaStreamRecorder {
 
     this.writeStream.close();
     this.writeStream = null;
-    console.log("Stopped recording as call's connection was closed");
   }
 }
