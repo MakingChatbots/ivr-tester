@@ -16,7 +16,7 @@
 
 ▸ `Const`**matches**(`pattern`: RegExp): [When](_testing_conditions_when_when_.md#when)
 
-*Defined in [packages/ivr-tester/src/testing/conditions/when/matches.ts:3](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/testing/conditions/when/matches.ts#L3)*
+*Defined in [packages/ivr-tester/src/testing/conditions/when/matches.ts:3](https://github.com/SketchingDev/ivr-tester/blob/3b9838d/packages/ivr-tester/src/testing/conditions/when/matches.ts#L3)*
 
 #### Parameters:
 

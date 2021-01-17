@@ -20,4 +20,4 @@
 
 •  **callAssignedTest**: (event: { index: number ; test: IvrTest  }) => void
 
-*Defined in [packages/ivr-tester/src/testing/IteratingTestAssigner.ts:5](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/testing/IteratingTestAssigner.ts#L5)*
+*Defined in [packages/ivr-tester/src/testing/IteratingTestAssigner.ts:5](https://github.com/SketchingDev/ivr-tester/blob/3b9838d/packages/ivr-tester/src/testing/IteratingTestAssigner.ts#L5)*

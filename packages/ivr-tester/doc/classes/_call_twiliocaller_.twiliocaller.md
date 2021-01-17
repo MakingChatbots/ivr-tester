@@ -35,7 +35,7 @@
 
 \+ **new TwilioCaller**(`twilioClient`: Twilio): [TwilioCaller](_call_twiliocaller_.twiliocaller.md)
 
-*Defined in [packages/ivr-tester/src/call/TwilioCaller.ts:18](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/call/TwilioCaller.ts#L18)*
+*Defined in [packages/ivr-tester/src/call/TwilioCaller.ts:18](https://github.com/SketchingDev/ivr-tester/blob/3b9838d/packages/ivr-tester/src/call/TwilioCaller.ts#L18)*
 
 #### Parameters:
 
@@ -51,7 +51,7 @@ Name | Type |
 
 • `Private` `Readonly` **twilioClient**: Twilio
 
-*Defined in [packages/ivr-tester/src/call/TwilioCaller.ts:20](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/call/TwilioCaller.ts#L20)*
+*Defined in [packages/ivr-tester/src/call/TwilioCaller.ts:20](https://github.com/SketchingDev/ivr-tester/blob/3b9838d/packages/ivr-tester/src/call/TwilioCaller.ts#L20)*
 
 ___
 
@@ -59,7 +59,7 @@ ___
 
 ▪ `Static` `Private` **debug**: Debugger = Debugger.getTwilioDebugger()
 
-*Defined in [packages/ivr-tester/src/call/TwilioCaller.ts:18](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/call/TwilioCaller.ts#L18)*
+*Defined in [packages/ivr-tester/src/call/TwilioCaller.ts:18](https://github.com/SketchingDev/ivr-tester/blob/3b9838d/packages/ivr-tester/src/call/TwilioCaller.ts#L18)*
 
 ## Methods
 
@@ -67,7 +67,7 @@ ___
 
 ▸ **call**(`call`: TestSubject, `streamUrl`: URL \| string): Promise\<unknown>
 
-*Defined in [packages/ivr-tester/src/call/TwilioCaller.ts:40](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/call/TwilioCaller.ts#L40)*
+*Defined in [packages/ivr-tester/src/call/TwilioCaller.ts:40](https://github.com/SketchingDev/ivr-tester/blob/3b9838d/packages/ivr-tester/src/call/TwilioCaller.ts#L40)*
 
 #### Parameters:
 
@@ -84,7 +84,7 @@ ___
 
 ▸ `Static` `Private`**addParameters**(`stream`: Stream, `call`: Call): void
 
-*Defined in [packages/ivr-tester/src/call/TwilioCaller.ts:22](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/call/TwilioCaller.ts#L22)*
+*Defined in [packages/ivr-tester/src/call/TwilioCaller.ts:22](https://github.com/SketchingDev/ivr-tester/blob/3b9838d/packages/ivr-tester/src/call/TwilioCaller.ts#L22)*
 
 #### Parameters:
 
@@ -101,7 +101,7 @@ ___
 
 ▸ `Static`**extractParameters**(`event`: [TwilioMediaStreamStartEvent](../interfaces/_call_twiliocaller_.twiliomediastreamstartevent.md)): Call
 
-*Defined in [packages/ivr-tester/src/call/TwilioCaller.ts:27](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/call/TwilioCaller.ts#L27)*
+*Defined in [packages/ivr-tester/src/call/TwilioCaller.ts:27](https://github.com/SketchingDev/ivr-tester/blob/3b9838d/packages/ivr-tester/src/call/TwilioCaller.ts#L27)*
 
 #### Parameters:
 

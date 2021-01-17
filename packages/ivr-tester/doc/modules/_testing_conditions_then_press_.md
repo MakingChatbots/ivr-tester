@@ -16,7 +16,7 @@
 
 ▸ `Const`**press**(`dtmfSequence`: string): [Then](../interfaces/_testing_conditions_then_then_.then.md)
 
-*Defined in [packages/ivr-tester/src/testing/conditions/then/press.ts:8](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/testing/conditions/then/press.ts#L8)*
+*Defined in [packages/ivr-tester/src/testing/conditions/then/press.ts:8](https://github.com/SketchingDev/ivr-tester/blob/3b9838d/packages/ivr-tester/src/testing/conditions/then/press.ts#L8)*
 
 Sends DTMF tones to the call
 
