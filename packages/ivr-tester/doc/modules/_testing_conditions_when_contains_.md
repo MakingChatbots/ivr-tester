@@ -8,7 +8,7 @@
 
 ### Interfaces
 
-* [containsConfig](../interfaces/_testing_conditions_when_contains_.containsconfig.md)
+* [ContainsConfig](../interfaces/_testing_conditions_when_contains_.containsconfig.md)
 
 ### Functions
 
@@ -18,13 +18,19 @@
 
 ### contains
 
-▸ `Const`**contains**(`partialOrWhen`: string \| [When](_testing_conditions_when_when_.md#when), `__namedParameters?`: { ignoreCasing: boolean = true }): [When](_testing_conditions_when_when_.md#when)
+▸ `Const`**contains**(`partialOrWhen`: string \| string[] \| [When](_testing_conditions_when_when_.md#when), `__namedParameters?`: { ignoreCasing: boolean = true }): [When](_testing_conditions_when_when_.md#when)
 
-*Defined in [packages/ivr-tester/src/testing/conditions/when/contains.ts:30](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/testing/conditions/when/contains.ts#L30)*
+*Defined in [packages/ivr-tester/src/testing/conditions/when/contains.ts:36](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/testing/conditions/when/contains.ts#L36)*
 
-Evaluates whether a transcript contains either a piece of text or if
-passed a When condition will pass then When condition every portion of
-the transcript until it returns true, else will return false.
+Evaluates whether a transcript contains
+* Either a piece of text if a string is provided
+* Every piece of text if array is provided
+* When condition passes, having been passed every portion of
+  the transcript until it returns true, else will return false.
+
+```
+contains(['test', 'transcript'])('this is a test transcript') //true
+```
 
 ```
 contains('test')('this is a test transcript') // true
@@ -38,7 +44,7 @@ contains(similarTo('this is a best'))('this is a test transcript') // true
 
 Name | Type | Default value |
 ------ | ------ | ------ |
-`partialOrWhen` | string \| [When](_testing_conditions_when_when_.md#when) | - |
+`partialOrWhen` | string \| string[] \| [When](_testing_conditions_when_when_.md#when) | - |
 `__namedParameters` | { ignoreCasing: boolean = true } | {} |
 
 **Returns:** [When](_testing_conditions_when_when_.md#when)

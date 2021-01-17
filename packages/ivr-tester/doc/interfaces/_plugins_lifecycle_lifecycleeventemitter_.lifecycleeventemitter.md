@@ -13,9 +13,9 @@ Name | Type |
 
 ## Hierarchy
 
-* [Emitter](_plugins_emitter_.emitter.md)
+* [Emitter](_emitter_.emitter.md)
 
-* [Emitter](_plugins_emitter_.emitter.md)
+* [Emitter](_emitter_.emitter.md)
 
   ↳ **LifecycleEventEmitter**
 
@@ -33,11 +33,11 @@ Name | Type |
 
 ▸ **emit**\<K>(`eventName`: K, `params`: T[K]): void
 
-*Inherited from [Emitter](_plugins_emitter_.emitter.md).[emit](_plugins_emitter_.emitter.md#emit)*
+*Inherited from [Emitter](_emitter_.emitter.md).[emit](_emitter_.emitter.md#emit)*
 
-*Overrides [Emitter](_plugins_emitter_.emitter.md).[emit](_plugins_emitter_.emitter.md#emit)*
+*Overrides [Emitter](_emitter_.emitter.md).[emit](_emitter_.emitter.md#emit)*
 
-*Defined in [packages/ivr-tester/src/plugins/Emitter.ts:11](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/plugins/Emitter.ts#L11)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:13](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/Emitter.ts#L13)*
 
 #### Type parameters:
 
@@ -60,11 +60,11 @@ ___
 
 ▸ **off**\<K>(`eventName`: K, `fn`: EventReceiver\<T[K]>): void
 
-*Inherited from [Emitter](_plugins_emitter_.emitter.md).[off](_plugins_emitter_.emitter.md#off)*
+*Inherited from [Emitter](_emitter_.emitter.md).[off](_emitter_.emitter.md#off)*
 
-*Overrides [Emitter](_plugins_emitter_.emitter.md).[off](_plugins_emitter_.emitter.md#off)*
+*Overrides [Emitter](_emitter_.emitter.md).[off](_emitter_.emitter.md#off)*
 
-*Defined in [packages/ivr-tester/src/plugins/Emitter.ts:10](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/plugins/Emitter.ts#L10)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:12](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/Emitter.ts#L12)*
 
 #### Type parameters:
 
@@ -87,11 +87,11 @@ ___
 
 ▸ **on**\<K>(`eventName`: K, `fn`: EventReceiver\<T[K]>): void
 
-*Inherited from [Emitter](_plugins_emitter_.emitter.md).[on](_plugins_emitter_.emitter.md#on)*
+*Inherited from [Emitter](_emitter_.emitter.md).[on](_emitter_.emitter.md#on)*
 
-*Overrides [Emitter](_plugins_emitter_.emitter.md).[on](_plugins_emitter_.emitter.md#on)*
+*Overrides [Emitter](_emitter_.emitter.md).[on](_emitter_.emitter.md#on)*
 
-*Defined in [packages/ivr-tester/src/plugins/Emitter.ts:9](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/plugins/Emitter.ts#L9)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:11](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/Emitter.ts#L11)*
 
 #### Type parameters:
 

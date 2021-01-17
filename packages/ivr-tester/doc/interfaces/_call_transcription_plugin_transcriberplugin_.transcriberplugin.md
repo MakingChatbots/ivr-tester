@@ -6,7 +6,7 @@
 
 ## Hierarchy
 
-* [Emitter](_plugins_emitter_.emitter.md)\<[TranscriptionEvents](../modules/_call_transcription_plugin_transcriberplugin_.md#transcriptionevents)>
+* [Emitter](_emitter_.emitter.md)\<[TranscriptionEvents](../modules/_call_transcription_plugin_transcriberplugin_.md#transcriptionevents)>
 
   ↳ **TranscriberPlugin**
 
@@ -19,6 +19,7 @@
 * [off](_call_transcription_plugin_transcriberplugin_.transcriberplugin.md#off)
 * [on](_call_transcription_plugin_transcriberplugin_.transcriberplugin.md#on)
 * [transcribe](_call_transcription_plugin_transcriberplugin_.transcriberplugin.md#transcribe)
+* [transcriptionComplete](_call_transcription_plugin_transcriberplugin_.transcriberplugin.md#transcriptioncomplete)
 
 ## Methods
 
@@ -26,7 +27,7 @@
 
 ▸ **close**(): void
 
-*Defined in [packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts:13](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts#L13)*
+*Defined in [packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts:16](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts#L16)*
 
 **Returns:** void
 
@@ -36,9 +37,9 @@ ___
 
 ▸ **emit**\<K>(`eventName`: K, `params`: TranscriptionEvents[K]): void
 
-*Inherited from [Emitter](_plugins_emitter_.emitter.md).[emit](_plugins_emitter_.emitter.md#emit)*
+*Inherited from [Emitter](_emitter_.emitter.md).[emit](_emitter_.emitter.md#emit)*
 
-*Defined in [packages/ivr-tester/src/plugins/Emitter.ts:11](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/plugins/Emitter.ts#L11)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:13](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/Emitter.ts#L13)*
 
 #### Type parameters:
 
@@ -61,9 +62,9 @@ ___
 
 ▸ **off**\<K>(`eventName`: K, `fn`: EventReceiver\<TranscriptionEvents[K]>): void
 
-*Inherited from [Emitter](_plugins_emitter_.emitter.md).[off](_plugins_emitter_.emitter.md#off)*
+*Inherited from [Emitter](_emitter_.emitter.md).[off](_emitter_.emitter.md#off)*
 
-*Defined in [packages/ivr-tester/src/plugins/Emitter.ts:10](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/plugins/Emitter.ts#L10)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:12](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/Emitter.ts#L12)*
 
 #### Type parameters:
 
@@ -86,9 +87,9 @@ ___
 
 ▸ **on**\<K>(`eventName`: K, `fn`: EventReceiver\<TranscriptionEvents[K]>): void
 
-*Inherited from [Emitter](_plugins_emitter_.emitter.md).[on](_plugins_emitter_.emitter.md#on)*
+*Inherited from [Emitter](_emitter_.emitter.md).[on](_emitter_.emitter.md#on)*
 
-*Defined in [packages/ivr-tester/src/plugins/Emitter.ts:9](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/plugins/Emitter.ts#L9)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:11](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/Emitter.ts#L11)*
 
 #### Type parameters:
 
@@ -111,12 +112,22 @@ ___
 
 ▸ **transcribe**(`payload`: Buffer): void
 
-*Defined in [packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts:14](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts#L14)*
+*Defined in [packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts:17](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts#L17)*
 
 #### Parameters:
 
 Name | Type |
 ------ | ------ |
 `payload` | Buffer |
+
+**Returns:** void
+
+___
+
+### transcriptionComplete
+
+▸ **transcriptionComplete**(): void
+
+*Defined in [packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts:18](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts#L18)*
 
 **Returns:** void

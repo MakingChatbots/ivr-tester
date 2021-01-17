@@ -1,6 +1,6 @@
 **[IVR Tester](../README.md)**
 
-> [Globals](../README.md) / ["plugins/Emitter"](../modules/_plugins_emitter_.md) / Emitter
+> [Globals](../README.md) / ["Emitter"](../modules/_emitter_.md) / Emitter
 
 # Interface: Emitter\<T>
 
@@ -20,13 +20,18 @@ Name | Type |
 
   ↳ [LifecycleEventEmitter](_plugins_lifecycle_lifecycleeventemitter_.lifecycleeventemitter.md)
 
+## Implemented by
+
+* [CallTranscriber](../classes/_call_transcription_calltranscriber_.calltranscriber.md)
+* [TypedEmitter](../classes/_emitter_.typedemitter.md)
+
 ## Index
 
 ### Methods
 
-* [emit](_plugins_emitter_.emitter.md#emit)
-* [off](_plugins_emitter_.emitter.md#off)
-* [on](_plugins_emitter_.emitter.md#on)
+* [emit](_emitter_.emitter.md#emit)
+* [off](_emitter_.emitter.md#off)
+* [on](_emitter_.emitter.md#on)
 
 ## Methods
 
@@ -34,7 +39,7 @@ Name | Type |
 
 ▸ **emit**\<K>(`eventName`: K, `params`: T[K]): void
 
-*Defined in [packages/ivr-tester/src/plugins/Emitter.ts:11](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/plugins/Emitter.ts#L11)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:13](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/Emitter.ts#L13)*
 
 #### Type parameters:
 
@@ -57,7 +62,7 @@ ___
 
 ▸ **off**\<K>(`eventName`: K, `fn`: EventReceiver\<T[K]>): void
 
-*Defined in [packages/ivr-tester/src/plugins/Emitter.ts:10](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/plugins/Emitter.ts#L10)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:12](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/Emitter.ts#L12)*
 
 #### Type parameters:
 
@@ -80,7 +85,7 @@ ___
 
 ▸ **on**\<K>(`eventName`: K, `fn`: EventReceiver\<T[K]>): void
 
-*Defined in [packages/ivr-tester/src/plugins/Emitter.ts:9](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/plugins/Emitter.ts#L9)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:11](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/Emitter.ts#L11)*
 
 #### Type parameters:
 

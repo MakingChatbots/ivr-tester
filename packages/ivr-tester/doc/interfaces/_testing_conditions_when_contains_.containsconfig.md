@@ -1,12 +1,12 @@
 **[IVR Tester](../README.md)**
 
-> [Globals](../README.md) / ["testing/conditions/when/contains"](../modules/_testing_conditions_when_contains_.md) / containsConfig
+> [Globals](../README.md) / ["testing/conditions/when/contains"](../modules/_testing_conditions_when_contains_.md) / ContainsConfig
 
-# Interface: containsConfig
+# Interface: ContainsConfig
 
 ## Hierarchy
 
-* **containsConfig**
+* **ContainsConfig**
 
 ## Index
 
@@ -20,4 +20,4 @@
 
 • `Optional` **ignoreCasing**: boolean
 
-*Defined in [packages/ivr-tester/src/testing/conditions/when/contains.ts:5](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/testing/conditions/when/contains.ts#L5)*
+*Defined in [packages/ivr-tester/src/testing/conditions/when/contains.ts:5](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/testing/conditions/when/contains.ts#L5)*

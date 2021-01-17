@@ -34,7 +34,7 @@
 
 \+ **new CallServer**(`dtmfBufferGenerator`: [DtmfBufferGenerator](../interfaces/_call_dtmf_dtmfbuffergenerator_.dtmfbuffergenerator.md), `testAssigner`: [TestAssigner](../interfaces/_testing_callserver_.testassigner.md), `testExecutor`: [TestExecutor](../interfaces/_testing_callserver_.testexecutor.md), `probe?`: [CallServerEventProbe](../interfaces/_testing_callserver_.callservereventprobe.md)): [CallServer](_testing_callserver_.callserver.md)
 
-*Defined in [packages/ivr-tester/src/testing/CallServer.ts:41](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/testing/CallServer.ts#L41)*
+*Defined in [packages/ivr-tester/src/testing/CallServer.ts:41](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/testing/CallServer.ts#L41)*
 
 #### Parameters:
 
@@ -56,7 +56,7 @@ Name | Type | Default value |
 
 • `Private` `Readonly` **dtmfBufferGenerator**: [DtmfBufferGenerator](../interfaces/_call_dtmf_dtmfbuffergenerator_.dtmfbuffergenerator.md)
 
-*Defined in [packages/ivr-tester/src/testing/CallServer.ts:43](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/testing/CallServer.ts#L43)*
+*Defined in [packages/ivr-tester/src/testing/CallServer.ts:43](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/testing/CallServer.ts#L43)*
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 • `Private` `Readonly` **probe**: [CallServerEventProbe](../interfaces/_testing_callserver_.callservereventprobe.md)
 
-*Defined in [packages/ivr-tester/src/testing/CallServer.ts:46](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/testing/CallServer.ts#L46)*
+*Defined in [packages/ivr-tester/src/testing/CallServer.ts:46](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/testing/CallServer.ts#L46)*
 
 ___
 
@@ -72,7 +72,7 @@ ___
 
 • `Private` `Readonly` **testAssigner**: [TestAssigner](../interfaces/_testing_callserver_.testassigner.md)
 
-*Defined in [packages/ivr-tester/src/testing/CallServer.ts:44](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/testing/CallServer.ts#L44)*
+*Defined in [packages/ivr-tester/src/testing/CallServer.ts:44](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/testing/CallServer.ts#L44)*
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 • `Private` `Readonly` **testExecutor**: [TestExecutor](../interfaces/_testing_callserver_.testexecutor.md)
 
-*Defined in [packages/ivr-tester/src/testing/CallServer.ts:45](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/testing/CallServer.ts#L45)*
+*Defined in [packages/ivr-tester/src/testing/CallServer.ts:45](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/testing/CallServer.ts#L45)*
 
 ## Methods
 
@@ -88,7 +88,7 @@ ___
 
 ▸ `Private`**callConnected**(`callWebSocket`: ws): void
 
-*Defined in [packages/ivr-tester/src/testing/CallServer.ts:93](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/testing/CallServer.ts#L93)*
+*Defined in [packages/ivr-tester/src/testing/CallServer.ts:93](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/testing/CallServer.ts#L93)*
 
 #### Parameters:
 
@@ -104,7 +104,7 @@ ___
 
 ▸ **listen**(`port`: number): Promise\<CallHandlingServer>
 
-*Defined in [packages/ivr-tester/src/testing/CallServer.ts:73](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/testing/CallServer.ts#L73)*
+*Defined in [packages/ivr-tester/src/testing/CallServer.ts:73](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/testing/CallServer.ts#L73)*
 
 #### Parameters:
 
@@ -120,7 +120,7 @@ ___
 
 ▸ `Static`**convertToWebSocketUrl**(`serverUrl`: string \| URL): URL
 
-*Defined in [packages/ivr-tester/src/testing/CallServer.ts:65](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/testing/CallServer.ts#L65)*
+*Defined in [packages/ivr-tester/src/testing/CallServer.ts:65](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/testing/CallServer.ts#L65)*
 
 #### Parameters:
 
@@ -136,7 +136,7 @@ ___
 
 ▸ `Static` `Private`**formatServerUrl**(`server`: Server): URL
 
-*Defined in [packages/ivr-tester/src/testing/CallServer.ts:52](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/testing/CallServer.ts#L52)*
+*Defined in [packages/ivr-tester/src/testing/CallServer.ts:52](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/testing/CallServer.ts#L52)*
 
 #### Parameters:
 

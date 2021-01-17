@@ -16,4 +16,4 @@
 
 Ƭ  **Handler**: (call: [Call](../interfaces/_call_call_.call.md), test: IvrTest) => void
 
-*Defined in [packages/ivr-tester/src/testing/DefaultTestExecutor.ts:13](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/testing/DefaultTestExecutor.ts#L13)*
+*Defined in [packages/ivr-tester/src/testing/DefaultTestExecutor.ts:13](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/testing/DefaultTestExecutor.ts#L13)*

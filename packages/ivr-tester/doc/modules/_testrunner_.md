@@ -16,12 +16,12 @@
 
 ▸ `Const`**testRunner**(`config`: [Config](../interfaces/_configuration_config_.config.md)): (Anonymous function)
 
-*Defined in [packages/ivr-tester/src/testRunner.ts:34](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/testRunner.ts#L34)*
+*Defined in [packages/ivr-tester/src/testRunner.ts:36](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/testRunner.ts#L36)*
 
 #### Parameters:
 
-Name | Type |
------- | ------ |
-`config` | [Config](../interfaces/_configuration_config_.config.md) |
+Name | Type | Description |
+------ | ------ | ------ |
+`config` | [Config](../interfaces/_configuration_config_.config.md) | Configuration used for setting up the tests  |
 
 **Returns:** (Anonymous function)
