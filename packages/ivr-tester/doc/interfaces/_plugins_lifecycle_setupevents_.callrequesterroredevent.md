@@ -20,4 +20,4 @@
 
 •  **error**: [Error](../classes/_configuration_configurationerror_.configurationerror.md#error)
 
-*Defined in [packages/ivr-tester/src/plugins/lifecycle/SetupEvents.ts:11](https://github.com/SketchingDev/ivr-tester/blob/3b9838d/packages/ivr-tester/src/plugins/lifecycle/SetupEvents.ts#L11)*
+*Defined in [packages/ivr-tester/src/plugins/lifecycle/SetupEvents.ts:11](https://github.com/SketchingDev/ivr-tester/blob/5493745/packages/ivr-tester/src/plugins/lifecycle/SetupEvents.ts#L11)*

@@ -25,7 +25,7 @@
 
 *Overrides [AssignedResult](_testing_callserver_.assignedresult.md).[isAssigned](_testing_callserver_.assignedresult.md#isassigned)*
 
-*Defined in [packages/ivr-tester/src/testing/CallServer.ts:29](https://github.com/SketchingDev/ivr-tester/blob/3b9838d/packages/ivr-tester/src/testing/CallServer.ts#L29)*
+*Defined in [packages/ivr-tester/src/testing/CallServer.ts:29](https://github.com/SketchingDev/ivr-tester/blob/5493745/packages/ivr-tester/src/testing/CallServer.ts#L29)*
 
 ___
 
@@ -33,4 +33,4 @@ ___
 
 •  **reason**: string
 
-*Defined in [packages/ivr-tester/src/testing/CallServer.ts:30](https://github.com/SketchingDev/ivr-tester/blob/3b9838d/packages/ivr-tester/src/testing/CallServer.ts#L30)*
+*Defined in [packages/ivr-tester/src/testing/CallServer.ts:30](https://github.com/SketchingDev/ivr-tester/blob/5493745/packages/ivr-tester/src/testing/CallServer.ts#L30)*
