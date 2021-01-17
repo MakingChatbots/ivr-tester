@@ -48,7 +48,7 @@ describe("Call Server", () => {
     if (server) {
       console.debug("Closing call server...");
 
-      await new Promise((resolve, reject) => {
+      await new Promise<void>((resolve, reject) => {
         server.wss.close((err) => {
           if (err) {
             reject(err);
