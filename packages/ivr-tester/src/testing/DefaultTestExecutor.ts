@@ -69,7 +69,7 @@ export class DefaultTestExecutor implements TestExecutor {
         })
         .on("TestPassed", (event: TestPassed) => {
           this.probe.ivrTestPassed(event);
-          resolve();
+          resolve(test);
         })
         .on("TestFailed", (event: TestFailed) => {
           this.probe.ivrTestFailed(event);
