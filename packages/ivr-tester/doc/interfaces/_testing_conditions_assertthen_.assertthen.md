@@ -23,7 +23,7 @@ Performs an assertion, known as a 'when'. If correct then performs the action, k
 
 •  **then**: [Then](_testing_conditions_then_then_.then.md)
 
-*Defined in [packages/ivr-tester/src/testing/conditions/AssertThen.ts:9](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/testing/conditions/AssertThen.ts#L9)*
+*Defined in [packages/ivr-tester/src/testing/conditions/AssertThen.ts:9](https://github.com/SketchingDev/ivr-tester/blob/3b9838d/packages/ivr-tester/src/testing/conditions/AssertThen.ts#L9)*
 
 ___
 
@@ -31,4 +31,4 @@ ___
 
 •  **whenTranscript**: [When](../modules/_testing_conditions_when_when_.md#when)
 
-*Defined in [packages/ivr-tester/src/testing/conditions/AssertThen.ts:8](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/testing/conditions/AssertThen.ts#L8)*
+*Defined in [packages/ivr-tester/src/testing/conditions/AssertThen.ts:8](https://github.com/SketchingDev/ivr-tester/blob/3b9838d/packages/ivr-tester/src/testing/conditions/AssertThen.ts#L8)*
