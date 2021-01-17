@@ -37,7 +37,7 @@ Closes the server when all the tests complete
 
 • `Private` **server**: Server
 
-*Defined in [packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts:9](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts#L9)*
+*Defined in [packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts:9](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts#L9)*
 
 ___
 
@@ -45,7 +45,7 @@ ___
 
 • `Private` **testsCompleted**: number = 0
 
-*Defined in [packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts:11](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts#L11)*
+*Defined in [packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts:11](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts#L11)*
 
 ___
 
@@ -53,7 +53,7 @@ ___
 
 • `Private` **totalTests**: number = 0
 
-*Defined in [packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts:10](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts#L10)*
+*Defined in [packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts:10](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts#L10)*
 
 ___
 
@@ -61,7 +61,7 @@ ___
 
 ▪ `Static` `Private` `Readonly` **PluginName**: \"StopWhenAllTestsComplete\" = "StopWhenAllTestsComplete"
 
-*Defined in [packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts:8](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts#L8)*
+*Defined in [packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts:8](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts#L8)*
 
 ## Methods
 
@@ -69,7 +69,7 @@ ___
 
 ▸ `Private`**callAssignedTest**(): void
 
-*Defined in [packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts:33](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts#L33)*
+*Defined in [packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts:33](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts#L33)*
 
 **Returns:** void
 
@@ -79,7 +79,7 @@ ___
 
 ▸ `Private`**callHandlingServerStarted**(`__namedParameters`: { server: Server  }): void
 
-*Defined in [packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts:27](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts#L27)*
+*Defined in [packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts:27](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts#L27)*
 
 #### Parameters:
 
@@ -97,7 +97,7 @@ ___
 
 *Implementation of [LifecycleHookPlugin](../interfaces/_plugins_lifecycle_lifecyclehookplugin_.lifecyclehookplugin.md)*
 
-*Defined in [packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts:17](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts#L17)*
+*Defined in [packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts:17](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts#L17)*
 
 #### Parameters:
 
@@ -115,7 +115,7 @@ ___
 
 *Implementation of [LifecycleHookPlugin](../interfaces/_plugins_lifecycle_lifecyclehookplugin_.lifecyclehookplugin.md)*
 
-*Defined in [packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts:13](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts#L13)*
+*Defined in [packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts:13](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts#L13)*
 
 **Returns:** string
 
@@ -125,6 +125,6 @@ ___
 
 ▸ `Private`**testCompleted**(): void
 
-*Defined in [packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts:37](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts#L37)*
+*Defined in [packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts:37](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts#L37)*
 
 **Returns:** void

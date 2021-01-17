@@ -16,7 +16,7 @@
 
 ▸ `Const`**inOrder**(`conditions`: ReadonlyArray\<[AssertThen](../interfaces/_testing_conditions_assertthen_.assertthen.md)>): object
 
-*Defined in [packages/ivr-tester/src/handlers/inOrder.ts:9](https://github.com/SketchingDev/ivr-tester/blob/3ff21e1/packages/ivr-tester/src/handlers/inOrder.ts#L9)*
+*Defined in [packages/ivr-tester/src/handlers/inOrder.ts:9](https://github.com/SketchingDev/ivr-tester/blob/44e6705/packages/ivr-tester/src/handlers/inOrder.ts#L9)*
 
 Executes [AssertThen](../interfaces/_testing_conditions_assertthen_.assertthen.md)'s in order
 
