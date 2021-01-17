@@ -23,7 +23,7 @@ class TranscriptionBuilder {
       return TranscriptionBuilder.EMPTY_TRANSCRIPTION;
     }
 
-    // Return last partial
+    // If all transcripts partial then return last partial
     const areAllPartial = this.transcriptions.every((t) => t.isFinal === false);
     if (areAllPartial) {
       const lastPartial = this.transcriptions[this.transcriptions.length - 1];
@@ -62,10 +62,6 @@ export type CallTranscriptionEvents = {
   transcription: CallTranscriptionEvent;
 };
 
-/**
- * Transcribes a calls media. Grouping...
- * TODO Complete description
- */
 export class CallTranscriber extends TypedEmitter<CallTranscriptionEvents> {
   private static debug = Debugger.getPackageDebugger();
 
