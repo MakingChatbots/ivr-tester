@@ -1,5 +1,5 @@
 import { URL } from "url";
-import { TestSubject } from "../handlers/TestInstanceClass";
+import { TestSubject } from "../testRunner";
 
 export interface AudioPlaybackCall {
   type: "audio-playback";

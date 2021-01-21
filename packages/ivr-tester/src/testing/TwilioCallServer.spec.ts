@@ -4,10 +4,14 @@ import { DtmfBufferGenerator } from "../call/dtmf/DtmfBufferGenerator";
 import getPort from "get-port";
 import { URL } from "url";
 import waitForExpect from "wait-for-expect";
-import { IvrTest } from "../handlers/TestInstanceClass";
 import { TwilioCall } from "../call/TwilioCall";
-import { NoneAssigned, TestAssigned, TestAssigner } from "./TestAssigner";
-import { TestExecutor } from "./TestExecutor";
+import {
+  NoneAssigned,
+  TestAssigned,
+  TestAssigner,
+} from "./IteratingTestAssigner";
+import { TestExecutor } from "./DefaultTestExecutor";
+import { IvrTest } from "./test/IvrTest";
 
 const waitForConnection = async (ws: WebSocket): Promise<void> =>
   new Promise((resolve) => ws.on("open", resolve));

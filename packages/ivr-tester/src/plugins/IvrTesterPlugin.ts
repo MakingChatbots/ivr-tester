@@ -6,6 +6,5 @@ import { Emitter } from "../Emitter";
  * test.
  */
 export interface IvrTesterPlugin {
-  name(): string;
   initialise(eventEmitter: Emitter<PluginEvents>): void;
 }

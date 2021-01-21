@@ -1,14 +1,13 @@
 import { TranscriberFactory } from "../call/transcription/plugin/TranscriberFactory";
 import { Call } from "../call/Call";
-import {
-  IvrTest,
-  TestInstance,
-  TestInstanceClass,
-} from "../handlers/TestInstanceClass";
 import { CallTranscriber } from "../call/transcription/CallTranscriber";
-import { TestExecutor } from "./TestExecutor";
+import { IvrTest } from "./test/IvrTest";
+import { TestInstance, TestInstanceClass } from "./test/TestInstanceClass";
 
-/** @internal */
+export interface TestExecutor {
+  startTest(test: IvrTest, call: Call): TestInstance;
+}
+
 export class DefaultTestExecutor implements TestExecutor {
   constructor(
     private readonly transcriberFactory: TranscriberFactory,

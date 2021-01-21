@@ -2,17 +2,14 @@ import { CloseServerWhenTestsComplete } from "./CloseServerWhenTestsComplete";
 import { PluginEvents } from "../plugins/PluginManager";
 import { Emitter, TypedEmitter } from "../Emitter";
 import {
-  IvrTest,
-  TestInstance,
-  TestInstanceEvents,
-} from "../handlers/TestInstanceClass";
-import {
   CallHandlingServer,
   TwilioCallServer,
   CallServer,
   CallServerEvents,
 } from "./TwilioCallServer";
 import { Call } from "../call/Call";
+import { TestInstance, TestInstanceEvents } from "./test/TestInstanceClass";
+import { IvrTest } from "./test/IvrTest";
 
 class StubCallServer
   extends TypedEmitter<CallServerEvents>
@@ -24,6 +21,13 @@ class StubCallServer
   stop(): void {
     // Intentionally empty
   }
+
+  // getEstablishedCalls(): ReadonlyArray<Call> {
+  //   return undefined;
+  // }
+  //
+  // preventNewCalls(): void {
+  // }
 }
 
 class StubTestInstance

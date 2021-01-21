@@ -1,10 +1,8 @@
 import * as getenv from "getenv";
 import { UlawDtmfBufferGenerator } from "../call/dtmf/UlawDtmfBufferGenerator";
-import { consoleLogger } from "../testing/reporting/consoleLogger";
 import { Config } from "./Config";
 import { Twilio } from "twilio";
 import { TwilioCallServer } from "../testing/TwilioCallServer";
-import { CloseServerWhenTestsComplete } from "../testing/CloseServerWhenTestsComplete";
 
 const getPublicServerUrl = (config: Config) => {
   const publicServerUrl = getenv.string(
@@ -31,4 +29,5 @@ export const populateDefaults = (config: Config): Config => ({
   publicServerUrl: getPublicServerUrl(config),
   recording: config.recording,
   twilioClient: config.twilioClient || createDefaultClient(),
+  msTimeoutWaitingForCall: config.msTimeoutWaitingForCall || 30 * 1000,
 });

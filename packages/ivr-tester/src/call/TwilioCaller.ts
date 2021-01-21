@@ -1,10 +1,10 @@
-import { TestSubject } from "../handlers/TestInstanceClass";
 import { URL } from "url";
 import { Twilio, twiml } from "twilio";
 import { Call, TwilioConnectionEvents } from "./twilio";
 import VoiceResponse from "twilio/lib/twiml/VoiceResponse";
 import { Debugger } from "../Debugger";
 import { Caller, RequestedCall } from "./Caller";
+import { TestSubject } from "../testRunner";
 
 export interface TwilioMediaStreamStartEvent {
   event: TwilioConnectionEvents.MediaStreamStart;

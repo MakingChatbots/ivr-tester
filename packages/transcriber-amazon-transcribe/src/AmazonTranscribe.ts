@@ -13,7 +13,6 @@ import {
 } from "aws-transcribe/dist/types";
 import { Debugger } from "./Debugger";
 
-/** @internal */
 export class AmazonTranscribe
   extends TypedEmitter<TranscriptionEvents>
   implements TranscriberPlugin {

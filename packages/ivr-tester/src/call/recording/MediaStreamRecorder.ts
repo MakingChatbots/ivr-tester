@@ -3,12 +3,12 @@ import { createWriteStream, mkdirSync, WriteStream } from "fs";
 import * as path from "path";
 import { WebSocketEvents } from "../TwilioCall";
 import { TwilioConnectionEvents } from "../twilio";
-import { TestInstance } from "../../handlers/TestInstanceClass";
 import { FilenameFactory } from "./filename/FilenameFactory";
 import { filenameContainingIvrNumberAndTestName } from "./filename/filenameContainingIvrNumberAndTestName";
 import { Config } from "../../configuration/Config";
 import { ConfigurationError } from "../../configuration/ConfigurationError";
 import { TwilioCaller, TwilioMediaStreamStartEvent } from "../TwilioCaller";
+import { TestInstance } from "../../testing/test/TestInstanceClass";
 
 /**
  * Details about the stream about to be recorded
@@ -18,13 +18,11 @@ export interface StreamDetails {
   call: { from: string; to: string };
 }
 
-/** @internal */
 export interface RecorderConfig {
   outputPath: string;
   filename?: string | FilenameFactory;
 }
 
-/** @internal */
 export class MediaStreamRecorder {
   private static readonly FILE_EXT = "wav";
 

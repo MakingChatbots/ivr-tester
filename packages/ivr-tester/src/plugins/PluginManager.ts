@@ -22,7 +22,6 @@ export type PluginEvents = {
   callRequestErrored: CallRequestErroredEvent;
 };
 
-/** @internal */
 export class PluginManager extends TypedEmitter<PluginEvents> {
   constructor(private readonly plugins: IvrTesterPlugin[]) {
     super();

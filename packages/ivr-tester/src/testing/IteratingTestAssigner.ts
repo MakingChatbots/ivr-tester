@@ -1,11 +1,23 @@
-import { IvrTest } from "../handlers/TestInstanceClass";
-import { NoneAssigned, TestAssigned, TestAssigner } from "./TestAssigner";
+import { IvrTest } from "./test/IvrTest";
 
-// export interface TestAssignerEventProbe {
-//   callAssignedTest: (event: { index: number; test: IvrTest }) => void;
-// }
+export interface AssignedResult {
+  isAssigned: boolean;
+}
 
-/** @internal */
+export interface TestAssigned extends AssignedResult {
+  isAssigned: true;
+  test: IvrTest;
+}
+
+export interface NoneAssigned extends AssignedResult {
+  isAssigned: false;
+  reason: string;
+}
+
+export interface TestAssigner {
+  assign(): TestAssigned | NoneAssigned;
+}
+
 export class IteratingTestAssigner implements TestAssigner {
   private readonly testIterator: IterableIterator<[number, IvrTest]>;
 

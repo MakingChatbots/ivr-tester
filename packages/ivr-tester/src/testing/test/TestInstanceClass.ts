@@ -1,49 +1,26 @@
-import { AssertThen } from "../testing/conditions/AssertThen";
+import { AssertThen } from "./conditions/AssertThen";
 import {
   CallTranscriptionEvent,
   CallTranscriptionEvents,
-} from "../call/transcription/CallTranscriber";
-import { Call } from "../call/Call";
-import { Emitter, TypedEmitter } from "../Emitter";
+} from "../../call/transcription/CallTranscriber";
+import { Call } from "../../call/Call";
+import { Emitter, TypedEmitter } from "../../Emitter";
+import { IvrTest } from "./IvrTest";
 
-/** @internal */
-export interface TestSubject {
-  from: string;
-  to: string;
-}
-
-/** @internal */
 export interface TestResult {
   matchedCondition?: AssertThen;
   result: "continue" | "fail" | "pass";
 }
 
-// TODO Is there a better name?
-export interface TestContainer {
-  /**
-   * Called each time with a transcript is received
-   */
-  test(transcript: string, call: Call): TestResult;
-}
-
-/** @internal */
-export interface IvrTest {
-  name: string; // TODO Enforce that test names are defined and unique
-  test: TestContainer;
-}
-
-/** @internal */
 export interface TestFailed {
   test: IvrTest;
   transcription: string;
 }
 
-/** @internal */
 export interface TestPassed {
   test: IvrTest;
 }
 
-/** @internal */
 export interface TestConditionMet {
   test: IvrTest;
   transcription: string;

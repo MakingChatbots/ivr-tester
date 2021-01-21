@@ -1,10 +1,10 @@
 import { IvrTesterPlugin } from "../../plugins/IvrTesterPlugin";
 import chalk from "chalk";
 import logSymbols from "log-symbols";
-import { TestInstance } from "../../handlers/TestInstanceClass";
 import { CallServer } from "../TwilioCallServer";
 import { Emitter } from "../../Emitter";
 import { PluginEvents } from "../../plugins/PluginManager";
+import { TestInstance } from "../test/TestInstanceClass";
 
 const ivrTranscription = (testInstance: TestInstance): void =>
   testInstance.on("progress", (event) => {
@@ -104,11 +104,17 @@ const callServerStarted = (eventEmitter: Emitter<PluginEvents>) => {
   });
 };
 
-export const consoleLogger: IvrTesterPlugin = {
-  name: () => "ConsoleLogger",
+export interface ConsoleLoggerPlugin extends IvrTesterPlugin {
+  timedOut(reason: string): void;
+}
+
+export const consoleUserInterface = (): ConsoleLoggerPlugin => ({
   initialise(eventEmitter: Emitter<PluginEvents>): void {
     callServerStarted(eventEmitter);
     callRequested(eventEmitter);
     callRequestErrored(eventEmitter);
   },
-};
+  timedOut(reason: string): void {
+    console.log(chalk.bold.red(`Timed out: ${reason}`));
+  },
+});

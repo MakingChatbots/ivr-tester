@@ -5,13 +5,11 @@ import { Call, CallEvents } from "./Call";
 import { Debugger } from "../Debugger";
 import { TypedEmitter } from "../Emitter";
 
-/** @internal */
 export enum WebSocketEvents {
   Message = "message",
   Close = "close",
 }
 
-/** @internal */
 export class TwilioCall extends TypedEmitter<CallEvents> implements Call {
   private static debug = Debugger.getTwilioDebugger();
 

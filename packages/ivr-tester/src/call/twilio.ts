@@ -1,4 +1,3 @@
-/** @internal */
 export enum TwilioConnectionEvents {
   MediaStreamStart = "start",
   Media = "media",
@@ -6,7 +5,6 @@ export enum TwilioConnectionEvents {
   CallEnded = "stop",
 }
 
-/** @internal */
 export interface Call {
   from: string;
   to: string;

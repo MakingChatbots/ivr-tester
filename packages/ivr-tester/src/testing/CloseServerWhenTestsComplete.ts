@@ -5,14 +5,9 @@ import { CallServer } from "./TwilioCallServer";
 
 /** Closes the server when all the tests complete */
 export class CloseServerWhenTestsComplete implements IvrTesterPlugin {
-  private static readonly PluginName = "StopWhenAllTestsComplete";
   private server: CallServer;
   private totalTests = 0;
   private testsCompleted = 0;
-
-  public name(): string {
-    return CloseServerWhenTestsComplete.PluginName;
-  }
 
   public initialise(eventEmitter: Emitter<PluginEvents>): void {
     eventEmitter.on("callServerStarted", ({ callServer }) => {

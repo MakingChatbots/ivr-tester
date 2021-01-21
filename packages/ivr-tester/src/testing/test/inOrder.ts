@@ -1,5 +1,6 @@
-import { AssertThen } from "../testing/conditions/AssertThen";
-import { TestContainer, TestResult } from "./TestInstanceClass";
+import { AssertThen } from "./conditions/AssertThen";
+import { TestResult } from "./TestInstanceClass";
+import { TestContainer } from "./IvrTest";
 
 /**
  * Executes {@link AssertThen}'s in order

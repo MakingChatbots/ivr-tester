@@ -1,14 +1,15 @@
-import { IvrTest, TestInstanceClass } from "./TestInstanceClass";
+import { TestInstanceClass } from "./TestInstanceClass";
 import { EventEmitter } from "events";
 import ws from "ws";
-import { DtmfBufferGenerator } from "../call/dtmf/DtmfBufferGenerator";
+import { DtmfBufferGenerator } from "../../call/dtmf/DtmfBufferGenerator";
 import { when } from "jest-when";
 import { inOrder } from "./inOrder";
-import { TwilioCall } from "../call/TwilioCall";
-import { contains } from "../testing/conditions/when";
-import { doNothing, press } from "../testing/conditions/then";
-import { CallTranscriptionEvents } from "../call/transcription/CallTranscriber";
-import { Emitter } from "../Emitter";
+import { TwilioCall } from "../../call/TwilioCall";
+import { contains } from "./conditions/when";
+import { doNothing, press } from "./conditions/then";
+import { CallTranscriptionEvents } from "../../call/transcription/CallTranscriber";
+import { Emitter } from "../../Emitter";
+import { IvrTest } from "./IvrTest";
 
 class WsTestDouble
   extends EventEmitter

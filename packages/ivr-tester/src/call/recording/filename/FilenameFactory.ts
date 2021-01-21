@@ -1,5 +1,5 @@
-import { IvrTest } from "../../../handlers/TestInstanceClass";
 import { StreamDetails } from "../MediaStreamRecorder";
+import { IvrTest } from "../../../testing/test/IvrTest";
 
 /**
  * Returns the filename used for recording a stream. The filename returned does not

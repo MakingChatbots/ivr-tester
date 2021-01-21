@@ -1,5 +1,4 @@
 import { TwilioCallServer } from "./testing/TwilioCallServer";
-import { IvrTest, TestSubject } from "./handlers/TestInstanceClass";
 import { Config } from "./configuration/Config";
 import { PluginManager } from "./plugins/PluginManager";
 import { populateDefaults } from "./configuration/populateDefaults";
@@ -9,8 +8,15 @@ import { MediaStreamRecorder } from "./call/recording/MediaStreamRecorder";
 import { DefaultTestExecutor } from "./testing/DefaultTestExecutor";
 import { AudioPlaybackCaller } from "./call/AudioPlaybackCaller";
 import { Caller } from "./call/Caller";
-import { consoleLogger } from "./testing/reporting/consoleLogger";
+import { consoleUserInterface } from "./testing/reporting/consoleUserInterface";
 import { CloseServerWhenTestsComplete } from "./testing/CloseServerWhenTestsComplete";
+import { IvrTest } from "./testing/test/IvrTest";
+import { callConnectedTimeout } from "./testing/callConnectedTimeout";
+
+export interface TestSubject {
+  from: string;
+  to: string;
+}
 
 /**
  * @param config - Configuration used for setting up the tests
@@ -23,9 +29,11 @@ export const testRunner = (config: Config) => async (
 
   const tests = Array.isArray(ivrTest) ? ivrTest : [ivrTest];
 
+  const userInterface = consoleUserInterface();
   const pluginManager = new PluginManager([
-    consoleLogger,
     new CloseServerWhenTestsComplete(),
+    userInterface,
+    callConnectedTimeout(config.msTimeoutWaitingForCall, userInterface),
   ]);
   pluginManager.initialise();
 
@@ -42,6 +50,7 @@ export const testRunner = (config: Config) => async (
   const server = await callServer.listen(config.localServerPort);
   pluginManager.serverListening(callServer);
 
+  // TODO Convert this to a plugin
   if (config.recording) {
     callServer.on("testStarted", ({ testInstance }) => {
       MediaStreamRecorder.createFromConfiguration(config, testInstance);

@@ -2,14 +2,14 @@ import ws, { AddressInfo, Server } from "ws";
 import { TwilioCall } from "../call/TwilioCall";
 import { URL } from "url";
 import { DtmfBufferGenerator } from "../call/dtmf/DtmfBufferGenerator";
-import { TestExecutor } from "./TestExecutor";
 import { Emitter, TypedEmitter } from "../Emitter";
-import { TestAssigner } from "./TestAssigner";
-import { TestInstance } from "../handlers/TestInstanceClass";
 import { Call } from "../call/Call";
+import { TestAssigner } from "./IteratingTestAssigner";
+import { TestExecutor } from "./DefaultTestExecutor";
+import { TestInstance } from "./test/TestInstanceClass";
 
-/** @internal */
 export interface CallHandlingServer {
+  // TODO This is only exposed for the sake of testing. Anyway to avoid this?
   wss: Server;
   local: URL;
 }
@@ -24,6 +24,8 @@ export type CallServerEvents = {
 };
 
 export interface CallServer extends Emitter<CallServerEvents> {
+  // getEstablishedCalls(): ReadonlyArray<Call>;
+  // preventNewCalls(): void;
   listen(port: number): Promise<CallHandlingServer>;
   stop(): void;
 }
@@ -33,7 +35,10 @@ export class TwilioCallServer
   implements CallServer {
   private static TestCouldNotBeAssignedReason = "TestCouldNotBeAssigned";
 
+  // private establishedCalls: Call[] = [];
   private wss: Server;
+
+  // private disconnectNewCalls = false;
 
   constructor(
     private readonly dtmfBufferGenerator: DtmfBufferGenerator,
@@ -64,10 +69,19 @@ export class TwilioCallServer
     return streamUrl;
   }
 
+  // public getEstablishedCalls(): ReadonlyArray<Call> {
+  //   return [...this.establishedCalls];
+  // }
+
+  // public preventNewCalls(): void {
+  //   this.disconnectNewCalls = true;
+  // }
+
   public listen(port: number): Promise<CallHandlingServer> {
     if (this.wss) {
       throw new Error("Server already started");
     }
+
     this.wss = new Server({ port });
 
     return new Promise<CallHandlingServer>((resolve, reject) => {
@@ -86,7 +100,10 @@ export class TwilioCallServer
         this.wss.on("close", () => this.closed());
         this.wss.on("error", (error) => this.serverError(error));
 
-        resolve({ wss: this.wss, local: localUrl });
+        resolve({
+          wss: this.wss,
+          local: localUrl,
+        });
       });
     });
   }
@@ -99,7 +116,14 @@ export class TwilioCallServer
   }
 
   private callConnected(callWebSocket: ws): void {
+    // if (this.disconnectNewCalls) {
+    //   callWebSocket.close();
+    //   return;
+    // }
+
     const call = new TwilioCall(callWebSocket, this.dtmfBufferGenerator);
+    // this.establishedCalls.push(call);
+
     this.emit("callConnected", { call });
 
     const result = this.testAssigner.assign();

@@ -1,7 +1,5 @@
 import { Config } from "./configuration/Config";
-import { testRunner } from "./testRunner";
-import { TestSubject } from "./handlers/TestInstanceClass";
-import { inOrder } from "./handlers/inOrder";
+import { testRunner, TestSubject } from "./testRunner";
 import getPort from "get-port";
 import { Twilio } from "twilio";
 import {
@@ -11,6 +9,7 @@ import {
 import { EventEmitter } from "events";
 import WebSocket from "ws";
 import waitForExpect from "wait-for-expect";
+import { inOrder } from "./testing/test/inOrder";
 
 const waitForConnection = async (ws: WebSocket): Promise<void> =>
   new Promise((resolve) => ws.on("open", resolve));
@@ -187,20 +186,20 @@ describe("Test Runner", () => {
   });
 
   // test("individual call times out if call not connected after predefined time", () => {
-  //   // No audio is received from the call
-  //   //   * No media events received
-  //   //   * No transcription events (what if music is playing)
-  //   // No media is sent to the call
-  //   // Timeout on a per-call basis
-  //   expect(true).toBe(false);
+  // No audio is received from the call
+  //   * No media events received
+  //   * No transcription events (what if music is playing)
+  // No media is sent to the call
+  // Timeout on a per-call basis
+  // expect(true).toBe(false);
   // });
-  //
+
   // test("individual test times out if no transcription after predefined time", () => {
-  //   // No audio is received from the call
-  //   //   * No media events received
-  //   //   * No transcription events (what if music is playing)
-  //   // No media is sent to the call
-  //   // Timeout on a per-call basis
-  //   expect(true).toBe(false);
+  // No audio is received from the call
+  //   * No media events received
+  //   * No transcription events (what if music is playing)
+  // No media is sent to the call
+  // Timeout on a per-call basis
+  // expect(true).toBe(false);
   // });
 });
