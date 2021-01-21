@@ -12,7 +12,11 @@ describe("ordered conditions", () => {
       sendDtmfTone: jest.fn(),
       sendMedia: jest.fn(),
       getStream: jest.fn(),
-      hangUp: jest.fn(),
+      close: jest.fn(),
+      isOpen: jest.fn(),
+      on: jest.fn(),
+      off: jest.fn(),
+      emit: jest.fn(),
     };
   });
 

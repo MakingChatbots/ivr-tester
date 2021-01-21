@@ -34,7 +34,11 @@ describe("Call Transcriber", () => {
       getStream: jest
         .fn()
         .mockReturnValue({ on: jest.fn().mockReturnValue({ on: jest.fn() }) }),
-      hangUp: jest.fn(),
+      close: jest.fn(),
+      isOpen: jest.fn(),
+      on: jest.fn(),
+      off: jest.fn(),
+      emit: jest.fn(),
     };
 
     callTranscriber = new CallTranscriber(

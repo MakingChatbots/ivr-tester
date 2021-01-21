@@ -50,17 +50,34 @@ export interface TestConditionMet {
   condition: AssertThen;
 }
 
-export type TestHandlerEvents = {
-  TestFailed: TestFailed;
-  TestPassed: TestPassed;
-  ConditionMet: TestConditionMet;
+export interface TestProgressEvent {
+  test: IvrTest;
+  transcription: {
+    isFinal: boolean;
+    transcription: string;
+  };
+}
+
+export type TestInstanceEvents = {
+  testFailed: TestFailed;
+  testPassed: TestPassed;
+  conditionMet: TestConditionMet;
+  progress: TestProgressEvent;
 };
+
+export interface TestInstance extends Emitter<TestInstanceEvents> {
+  getTest(): IvrTest;
+  getCall(): Call;
+}
 
 /**
  * Conditions have to have been met in sequence
  * @internal
  */
-export class TestHandler extends TypedEmitter<TestHandlerEvents> {
+// TODO Rename
+export class TestInstanceClass
+  extends TypedEmitter<TestInstanceEvents>
+  implements TestInstance {
   constructor(
     private readonly call: Call,
     private readonly callTranscriber: Emitter<CallTranscriptionEvents>,
@@ -70,8 +87,21 @@ export class TestHandler extends TypedEmitter<TestHandlerEvents> {
     callTranscriber.on("transcription", this.processTranscript.bind(this));
   }
 
+  getCall(): Call {
+    return this.call;
+  }
+
   private processTranscript(event: CallTranscriptionEvent): void {
     const { transcription } = event;
+
+    this.emit("progress", {
+      test: this.ivrTest,
+      transcription: {
+        isFinal: event.isFinal,
+        transcription,
+      },
+    });
+
     if (!event.isFinal) {
       return;
     }
@@ -107,12 +137,12 @@ export class TestHandler extends TypedEmitter<TestHandlerEvents> {
     const event: TestPassed = {
       test: this.ivrTest,
     };
-    this.emit("TestPassed", event);
+    this.emit("testPassed", event);
   }
 
   private notifyOfFailedTest(transcription: string): void {
     const event: TestFailed = { transcription, test: this.ivrTest };
-    this.emit("TestFailed", event);
+    this.emit("testFailed", event);
   }
 
   private notifyOfConditionBeingMet(
@@ -124,6 +154,10 @@ export class TestHandler extends TypedEmitter<TestHandlerEvents> {
       transcription,
       condition,
     };
-    this.emit("ConditionMet", event);
+    this.emit("conditionMet", event);
+  }
+
+  getTest(): IvrTest {
+    return this.ivrTest;
   }
 }

@@ -1,5 +1,5 @@
 import { AssertThen } from "../testing/conditions/AssertThen";
-import { TestContainer, TestResult } from "./TestHandler";
+import { TestContainer, TestResult } from "./TestInstanceClass";
 
 /**
  * Executes {@link AssertThen}'s in order

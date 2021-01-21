@@ -1,4 +1,4 @@
-import { IvrTest, TestHandler } from "./TestHandler";
+import { IvrTest, TestInstanceClass } from "./TestInstanceClass";
 import { EventEmitter } from "events";
 import ws from "ws";
 import { DtmfBufferGenerator } from "../call/dtmf/DtmfBufferGenerator";
@@ -10,11 +10,16 @@ import { doNothing, press } from "../testing/conditions/then";
 import { CallTranscriptionEvents } from "../call/transcription/CallTranscriber";
 import { Emitter } from "../Emitter";
 
-class WsTestDouble extends EventEmitter implements Pick<ws, "send"> {
+class WsTestDouble
+  extends EventEmitter
+  implements Pick<ws, "send" | "readyState"> {
+  public readyState: number;
+
   constructor(
     public readonly sendMock: jest.MockedFunction<ws["send"]> = jest.fn()
   ) {
     super();
+    this.readyState = 1;
   }
 
   public send(
@@ -59,12 +64,15 @@ describe("Then response", () => {
     };
     when(dtmfGenerator.generate).calledWith("123").mockReturnValue(dtmfBuffer);
 
-    const webSocket = new WsTestDouble();
-    const call = new TwilioCall((webSocket as unknown) as ws, dtmfGenerator);
+    const callWebSocket = new WsTestDouble();
+    const call = new TwilioCall(
+      (callWebSocket as unknown) as ws,
+      dtmfGenerator
+    );
 
-    new TestHandler(call, transcriptionHandler, testWithSingleCondition);
+    new TestInstanceClass(call, transcriptionHandler, testWithSingleCondition);
 
-    webSocket.emit(
+    callWebSocket.emit(
       "message",
       JSON.stringify({ event: "start", streamSid: "test-stream-sid" })
     );
@@ -75,7 +83,7 @@ describe("Then response", () => {
       isFinal: true,
     });
 
-    expect(webSocket.sendMock).toHaveBeenCalledWith(
+    expect(callWebSocket.sendMock).toHaveBeenCalledWith(
       JSON.stringify({
         event: "media",
         streamSid: "test-stream-sid",
@@ -106,14 +114,14 @@ describe("When conditions", () => {
       test: inOrder([]),
     };
 
-    const handler = new TestHandler(
+    const handler = new TestInstanceClass(
       call,
       transcriptionHandler,
       testWithEmptyConditions
     );
 
     const testPassedListener = jest.fn();
-    handler.on("TestPassed", testPassedListener);
+    handler.on("testPassed", testPassedListener);
 
     transcriptionHandler.emit("transcription", {
       transcription: "Hello World",
@@ -138,14 +146,14 @@ describe("When conditions", () => {
       ]),
     };
 
-    const handler = new TestHandler(
+    const handler = new TestInstanceClass(
       call,
       transcriptionHandler,
       testWithTwoCondition
     );
 
     const testPassedListener = jest.fn();
-    handler.on("TestPassed", testPassedListener);
+    handler.on("testPassed", testPassedListener);
 
     transcriptionHandler.emit("transcription", {
       transcription: "Test transcript 1",
@@ -174,14 +182,14 @@ describe("When conditions", () => {
       ]),
     };
 
-    const handler = new TestHandler(
+    const handler = new TestInstanceClass(
       call,
       transcriptionHandler,
       testWithTwoConditions
     );
 
     const testFailedListener = jest.fn();
-    handler.on("TestFailed", testFailedListener);
+    handler.on("testFailed", testFailedListener);
 
     transcriptionHandler.emit("transcription", {
       transcription: "Test transcript 1",
@@ -210,10 +218,14 @@ describe("When conditions", () => {
       ]),
     };
 
-    const handler = new TestHandler(call, transcriptionHandler, twoConditions);
+    const handler = new TestInstanceClass(
+      call,
+      transcriptionHandler,
+      twoConditions
+    );
 
     const testFailedListener = jest.fn();
-    handler.on("TestFailed", testFailedListener);
+    handler.on("testFailed", testFailedListener);
 
     transcriptionHandler.emit("transcription", {
       transcription: "Test transcript 1",

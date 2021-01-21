@@ -1,19 +1,13 @@
 import WebSocket from "ws";
-import {
-  CallHandlingServer,
-  CallServer,
-  CallServerEventProbe,
-  NoneAssigned,
-  TestAssigned,
-  TestAssigner,
-  TestExecutor,
-} from "./CallServer";
+import { CallHandlingServer, CallServer } from "./CallServer";
 import { DtmfBufferGenerator } from "../call/dtmf/DtmfBufferGenerator";
 import getPort from "get-port";
 import { URL } from "url";
 import waitForExpect from "wait-for-expect";
-import { IvrTest } from "../handlers/TestHandler";
+import { IvrTest } from "../handlers/TestInstanceClass";
 import { TwilioCall } from "../call/TwilioCall";
+import { NoneAssigned, TestAssigned, TestAssigner } from "./TestAssigner";
+import { TestExecutor } from "./TestExecutor";
 
 const waitForConnection = async (ws: WebSocket): Promise<void> =>
   new Promise((resolve) => ws.on("open", resolve));
@@ -28,7 +22,6 @@ describe("Call Server", () => {
   let testAssigner: jest.Mocked<TestAssigner>;
   let testExecutor: jest.Mocked<TestExecutor>;
   let dtmfGenerator: jest.Mocked<DtmfBufferGenerator>;
-  let eventProbe: jest.Mocked<CallServerEventProbe>;
 
   beforeEach(() => {
     testAssigner = {
@@ -36,10 +29,6 @@ describe("Call Server", () => {
     };
     testExecutor = { startTest: jest.fn() };
     dtmfGenerator = { generate: jest.fn() };
-    eventProbe = {
-      callConnected: jest.fn(),
-      callHungUpAsNoTestAssigned: jest.fn(),
-    };
   });
 
   afterEach(async () => {
@@ -81,7 +70,7 @@ describe("Call Server", () => {
     expect(server.local).toEqual(new URL(`ws://[::]:${port}/`));
   });
 
-  test("call hung-up when call connected and no test assigned", async () => {
+  test("call closed when call connected and no test assigned", async () => {
     testAssigner.assign.mockReturnValue({
       isAssigned: false,
       reason: "test reason",
@@ -90,10 +79,8 @@ describe("Call Server", () => {
     const callServer = new CallServer(
       dtmfGenerator,
       testAssigner,
-      testExecutor,
-      eventProbe
+      testExecutor
     );
-
     server = await callServer.listen(await getPort());
 
     callConnection = new WebSocket(server.local);
@@ -102,7 +89,6 @@ describe("Call Server", () => {
     await waitForExpect(() =>
       expect(callConnection.readyState).toBe(callConnection.CLOSED)
     );
-    expect(eventProbe.callHungUpAsNoTestAssigned).toBeCalledWith("test reason");
   });
 
   test("test assigned started when call connected", async () => {
@@ -113,8 +99,7 @@ describe("Call Server", () => {
     const callServer = new CallServer(
       dtmfGenerator,
       testAssigner,
-      testExecutor,
-      eventProbe
+      testExecutor
     );
 
     server = await callServer.listen(await getPort());

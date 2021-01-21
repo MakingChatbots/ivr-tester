@@ -1,4 +1,4 @@
-import { IvrTest } from "../../../handlers/TestHandler";
+import { IvrTest } from "../../../handlers/TestInstanceClass";
 import { StreamDetails } from "../MediaStreamRecorder";
 
 /**

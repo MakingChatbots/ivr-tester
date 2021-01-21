@@ -1,10 +1,9 @@
-import ws from "ws";
 import * as fs from "fs";
 import { createWriteStream, mkdirSync, WriteStream } from "fs";
 import * as path from "path";
 import { WebSocketEvents } from "../TwilioCall";
 import { TwilioConnectionEvents } from "../twilio";
-import { IvrTest } from "../../handlers/TestHandler";
+import { TestInstance } from "../../handlers/TestInstanceClass";
 import { FilenameFactory } from "./filename/FilenameFactory";
 import { filenameContainingIvrNumberAndTestName } from "./filename/filenameContainingIvrNumberAndTestName";
 import { Config } from "../../configuration/Config";
@@ -34,12 +33,13 @@ export class MediaStreamRecorder {
   private readonly closeRef: () => void;
 
   constructor(
-    private readonly connection: ws,
-    private readonly test: IvrTest,
+    private readonly testInstance: TestInstance,
     private readonly config: RecorderConfig
   ) {
     this.processMessageRef = this.processMessage.bind(this);
     this.closeRef = this.close.bind(this);
+
+    const connection = this.testInstance.getCall().getStream();
     connection
       .on(WebSocketEvents.Message, this.processMessageRef)
       .on(WebSocketEvents.Close, this.closeRef);
@@ -47,8 +47,7 @@ export class MediaStreamRecorder {
 
   public static createFromConfiguration(
     config: Config,
-    connection: ws,
-    test: IvrTest
+    testInstance: TestInstance
   ): MediaStreamRecorder {
     const recorderConfig: RecorderConfig = {
       outputPath: config.recording?.outputPath,
@@ -70,7 +69,7 @@ export class MediaStreamRecorder {
       );
     }
 
-    return new MediaStreamRecorder(connection, test, recorderConfig);
+    return new MediaStreamRecorder(testInstance, recorderConfig);
   }
 
   private processMessage(message: string) {
@@ -97,7 +96,7 @@ export class MediaStreamRecorder {
           sid: event.streamSid,
           call,
         },
-        this.test
+        this.testInstance.getTest()
       );
     }
 
@@ -118,7 +117,8 @@ export class MediaStreamRecorder {
   }
 
   private close() {
-    this.connection
+    const connection = this.testInstance.getCall().getStream();
+    connection
       .off(WebSocketEvents.Message, this.processMessageRef)
       .off(WebSocketEvents.Close, this.closeRef);
 

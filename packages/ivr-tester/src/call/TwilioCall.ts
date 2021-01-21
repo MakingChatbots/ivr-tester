@@ -1,8 +1,9 @@
 import ws from "ws";
 import { DtmfBufferGenerator } from "./dtmf/DtmfBufferGenerator";
 import { TwilioConnectionEvents } from "./twilio";
-import { Call } from "./Call";
+import { Call, CallEvents } from "./Call";
 import { Debugger } from "../Debugger";
+import { TypedEmitter } from "../Emitter";
 
 /** @internal */
 export enum WebSocketEvents {
@@ -11,25 +12,58 @@ export enum WebSocketEvents {
 }
 
 /** @internal */
-export class TwilioCall implements Call {
+export class TwilioCall extends TypedEmitter<CallEvents> implements Call {
   private static debug = Debugger.getTwilioDebugger();
 
   private readonly processMessageReference: (message: string) => void;
+  private readonly serverClosedConnectionReference: (
+    a: number,
+    b: string
+  ) => void;
 
   private streamSid: string | undefined;
-  private hasHungUp = false;
 
   constructor(
     private readonly connection: ws,
     private readonly dtmfGenerator: DtmfBufferGenerator
   ) {
+    super();
     this.processMessageReference = this.processMessage.bind(this);
     connection.on(WebSocketEvents.Message, this.processMessageReference);
+
+    this.serverClosedConnectionReference = this.serverClosedConnection.bind(
+      this
+    );
+    connection.on(WebSocketEvents.Close, this.serverClosedConnectionReference);
   }
 
-  public hangUp(): void {
-    this.hasHungUp = true;
-    this.connection.close();
+  public close(reason: string): void {
+    this.closeConnection();
+    this.emit("callClosed", { by: "ivr-tester", reason });
+  }
+
+  public isOpen(): boolean {
+    return (
+      this.connection.readyState !== this.connection.CLOSED &&
+      this.connection.readyState !== this.connection.CLOSING
+    );
+  }
+
+  private serverClosedConnection(): void {
+    this.emit("callClosed", { by: "unknown" });
+    this.closeConnection();
+  }
+
+  private closeConnection(): void {
+    if (this.isOpen()) {
+      this.connection.close();
+    }
+
+    this.connection.off(WebSocketEvents.Message, this.processMessageReference);
+    this.connection.off(
+      WebSocketEvents.Close,
+      this.serverClosedConnectionReference
+    );
   }
 
   private processMessage(message: string): void {
@@ -50,6 +84,9 @@ export class TwilioCall implements Call {
         break;
       case TwilioConnectionEvents.CallEnded:
         TwilioCall.debug("Call ended %O", data);
+
+        this.closeConnection();
+        this.emit("callClosed", { by: "caller" });
         break;
     }
   }
@@ -63,8 +100,8 @@ export class TwilioCall implements Call {
   }
 
   public sendMedia(payload: Buffer, name?: string): void {
-    if (this.hasHungUp) {
-      throw new Error("Call hanged-up");
+    if (!this.isOpen()) {
+      throw new Error("Media cannot be sent as call has been closed");
     }
 
     if (!this.streamSid) {

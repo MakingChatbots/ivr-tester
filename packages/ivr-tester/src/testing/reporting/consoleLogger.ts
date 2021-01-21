@@ -1,30 +1,33 @@
-import { LifecycleHookPlugin } from "../../plugins/lifecycle/LifecycleHookPlugin";
-import { AddressInfo } from "ws";
+import { IvrTesterPlugin } from "../../plugins/IvrTesterPlugin";
 import chalk from "chalk";
 import logSymbols from "log-symbols";
-import { LifecycleEventEmitter } from "../../plugins/lifecycle/LifecycleEventEmitter";
+import { TestInstance } from "../../handlers/TestInstanceClass";
+import { CallServer, CallServerAbc } from "../CallServer";
+import { Emitter } from "../../Emitter";
+import { PluginEvents } from "../../plugins/PluginManager";
 
-const ivrTranscription = (emitter: LifecycleEventEmitter): void =>
-  emitter.on("ivrTranscription", (event) => {
+const ivrTranscription = (testInstance: TestInstance): void =>
+  testInstance.on("progress", (event) => {
     const state = chalk.blue.bold(
-      event.isFinal ? "Finished: " : "Transcribing: "
+      event.transcription.isFinal ? "Finished: " : "Transcribing: "
     );
 
     console.log(
-      state + chalk.blue(`${event.test.name}: ${event.transcription}`)
+      state +
+        chalk.blue(`${event.test.name}: ${event.transcription.transcription}`)
     );
   });
 
-const ivrTestPassed = (emitter: LifecycleEventEmitter): void =>
-  emitter.on("ivrTestPassed", (event) =>
+const ivrTestPassed = (emitter: TestInstance): void =>
+  emitter.on("testPassed", (event) =>
     console.log(
       logSymbols.success,
       chalk.green(`Test Complete: ${event.test.name}...`)
     )
   );
 
-const ivrTestFailed = (emitter: LifecycleEventEmitter): void =>
-  emitter.on("ivrTestFailed", (event) => {
+const ivrTestFailed = (testInstance: TestInstance): void =>
+  testInstance.on("testFailed", (event) => {
     console.log(
       `${chalk.bold.blue("Test -")} ${chalk.bold.blue(event.test.name)}\n`,
       `Them: "${event.transcription}"\n`,
@@ -33,50 +36,50 @@ const ivrTestFailed = (emitter: LifecycleEventEmitter): void =>
     console.log(logSymbols.error, chalk.bold.red(`Test Failed`));
   });
 
-const callConnected = (emitter: LifecycleEventEmitter): void =>
-  emitter.on("callConnected", () =>
-    console.log("Call connected to the server")
-  );
-
-const callAssignedTest = (emitter: LifecycleEventEmitter): void =>
-  emitter.on("callAssignedTest", (event) =>
-    console.log(`Call using test '${event.test.name}'`)
-  );
-
-const callHandlingServerStarted = (emitter: LifecycleEventEmitter): void =>
-  emitter.on("callHandlingServerStarted", ({ server }) => {
-    const { port } = server.address() as AddressInfo;
-    console.log(`Server is listening on ${port} for the stream for the call`);
+const callConnected = (callServer: CallServerAbc): void => {
+  callServer.on("callConnected", () => {
+    console.log("Call connected to the server");
   });
+};
 
-const callHandlingServerStopped = (emitter: LifecycleEventEmitter): void =>
-  emitter.on("callHandlingServerStopped", () =>
-    console.log("The server has closed")
-  );
+const callServerListening = (callServer: CallServerAbc): void => {
+  callServer.on("listening", ({ localUrl }) => {
+    // const { port } = localUrl.port.address() as AddressInfo;
+    console.log(
+      `Server is listening on ${localUrl.port} for the stream for the call`
+    );
+  });
+};
 
-const callHandlingServerErrored = (emitter: LifecycleEventEmitter): void =>
-  emitter.on("callHandlingServerErrored", (event) =>
+const callServerStopped = (callServer: CallServerAbc): void => {
+  callServer.on("stopped", () => console.log("The server has closed"));
+};
+
+const callServerErrored = (callServer: CallServerAbc): void => {
+  callServer.on("error", (event) =>
     console.error("Server experienced an error", event.error.message)
   );
+};
 
-const callRequested = (emitter: LifecycleEventEmitter): void =>
+const callRequested = (emitter: Emitter<PluginEvents>): void =>
   emitter.on("callRequested", (event) => {
-    if (Buffer.isBuffer(event.call)) {
-      console.log(`Playing back audio (${event.current} of ${event.total})`);
-    } else {
-      console.log(
-        `Telling Twilio to call ${event.call.to} (${event.current} of ${event.total})`
-      );
+    switch (event.requestedCall.type) {
+      case "audio-playback":
+        console.log("Playing back audio to simulate call");
+        break;
+      case "telephony":
+        console.log(`Told Twilio to call ${event.requestedCall.call.to}`);
+        break;
     }
   });
 
-const callRequestErrored = (emitter: LifecycleEventEmitter): void =>
+const callRequestErrored = (emitter: Emitter<PluginEvents>): void =>
   emitter.on("callRequestErrored", (event) =>
     console.error("Twilio failed to make the call...", event.error.message)
   );
 
-const ivrTestConditionMet = (emitter: LifecycleEventEmitter): void =>
-  emitter.on("ivrTestConditionMet", (event) =>
+const ivrTestConditionMet = (testInstance: TestInstance): void =>
+  testInstance.on("conditionMet", (event) =>
     console.log(
       `${chalk.bold.blue("Test -")} ${chalk.bold.blue(event.test.name)}\n`,
       `Them: "${event.transcription}"\n`,
@@ -84,20 +87,28 @@ const ivrTestConditionMet = (emitter: LifecycleEventEmitter): void =>
     )
   );
 
-const pluginName = "ConsoleLogger";
-export const consoleLogger: LifecycleHookPlugin = {
-  name: () => pluginName,
-  initialise(eventEmitter: LifecycleEventEmitter): void {
-    ivrTestPassed(eventEmitter);
-    ivrTestFailed(eventEmitter);
-    callConnected(eventEmitter);
-    callAssignedTest(eventEmitter);
-    callHandlingServerStarted(eventEmitter);
-    callHandlingServerStopped(eventEmitter);
-    callHandlingServerErrored(eventEmitter);
+const callServerStarted = (eventEmitter: Emitter<PluginEvents>) => {
+  eventEmitter.on("callServerStarted", ({ callServer }) => {
+    callConnected(callServer);
+    callServerListening(callServer);
+    callServerStopped(callServer);
+    callServerErrored(callServer);
+
+    callServer.on("testStarted", ({ testInstance }) => {
+      console.log(`Call using test '${testInstance.getTest().name}'`);
+      ivrTestPassed(testInstance);
+      ivrTestFailed(testInstance);
+      ivrTestConditionMet(testInstance);
+      ivrTranscription(testInstance);
+    });
+  });
+};
+
+export const consoleLogger: IvrTesterPlugin = {
+  name: () => "ConsoleLogger",
+  initialise(eventEmitter: Emitter<PluginEvents>): void {
+    callServerStarted(eventEmitter);
     callRequested(eventEmitter);
     callRequestErrored(eventEmitter);
-    ivrTestConditionMet(eventEmitter);
-    ivrTranscription(eventEmitter);
   },
 };

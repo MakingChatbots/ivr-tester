@@ -1,12 +1,12 @@
-import { LifecycleHookPlugin } from "../plugins/lifecycle/LifecycleHookPlugin";
-import { Server } from "ws";
-import { CallHandlingServerStartedEvent } from "../plugins/lifecycle/SetupEvents";
-import { LifecycleEventEmitter } from "../plugins/lifecycle/LifecycleEventEmitter";
+import { IvrTesterPlugin } from "../plugins/IvrTesterPlugin";
+import { Emitter } from "../Emitter";
+import { PluginEvents } from "../plugins/PluginManager";
+import { CallServerAbc } from "./CallServer";
 
 /** Closes the server when all the tests complete */
-export class CloseServerWhenTestsComplete implements LifecycleHookPlugin {
+export class CloseServerWhenTestsComplete implements IvrTesterPlugin {
   private static readonly PluginName = "StopWhenAllTestsComplete";
-  private server: Server;
+  private server: CallServerAbc;
   private totalTests = 0;
   private testsCompleted = 0;
 
@@ -14,23 +14,24 @@ export class CloseServerWhenTestsComplete implements LifecycleHookPlugin {
     return CloseServerWhenTestsComplete.PluginName;
   }
 
-  public initialise(eventEmitter: LifecycleEventEmitter): void {
-    eventEmitter.on("ivrTestPassed", this.testCompleted.bind(this));
-    eventEmitter.on("ivrTestFailed", this.testCompleted.bind(this));
-    eventEmitter.on("callAssignedTest", this.callAssignedTest.bind(this));
-    eventEmitter.on(
-      "callHandlingServerStarted",
-      this.callHandlingServerStarted.bind(this)
-    );
+  public initialise(eventEmitter: Emitter<PluginEvents>): void {
+    eventEmitter.on("callServerStarted", ({ callServer }) => {
+      this.callHandlingServerStarted(callServer);
+
+      callServer.on("testStarted", ({ testInstance }) => {
+        this.testStarted();
+
+        testInstance.on("testPassed", this.testCompleted.bind(this));
+        testInstance.on("testFailed", this.testCompleted.bind(this));
+      });
+    });
   }
 
-  private callHandlingServerStarted({
-    server,
-  }: CallHandlingServerStartedEvent): void {
-    this.server = server;
+  private callHandlingServerStarted(callServer: CallServerAbc): void {
+    this.server = callServer;
   }
 
-  private callAssignedTest(): void {
+  private testStarted(): void {
     this.totalTests++;
   }
 
@@ -39,7 +40,7 @@ export class CloseServerWhenTestsComplete implements LifecycleHookPlugin {
 
     const allTestsCompleted = this.testsCompleted >= this.totalTests;
     if (this.server && allTestsCompleted) {
-      this.server.close();
+      this.server.stop();
     }
   }
 }

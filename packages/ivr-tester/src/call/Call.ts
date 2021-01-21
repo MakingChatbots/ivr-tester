@@ -1,9 +1,19 @@
 import ws from "ws";
+import { Emitter } from "../Emitter";
+
+export interface CallClosedEvent {
+  by: "caller" | "ivr-tester" | "unknown";
+  reason?: string;
+}
+
+export type CallEvents = {
+  callClosed: CallClosedEvent;
+};
 
 /**
  * Represents an active call
  */
-export interface Call {
+export interface Call extends Emitter<CallEvents> {
   /**
    * Sends DTMF tone to the call
    */
@@ -16,5 +26,7 @@ export interface Call {
 
   getStream(): ws;
 
-  hangUp(): void;
+  close(reason: string): void;
+
+  isOpen(): boolean;
 }

@@ -2,7 +2,7 @@ import { DtmfBufferGenerator } from "../call/dtmf/DtmfBufferGenerator";
 import { TranscriberFactory } from "../call/transcription/plugin/TranscriberFactory";
 import { FilenameFactory } from "../call/recording/filename/FilenameFactory";
 import { Twilio } from "twilio";
-import { LifecycleHookPlugin } from "../plugins/lifecycle/LifecycleHookPlugin";
+import { IvrTesterPlugin } from "../plugins/IvrTesterPlugin";
 
 export interface Config {
   /**
@@ -49,5 +49,5 @@ export interface Config {
   /**
    * Plugins that can hook into the lifecycle of a test
    */
-  plugins?: LifecycleHookPlugin[];
+  plugins?: IvrTesterPlugin[];
 }

@@ -1,7 +1,7 @@
 import filenamify from "filenamify";
 import { FilenameFactory } from "./FilenameFactory";
 import { StreamDetails } from "../MediaStreamRecorder";
-import { IvrTest } from "../../../handlers/TestHandler";
+import { IvrTest } from "../../../handlers/TestInstanceClass";
 
 /**
  * Produces filename that looks like '<phone-number>-<datetime>-<test-name>.wav'

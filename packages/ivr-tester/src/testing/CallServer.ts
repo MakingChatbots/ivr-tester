@@ -2,7 +2,10 @@ import ws, { AddressInfo, Server } from "ws";
 import { TwilioCall } from "../call/TwilioCall";
 import { URL } from "url";
 import { DtmfBufferGenerator } from "../call/dtmf/DtmfBufferGenerator";
-import { IvrTest } from "../handlers/TestHandler";
+import { TestExecutor } from "./TestExecutor";
+import { Emitter, TypedEmitter } from "../Emitter";
+import { TestAssigner } from "./TestAssigner";
+import { TestInstance } from "../handlers/TestInstanceClass";
 import { Call } from "../call/Call";
 
 /** @internal */
@@ -11,43 +14,39 @@ export interface CallHandlingServer {
   local: URL;
 }
 
-export interface CallServerEventProbe {
-  callConnected: () => void;
-  callHungUpAsNoTestAssigned: (reason: string) => void;
+export type CallServerEvents = {
+  callConnected: { call: Call };
+  testStarted: { testInstance: TestInstance };
+
+  listening: { localUrl: URL };
+  stopped: undefined;
+  error: { error: Error };
+};
+
+// TODO Rename
+export interface CallServerAbc extends Emitter<CallServerEvents> {
+  listen(port: number): Promise<CallHandlingServer>;
+  stop(): void;
 }
 
-export interface AssignedResult {
-  isAssigned: boolean;
-}
+export class CallServer
+  extends TypedEmitter<CallServerEvents>
+  implements CallServerAbc {
+  private static TestCouldNotBeAssignedReason = "TestCouldNotBeAssigned";
 
-export interface TestAssigned extends AssignedResult {
-  isAssigned: true;
-  test: IvrTest;
-}
+  private wss: Server;
 
-export interface NoneAssigned extends AssignedResult {
-  isAssigned: false;
-  reason: string;
-}
-
-export interface TestAssigner {
-  assign(): TestAssigned | NoneAssigned;
-}
-
-export interface TestExecutor {
-  startTest(test: IvrTest, call: Call): Promise<IvrTest>;
-}
-
-export class CallServer {
   constructor(
     private readonly dtmfBufferGenerator: DtmfBufferGenerator,
     private readonly testAssigner: TestAssigner,
     private readonly testExecutor: TestExecutor,
-    private readonly probe: CallServerEventProbe = {
-      callConnected: () => undefined,
-      callHungUpAsNoTestAssigned: () => undefined,
-    }
-  ) {}
+    private readonly callFactory = (
+      callWebSocket: ws,
+      dtmfGenerator: DtmfBufferGenerator
+    ): Call => new TwilioCall(callWebSocket, dtmfGenerator)
+  ) {
+    super();
+  }
 
   private static formatServerUrl(server: Server): URL {
     const address = server.address() as AddressInfo;
@@ -71,37 +70,58 @@ export class CallServer {
   }
 
   public listen(port: number): Promise<CallHandlingServer> {
-    const wss = new Server({ port });
-    wss.on("connection", (ws) => this.callConnected(ws));
+    if (this.wss) {
+      throw new Error("Server already started");
+    }
+    this.wss = new Server({ port });
 
     return new Promise<CallHandlingServer>((resolve, reject) => {
       const onError = (err: Error) => reject(err);
 
-      wss.on("error", onError);
-      wss.on("listening", () => {
-        wss.off("error", onError);
-        resolve({
-          wss,
-          local: CallServer.convertToWebSocketUrl(
-            CallServer.formatServerUrl(wss)
-          ),
-        });
+      this.wss.on("error", onError);
+      this.wss.on("listening", () => {
+        this.wss.off("error", onError);
+
+        const localUrl = CallServer.convertToWebSocketUrl(
+          CallServer.formatServerUrl(this.wss)
+        );
+        this.emit("listening", { localUrl });
+
+        this.wss.on("connection", (ws) => this.callConnected(ws));
+        this.wss.on("close", () => this.closed());
+        this.wss.on("error", (error) => this.serverError(error));
+
+        resolve({ wss: this.wss, local: localUrl });
       });
     });
   }
 
-  private callConnected(callWebSocket: ws): void {
-    this.probe.callConnected();
+  public stop(): void {
+    if (this.wss) {
+      this.wss.close();
+      this.wss = undefined;
+    }
+  }
 
-    const call = new TwilioCall(callWebSocket, this.dtmfBufferGenerator);
-    // TODO If I want to assign a test based on call from/to then could await for details. e.g. call.waitForDetails()
+  private callConnected(callWebSocket: ws): void {
+    const call = this.callFactory(callWebSocket, this.dtmfBufferGenerator);
+    this.emit("callConnected", { call });
 
     const result = this.testAssigner.assign();
     if (result.isAssigned === true) {
-      this.testExecutor.startTest(result.test, call);
+      const testInstance = this.testExecutor.startTest(result.test, call);
+      this.emit("testStarted", { testInstance });
     } else {
-      call.hangUp();
-      this.probe.callHungUpAsNoTestAssigned(result.reason);
+      call.close(CallServer.TestCouldNotBeAssignedReason);
     }
+  }
+
+  private closed(): void {
+    this.emit("stopped", undefined);
+    this.wss = undefined;
+  }
+
+  private serverError(error: Error): void {
+    this.emit("error", { error });
   }
 }
