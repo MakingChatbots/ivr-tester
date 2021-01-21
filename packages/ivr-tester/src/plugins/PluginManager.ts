@@ -1,5 +1,5 @@
 import { IvrTesterPlugin } from "./IvrTesterPlugin";
-import { CallServerAbc } from "../testing/CallServer";
+import { CallServer } from "../testing/TwilioCallServer";
 import { TypedEmitter } from "../Emitter";
 import { RequestedCall } from "../call/Caller";
 
@@ -13,7 +13,7 @@ export interface CallRequestErroredEvent {
 }
 
 export interface CallServerStartedEvent {
-  callServer: CallServerAbc;
+  callServer: CallServer;
 }
 
 export type PluginEvents = {
@@ -34,7 +34,7 @@ export class PluginManager extends TypedEmitter<PluginEvents> {
     }
   }
 
-  public serverListening(callServer: CallServerAbc): void {
+  public serverListening(callServer: CallServer): void {
     this.emit("callServerStarted", { callServer });
   }
 

@@ -23,15 +23,14 @@ export type CallServerEvents = {
   error: { error: Error };
 };
 
-// TODO Rename
-export interface CallServerAbc extends Emitter<CallServerEvents> {
+export interface CallServer extends Emitter<CallServerEvents> {
   listen(port: number): Promise<CallHandlingServer>;
   stop(): void;
 }
 
-export class CallServer
+export class TwilioCallServer
   extends TypedEmitter<CallServerEvents>
-  implements CallServerAbc {
+  implements CallServer {
   private static TestCouldNotBeAssignedReason = "TestCouldNotBeAssigned";
 
   private wss: Server;
@@ -39,11 +38,7 @@ export class CallServer
   constructor(
     private readonly dtmfBufferGenerator: DtmfBufferGenerator,
     private readonly testAssigner: TestAssigner,
-    private readonly testExecutor: TestExecutor,
-    private readonly callFactory = (
-      callWebSocket: ws,
-      dtmfGenerator: DtmfBufferGenerator
-    ): Call => new TwilioCall(callWebSocket, dtmfGenerator)
+    private readonly testExecutor: TestExecutor
   ) {
     super();
   }
@@ -82,8 +77,8 @@ export class CallServer
       this.wss.on("listening", () => {
         this.wss.off("error", onError);
 
-        const localUrl = CallServer.convertToWebSocketUrl(
-          CallServer.formatServerUrl(this.wss)
+        const localUrl = TwilioCallServer.convertToWebSocketUrl(
+          TwilioCallServer.formatServerUrl(this.wss)
         );
         this.emit("listening", { localUrl });
 
@@ -104,7 +99,7 @@ export class CallServer
   }
 
   private callConnected(callWebSocket: ws): void {
-    const call = this.callFactory(callWebSocket, this.dtmfBufferGenerator);
+    const call = new TwilioCall(callWebSocket, this.dtmfBufferGenerator);
     this.emit("callConnected", { call });
 
     const result = this.testAssigner.assign();
@@ -112,7 +107,7 @@ export class CallServer
       const testInstance = this.testExecutor.startTest(result.test, call);
       this.emit("testStarted", { testInstance });
     } else {
-      call.close(CallServer.TestCouldNotBeAssignedReason);
+      call.close(TwilioCallServer.TestCouldNotBeAssignedReason);
     }
   }
 

@@ -1,12 +1,12 @@
 import { IvrTesterPlugin } from "../plugins/IvrTesterPlugin";
 import { Emitter } from "../Emitter";
 import { PluginEvents } from "../plugins/PluginManager";
-import { CallServerAbc } from "./CallServer";
+import { CallServer } from "./TwilioCallServer";
 
 /** Closes the server when all the tests complete */
 export class CloseServerWhenTestsComplete implements IvrTesterPlugin {
   private static readonly PluginName = "StopWhenAllTestsComplete";
-  private server: CallServerAbc;
+  private server: CallServer;
   private totalTests = 0;
   private testsCompleted = 0;
 
@@ -27,7 +27,7 @@ export class CloseServerWhenTestsComplete implements IvrTesterPlugin {
     });
   }
 
-  private callHandlingServerStarted(callServer: CallServerAbc): void {
+  private callHandlingServerStarted(callServer: CallServer): void {
     this.server = callServer;
   }
 

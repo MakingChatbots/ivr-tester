@@ -2,7 +2,7 @@ import { IvrTesterPlugin } from "../../plugins/IvrTesterPlugin";
 import chalk from "chalk";
 import logSymbols from "log-symbols";
 import { TestInstance } from "../../handlers/TestInstanceClass";
-import { CallServer, CallServerAbc } from "../CallServer";
+import { CallServer } from "../TwilioCallServer";
 import { Emitter } from "../../Emitter";
 import { PluginEvents } from "../../plugins/PluginManager";
 
@@ -36,13 +36,13 @@ const ivrTestFailed = (testInstance: TestInstance): void =>
     console.log(logSymbols.error, chalk.bold.red(`Test Failed`));
   });
 
-const callConnected = (callServer: CallServerAbc): void => {
+const callConnected = (callServer: CallServer): void => {
   callServer.on("callConnected", () => {
     console.log("Call connected to the server");
   });
 };
 
-const callServerListening = (callServer: CallServerAbc): void => {
+const callServerListening = (callServer: CallServer): void => {
   callServer.on("listening", ({ localUrl }) => {
     // const { port } = localUrl.port.address() as AddressInfo;
     console.log(
@@ -51,11 +51,11 @@ const callServerListening = (callServer: CallServerAbc): void => {
   });
 };
 
-const callServerStopped = (callServer: CallServerAbc): void => {
+const callServerStopped = (callServer: CallServer): void => {
   callServer.on("stopped", () => console.log("The server has closed"));
 };
 
-const callServerErrored = (callServer: CallServerAbc): void => {
+const callServerErrored = (callServer: CallServer): void => {
   callServer.on("error", (event) =>
     console.error("Server experienced an error", event.error.message)
   );

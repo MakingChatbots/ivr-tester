@@ -1,4 +1,4 @@
-import { CallServer } from "./testing/CallServer";
+import { TwilioCallServer } from "./testing/TwilioCallServer";
 import { IvrTest, TestSubject } from "./handlers/TestInstanceClass";
 import { Config } from "./configuration/Config";
 import { PluginManager } from "./plugins/PluginManager";
@@ -34,7 +34,7 @@ export const testRunner = (config: Config) => async (
     config.msPauseAtEndOfTranscript
   );
 
-  const callServer = new CallServer(
+  const callServer = new TwilioCallServer(
     config.dtmfGenerator,
     new IteratingTestAssigner(tests),
     testExecutor

@@ -8,15 +8,15 @@ import {
 } from "../handlers/TestInstanceClass";
 import {
   CallHandlingServer,
+  TwilioCallServer,
   CallServer,
-  CallServerAbc,
   CallServerEvents,
-} from "./CallServer";
+} from "./TwilioCallServer";
 import { Call } from "../call/Call";
 
 class StubCallServer
   extends TypedEmitter<CallServerEvents>
-  implements CallServerAbc {
+  implements CallServer {
   listen(): Promise<CallHandlingServer> {
     return Promise.resolve(undefined);
   }
@@ -40,7 +40,7 @@ class StubTestInstance
 
 describe("Close server when tests complete", () => {
   let pluginEmitter: Emitter<PluginEvents>;
-  let callServer: CallServerAbc;
+  let callServer: CallServer;
 
   beforeEach(() => {
     pluginEmitter = new TypedEmitter<PluginEvents>();
@@ -52,7 +52,7 @@ describe("Close server when tests complete", () => {
     stopWhenAllTestsComplete.initialise(pluginEmitter);
 
     pluginEmitter.emit("callServerStarted", {
-      callServer: (callServer as unknown) as CallServer,
+      callServer: (callServer as unknown) as TwilioCallServer,
     });
 
     const testInstance = new StubTestInstance();
@@ -69,7 +69,7 @@ describe("Close server when tests complete", () => {
     stopWhenAllTestsComplete.initialise(pluginEmitter);
 
     pluginEmitter.emit("callServerStarted", {
-      callServer: (callServer as unknown) as CallServer,
+      callServer: (callServer as unknown) as TwilioCallServer,
     });
 
     const testInstance = new StubTestInstance();
@@ -89,7 +89,7 @@ describe("Close server when tests complete", () => {
     stopWhenAllTestsComplete.initialise(pluginEmitter);
 
     pluginEmitter.emit("callServerStarted", {
-      callServer: (callServer as unknown) as CallServer,
+      callServer: (callServer as unknown) as TwilioCallServer,
     });
 
     const testInstance1 = new StubTestInstance();

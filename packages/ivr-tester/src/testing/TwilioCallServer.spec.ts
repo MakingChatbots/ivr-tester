@@ -1,5 +1,5 @@
 import WebSocket from "ws";
-import { CallHandlingServer, CallServer } from "./CallServer";
+import { CallHandlingServer, TwilioCallServer } from "./TwilioCallServer";
 import { DtmfBufferGenerator } from "../call/dtmf/DtmfBufferGenerator";
 import getPort from "get-port";
 import { URL } from "url";
@@ -58,7 +58,7 @@ describe("Call Server", () => {
   });
 
   test("server's local websocket URL", async () => {
-    const callServer = new CallServer(
+    const callServer = new TwilioCallServer(
       dtmfGenerator,
       testAssigner,
       testExecutor
@@ -76,7 +76,7 @@ describe("Call Server", () => {
       reason: "test reason",
     });
 
-    const callServer = new CallServer(
+    const callServer = new TwilioCallServer(
       dtmfGenerator,
       testAssigner,
       testExecutor
@@ -96,7 +96,7 @@ describe("Call Server", () => {
 
     testAssigner.assign.mockReturnValue({ isAssigned: true, test });
 
-    const callServer = new CallServer(
+    const callServer = new TwilioCallServer(
       dtmfGenerator,
       testAssigner,
       testExecutor

@@ -12,7 +12,7 @@ const getPublicServerUrl = (config: Config) => {
     config.publicServerUrl || ""
   );
   return publicServerUrl
-    ? CallServer.convertToWebSocketUrl(publicServerUrl).toString()
+    ? TwilioCallServer.convertToWebSocketUrl(publicServerUrl).toString()
     : undefined;
 };
 
