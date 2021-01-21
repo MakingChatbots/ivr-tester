@@ -45,9 +45,4 @@ export interface Config {
    * This value can be overridden by setting the environment variable PUBLIC_SERVER_URL
    */
   publicServerUrl?: string | undefined;
-
-  /**
-   * Plugins that can hook into the lifecycle of a test
-   */
-  plugins?: IvrTesterPlugin[];
 }

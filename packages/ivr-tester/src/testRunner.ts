@@ -9,6 +9,8 @@ import { MediaStreamRecorder } from "./call/recording/MediaStreamRecorder";
 import { DefaultTestExecutor } from "./testing/DefaultTestExecutor";
 import { AudioPlaybackCaller } from "./call/AudioPlaybackCaller";
 import { Caller } from "./call/Caller";
+import { consoleLogger } from "./testing/reporting/consoleLogger";
+import { CloseServerWhenTestsComplete } from "./testing/CloseServerWhenTestsComplete";
 
 /**
  * @param config - Configuration used for setting up the tests
@@ -21,7 +23,10 @@ export const testRunner = (config: Config) => async (
 
   const tests = Array.isArray(ivrTest) ? ivrTest : [ivrTest];
 
-  const pluginManager = new PluginManager(config.plugins);
+  const pluginManager = new PluginManager([
+    consoleLogger,
+    new CloseServerWhenTestsComplete(),
+  ]);
   pluginManager.initialise();
 
   const testExecutor = new DefaultTestExecutor(

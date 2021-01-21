@@ -3,7 +3,7 @@ import { UlawDtmfBufferGenerator } from "../call/dtmf/UlawDtmfBufferGenerator";
 import { consoleLogger } from "../testing/reporting/consoleLogger";
 import { Config } from "./Config";
 import { Twilio } from "twilio";
-import { CallServer } from "../testing/CallServer";
+import { TwilioCallServer } from "../testing/TwilioCallServer";
 import { CloseServerWhenTestsComplete } from "../testing/CloseServerWhenTestsComplete";
 
 const getPublicServerUrl = (config: Config) => {
@@ -28,10 +28,6 @@ export const populateDefaults = (config: Config): Config => ({
   transcriber: config.transcriber,
   msPauseAtEndOfTranscript: config.msPauseAtEndOfTranscript || 5 * 2000,
   localServerPort: getenv.int("LOCAL_SERVER_PORT", config.localServerPort),
-  plugins: config.plugins || [
-    consoleLogger,
-    new CloseServerWhenTestsComplete(),
-  ],
   publicServerUrl: getPublicServerUrl(config),
   recording: config.recording,
   twilioClient: config.twilioClient || createDefaultClient(),
