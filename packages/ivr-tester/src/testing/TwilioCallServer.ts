@@ -8,12 +8,6 @@ import { TestAssigner } from "./IteratingTestAssigner";
 import { TestExecutor } from "./DefaultTestExecutor";
 import { TestInstance } from "./test/TestInstanceClass";
 
-export interface CallHandlingServer {
-  // TODO This is only exposed for the sake of testing. Anyway to avoid this?
-  wss: Server;
-  local: URL;
-}
-
 export type CallServerEvents = {
   callConnected: { call: Call };
   testStarted: { testInstance: TestInstance };
@@ -24,9 +18,7 @@ export type CallServerEvents = {
 };
 
 export interface CallServer extends Emitter<CallServerEvents> {
-  // getEstablishedCalls(): ReadonlyArray<Call>;
-  // preventNewCalls(): void;
-  listen(port: number): Promise<CallHandlingServer>;
+  listen(port: number): Promise<URL>;
   stop(): void;
 }
 
@@ -35,10 +27,7 @@ export class TwilioCallServer
   implements CallServer {
   private static TestCouldNotBeAssignedReason = "TestCouldNotBeAssigned";
 
-  // private establishedCalls: Call[] = [];
   private wss: Server;
-
-  // private disconnectNewCalls = false;
 
   constructor(
     private readonly dtmfBufferGenerator: DtmfBufferGenerator,
@@ -69,22 +58,14 @@ export class TwilioCallServer
     return streamUrl;
   }
 
-  // public getEstablishedCalls(): ReadonlyArray<Call> {
-  //   return [...this.establishedCalls];
-  // }
-
-  // public preventNewCalls(): void {
-  //   this.disconnectNewCalls = true;
-  // }
-
-  public listen(port: number): Promise<CallHandlingServer> {
+  public listen(port: number): Promise<URL> {
     if (this.wss) {
       throw new Error("Server already started");
     }
 
     this.wss = new Server({ port });
 
-    return new Promise<CallHandlingServer>((resolve, reject) => {
+    return new Promise<URL>((resolve, reject) => {
       const onError = (err: Error) => reject(err);
 
       this.wss.on("error", onError);
@@ -100,29 +81,31 @@ export class TwilioCallServer
         this.wss.on("close", () => this.closed());
         this.wss.on("error", (error) => this.serverError(error));
 
-        resolve({
-          wss: this.wss,
-          local: localUrl,
-        });
+        resolve(localUrl);
       });
     });
   }
 
-  public stop(): void {
-    if (this.wss) {
-      this.wss.close();
+  public async stop(): Promise<void> {
+    await new Promise<void>((resolve, reject) => {
+      if (!this.wss) {
+        resolve();
+        return;
+      }
+
+      this.wss.close((err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
       this.wss = undefined;
-    }
+    });
   }
 
   private callConnected(callWebSocket: ws): void {
-    // if (this.disconnectNewCalls) {
-    //   callWebSocket.close();
-    //   return;
-    // }
-
     const call = new TwilioCall(callWebSocket, this.dtmfBufferGenerator);
-    // this.establishedCalls.push(call);
 
     this.emit("callConnected", { call });
 

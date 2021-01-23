@@ -1,5 +1,5 @@
 import WebSocket from "ws";
-import { CallHandlingServer, TwilioCallServer } from "./TwilioCallServer";
+import { CallServer, TwilioCallServer } from "./TwilioCallServer";
 import { DtmfBufferGenerator } from "../call/dtmf/DtmfBufferGenerator";
 import getPort from "get-port";
 import { URL } from "url";
@@ -20,7 +20,7 @@ const fiveSeconds = 10 * 1000;
 jest.setTimeout(fiveSeconds);
 
 describe("Call Server", () => {
-  let server: CallHandlingServer;
+  let callServer: CallServer;
   let callConnection: WebSocket;
 
   let testAssigner: jest.Mocked<TestAssigner>;
@@ -38,19 +38,10 @@ describe("Call Server", () => {
   afterEach(async () => {
     console.group("Tidy Connections");
 
-    if (server) {
+    if (callServer) {
       console.debug("Closing call server...");
-
-      await new Promise<void>((resolve, reject) => {
-        server.wss.close((err) => {
-          if (err) {
-            reject(err);
-          } else {
-            console.debug("Closed call server");
-            resolve();
-          }
-        });
-      });
+      await callServer.stop();
+      console.debug("Call server closed");
     }
 
     if (callConnection && callConnection.readyState !== WebSocket.CLOSED) {
@@ -62,16 +53,16 @@ describe("Call Server", () => {
   });
 
   test("server's local websocket URL", async () => {
-    const callServer = new TwilioCallServer(
+    callServer = new TwilioCallServer(
       dtmfGenerator,
       testAssigner,
       testExecutor
     );
 
     const port = await getPort();
-    server = await callServer.listen(port);
+    const serverUrl = await callServer.listen(port);
 
-    expect(server.local).toEqual(new URL(`ws://[::]:${port}/`));
+    expect(serverUrl).toEqual(new URL(`ws://[::]:${port}/`));
   });
 
   test("call closed when call connected and no test assigned", async () => {
@@ -80,14 +71,15 @@ describe("Call Server", () => {
       reason: "test reason",
     });
 
-    const callServer = new TwilioCallServer(
+    callServer = new TwilioCallServer(
       dtmfGenerator,
       testAssigner,
       testExecutor
     );
-    server = await callServer.listen(await getPort());
 
-    callConnection = new WebSocket(server.local);
+    const serverUrl = await callServer.listen(await getPort());
+
+    callConnection = new WebSocket(serverUrl);
     await waitForConnection(callConnection);
 
     await waitForExpect(() =>
@@ -100,15 +92,15 @@ describe("Call Server", () => {
 
     testAssigner.assign.mockReturnValue({ isAssigned: true, test });
 
-    const callServer = new TwilioCallServer(
+    callServer = new TwilioCallServer(
       dtmfGenerator,
       testAssigner,
       testExecutor
     );
 
-    server = await callServer.listen(await getPort());
+    const serverUrl = await callServer.listen(await getPort());
 
-    callConnection = new WebSocket(server.local);
+    callConnection = new WebSocket(serverUrl);
     await waitForConnection(callConnection);
 
     await waitForExpect(() =>

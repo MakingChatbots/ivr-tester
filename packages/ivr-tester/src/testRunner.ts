@@ -48,7 +48,7 @@ export const testRunner = (config: Config) => async (
     new IteratingTestAssigner(tests),
     testExecutor
   );
-  const server = await callServer.listen(config.localServerPort);
+  const serverUrl = await callServer.listen(config.localServerPort);
   pluginManager.serverListening(callServer);
 
   const caller: Caller<TestSubject | Buffer> = Buffer.isBuffer(call)
@@ -58,7 +58,7 @@ export const testRunner = (config: Config) => async (
   const calls = Promise.all(
     tests.map(() =>
       caller
-        .call(call, config.publicServerUrl || server.local)
+        .call(call, config.publicServerUrl || serverUrl)
         .then((callRequested) =>
           pluginManager.callRequested(callRequested, tests.length)
         )
@@ -72,12 +72,14 @@ export const testRunner = (config: Config) => async (
   return new Promise((resolve, reject) => {
     calls
       .then(() => {
-        server.wss.on("close", resolve);
-        server.wss.on("error", reject);
+        callServer.on("stopped", resolve);
+        callServer.on("error", reject);
       })
       .catch((error) => {
-        server.wss.close((err) => err && console.error(err));
-        reject(error);
+        callServer
+          .stop()
+          .catch((err) => err && console.error(err))
+          .finally(() => reject(error));
       });
   });
 };

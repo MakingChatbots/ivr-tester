@@ -2,7 +2,6 @@ import { CloseServerWhenTestsComplete } from "./CloseServerWhenTestsComplete";
 import { PluginEvents } from "../plugins/PluginManager";
 import { Emitter, TypedEmitter } from "../Emitter";
 import {
-  CallHandlingServer,
   TwilioCallServer,
   CallServer,
   CallServerEvents,
@@ -10,11 +9,12 @@ import {
 import { Call } from "../call/Call";
 import { TestInstance, TestInstanceEvents } from "./test/TestInstanceClass";
 import { IvrTest } from "./test/IvrTest";
+import { URL } from "url";
 
 class StubCallServer
   extends TypedEmitter<CallServerEvents>
   implements CallServer {
-  listen(): Promise<CallHandlingServer> {
+  listen(): Promise<URL> {
     return Promise.resolve(undefined);
   }
 
