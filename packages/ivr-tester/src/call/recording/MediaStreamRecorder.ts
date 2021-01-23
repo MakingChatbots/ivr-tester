@@ -9,6 +9,9 @@ import { Config } from "../../configuration/Config";
 import { ConfigurationError } from "../../configuration/ConfigurationError";
 import { TwilioCaller, TwilioMediaStreamStartEvent } from "../TwilioCaller";
 import { TestInstance } from "../../testing/test/TestInstanceClass";
+import { IvrTesterPlugin } from "../../plugins/IvrTesterPlugin";
+import { Emitter } from "../../Emitter";
+import { PluginEvents } from "../../plugins/PluginManager";
 
 /**
  * Details about the stream about to be recorded
@@ -22,6 +25,43 @@ export interface RecorderConfig {
   outputPath: string;
   filename?: string | FilenameFactory;
 }
+
+export const mediaStreamRecorderPlugin = (config: Config): IvrTesterPlugin => {
+  if (!config.recording) {
+    return {
+      initialise(): void {
+        /* Intentionally empty */
+      },
+    };
+  }
+
+  const recorderConfig: RecorderConfig = {
+    outputPath: config.recording?.outputPath,
+    filename:
+      config.recording?.filename || filenameContainingIvrNumberAndTestName,
+  };
+
+  if (!recorderConfig.outputPath) {
+    throw new ConfigurationError(
+      "recording.outputPath",
+      "Path must be defined"
+    );
+  }
+
+  if (!fs.existsSync(recorderConfig.outputPath)) {
+    throw new ConfigurationError("recording.outputPath", "Path does not exist");
+  }
+
+  return {
+    initialise(eventEmitter: Emitter<PluginEvents>): void {
+      eventEmitter.on("callServerStarted", ({ callServer }) => {
+        callServer.on("testStarted", ({ testInstance }) => {
+          new MediaStreamRecorder(testInstance, recorderConfig);
+        });
+      });
+    },
+  };
+};
 
 export class MediaStreamRecorder {
   private static readonly FILE_EXT = "wav";
@@ -41,33 +81,6 @@ export class MediaStreamRecorder {
     connection
       .on(WebSocketEvents.Message, this.processMessageRef)
       .on(WebSocketEvents.Close, this.closeRef);
-  }
-
-  public static createFromConfiguration(
-    config: Config,
-    testInstance: TestInstance
-  ): MediaStreamRecorder {
-    const recorderConfig: RecorderConfig = {
-      outputPath: config.recording?.outputPath,
-      filename:
-        config.recording?.filename || filenameContainingIvrNumberAndTestName,
-    };
-
-    if (!recorderConfig.outputPath) {
-      throw new ConfigurationError(
-        "recording.outputPath",
-        "Path must be defined"
-      );
-    }
-
-    if (!fs.existsSync(recorderConfig.outputPath)) {
-      throw new ConfigurationError(
-        "recording.outputPath",
-        "Path does not exist"
-      );
-    }
-
-    return new MediaStreamRecorder(testInstance, recorderConfig);
   }
 
   private processMessage(message: string) {

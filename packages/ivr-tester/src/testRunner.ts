@@ -4,7 +4,7 @@ import { PluginManager } from "./plugins/PluginManager";
 import { populateDefaults } from "./configuration/populateDefaults";
 import { TwilioCaller } from "./call/TwilioCaller";
 import { IteratingTestAssigner } from "./testing/IteratingTestAssigner";
-import { MediaStreamRecorder } from "./call/recording/MediaStreamRecorder";
+import { mediaStreamRecorderPlugin } from "./call/recording/MediaStreamRecorder";
 import { DefaultTestExecutor } from "./testing/DefaultTestExecutor";
 import { AudioPlaybackCaller } from "./call/AudioPlaybackCaller";
 import { Caller } from "./call/Caller";
@@ -33,7 +33,8 @@ export const testRunner = (config: Config) => async (
   const pluginManager = new PluginManager([
     new CloseServerWhenTestsComplete(),
     userInterface,
-    callConnectedTimeout(config.msTimeoutWaitingForCall, userInterface),
+    callConnectedTimeout(config, userInterface),
+    mediaStreamRecorderPlugin(config),
   ]);
   pluginManager.initialise();
 
@@ -49,13 +50,6 @@ export const testRunner = (config: Config) => async (
   );
   const server = await callServer.listen(config.localServerPort);
   pluginManager.serverListening(callServer);
-
-  // TODO Convert this to a plugin
-  if (config.recording) {
-    callServer.on("testStarted", ({ testInstance }) => {
-      MediaStreamRecorder.createFromConfiguration(config, testInstance);
-    });
-  }
 
   const caller: Caller<TestSubject | Buffer> = Buffer.isBuffer(call)
     ? new AudioPlaybackCaller()
