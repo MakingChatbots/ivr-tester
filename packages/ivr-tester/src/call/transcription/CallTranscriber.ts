@@ -73,9 +73,7 @@ export class CallTranscriber extends TypedEmitter<CallTranscriptionEvents> {
   constructor(
     private readonly call: Call,
     private readonly transcriber: TranscriberPlugin,
-    private readonly completeTranscriptionTimeoutInMs: number,
-    private readonly createTimeout: typeof setTimeout = setTimeout,
-    private readonly deleteTimeout: typeof clearTimeout = clearTimeout
+    private readonly completeTranscriptionTimeoutInMs: number
   ) {
     super();
     this.processMessageRef = this.processMessage.bind(this);
@@ -130,7 +128,7 @@ export class CallTranscriber extends TypedEmitter<CallTranscriptionEvents> {
 
   private clearTimer() {
     if (this.timeout) {
-      this.deleteTimeout(this.timeout);
+      clearTimeout(this.timeout);
       this.timeout = undefined;
     }
   }
@@ -141,7 +139,7 @@ export class CallTranscriber extends TypedEmitter<CallTranscriptionEvents> {
 
     this.clearTimer();
 
-    this.timeout = this.createTimeout(() => {
+    this.timeout = setTimeout(() => {
       this.emitFinalTranscript();
       this.transcriptionBuilder.clear();
       this.transcriber.transcriptionComplete();
