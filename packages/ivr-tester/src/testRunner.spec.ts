@@ -160,7 +160,7 @@ describe("Test Runner", () => {
 
     const config: Config = {
       ...commonConfig,
-      msPauseAtEndOfTranscript: 1,
+      completeTranscriptionTimeoutInMs: 1,
       transcriber: () => transcriber,
     };
 

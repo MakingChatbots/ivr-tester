@@ -11,14 +11,14 @@ export interface TestExecutor {
 export class DefaultTestExecutor implements TestExecutor {
   constructor(
     private readonly transcriberFactory: TranscriberFactory,
-    private readonly pauseAtEndOfTranscript: number
+    private readonly completeTranscriptionTimeoutInMs: number
   ) {}
 
   public startTest(test: IvrTest, call: Call): TestInstance {
     const callTranscriber = new CallTranscriber(
       call,
       this.transcriberFactory(),
-      this.pauseAtEndOfTranscript
+      this.completeTranscriptionTimeoutInMs
     );
 
     return new TestInstanceClass(call, callTranscriber, test);

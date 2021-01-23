@@ -40,7 +40,7 @@ export const testRunner = (config: Config) => async (
 
   const testExecutor = new DefaultTestExecutor(
     config.transcriber,
-    config.msPauseAtEndOfTranscript
+    config.completeTranscriptionTimeoutInMs
   );
 
   const callServer = new TwilioCallServer(

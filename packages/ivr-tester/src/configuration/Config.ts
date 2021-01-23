@@ -15,11 +15,13 @@ export interface Config {
   transcriber: TranscriberFactory;
 
   /**
-   * How long to wait when receiving parts of a transcript to decide
-   * whether the transcribing has completed.
-   * Defaults to 2 seconds
+   * The amount of time to wait, in milliseconds, after the last
+   * transcription event before marking the transcription of the
+   * IVR's prompt as complete.
+   *
+   * Default is 5 seconds
    */
-  msPauseAtEndOfTranscript?: number;
+  completeTranscriptionTimeoutInMs?: number;
 
   recording?: {
     outputPath: string;

@@ -73,8 +73,7 @@ export class CallTranscriber extends TypedEmitter<CallTranscriptionEvents> {
   constructor(
     private readonly call: Call,
     private readonly transcriber: TranscriberPlugin,
-    // TODO Need to think of a better name for this
-    private readonly pauseAtEndOfTranscript: number,
+    private readonly completeTranscriptionTimeoutInMs: number,
     private readonly createTimeout: typeof setTimeout = setTimeout,
     private readonly deleteTimeout: typeof clearTimeout = clearTimeout
   ) {
@@ -148,6 +147,6 @@ export class CallTranscriber extends TypedEmitter<CallTranscriptionEvents> {
       this.transcriber.transcriptionComplete();
 
       this.clearTimer();
-    }, this.pauseAtEndOfTranscript);
+    }, this.completeTranscriptionTimeoutInMs);
   }
 }
