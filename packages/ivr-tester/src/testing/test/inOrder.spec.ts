@@ -1,8 +1,8 @@
 import { inOrder } from "./inOrder";
-import { contains } from "../testing/conditions/when/contains";
-import { press } from "../testing/conditions/then/press";
-import { AssertThen } from "..";
-import { Call } from "../call/Call";
+import { contains } from "./conditions/when";
+import { press } from "./conditions/then";
+import { AssertThen } from "../../index";
+import { Call } from "../../call/Call";
 
 describe("ordered conditions", () => {
   let call: jest.Mocked<Call>;
@@ -12,7 +12,11 @@ describe("ordered conditions", () => {
       sendDtmfTone: jest.fn(),
       sendMedia: jest.fn(),
       getStream: jest.fn(),
-      hangUp: jest.fn(),
+      close: jest.fn(),
+      isOpen: jest.fn(),
+      on: jest.fn(),
+      off: jest.fn(),
+      emit: jest.fn(),
     };
   });
 

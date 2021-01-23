@@ -1,5 +1,5 @@
 import { Twilio } from "twilio";
-import { LifecycleHookPlugin } from "../plugins/lifecycle/LifecycleHookPlugin";
+import { IvrTesterPlugin } from "../plugins/IvrTesterPlugin";
 
 export interface TestRunnerConfig {
   /**
@@ -15,5 +15,5 @@ export interface TestRunnerConfig {
    */
   publicServerUrl?: string | undefined;
 
-  plugins?: LifecycleHookPlugin[];
+  plugins?: IvrTesterPlugin[];
 }

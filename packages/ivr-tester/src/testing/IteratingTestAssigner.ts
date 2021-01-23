@@ -1,29 +1,34 @@
-import { IvrTest } from "../handlers/TestHandler";
-import { NoneAssigned, TestAssigned, TestAssigner } from "./CallServer";
+import { IvrTest } from "./test/IvrTest";
 
-export interface TestAssignerEventProbe {
-  callAssignedTest: (event: { index: number; test: IvrTest }) => void;
+export interface AssignedResult {
+  isAssigned: boolean;
 }
 
-/** @internal */
+export interface TestAssigned extends AssignedResult {
+  isAssigned: true;
+  test: IvrTest;
+}
+
+export interface NoneAssigned extends AssignedResult {
+  isAssigned: false;
+  reason: string;
+}
+
+export interface TestAssigner {
+  assign(): TestAssigned | NoneAssigned;
+}
+
 export class IteratingTestAssigner implements TestAssigner {
   private readonly testIterator: IterableIterator<[number, IvrTest]>;
 
-  constructor(
-    readonly tests: IvrTest[],
-    private readonly probe: TestAssignerEventProbe = {
-      callAssignedTest: () => undefined,
-    }
-  ) {
+  constructor(readonly tests: IvrTest[]) {
     this.testIterator = tests.entries();
   }
 
   public assign(): TestAssigned | NoneAssigned {
     const testEntry = this.testIterator.next();
     if (!testEntry.done) {
-      const [index, test]: [number, IvrTest] = testEntry.value;
-      this.probe.callAssignedTest({ test, index });
-
+      const [, test]: [number, IvrTest] = testEntry.value;
       return { isAssigned: true, test };
     }
 

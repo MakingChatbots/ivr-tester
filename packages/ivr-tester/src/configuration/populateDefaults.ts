@@ -1,10 +1,8 @@
 import * as getenv from "getenv";
 import { UlawDtmfBufferGenerator } from "../call/dtmf/UlawDtmfBufferGenerator";
-import { consoleLogger } from "../testing/reporting/consoleLogger";
 import { Config } from "./Config";
 import { Twilio } from "twilio";
-import { CallServer } from "../testing/CallServer";
-import { CloseServerWhenTestsComplete } from "../testing/CloseServerWhenTestsComplete";
+import { TwilioCallServer } from "../testing/TwilioCallServer";
 
 const getPublicServerUrl = (config: Config) => {
   const publicServerUrl = getenv.string(
@@ -12,7 +10,7 @@ const getPublicServerUrl = (config: Config) => {
     config.publicServerUrl || ""
   );
   return publicServerUrl
-    ? CallServer.convertToWebSocketUrl(publicServerUrl).toString()
+    ? TwilioCallServer.convertToWebSocketUrl(publicServerUrl).toString()
     : undefined;
 };
 
@@ -28,11 +26,8 @@ export const populateDefaults = (config: Config): Config => ({
   transcriber: config.transcriber,
   msPauseAtEndOfTranscript: config.msPauseAtEndOfTranscript || 5 * 2000,
   localServerPort: getenv.int("LOCAL_SERVER_PORT", config.localServerPort),
-  plugins: config.plugins || [
-    consoleLogger,
-    new CloseServerWhenTestsComplete(),
-  ],
   publicServerUrl: getPublicServerUrl(config),
   recording: config.recording,
   twilioClient: config.twilioClient || createDefaultClient(),
+  msTimeoutWaitingForCall: config.msTimeoutWaitingForCall || 30 * 1000,
 });

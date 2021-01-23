@@ -1,5 +1,5 @@
 import { URL } from "url";
-import { Caller } from "./Caller";
+import { Caller, RequestedCall } from "./Caller";
 import WebSocket from "ws";
 import { TwilioConnectionEvents } from "./twilio";
 
@@ -12,7 +12,7 @@ export class AudioPlaybackCaller implements Caller<Buffer> {
   public async call(
     mulawAudio: Buffer,
     streamUrl: URL | string
-  ): Promise<unknown> {
+  ): Promise<RequestedCall> {
     this.streamCounter++;
 
     const streamSid = `audio-stream-${this.streamCounter}`;
@@ -43,7 +43,10 @@ export class AudioPlaybackCaller implements Caller<Buffer> {
       ws.close();
     });
 
-    return Promise.resolve(undefined);
+    return Promise.resolve({
+      type: "audio-playback",
+      call: mulawAudio,
+    });
   }
 
   private static createTwilioMediaStreamStartEvent(sid: string): string {

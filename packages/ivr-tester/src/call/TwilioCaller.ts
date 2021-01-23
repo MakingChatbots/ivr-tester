@@ -1,10 +1,10 @@
-import { TestSubject } from "../handlers/TestHandler";
 import { URL } from "url";
 import { Twilio, twiml } from "twilio";
 import { Call, TwilioConnectionEvents } from "./twilio";
 import VoiceResponse from "twilio/lib/twiml/VoiceResponse";
 import { Debugger } from "../Debugger";
-import { Caller } from "./Caller";
+import { Caller, RequestedCall } from "./Caller";
+import { TestSubject } from "../testRunner";
 
 export interface TwilioMediaStreamStartEvent {
   event: TwilioConnectionEvents.MediaStreamStart;
@@ -37,7 +37,10 @@ export class TwilioCaller implements Caller<TestSubject> {
     return { from, to };
   }
 
-  public call(call: TestSubject, streamUrl: URL | string): Promise<unknown> {
+  public async call(
+    call: TestSubject,
+    streamUrl: URL | string
+  ): Promise<RequestedCall> {
     const response = new twiml.VoiceResponse();
     const connect = response.connect();
     const stream = connect.stream({
@@ -52,6 +55,7 @@ export class TwilioCaller implements Caller<TestSubject> {
 
     TwilioCaller.debug("Making call %O", callOptions);
 
-    return this.twilioClient.calls.create(callOptions);
+    await this.twilioClient.calls.create(callOptions);
+    return { type: "telephony", call };
   }
 }

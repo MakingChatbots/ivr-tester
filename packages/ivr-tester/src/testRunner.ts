@@ -1,34 +1,22 @@
-import { CallServer, CallServerEventProbe } from "./testing/CallServer";
-import { IvrTest, TestSubject } from "./handlers/TestHandler";
+import { TwilioCallServer } from "./testing/TwilioCallServer";
 import { Config } from "./configuration/Config";
 import { PluginManager } from "./plugins/PluginManager";
 import { populateDefaults } from "./configuration/populateDefaults";
 import { TwilioCaller } from "./call/TwilioCaller";
-import {
-  IteratingTestAssigner,
-  TestAssignerEventProbe,
-} from "./testing/IteratingTestAssigner";
-import { MediaStreamRecorder } from "./call/recording/MediaStreamRecorder";
-import {
-  DefaultTestExecutor,
-  TestExecutorEventProbe,
-} from "./testing/DefaultTestExecutor";
-import { LifecycleEventEmitter } from "./plugins/lifecycle/LifecycleEventEmitter";
+import { IteratingTestAssigner } from "./testing/IteratingTestAssigner";
+import { mediaStreamRecorderPlugin } from "./call/recording/MediaStreamRecorder";
+import { DefaultTestExecutor } from "./testing/DefaultTestExecutor";
 import { AudioPlaybackCaller } from "./call/AudioPlaybackCaller";
 import { Caller } from "./call/Caller";
+import { consoleUserInterface } from "./testing/reporting/consoleUserInterface";
+import { CloseServerWhenTestsComplete } from "./testing/CloseServerWhenTestsComplete";
+import { IvrTest } from "./testing/test/IvrTest";
+import { callConnectedTimeout } from "./testing/callConnectedTimeout";
 
-const probeAdaptor = (
-  emitter: LifecycleEventEmitter
-): TestExecutorEventProbe & TestAssignerEventProbe & CallServerEventProbe => ({
-  ivrTranscription: (event) => emitter.emit("ivrTranscription", event),
-  callAssignedTest: (event) => emitter.emit("callAssignedTest", event),
-  callConnected: () => emitter.emit("callConnected", undefined),
-  ivrTestConditionMet: (event) => emitter.emit("ivrTestConditionMet", event),
-  ivrTestFailed: (event) => emitter.emit("ivrTestFailed", event),
-  ivrTestPassed: (event) => emitter.emit("ivrTestPassed", event),
-  callHungUpAsNoTestAssigned: (reason) =>
-    console.warn(`Hung-up call as no test was assigned. Reason: ${reason}`),
-});
+export interface TestSubject {
+  from: string;
+  to: string;
+}
 
 /**
  * @param config - Configuration used for setting up the tests
@@ -41,63 +29,57 @@ export const testRunner = (config: Config) => async (
 
   const tests = Array.isArray(ivrTest) ? ivrTest : [ivrTest];
 
-  const pluginManager = new PluginManager();
-  pluginManager.loadPlugins(config.plugins);
-
-  const pluginEmitter = pluginManager.getEmitter();
-  const probe = probeAdaptor(pluginEmitter);
+  const userInterface = consoleUserInterface();
+  const pluginManager = new PluginManager([
+    new CloseServerWhenTestsComplete(),
+    userInterface,
+    callConnectedTimeout(config, userInterface),
+    mediaStreamRecorderPlugin(config),
+  ]);
+  pluginManager.initialise();
 
   const testExecutor = new DefaultTestExecutor(
     config.transcriber,
-    config.msPauseAtEndOfTranscript,
-    probe
+    config.msPauseAtEndOfTranscript
   );
 
-  if (config.recording) {
-    testExecutor.addHandler((c, t) =>
-      MediaStreamRecorder.createFromConfiguration(config, c.getStream(), t)
-    );
-  }
-
-  const callServer = new CallServer(
+  const callServer = new TwilioCallServer(
     config.dtmfGenerator,
-    new IteratingTestAssigner(tests, probe),
-    testExecutor,
-    probe
+    new IteratingTestAssigner(tests),
+    testExecutor
   );
-  const server = await callServer.listen(config.localServerPort);
-  pluginEmitter.emit("callHandlingServerStarted", { server: server.wss });
+  const serverUrl = await callServer.listen(config.localServerPort);
+  pluginManager.serverListening(callServer);
 
-  const ivrCaller: Caller<Buffer | TestSubject> = Buffer.isBuffer(call)
+  const caller: Caller<TestSubject | Buffer> = Buffer.isBuffer(call)
     ? new AudioPlaybackCaller()
     : new TwilioCaller(config.twilioClient);
 
-  const makeCalls = tests.map((test, index) => {
-    pluginEmitter.emit("callRequested", {
-      call,
-      total: tests.length,
-      current: index + 1,
-    });
-
-    return ivrCaller.call(call, config.publicServerUrl || server.local);
-  });
+  const calls = Promise.all(
+    tests.map(() =>
+      caller
+        .call(call, config.publicServerUrl || serverUrl)
+        .then((callRequested) =>
+          pluginManager.callRequested(callRequested, tests.length)
+        )
+        .catch((error) => {
+          pluginManager.callRequestErrored(new Error(error));
+          throw error;
+        })
+    )
+  );
 
   return new Promise((resolve, reject) => {
-    Promise.all(makeCalls)
+    calls
       .then(() => {
-        server.wss.on("close", () => {
-          pluginEmitter.emit("callHandlingServerStopped", undefined);
-          resolve();
-        });
-        server.wss.on("error", (error) => {
-          pluginEmitter.emit("callHandlingServerErrored", { error });
-          reject(error);
-        });
+        callServer.on("stopped", resolve);
+        callServer.on("error", reject);
       })
       .catch((error) => {
-        pluginEmitter.emit("callRequestErrored", { error });
-        server.wss.close((err) => err && console.error(err));
-        reject(error);
+        callServer
+          .stop()
+          .catch((err) => err && console.error(err))
+          .finally(() => reject(error));
       });
   });
 };

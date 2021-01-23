@@ -9,7 +9,6 @@ import { Transcript } from "./Transcript";
 import internal from "stream";
 import { Debugger } from "./Debugger";
 
-/** @internal */
 export class GoogleSpeechToText
   extends TypedEmitter<TranscriptionEvents>
   implements TranscriberPlugin {

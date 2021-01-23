@@ -1,5 +1,5 @@
 import { Then } from "./Then";
-import { Call } from "../../../call/Call";
+import { Call } from "../../../../call/Call";
 
 /**
  * Sends DTMF tones to the call

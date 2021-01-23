@@ -1,4 +1,3 @@
-/** @internal */
 export interface Transcript {
   isFinal: boolean;
   stability: number;

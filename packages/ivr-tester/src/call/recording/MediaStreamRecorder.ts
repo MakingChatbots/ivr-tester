@@ -1,15 +1,17 @@
-import ws from "ws";
 import * as fs from "fs";
 import { createWriteStream, mkdirSync, WriteStream } from "fs";
 import * as path from "path";
 import { WebSocketEvents } from "../TwilioCall";
 import { TwilioConnectionEvents } from "../twilio";
-import { IvrTest } from "../../handlers/TestHandler";
 import { FilenameFactory } from "./filename/FilenameFactory";
 import { filenameContainingIvrNumberAndTestName } from "./filename/filenameContainingIvrNumberAndTestName";
 import { Config } from "../../configuration/Config";
 import { ConfigurationError } from "../../configuration/ConfigurationError";
 import { TwilioCaller, TwilioMediaStreamStartEvent } from "../TwilioCaller";
+import { TestInstance } from "../../testing/test/TestInstanceClass";
+import { IvrTesterPlugin } from "../../plugins/IvrTesterPlugin";
+import { Emitter } from "../../Emitter";
+import { PluginEvents } from "../../plugins/PluginManager";
 
 /**
  * Details about the stream about to be recorded
@@ -19,13 +21,48 @@ export interface StreamDetails {
   call: { from: string; to: string };
 }
 
-/** @internal */
 export interface RecorderConfig {
   outputPath: string;
   filename?: string | FilenameFactory;
 }
 
-/** @internal */
+export const mediaStreamRecorderPlugin = (config: Config): IvrTesterPlugin => {
+  if (!config.recording) {
+    return {
+      initialise(): void {
+        /* Intentionally empty */
+      },
+    };
+  }
+
+  const recorderConfig: RecorderConfig = {
+    outputPath: config.recording?.outputPath,
+    filename:
+      config.recording?.filename || filenameContainingIvrNumberAndTestName,
+  };
+
+  if (!recorderConfig.outputPath) {
+    throw new ConfigurationError(
+      "recording.outputPath",
+      "Path must be defined"
+    );
+  }
+
+  if (!fs.existsSync(recorderConfig.outputPath)) {
+    throw new ConfigurationError("recording.outputPath", "Path does not exist");
+  }
+
+  return {
+    initialise(eventEmitter: Emitter<PluginEvents>): void {
+      eventEmitter.on("callServerStarted", ({ callServer }) => {
+        callServer.on("testStarted", ({ testInstance }) => {
+          new MediaStreamRecorder(testInstance, recorderConfig);
+        });
+      });
+    },
+  };
+};
+
 export class MediaStreamRecorder {
   private static readonly FILE_EXT = "wav";
 
@@ -34,43 +71,16 @@ export class MediaStreamRecorder {
   private readonly closeRef: () => void;
 
   constructor(
-    private readonly connection: ws,
-    private readonly test: IvrTest,
+    private readonly testInstance: TestInstance,
     private readonly config: RecorderConfig
   ) {
     this.processMessageRef = this.processMessage.bind(this);
     this.closeRef = this.close.bind(this);
+
+    const connection = this.testInstance.getCall().getStream();
     connection
       .on(WebSocketEvents.Message, this.processMessageRef)
       .on(WebSocketEvents.Close, this.closeRef);
-  }
-
-  public static createFromConfiguration(
-    config: Config,
-    connection: ws,
-    test: IvrTest
-  ): MediaStreamRecorder {
-    const recorderConfig: RecorderConfig = {
-      outputPath: config.recording?.outputPath,
-      filename:
-        config.recording?.filename || filenameContainingIvrNumberAndTestName,
-    };
-
-    if (!recorderConfig.outputPath) {
-      throw new ConfigurationError(
-        "recording.outputPath",
-        "Path must be defined"
-      );
-    }
-
-    if (!fs.existsSync(recorderConfig.outputPath)) {
-      throw new ConfigurationError(
-        "recording.outputPath",
-        "Path does not exist"
-      );
-    }
-
-    return new MediaStreamRecorder(connection, test, recorderConfig);
   }
 
   private processMessage(message: string) {
@@ -97,7 +107,7 @@ export class MediaStreamRecorder {
           sid: event.streamSid,
           call,
         },
-        this.test
+        this.testInstance.getTest()
       );
     }
 
@@ -118,7 +128,8 @@ export class MediaStreamRecorder {
   }
 
   private close() {
-    this.connection
+    const connection = this.testInstance.getCall().getStream();
+    connection
       .off(WebSocketEvents.Message, this.processMessageRef)
       .off(WebSocketEvents.Close, this.closeRef);
 
