@@ -14,9 +14,9 @@
 
 ### filenameContainingIvrNumberAndTestName
 
-▸ `Const`**filenameContainingIvrNumberAndTestName**(`__namedParameters`: { call: { from: string ; to: string  }  }, `test`: IvrTest): string
+▸ `Const`**filenameContainingIvrNumberAndTestName**(`__namedParameters`: { call: { from: string ; to: string  }  }, `test`: [IvrTest](../interfaces/_testing_test_ivrtest_.ivrtest.md)): string
 
-*Defined in [packages/ivr-tester/src/call/recording/filename/filenameContainingIvrNumberAndTestName.ts:9](https://github.com/SketchingDev/ivr-tester/blob/5493745/packages/ivr-tester/src/call/recording/filename/filenameContainingIvrNumberAndTestName.ts#L9)*
+*Defined in [packages/ivr-tester/src/call/recording/filename/filenameContainingIvrNumberAndTestName.ts:9](https://github.com/SketchingDev/ivr-tester/blob/734e920/packages/ivr-tester/src/call/recording/filename/filenameContainingIvrNumberAndTestName.ts#L9)*
 
 Produces filename that looks like '<phone-number>-<datetime>-<test-name>.wav'
 
@@ -25,6 +25,6 @@ Produces filename that looks like '<phone-number>-<datetime>-<test-name>.wav'
 Name | Type |
 ------ | ------ |
 `__namedParameters` | { call: { from: string ; to: string  }  } |
-`test` | IvrTest |
+`test` | [IvrTest](../interfaces/_testing_test_ivrtest_.ivrtest.md) |
 
 **Returns:** string

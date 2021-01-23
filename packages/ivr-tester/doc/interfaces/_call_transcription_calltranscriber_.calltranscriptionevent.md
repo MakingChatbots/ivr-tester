@@ -21,7 +21,7 @@
 
 •  **isFinal**: boolean
 
-*Defined in [packages/ivr-tester/src/call/transcription/CallTranscriber.ts:58](https://github.com/SketchingDev/ivr-tester/blob/5493745/packages/ivr-tester/src/call/transcription/CallTranscriber.ts#L58)*
+*Defined in [packages/ivr-tester/src/call/transcription/CallTranscriber.ts:58](https://github.com/SketchingDev/ivr-tester/blob/734e920/packages/ivr-tester/src/call/transcription/CallTranscriber.ts#L58)*
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 •  **transcription**: string
 
-*Defined in [packages/ivr-tester/src/call/transcription/CallTranscriber.ts:57](https://github.com/SketchingDev/ivr-tester/blob/5493745/packages/ivr-tester/src/call/transcription/CallTranscriber.ts#L57)*
+*Defined in [packages/ivr-tester/src/call/transcription/CallTranscriber.ts:57](https://github.com/SketchingDev/ivr-tester/blob/734e920/packages/ivr-tester/src/call/transcription/CallTranscriber.ts#L57)*

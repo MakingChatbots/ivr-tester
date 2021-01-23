@@ -10,7 +10,7 @@
 
 ## Implements
 
-* [Caller](../interfaces/_call_caller_.caller.md)\<TestSubject>
+* [Caller](../interfaces/_call_caller_.caller.md)\<[TestSubject](../interfaces/_testrunner_.testsubject.md)>
 
 ## Index
 
@@ -35,7 +35,7 @@
 
 \+ **new TwilioCaller**(`twilioClient`: Twilio): [TwilioCaller](_call_twiliocaller_.twiliocaller.md)
 
-*Defined in [packages/ivr-tester/src/call/TwilioCaller.ts:18](https://github.com/SketchingDev/ivr-tester/blob/5493745/packages/ivr-tester/src/call/TwilioCaller.ts#L18)*
+*Defined in [packages/ivr-tester/src/call/TwilioCaller.ts:18](https://github.com/SketchingDev/ivr-tester/blob/734e920/packages/ivr-tester/src/call/TwilioCaller.ts#L18)*
 
 #### Parameters:
 
@@ -51,7 +51,7 @@ Name | Type |
 
 • `Private` `Readonly` **twilioClient**: Twilio
 
-*Defined in [packages/ivr-tester/src/call/TwilioCaller.ts:20](https://github.com/SketchingDev/ivr-tester/blob/5493745/packages/ivr-tester/src/call/TwilioCaller.ts#L20)*
+*Defined in [packages/ivr-tester/src/call/TwilioCaller.ts:20](https://github.com/SketchingDev/ivr-tester/blob/734e920/packages/ivr-tester/src/call/TwilioCaller.ts#L20)*
 
 ___
 
@@ -59,39 +59,39 @@ ___
 
 ▪ `Static` `Private` **debug**: Debugger = Debugger.getTwilioDebugger()
 
-*Defined in [packages/ivr-tester/src/call/TwilioCaller.ts:18](https://github.com/SketchingDev/ivr-tester/blob/5493745/packages/ivr-tester/src/call/TwilioCaller.ts#L18)*
+*Defined in [packages/ivr-tester/src/call/TwilioCaller.ts:18](https://github.com/SketchingDev/ivr-tester/blob/734e920/packages/ivr-tester/src/call/TwilioCaller.ts#L18)*
 
 ## Methods
 
 ### call
 
-▸ **call**(`call`: TestSubject, `streamUrl`: URL \| string): Promise\<unknown>
+▸ **call**(`call`: [TestSubject](../interfaces/_testrunner_.testsubject.md), `streamUrl`: URL \| string): Promise\<[RequestedCall](../modules/_call_caller_.md#requestedcall)>
 
-*Defined in [packages/ivr-tester/src/call/TwilioCaller.ts:40](https://github.com/SketchingDev/ivr-tester/blob/5493745/packages/ivr-tester/src/call/TwilioCaller.ts#L40)*
+*Defined in [packages/ivr-tester/src/call/TwilioCaller.ts:40](https://github.com/SketchingDev/ivr-tester/blob/734e920/packages/ivr-tester/src/call/TwilioCaller.ts#L40)*
 
 #### Parameters:
 
 Name | Type |
 ------ | ------ |
-`call` | TestSubject |
+`call` | [TestSubject](../interfaces/_testrunner_.testsubject.md) |
 `streamUrl` | URL \| string |
 
-**Returns:** Promise\<unknown>
+**Returns:** Promise\<[RequestedCall](../modules/_call_caller_.md#requestedcall)>
 
 ___
 
 ### addParameters
 
-▸ `Static` `Private`**addParameters**(`stream`: Stream, `call`: Call): void
+▸ `Static` `Private`**addParameters**(`stream`: Stream, `call`: [Call](../interfaces/_call_twilio_.call.md)): void
 
-*Defined in [packages/ivr-tester/src/call/TwilioCaller.ts:22](https://github.com/SketchingDev/ivr-tester/blob/5493745/packages/ivr-tester/src/call/TwilioCaller.ts#L22)*
+*Defined in [packages/ivr-tester/src/call/TwilioCaller.ts:22](https://github.com/SketchingDev/ivr-tester/blob/734e920/packages/ivr-tester/src/call/TwilioCaller.ts#L22)*
 
 #### Parameters:
 
 Name | Type |
 ------ | ------ |
 `stream` | Stream |
-`call` | Call |
+`call` | [Call](../interfaces/_call_twilio_.call.md) |
 
 **Returns:** void
 
@@ -99,9 +99,9 @@ ___
 
 ### extractParameters
 
-▸ `Static`**extractParameters**(`event`: [TwilioMediaStreamStartEvent](../interfaces/_call_twiliocaller_.twiliomediastreamstartevent.md)): Call
+▸ `Static`**extractParameters**(`event`: [TwilioMediaStreamStartEvent](../interfaces/_call_twiliocaller_.twiliomediastreamstartevent.md)): [Call](../interfaces/_call_twilio_.call.md)
 
-*Defined in [packages/ivr-tester/src/call/TwilioCaller.ts:27](https://github.com/SketchingDev/ivr-tester/blob/5493745/packages/ivr-tester/src/call/TwilioCaller.ts#L27)*
+*Defined in [packages/ivr-tester/src/call/TwilioCaller.ts:27](https://github.com/SketchingDev/ivr-tester/blob/734e920/packages/ivr-tester/src/call/TwilioCaller.ts#L27)*
 
 #### Parameters:
 
@@ -109,4 +109,4 @@ Name | Type |
 ------ | ------ |
 `event` | [TwilioMediaStreamStartEvent](../interfaces/_call_twiliocaller_.twiliomediastreamstartevent.md) |
 
-**Returns:** Call
+**Returns:** [Call](../interfaces/_call_twilio_.call.md)

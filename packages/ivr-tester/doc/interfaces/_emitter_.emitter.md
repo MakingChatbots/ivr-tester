@@ -14,15 +14,20 @@ Name | Type |
 
 * **Emitter**
 
+  ↳ [Call](_call_call_.call.md)
+
   ↳ [TranscriberPlugin](_call_transcription_plugin_transcriberplugin_.transcriberplugin.md)
 
-  ↳ [LifecycleEventEmitter](_plugins_lifecycle_lifecycleeventemitter_.lifecycleeventemitter.md)
+  ↳ [TestInstance](_testing_test_testinstanceclass_.testinstance.md)
 
-  ↳ [LifecycleEventEmitter](_plugins_lifecycle_lifecycleeventemitter_.lifecycleeventemitter.md)
+  ↳ [CallServer](_testing_twiliocallserver_.callserver.md)
 
 ## Implemented by
 
 * [CallTranscriber](../classes/_call_transcription_calltranscriber_.calltranscriber.md)
+* [PluginManager](../classes/_plugins_pluginmanager_.pluginmanager.md)
+* [TwilioCall](../classes/_call_twiliocall_.twiliocall.md)
+* [TwilioCallServer](../classes/_testing_twiliocallserver_.twiliocallserver.md)
 * [TypedEmitter](../classes/_emitter_.typedemitter.md)
 
 ## Index
@@ -39,7 +44,7 @@ Name | Type |
 
 ▸ **emit**\<K>(`eventName`: K, `params`: T[K]): void
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:13](https://github.com/SketchingDev/ivr-tester/blob/5493745/packages/ivr-tester/src/Emitter.ts#L13)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:13](https://github.com/SketchingDev/ivr-tester/blob/734e920/packages/ivr-tester/src/Emitter.ts#L13)*
 
 #### Type parameters:
 
@@ -62,7 +67,7 @@ ___
 
 ▸ **off**\<K>(`eventName`: K, `fn`: EventReceiver\<T[K]>): void
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:12](https://github.com/SketchingDev/ivr-tester/blob/5493745/packages/ivr-tester/src/Emitter.ts#L12)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:12](https://github.com/SketchingDev/ivr-tester/blob/734e920/packages/ivr-tester/src/Emitter.ts#L12)*
 
 #### Type parameters:
 
@@ -85,7 +90,7 @@ ___
 
 ▸ **on**\<K>(`eventName`: K, `fn`: EventReceiver\<T[K]>): void
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:11](https://github.com/SketchingDev/ivr-tester/blob/5493745/packages/ivr-tester/src/Emitter.ts#L11)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:11](https://github.com/SketchingDev/ivr-tester/blob/734e920/packages/ivr-tester/src/Emitter.ts#L11)*
 
 #### Type parameters:
 

@@ -29,9 +29,9 @@ Name |
 
 ### call
 
-▸ **call**(`call`: T, `streamUrl`: URL \| string): Promise\<unknown>
+▸ **call**(`call`: T, `streamUrl`: URL \| string): Promise\<[RequestedCall](../modules/_call_caller_.md#requestedcall)>
 
-*Defined in [packages/ivr-tester/src/call/Caller.ts:4](https://github.com/SketchingDev/ivr-tester/blob/5493745/packages/ivr-tester/src/call/Caller.ts#L4)*
+*Defined in [packages/ivr-tester/src/call/Caller.ts:17](https://github.com/SketchingDev/ivr-tester/blob/734e920/packages/ivr-tester/src/call/Caller.ts#L17)*
 
 #### Parameters:
 
@@ -40,4 +40,4 @@ Name | Type |
 `call` | T |
 `streamUrl` | URL \| string |
 
-**Returns:** Promise\<unknown>
+**Returns:** Promise\<[RequestedCall](../modules/_call_caller_.md#requestedcall)>

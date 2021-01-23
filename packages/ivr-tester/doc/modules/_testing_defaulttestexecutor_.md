@@ -6,14 +6,10 @@
 
 ## Index
 
-### Type aliases
+### Classes
 
-* [Handler](_testing_defaulttestexecutor_.md#handler)
+* [DefaultTestExecutor](../classes/_testing_defaulttestexecutor_.defaulttestexecutor.md)
 
-## Type aliases
+### Interfaces
 
-### Handler
-
-Ƭ  **Handler**: (call: [Call](../interfaces/_call_call_.call.md), test: IvrTest) => void
-
-*Defined in [packages/ivr-tester/src/testing/DefaultTestExecutor.ts:13](https://github.com/SketchingDev/ivr-tester/blob/5493745/packages/ivr-tester/src/testing/DefaultTestExecutor.ts#L13)*
+* [TestExecutor](../interfaces/_testing_defaulttestexecutor_.testexecutor.md)

@@ -14,7 +14,13 @@ Name | Type |
 
 * **TypedEmitter**
 
+  ↳ [TwilioCall](_call_twiliocall_.twiliocall.md)
+
   ↳ [CallTranscriber](_call_transcription_calltranscriber_.calltranscriber.md)
+
+  ↳ [TwilioCallServer](_testing_twiliocallserver_.twiliocallserver.md)
+
+  ↳ [PluginManager](_plugins_pluginmanager_.pluginmanager.md)
 
 ## Implements
 
@@ -38,7 +44,7 @@ Name | Type |
 
 • `Private` `Readonly` **emitter**: EventEmitter = new EventEmitter()
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:17](https://github.com/SketchingDev/ivr-tester/blob/5493745/packages/ivr-tester/src/Emitter.ts#L17)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:17](https://github.com/SketchingDev/ivr-tester/blob/734e920/packages/ivr-tester/src/Emitter.ts#L17)*
 
 ## Methods
 
@@ -48,7 +54,7 @@ Name | Type |
 
 *Implementation of [Emitter](../interfaces/_emitter_.emitter.md)*
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:35](https://github.com/SketchingDev/ivr-tester/blob/5493745/packages/ivr-tester/src/Emitter.ts#L35)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:35](https://github.com/SketchingDev/ivr-tester/blob/734e920/packages/ivr-tester/src/Emitter.ts#L35)*
 
 #### Type parameters:
 
@@ -73,7 +79,7 @@ ___
 
 *Implementation of [Emitter](../interfaces/_emitter_.emitter.md)*
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:27](https://github.com/SketchingDev/ivr-tester/blob/5493745/packages/ivr-tester/src/Emitter.ts#L27)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:27](https://github.com/SketchingDev/ivr-tester/blob/734e920/packages/ivr-tester/src/Emitter.ts#L27)*
 
 #### Type parameters:
 
@@ -98,7 +104,7 @@ ___
 
 *Implementation of [Emitter](../interfaces/_emitter_.emitter.md)*
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:19](https://github.com/SketchingDev/ivr-tester/blob/5493745/packages/ivr-tester/src/Emitter.ts#L19)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:19](https://github.com/SketchingDev/ivr-tester/blob/734e920/packages/ivr-tester/src/Emitter.ts#L19)*
 
 #### Type parameters:
 

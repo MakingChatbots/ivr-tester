@@ -6,6 +6,13 @@
 
 ## Index
 
+### Classes
+
+* [IteratingTestAssigner](../classes/_testing_iteratingtestassigner_.iteratingtestassigner.md)
+
 ### Interfaces
 
-* [TestAssignerEventProbe](../interfaces/_testing_iteratingtestassigner_.testassignereventprobe.md)
+* [AssignedResult](../interfaces/_testing_iteratingtestassigner_.assignedresult.md)
+* [NoneAssigned](../interfaces/_testing_iteratingtestassigner_.noneassigned.md)
+* [TestAssigned](../interfaces/_testing_iteratingtestassigner_.testassigned.md)
+* [TestAssigner](../interfaces/_testing_iteratingtestassigner_.testassigner.md)

@@ -21,7 +21,7 @@
 
 Ƭ  **TranscriptionEvents**: { transcription: [TranscriptEvent](../interfaces/_call_transcription_plugin_transcriberplugin_.transcriptevent.md)  }
 
-*Defined in [packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts:11](https://github.com/SketchingDev/ivr-tester/blob/5493745/packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts#L11)*
+*Defined in [packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts:11](https://github.com/SketchingDev/ivr-tester/blob/734e920/packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts#L11)*
 
 #### Type declaration:
 
