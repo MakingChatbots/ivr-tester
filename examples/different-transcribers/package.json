@@ -14,9 +14,9 @@
   },
   "dependencies": {
     "dotenv": "^8.2.0",
-    "ivr-tester": "^0.0.10",
-    "ivr-tester-transcriber-google-speech-to-text": "^0.0.2",
-    "ivr-tester-transcriber-amazon-transcribe": "^0.0.2"
+    "ivr-tester": "^0.1.0",
+    "ivr-tester-transcriber-google-speech-to-text": "^0.1.0",
+    "ivr-tester-transcriber-amazon-transcribe": "^0.1.0"
   },
   "devDependencies": {
     "@types/node": "^14.11.1",
