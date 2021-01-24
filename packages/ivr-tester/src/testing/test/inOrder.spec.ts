@@ -34,15 +34,15 @@ describe("ordered conditions", () => {
   test("all match and test passes for last one", () => {
     const conditions: AssertThen[] = [
       {
-        whenTranscript: contains("Hello"),
+        whenPrompt: contains("Hello"),
         then: press("1"),
       },
       {
-        whenTranscript: contains("Jane"),
+        whenPrompt: contains("Jane"),
         then: press("2"),
       },
       {
-        whenTranscript: contains("Austen"),
+        whenPrompt: contains("Austen"),
         then: press("3"),
       },
     ];
@@ -74,11 +74,11 @@ describe("ordered conditions", () => {
   test("test failed when second condition doesn't match", () => {
     const conditions: AssertThen[] = [
       {
-        whenTranscript: contains("Hello"),
+        whenPrompt: contains("Hello"),
         then: press("1"),
       },
       {
-        whenTranscript: contains("Jane"),
+        whenPrompt: contains("Jane"),
         then: press("2"),
       },
     ];

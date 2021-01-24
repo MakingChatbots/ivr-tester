@@ -24,11 +24,11 @@ const tests: IvrTest[] = [
     name: "Keys pressed are read back",
     test: inOrder([
       {
-        whenTranscript: contains("please enter a number"),
+        whenPrompt: contains("please enter a number"),
         then: press("0w1w2w3w4w5w6w7w8w9"),
       },
       {
-        whenTranscript: contains("you entered the values 0123456789"),
+        whenPrompt: contains("you entered the values 0123456789"),
         then: doNothing(),
       },
     ]),
@@ -37,11 +37,11 @@ const tests: IvrTest[] = [
     name: "Times out when keys not pressed",
     test: inOrder([
       {
-        whenTranscript: contains("please enter a number"),
+        whenPrompt: contains("please enter a number"),
         then: doNothing(),
       },
       {
-        whenTranscript: contains("you timed out"),
+        whenPrompt: contains("you timed out"),
         then: doNothing(),
       },
     ]),

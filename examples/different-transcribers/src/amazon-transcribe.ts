@@ -23,11 +23,11 @@ const test: IvrTest = {
   name: "Keys pressed are read back",
   test: inOrder([
     {
-      whenTranscript: contains("please enter a number"),
+      whenPrompt: contains("please enter a number"),
       then: press("0w1w2w3w4w5w6w7w8w9"),
     },
     {
-      whenTranscript: contains(["you entered", "0123456789"]),
+      whenPrompt: contains(["you entered", "0123456789"]),
       then: doNothing(),
     },
   ]),
