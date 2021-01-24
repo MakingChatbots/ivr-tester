@@ -81,7 +81,7 @@ describe("Then response", () => {
 
     transcriptionHandler.emit("transcription", {
       transcription: "Hello World",
-      isFinal: true,
+      isComplete: true,
     });
 
     expect(callWebSocket.sendMock).toHaveBeenCalledWith(
@@ -126,7 +126,7 @@ describe("When conditions", () => {
 
     transcriptionHandler.emit("transcription", {
       transcription: "Hello World",
-      isFinal: true,
+      isComplete: true,
     });
 
     expect(testPassedListener).toHaveBeenCalled();
@@ -158,11 +158,11 @@ describe("When conditions", () => {
 
     transcriptionHandler.emit("transcription", {
       transcription: "Test transcript 1",
-      isFinal: true,
+      isComplete: true,
     });
     transcriptionHandler.emit("transcription", {
       transcription: "Test transcript 2",
-      isFinal: true,
+      isComplete: true,
     });
 
     expect(testPassedListener).toHaveBeenCalled();
@@ -194,11 +194,11 @@ describe("When conditions", () => {
 
     transcriptionHandler.emit("transcription", {
       transcription: "Test transcript 1",
-      isFinal: true,
+      isComplete: true,
     });
     transcriptionHandler.emit("transcription", {
       transcription: "Test transcript 2",
-      isFinal: true,
+      isComplete: true,
     });
 
     expect(testFailedListener).toHaveBeenCalled();
@@ -230,11 +230,11 @@ describe("When conditions", () => {
 
     transcriptionHandler.emit("transcription", {
       transcription: "Test transcript 1",
-      isFinal: true,
+      isComplete: true,
     });
     transcriptionHandler.emit("transcription", {
       transcription: "Test transcript 2",
-      isFinal: true,
+      isComplete: true,
     });
 
     expect(testFailedListener).toHaveBeenCalled();

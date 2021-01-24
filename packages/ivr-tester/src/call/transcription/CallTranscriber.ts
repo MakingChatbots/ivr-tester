@@ -53,16 +53,14 @@ class PromptTranscriptionBuilder {
   }
 }
 
-export interface CallTranscriptionEvent {
+export interface PromptTranscriptionEvent {
   transcription: string;
-  isFinal: boolean;
+  isComplete: boolean;
 }
 
 export type CallTranscriptionEvents = {
-  transcription: CallTranscriptionEvent;
+  transcription: PromptTranscriptionEvent;
 };
-
-// TODO Use prompt terminology
 
 export class CallTranscriber extends TypedEmitter<CallTranscriptionEvents> {
   private static debug = Debugger.getPackageDebugger();
@@ -110,20 +108,20 @@ export class CallTranscriber extends TypedEmitter<CallTranscriptionEvents> {
     const partialTranscript = this.promptTranscriptionBuilder.merge();
     CallTranscriber.debug("Partial transcript: %s", partialTranscript);
 
-    const e: CallTranscriptionEvent = {
+    const event: PromptTranscriptionEvent = {
       transcription: partialTranscript,
-      isFinal: false,
+      isComplete: false,
     };
-    this.emit("transcription", e);
+    this.emit("transcription", event);
   }
 
   private emitFinalTranscript() {
     const finalTranscript = this.promptTranscriptionBuilder.merge();
     CallTranscriber.debug("Final transcript: %s", finalTranscript);
 
-    const event: CallTranscriptionEvent = {
+    const event: PromptTranscriptionEvent = {
       transcription: finalTranscript,
-      isFinal: true,
+      isComplete: true,
     };
     this.emit("transcription", event);
   }

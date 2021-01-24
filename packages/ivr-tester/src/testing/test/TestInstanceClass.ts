@@ -1,6 +1,6 @@
 import { AssertThen } from "./conditions/AssertThen";
 import {
-  CallTranscriptionEvent,
+  PromptTranscriptionEvent,
   CallTranscriptionEvents,
 } from "../../call/transcription/CallTranscriber";
 import { Call } from "../../call/Call";
@@ -68,18 +68,18 @@ export class TestInstanceClass
     return this.call;
   }
 
-  private processTranscript(event: CallTranscriptionEvent): void {
+  private processTranscript(event: PromptTranscriptionEvent): void {
     const { transcription } = event;
 
     this.emit("progress", {
       test: this.ivrTest,
       transcription: {
-        isFinal: event.isFinal,
+        isFinal: event.isComplete,
         transcription,
       },
     });
 
-    if (!event.isFinal) {
+    if (!event.isComplete) {
       return;
     }
 
