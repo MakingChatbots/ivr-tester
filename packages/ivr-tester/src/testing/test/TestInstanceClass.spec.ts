@@ -53,7 +53,7 @@ describe("Then response", () => {
       name: "",
       test: inOrder([
         {
-          whenTranscript: contains("Hello"),
+          whenPrompt: contains("Hello"),
           then: press("123"),
         },
       ]),
@@ -81,7 +81,7 @@ describe("Then response", () => {
 
     transcriptionHandler.emit("transcription", {
       transcription: "Hello World",
-      isFinal: true,
+      isComplete: true,
     });
 
     expect(callWebSocket.sendMock).toHaveBeenCalledWith(
@@ -126,7 +126,7 @@ describe("When conditions", () => {
 
     transcriptionHandler.emit("transcription", {
       transcription: "Hello World",
-      isFinal: true,
+      isComplete: true,
     });
 
     expect(testPassedListener).toHaveBeenCalled();
@@ -137,11 +137,11 @@ describe("When conditions", () => {
       name: "",
       test: inOrder([
         {
-          whenTranscript: contains("1"),
+          whenPrompt: contains("1"),
           then: doNothing(),
         },
         {
-          whenTranscript: contains("2"),
+          whenPrompt: contains("2"),
           then: doNothing(),
         },
       ]),
@@ -158,11 +158,11 @@ describe("When conditions", () => {
 
     transcriptionHandler.emit("transcription", {
       transcription: "Test transcript 1",
-      isFinal: true,
+      isComplete: true,
     });
     transcriptionHandler.emit("transcription", {
       transcription: "Test transcript 2",
-      isFinal: true,
+      isComplete: true,
     });
 
     expect(testPassedListener).toHaveBeenCalled();
@@ -173,11 +173,11 @@ describe("When conditions", () => {
       name: "",
       test: inOrder([
         {
-          whenTranscript: contains("1"),
+          whenPrompt: contains("1"),
           then: doNothing(),
         },
         {
-          whenTranscript: contains("3"),
+          whenPrompt: contains("3"),
           then: doNothing(),
         },
       ]),
@@ -194,11 +194,11 @@ describe("When conditions", () => {
 
     transcriptionHandler.emit("transcription", {
       transcription: "Test transcript 1",
-      isFinal: true,
+      isComplete: true,
     });
     transcriptionHandler.emit("transcription", {
       transcription: "Test transcript 2",
-      isFinal: true,
+      isComplete: true,
     });
 
     expect(testFailedListener).toHaveBeenCalled();
@@ -209,11 +209,11 @@ describe("When conditions", () => {
       name: "",
       test: inOrder([
         {
-          whenTranscript: contains("3"),
+          whenPrompt: contains("3"),
           then: doNothing(),
         },
         {
-          whenTranscript: contains("2"),
+          whenPrompt: contains("2"),
           then: doNothing(),
         },
       ]),
@@ -230,11 +230,11 @@ describe("When conditions", () => {
 
     transcriptionHandler.emit("transcription", {
       transcription: "Test transcript 1",
-      isFinal: true,
+      isComplete: true,
     });
     transcriptionHandler.emit("transcription", {
       transcription: "Test transcript 2",
-      isFinal: true,
+      isComplete: true,
     });
 
     expect(testFailedListener).toHaveBeenCalled();

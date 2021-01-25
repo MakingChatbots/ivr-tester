@@ -24,7 +24,8 @@ const createDefaultClient = () =>
 export const populateDefaults = (config: Config): Config => ({
   dtmfGenerator: config.dtmfGenerator || new UlawDtmfBufferGenerator(),
   transcriber: config.transcriber,
-  msPauseAtEndOfTranscript: config.msPauseAtEndOfTranscript || 5 * 2000,
+  completeTranscriptionTimeoutInMs:
+    config.completeTranscriptionTimeoutInMs || 5 * 2000,
   localServerPort: getenv.int("LOCAL_SERVER_PORT", config.localServerPort),
   publicServerUrl: getPublicServerUrl(config),
   recording: config.recording,

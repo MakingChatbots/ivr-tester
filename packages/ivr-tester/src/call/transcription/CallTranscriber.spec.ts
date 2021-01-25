@@ -1,4 +1,4 @@
-import { CallTranscriber, CallTranscriptionEvent } from "./CallTranscriber";
+import { CallTranscriber, PromptTranscriptionEvent } from "./CallTranscriber";
 import { Call } from "../Call";
 import { TranscriberPlugin, TranscriptEvent } from "./plugin/TranscriberPlugin";
 import { EventEmitter } from "events";
@@ -56,7 +56,7 @@ describe("Call Transcriber", () => {
       transcription: "this is final.",
     });
 
-    await new Promise<CallTranscriptionEvent>((resolve) => {
+    await new Promise<PromptTranscriptionEvent>((resolve) => {
       callTranscriber.on("transcription", resolve);
     });
 
@@ -74,14 +74,14 @@ describe("Call Transcriber", () => {
       transcription: "this is final too",
     });
 
-    const transcription = await new Promise<CallTranscriptionEvent>(
+    const transcription = await new Promise<PromptTranscriptionEvent>(
       (resolve) => {
         callTranscriber.on("transcription", resolve);
       }
     );
 
-    expect(transcription).toStrictEqual({
-      isFinal: true,
+    expect(transcription).toStrictEqual<PromptTranscriptionEvent>({
+      isComplete: true,
       transcription: "this is final. this is final too",
     });
   });
@@ -97,14 +97,14 @@ describe("Call Transcriber", () => {
       transcription: "second partial",
     });
 
-    const transcription = await new Promise<CallTranscriptionEvent>(
+    const transcription = await new Promise<PromptTranscriptionEvent>(
       (resolve) => {
         callTranscriber.on("transcription", resolve);
       }
     );
 
-    expect(transcription).toStrictEqual({
-      isFinal: true,
+    expect(transcription).toStrictEqual<PromptTranscriptionEvent>({
+      isComplete: true,
       transcription: "second partial",
     });
   });
@@ -120,14 +120,14 @@ describe("Call Transcriber", () => {
       transcription: "latest partial",
     });
 
-    const transcription = await new Promise<CallTranscriptionEvent>(
+    const transcription = await new Promise<PromptTranscriptionEvent>(
       (resolve) => {
         callTranscriber.on("transcription", resolve);
       }
     );
 
-    expect(transcription).toStrictEqual({
-      isFinal: true,
+    expect(transcription).toStrictEqual<PromptTranscriptionEvent>({
+      isComplete: true,
       transcription: "final sentence latest partial",
     });
   });

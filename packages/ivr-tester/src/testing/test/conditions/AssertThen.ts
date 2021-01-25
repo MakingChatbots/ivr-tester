@@ -2,9 +2,16 @@ import { Then } from "./then";
 import { When } from "./when";
 
 /**
- * Performs an assertion, known as a 'when'. If correct then performs the action, known as a 'then'.
+ * Performs an assertion when a prompt has been transcribed.
  */
 export interface AssertThen {
-  whenTranscript: When;
+  /**
+   * Assertion to perform against the transcription of a prompt
+   */
+  whenPrompt: When;
+
+  /**
+   * Action to perform following a successful assertion
+   */
   then: Then;
 }

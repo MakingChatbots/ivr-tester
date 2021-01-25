@@ -5,7 +5,7 @@ import { Call } from "../Call";
 import { Debugger } from "../../Debugger";
 import { TypedEmitter } from "../../Emitter";
 
-class TranscriptionBuilder {
+class PromptTranscriptionBuilder {
   private static readonly EMPTY_TRANSCRIPTION = "";
 
   private transcriptions: TranscriptEvent[] = [];
@@ -20,7 +20,7 @@ class TranscriptionBuilder {
 
   public merge(): string {
     if (this.transcriptions.length === 0) {
-      return TranscriptionBuilder.EMPTY_TRANSCRIPTION;
+      return PromptTranscriptionBuilder.EMPTY_TRANSCRIPTION;
     }
 
     // If all transcripts partial then return last partial
@@ -53,13 +53,13 @@ class TranscriptionBuilder {
   }
 }
 
-export interface CallTranscriptionEvent {
+export interface PromptTranscriptionEvent {
   transcription: string;
-  isFinal: boolean;
+  isComplete: boolean;
 }
 
 export type CallTranscriptionEvents = {
-  transcription: CallTranscriptionEvent;
+  transcription: PromptTranscriptionEvent;
 };
 
 export class CallTranscriber extends TypedEmitter<CallTranscriptionEvents> {
@@ -67,16 +67,13 @@ export class CallTranscriber extends TypedEmitter<CallTranscriptionEvents> {
 
   private readonly processMessageRef: (message: string) => void;
   private readonly closeRef: () => void;
-  private readonly transcriptionBuilder: TranscriptionBuilder = new TranscriptionBuilder();
   private timeout: ReturnType<typeof setTimeout>;
 
   constructor(
     private readonly call: Call,
     private readonly transcriber: TranscriberPlugin,
-    // TODO Need to think of a better name for this
-    private readonly pauseAtEndOfTranscript: number,
-    private readonly createTimeout: typeof setTimeout = setTimeout,
-    private readonly deleteTimeout: typeof clearTimeout = clearTimeout
+    private readonly completeTranscriptionTimeoutInMs: number,
+    private readonly promptTranscriptionBuilder: PromptTranscriptionBuilder = new PromptTranscriptionBuilder()
   ) {
     super();
     this.processMessageRef = this.processMessage.bind(this);
@@ -108,46 +105,46 @@ export class CallTranscriber extends TypedEmitter<CallTranscriptionEvents> {
   }
 
   private saveAndEmitPartialTranscript() {
-    const partialTranscript = this.transcriptionBuilder.merge();
+    const partialTranscript = this.promptTranscriptionBuilder.merge();
     CallTranscriber.debug("Partial transcript: %s", partialTranscript);
 
-    const e: CallTranscriptionEvent = {
+    const event: PromptTranscriptionEvent = {
       transcription: partialTranscript,
-      isFinal: false,
+      isComplete: false,
     };
-    this.emit("transcription", e);
+    this.emit("transcription", event);
   }
 
   private emitFinalTranscript() {
-    const finalTranscript = this.transcriptionBuilder.merge();
+    const finalTranscript = this.promptTranscriptionBuilder.merge();
     CallTranscriber.debug("Final transcript: %s", finalTranscript);
 
-    const event: CallTranscriptionEvent = {
+    const event: PromptTranscriptionEvent = {
       transcription: finalTranscript,
-      isFinal: true,
+      isComplete: true,
     };
     this.emit("transcription", event);
   }
 
   private clearTimer() {
     if (this.timeout) {
-      this.deleteTimeout(this.timeout);
+      clearTimeout(this.timeout);
       this.timeout = undefined;
     }
   }
 
   private collectUntilPause(event: TranscriptEvent) {
-    this.transcriptionBuilder.add(event);
+    this.promptTranscriptionBuilder.add(event);
     this.saveAndEmitPartialTranscript();
 
     this.clearTimer();
 
-    this.timeout = this.createTimeout(() => {
+    this.timeout = setTimeout(() => {
       this.emitFinalTranscript();
-      this.transcriptionBuilder.clear();
+      this.promptTranscriptionBuilder.clear();
       this.transcriber.transcriptionComplete();
 
       this.clearTimer();
-    }, this.pauseAtEndOfTranscript);
+    }, this.completeTranscriptionTimeoutInMs);
   }
 }

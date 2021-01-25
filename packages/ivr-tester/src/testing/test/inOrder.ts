@@ -19,7 +19,7 @@ export const inOrder: (
         return { result: "pass" };
       }
 
-      const isMatch = condition.whenTranscript(transcript);
+      const isMatch = condition.whenPrompt(transcript);
       if (!isMatch) {
         return { result: "fail" };
       }
