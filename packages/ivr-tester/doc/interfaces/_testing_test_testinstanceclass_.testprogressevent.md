@@ -21,7 +21,7 @@
 
 •  **test**: [IvrTest](_testing_test_ivrtest_.ivrtest.md)
 
-*Defined in [packages/ivr-tester/src/testing/test/TestInstanceClass.ts:31](https://github.com/SketchingDev/ivr-tester/blob/734e920/packages/ivr-tester/src/testing/test/TestInstanceClass.ts#L31)*
+*Defined in [packages/ivr-tester/src/testing/test/TestInstanceClass.ts:31](https://github.com/SketchingDev/ivr-tester/blob/0888491/packages/ivr-tester/src/testing/test/TestInstanceClass.ts#L31)*
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 •  **transcription**: { isFinal: boolean ; transcription: string  }
 
-*Defined in [packages/ivr-tester/src/testing/test/TestInstanceClass.ts:32](https://github.com/SketchingDev/ivr-tester/blob/734e920/packages/ivr-tester/src/testing/test/TestInstanceClass.ts#L32)*
+*Defined in [packages/ivr-tester/src/testing/test/TestInstanceClass.ts:32](https://github.com/SketchingDev/ivr-tester/blob/0888491/packages/ivr-tester/src/testing/test/TestInstanceClass.ts#L32)*
 
 #### Type declaration:
 

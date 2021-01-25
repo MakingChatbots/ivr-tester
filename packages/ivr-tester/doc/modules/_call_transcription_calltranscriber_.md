@@ -12,7 +12,7 @@
 
 ### Interfaces
 
-* [CallTranscriptionEvent](../interfaces/_call_transcription_calltranscriber_.calltranscriptionevent.md)
+* [PromptTranscriptionEvent](../interfaces/_call_transcription_calltranscriber_.prompttranscriptionevent.md)
 
 ### Type aliases
 
@@ -22,12 +22,12 @@
 
 ### CallTranscriptionEvents
 
-Ƭ  **CallTranscriptionEvents**: { transcription: [CallTranscriptionEvent](../interfaces/_call_transcription_calltranscriber_.calltranscriptionevent.md)  }
+Ƭ  **CallTranscriptionEvents**: { transcription: [PromptTranscriptionEvent](../interfaces/_call_transcription_calltranscriber_.prompttranscriptionevent.md)  }
 
-*Defined in [packages/ivr-tester/src/call/transcription/CallTranscriber.ts:61](https://github.com/SketchingDev/ivr-tester/blob/734e920/packages/ivr-tester/src/call/transcription/CallTranscriber.ts#L61)*
+*Defined in [packages/ivr-tester/src/call/transcription/CallTranscriber.ts:61](https://github.com/SketchingDev/ivr-tester/blob/0888491/packages/ivr-tester/src/call/transcription/CallTranscriber.ts#L61)*
 
 #### Type declaration:
 
 Name | Type |
 ------ | ------ |
-`transcription` | [CallTranscriptionEvent](../interfaces/_call_transcription_calltranscriber_.calltranscriptionevent.md) |
+`transcription` | [PromptTranscriptionEvent](../interfaces/_call_transcription_calltranscriber_.prompttranscriptionevent.md) |

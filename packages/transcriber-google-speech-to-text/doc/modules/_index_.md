@@ -20,7 +20,7 @@
 
 ▸ `Const`**googleSpeechToText**(`__namedParameters?`: { languageCode: string = "en-US"; speechPhrases: string[] = []; useEnhanced: boolean = false }, `speechClient?`: SpeechClient): TranscriberFactory
 
-*Defined in [transcriber-google-speech-to-text/src/index.ts:36](https://github.com/SketchingDev/ivr-tester/blob/734e920/packages/transcriber-google-speech-to-text/src/index.ts#L36)*
+*Defined in [transcriber-google-speech-to-text/src/index.ts:36](https://github.com/SketchingDev/ivr-tester/blob/0888491/packages/transcriber-google-speech-to-text/src/index.ts#L36)*
 
 Factory for creating a Google Speech-to-Text transcriber plugin that is preconfigured for
 phone-calls - specifically 8-bit PCM mono uLaw with a sampling rate of 8Khz.

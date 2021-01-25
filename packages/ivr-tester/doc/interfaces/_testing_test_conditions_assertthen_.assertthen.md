@@ -4,7 +4,7 @@
 
 # Interface: AssertThen
 
-Performs an assertion, known as a 'when'. If correct then performs the action, known as a 'then'.
+Performs an assertion when a prompt has been transcribed.
 
 ## Hierarchy
 
@@ -15,7 +15,7 @@ Performs an assertion, known as a 'when'. If correct then performs the action, k
 ### Properties
 
 * [then](_testing_test_conditions_assertthen_.assertthen.md#then)
-* [whenTranscript](_testing_test_conditions_assertthen_.assertthen.md#whentranscript)
+* [whenPrompt](_testing_test_conditions_assertthen_.assertthen.md#whenprompt)
 
 ## Properties
 
@@ -23,12 +23,16 @@ Performs an assertion, known as a 'when'. If correct then performs the action, k
 
 •  **then**: [Then](_testing_test_conditions_then_then_.then.md)
 
-*Defined in [packages/ivr-tester/src/testing/test/conditions/AssertThen.ts:9](https://github.com/SketchingDev/ivr-tester/blob/734e920/packages/ivr-tester/src/testing/test/conditions/AssertThen.ts#L9)*
+*Defined in [packages/ivr-tester/src/testing/test/conditions/AssertThen.ts:16](https://github.com/SketchingDev/ivr-tester/blob/0888491/packages/ivr-tester/src/testing/test/conditions/AssertThen.ts#L16)*
+
+Action to perform following a successful assertion
 
 ___
 
-### whenTranscript
+### whenPrompt
 
-•  **whenTranscript**: [When](../modules/_testing_test_conditions_when_when_.md#when)
+•  **whenPrompt**: [When](../modules/_testing_test_conditions_when_when_.md#when)
 
-*Defined in [packages/ivr-tester/src/testing/test/conditions/AssertThen.ts:8](https://github.com/SketchingDev/ivr-tester/blob/734e920/packages/ivr-tester/src/testing/test/conditions/AssertThen.ts#L8)*
+*Defined in [packages/ivr-tester/src/testing/test/conditions/AssertThen.ts:11](https://github.com/SketchingDev/ivr-tester/blob/0888491/packages/ivr-tester/src/testing/test/conditions/AssertThen.ts#L11)*
+
+Assertion to perform against the transcription of a prompt
