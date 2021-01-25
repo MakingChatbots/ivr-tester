@@ -25,7 +25,7 @@
 
 ▪ `Static` `Private` **packageName**: string = "ivr-tester-transcriber-amazon-transcribe"
 
-*Defined in [transcriber-amazon-transcribe/src/Debugger.ts:4](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/transcriber-amazon-transcribe/src/Debugger.ts#L4)*
+*Defined in [transcriber-amazon-transcribe/src/Debugger.ts:4](https://github.com/SketchingDev/ivr-tester/blob/cff7065/packages/transcriber-amazon-transcribe/src/Debugger.ts#L4)*
 
 ## Methods
 
@@ -33,7 +33,7 @@
 
 ▸ `Static`**enable**(): void
 
-*Defined in [transcriber-amazon-transcribe/src/Debugger.ts:10](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/transcriber-amazon-transcribe/src/Debugger.ts#L10)*
+*Defined in [transcriber-amazon-transcribe/src/Debugger.ts:10](https://github.com/SketchingDev/ivr-tester/blob/cff7065/packages/transcriber-amazon-transcribe/src/Debugger.ts#L10)*
 
 **Returns:** void
 
@@ -43,6 +43,6 @@ ___
 
 ▸ `Static`**getPackageDebugger**(): Debugger
 
-*Defined in [transcriber-amazon-transcribe/src/Debugger.ts:6](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/transcriber-amazon-transcribe/src/Debugger.ts#L6)*
+*Defined in [transcriber-amazon-transcribe/src/Debugger.ts:6](https://github.com/SketchingDev/ivr-tester/blob/cff7065/packages/transcriber-amazon-transcribe/src/Debugger.ts#L6)*
 
 **Returns:** Debugger

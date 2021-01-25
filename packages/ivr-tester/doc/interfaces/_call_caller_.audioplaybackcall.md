@@ -21,7 +21,7 @@
 
 •  **call**: Buffer
 
-*Defined in [packages/ivr-tester/src/call/Caller.ts:6](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/ivr-tester/src/call/Caller.ts#L6)*
+*Defined in [packages/ivr-tester/src/call/Caller.ts:6](https://github.com/SketchingDev/ivr-tester/blob/cff7065/packages/ivr-tester/src/call/Caller.ts#L6)*
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 •  **type**: \"audio-playback\"
 
-*Defined in [packages/ivr-tester/src/call/Caller.ts:5](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/ivr-tester/src/call/Caller.ts#L5)*
+*Defined in [packages/ivr-tester/src/call/Caller.ts:5](https://github.com/SketchingDev/ivr-tester/blob/cff7065/packages/ivr-tester/src/call/Caller.ts#L5)*

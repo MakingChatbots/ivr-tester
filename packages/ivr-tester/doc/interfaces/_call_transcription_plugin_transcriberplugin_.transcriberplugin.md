@@ -27,7 +27,7 @@
 
 ▸ **close**(): void
 
-*Defined in [packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts:16](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts#L16)*
+*Defined in [packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts:16](https://github.com/SketchingDev/ivr-tester/blob/cff7065/packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts#L16)*
 
 **Returns:** void
 
@@ -39,7 +39,7 @@ ___
 
 *Inherited from [Emitter](_emitter_.emitter.md).[emit](_emitter_.emitter.md#emit)*
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:13](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/ivr-tester/src/Emitter.ts#L13)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:13](https://github.com/SketchingDev/ivr-tester/blob/cff7065/packages/ivr-tester/src/Emitter.ts#L13)*
 
 #### Type parameters:
 
@@ -64,7 +64,7 @@ ___
 
 *Inherited from [Emitter](_emitter_.emitter.md).[off](_emitter_.emitter.md#off)*
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:12](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/ivr-tester/src/Emitter.ts#L12)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:12](https://github.com/SketchingDev/ivr-tester/blob/cff7065/packages/ivr-tester/src/Emitter.ts#L12)*
 
 #### Type parameters:
 
@@ -89,7 +89,7 @@ ___
 
 *Inherited from [Emitter](_emitter_.emitter.md).[on](_emitter_.emitter.md#on)*
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:11](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/ivr-tester/src/Emitter.ts#L11)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:11](https://github.com/SketchingDev/ivr-tester/blob/cff7065/packages/ivr-tester/src/Emitter.ts#L11)*
 
 #### Type parameters:
 
@@ -112,7 +112,7 @@ ___
 
 ▸ **transcribe**(`payload`: Buffer): void
 
-*Defined in [packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts:17](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts#L17)*
+*Defined in [packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts:17](https://github.com/SketchingDev/ivr-tester/blob/cff7065/packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts#L17)*
 
 #### Parameters:
 
@@ -128,6 +128,6 @@ ___
 
 ▸ **transcriptionComplete**(): void
 
-*Defined in [packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts:18](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts#L18)*
+*Defined in [packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts:18](https://github.com/SketchingDev/ivr-tester/blob/cff7065/packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts#L18)*
 
 **Returns:** void

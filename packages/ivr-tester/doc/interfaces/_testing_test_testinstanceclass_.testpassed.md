@@ -20,4 +20,4 @@
 
 •  **test**: [IvrTest](_testing_test_ivrtest_.ivrtest.md)
 
-*Defined in [packages/ivr-tester/src/testing/test/TestInstanceClass.ts:21](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/ivr-tester/src/testing/test/TestInstanceClass.ts#L21)*
+*Defined in [packages/ivr-tester/src/testing/test/TestInstanceClass.ts:21](https://github.com/SketchingDev/ivr-tester/blob/cff7065/packages/ivr-tester/src/testing/test/TestInstanceClass.ts#L21)*

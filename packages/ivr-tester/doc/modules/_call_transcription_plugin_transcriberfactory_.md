@@ -16,6 +16,6 @@
 
 Ƭ  **TranscriberFactory**: () => [TranscriberPlugin](../interfaces/_call_transcription_plugin_transcriberplugin_.transcriberplugin.md)
 
-*Defined in [packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts:6](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts#L6)*
+*Defined in [packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts:6](https://github.com/SketchingDev/ivr-tester/blob/cff7065/packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts#L6)*
 
 Factory to create a instance of a transcriber per test

@@ -24,6 +24,6 @@
 
 ▸ **assign**(): [TestAssigned](_testing_iteratingtestassigner_.testassigned.md) \| [NoneAssigned](_testing_iteratingtestassigner_.noneassigned.md)
 
-*Defined in [packages/ivr-tester/src/testing/IteratingTestAssigner.ts:18](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/ivr-tester/src/testing/IteratingTestAssigner.ts#L18)*
+*Defined in [packages/ivr-tester/src/testing/IteratingTestAssigner.ts:18](https://github.com/SketchingDev/ivr-tester/blob/cff7065/packages/ivr-tester/src/testing/IteratingTestAssigner.ts#L18)*
 
 **Returns:** [TestAssigned](_testing_iteratingtestassigner_.testassigned.md) \| [NoneAssigned](_testing_iteratingtestassigner_.noneassigned.md)
