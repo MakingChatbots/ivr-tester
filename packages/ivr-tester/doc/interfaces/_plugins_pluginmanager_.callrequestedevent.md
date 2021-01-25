@@ -21,7 +21,7 @@
 
 •  **requestedCall**: [RequestedCall](../modules/_call_caller_.md#requestedcall)
 
-*Defined in [packages/ivr-tester/src/plugins/PluginManager.ts:7](https://github.com/SketchingDev/ivr-tester/blob/0888491/packages/ivr-tester/src/plugins/PluginManager.ts#L7)*
+*Defined in [packages/ivr-tester/src/plugins/PluginManager.ts:7](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/ivr-tester/src/plugins/PluginManager.ts#L7)*
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 •  **total**: number
 
-*Defined in [packages/ivr-tester/src/plugins/PluginManager.ts:8](https://github.com/SketchingDev/ivr-tester/blob/0888491/packages/ivr-tester/src/plugins/PluginManager.ts#L8)*
+*Defined in [packages/ivr-tester/src/plugins/PluginManager.ts:8](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/ivr-tester/src/plugins/PluginManager.ts#L8)*

@@ -21,7 +21,7 @@
 
 •  **from**: string
 
-*Defined in [packages/ivr-tester/src/call/twilio.ts:9](https://github.com/SketchingDev/ivr-tester/blob/0888491/packages/ivr-tester/src/call/twilio.ts#L9)*
+*Defined in [packages/ivr-tester/src/call/twilio.ts:9](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/ivr-tester/src/call/twilio.ts#L9)*
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 •  **to**: string
 
-*Defined in [packages/ivr-tester/src/call/twilio.ts:10](https://github.com/SketchingDev/ivr-tester/blob/0888491/packages/ivr-tester/src/call/twilio.ts#L10)*
+*Defined in [packages/ivr-tester/src/call/twilio.ts:10](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/ivr-tester/src/call/twilio.ts#L10)*

@@ -47,7 +47,7 @@
 
 \+ **new GoogleSpeechToText**(`languageCode`: string, `speechPhrases?`: string[], `useEnhanced?`: boolean, `speechClient?`: SpeechClient): [GoogleSpeechToText](_googlespeechtotext_.googlespeechtotext.md)
 
-*Defined in [transcriber-google-speech-to-text/src/GoogleSpeechToText.ts:41](https://github.com/SketchingDev/ivr-tester/blob/0888491/packages/transcriber-google-speech-to-text/src/GoogleSpeechToText.ts#L41)*
+*Defined in [transcriber-google-speech-to-text/src/GoogleSpeechToText.ts:41](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/transcriber-google-speech-to-text/src/GoogleSpeechToText.ts#L41)*
 
 #### Parameters:
 
@@ -66,7 +66,7 @@ Name | Type | Default value |
 
 • `Private` `Readonly` **config**: Readonly\<IStreamingRecognitionConfig>
 
-*Defined in [transcriber-google-speech-to-text/src/GoogleSpeechToText.ts:37](https://github.com/SketchingDev/ivr-tester/blob/0888491/packages/transcriber-google-speech-to-text/src/GoogleSpeechToText.ts#L37)*
+*Defined in [transcriber-google-speech-to-text/src/GoogleSpeechToText.ts:37](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/transcriber-google-speech-to-text/src/GoogleSpeechToText.ts#L37)*
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 • `Private` `Readonly` **speechClient**: SpeechClient
 
-*Defined in [transcriber-google-speech-to-text/src/GoogleSpeechToText.ts:47](https://github.com/SketchingDev/ivr-tester/blob/0888491/packages/transcriber-google-speech-to-text/src/GoogleSpeechToText.ts#L47)*
+*Defined in [transcriber-google-speech-to-text/src/GoogleSpeechToText.ts:47](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/transcriber-google-speech-to-text/src/GoogleSpeechToText.ts#L47)*
 
 ___
 
@@ -82,7 +82,7 @@ ___
 
 • `Private` **stream**: Writable
 
-*Defined in [transcriber-google-speech-to-text/src/GoogleSpeechToText.ts:40](https://github.com/SketchingDev/ivr-tester/blob/0888491/packages/transcriber-google-speech-to-text/src/GoogleSpeechToText.ts#L40)*
+*Defined in [transcriber-google-speech-to-text/src/GoogleSpeechToText.ts:40](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/transcriber-google-speech-to-text/src/GoogleSpeechToText.ts#L40)*
 
 ___
 
@@ -90,7 +90,7 @@ ___
 
 • `Private` **streamCreatedAt**: Date
 
-*Defined in [transcriber-google-speech-to-text/src/GoogleSpeechToText.ts:41](https://github.com/SketchingDev/ivr-tester/blob/0888491/packages/transcriber-google-speech-to-text/src/GoogleSpeechToText.ts#L41)*
+*Defined in [transcriber-google-speech-to-text/src/GoogleSpeechToText.ts:41](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/transcriber-google-speech-to-text/src/GoogleSpeechToText.ts#L41)*
 
 ___
 
@@ -98,7 +98,7 @@ ___
 
 ▪ `Static` `Private` `Readonly` **debug**: Debugger = Debugger.getPackageDebugger()
 
-*Defined in [transcriber-google-speech-to-text/src/GoogleSpeechToText.ts:15](https://github.com/SketchingDev/ivr-tester/blob/0888491/packages/transcriber-google-speech-to-text/src/GoogleSpeechToText.ts#L15)*
+*Defined in [transcriber-google-speech-to-text/src/GoogleSpeechToText.ts:15](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/transcriber-google-speech-to-text/src/GoogleSpeechToText.ts#L15)*
 
 ## Methods
 
@@ -106,7 +106,7 @@ ___
 
 ▸ **close**(): void
 
-*Defined in [transcriber-google-speech-to-text/src/GoogleSpeechToText.ts:63](https://github.com/SketchingDev/ivr-tester/blob/0888491/packages/transcriber-google-speech-to-text/src/GoogleSpeechToText.ts#L63)*
+*Defined in [transcriber-google-speech-to-text/src/GoogleSpeechToText.ts:63](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/transcriber-google-speech-to-text/src/GoogleSpeechToText.ts#L63)*
 
 **Returns:** void
 
@@ -141,7 +141,7 @@ ___
 
 ▸ **getStream**(): Writable
 
-*Defined in [transcriber-google-speech-to-text/src/GoogleSpeechToText.ts:84](https://github.com/SketchingDev/ivr-tester/blob/0888491/packages/transcriber-google-speech-to-text/src/GoogleSpeechToText.ts#L84)*
+*Defined in [transcriber-google-speech-to-text/src/GoogleSpeechToText.ts:84](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/transcriber-google-speech-to-text/src/GoogleSpeechToText.ts#L84)*
 
 **Returns:** Writable
 
@@ -151,7 +151,7 @@ ___
 
 ▸ `Private`**newStreamRequired**(): boolean
 
-*Defined in [transcriber-google-speech-to-text/src/GoogleSpeechToText.ts:73](https://github.com/SketchingDev/ivr-tester/blob/0888491/packages/transcriber-google-speech-to-text/src/GoogleSpeechToText.ts#L73)*
+*Defined in [transcriber-google-speech-to-text/src/GoogleSpeechToText.ts:73](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/transcriber-google-speech-to-text/src/GoogleSpeechToText.ts#L73)*
 
 **Returns:** boolean
 
@@ -211,7 +211,7 @@ ___
 
 ▸ **transcribe**(`payload`: Buffer): void
 
-*Defined in [transcriber-google-speech-to-text/src/GoogleSpeechToText.ts:59](https://github.com/SketchingDev/ivr-tester/blob/0888491/packages/transcriber-google-speech-to-text/src/GoogleSpeechToText.ts#L59)*
+*Defined in [transcriber-google-speech-to-text/src/GoogleSpeechToText.ts:59](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/transcriber-google-speech-to-text/src/GoogleSpeechToText.ts#L59)*
 
 #### Parameters:
 
@@ -227,7 +227,7 @@ ___
 
 ▸ **transcriptionComplete**(): void
 
-*Defined in [transcriber-google-speech-to-text/src/GoogleSpeechToText.ts:115](https://github.com/SketchingDev/ivr-tester/blob/0888491/packages/transcriber-google-speech-to-text/src/GoogleSpeechToText.ts#L115)*
+*Defined in [transcriber-google-speech-to-text/src/GoogleSpeechToText.ts:115](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/transcriber-google-speech-to-text/src/GoogleSpeechToText.ts#L115)*
 
 **Returns:** void
 
@@ -237,7 +237,7 @@ ___
 
 ▸ `Static` `Private`**createConfig**(`languageCode`: string, `speechPhrases`: string[], `useEnhanced`: boolean): Readonly\<IStreamingRecognitionConfig>
 
-*Defined in [transcriber-google-speech-to-text/src/GoogleSpeechToText.ts:17](https://github.com/SketchingDev/ivr-tester/blob/0888491/packages/transcriber-google-speech-to-text/src/GoogleSpeechToText.ts#L17)*
+*Defined in [transcriber-google-speech-to-text/src/GoogleSpeechToText.ts:17](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/transcriber-google-speech-to-text/src/GoogleSpeechToText.ts#L17)*
 
 #### Parameters:
 

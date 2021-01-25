@@ -40,7 +40,7 @@
 
 \+ **new PluginManager**(`plugins`: [IvrTesterPlugin](../interfaces/_plugins_ivrtesterplugin_.ivrtesterplugin.md)[]): [PluginManager](_plugins_pluginmanager_.pluginmanager.md)
 
-*Defined in [packages/ivr-tester/src/plugins/PluginManager.ts:25](https://github.com/SketchingDev/ivr-tester/blob/0888491/packages/ivr-tester/src/plugins/PluginManager.ts#L25)*
+*Defined in [packages/ivr-tester/src/plugins/PluginManager.ts:25](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/ivr-tester/src/plugins/PluginManager.ts#L25)*
 
 #### Parameters:
 
@@ -56,7 +56,7 @@ Name | Type |
 
 • `Private` `Readonly` **plugins**: [IvrTesterPlugin](../interfaces/_plugins_ivrtesterplugin_.ivrtesterplugin.md)[]
 
-*Defined in [packages/ivr-tester/src/plugins/PluginManager.ts:26](https://github.com/SketchingDev/ivr-tester/blob/0888491/packages/ivr-tester/src/plugins/PluginManager.ts#L26)*
+*Defined in [packages/ivr-tester/src/plugins/PluginManager.ts:26](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/ivr-tester/src/plugins/PluginManager.ts#L26)*
 
 ## Methods
 
@@ -64,7 +64,7 @@ Name | Type |
 
 ▸ **callRequestErrored**(`error`: [Error](_configuration_configurationerror_.configurationerror.md#error)): void
 
-*Defined in [packages/ivr-tester/src/plugins/PluginManager.ts:47](https://github.com/SketchingDev/ivr-tester/blob/0888491/packages/ivr-tester/src/plugins/PluginManager.ts#L47)*
+*Defined in [packages/ivr-tester/src/plugins/PluginManager.ts:47](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/ivr-tester/src/plugins/PluginManager.ts#L47)*
 
 #### Parameters:
 
@@ -80,7 +80,7 @@ ___
 
 ▸ **callRequested**(`requestedCall`: [RequestedCall](../modules/_call_caller_.md#requestedcall), `total`: number): void
 
-*Defined in [packages/ivr-tester/src/plugins/PluginManager.ts:40](https://github.com/SketchingDev/ivr-tester/blob/0888491/packages/ivr-tester/src/plugins/PluginManager.ts#L40)*
+*Defined in [packages/ivr-tester/src/plugins/PluginManager.ts:40](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/ivr-tester/src/plugins/PluginManager.ts#L40)*
 
 #### Parameters:
 
@@ -99,7 +99,7 @@ ___
 
 *Inherited from [TypedEmitter](_emitter_.typedemitter.md).[emit](_emitter_.typedemitter.md#emit)*
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:35](https://github.com/SketchingDev/ivr-tester/blob/0888491/packages/ivr-tester/src/Emitter.ts#L35)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:35](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/ivr-tester/src/Emitter.ts#L35)*
 
 #### Type parameters:
 
@@ -122,7 +122,7 @@ ___
 
 ▸ **initialise**(): void
 
-*Defined in [packages/ivr-tester/src/plugins/PluginManager.ts:30](https://github.com/SketchingDev/ivr-tester/blob/0888491/packages/ivr-tester/src/plugins/PluginManager.ts#L30)*
+*Defined in [packages/ivr-tester/src/plugins/PluginManager.ts:30](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/ivr-tester/src/plugins/PluginManager.ts#L30)*
 
 **Returns:** void
 
@@ -136,7 +136,7 @@ ___
 
 *Inherited from [TypedEmitter](_emitter_.typedemitter.md).[off](_emitter_.typedemitter.md#off)*
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:27](https://github.com/SketchingDev/ivr-tester/blob/0888491/packages/ivr-tester/src/Emitter.ts#L27)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:27](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/ivr-tester/src/Emitter.ts#L27)*
 
 #### Type parameters:
 
@@ -163,7 +163,7 @@ ___
 
 *Inherited from [TypedEmitter](_emitter_.typedemitter.md).[on](_emitter_.typedemitter.md#on)*
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:19](https://github.com/SketchingDev/ivr-tester/blob/0888491/packages/ivr-tester/src/Emitter.ts#L19)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:19](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/ivr-tester/src/Emitter.ts#L19)*
 
 #### Type parameters:
 
@@ -186,7 +186,7 @@ ___
 
 ▸ **serverListening**(`callServer`: [CallServer](../interfaces/_testing_twiliocallserver_.callserver.md)): void
 
-*Defined in [packages/ivr-tester/src/plugins/PluginManager.ts:36](https://github.com/SketchingDev/ivr-tester/blob/0888491/packages/ivr-tester/src/plugins/PluginManager.ts#L36)*
+*Defined in [packages/ivr-tester/src/plugins/PluginManager.ts:36](https://github.com/SketchingDev/ivr-tester/blob/c5ffee0/packages/ivr-tester/src/plugins/PluginManager.ts#L36)*
 
 #### Parameters:
 
