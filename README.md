@@ -10,7 +10,7 @@ An automated testing framework for Interactive Voice Response (IVR) flows.
 IVR Tester automates the testing of IVR flows by calling them, transcribing voice responses and replying with DTMF tones
 based on fluent test definitions.
 
-```typescript
+```ts
 testRunner()(
   { from: "0123 456 789", to: "0123 123 123" },
   { name: "Customer is asked to provide account number",
@@ -64,7 +64,7 @@ machine it runs on
    _These are used to instructing Twilio to call your IVR flow.
    Remember to [keep your auth token secret](https://www.twilio.com/blog/protect-phishing-auth-token-fraud)._
    
-   ```shell
+   ```sh
    export TWILIO_ACCOUNT_SID=ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
    export TWILIO_AUTH_TOKEN=your_auth_token
    ```
@@ -80,7 +80,7 @@ machine it runs on
 
    1. [Install ngrok](https://ngrok.com/download)
    2. Run ngrok - we'll only be using its basic features, so you don't need to signup
-       ```shell
+       ```sh
        ngrok http 8080
        ```
    
@@ -88,16 +88,16 @@ machine it runs on
 
    1. Set the port IVR Tester should listen on for calls. This is the port that you told ngrok to forward connections
       to in step 3.2 above 
-      ```shell
+      ```sh
       export LOCAL_SERVER_PORT=8080
       ```
    2. Set the public URL that ngrok created for us in step 3.2 above. We can use it's API to retrieve this for us,
       otherwise it will be available in ngrok's console output
-      ```shell
+      ```sh
       export PUBLIC_SERVER_URL=$(curl -s localhost:4040/api/tunnels | jq -r .tunnels[0].public_url)
       ```
    3. Execute your test
-      ```
+      ```sh
       node test.js
       ```
 
@@ -122,7 +122,7 @@ This introduces flakiness into your tests and puts importance on the balancing a
 being resilient to inaccuracies. In this example since being asked to **enter** your date of birth is important
 to understanding the flow I would use `similarTo`, which matches based on a degree of similarity: 
 
-```typescript
+```ts
 {
   whenTranscript: similarTo("Please enter your date of birth"),
   then: press("18121985"),
@@ -131,7 +131,7 @@ to understanding the flow I would use `similarTo`, which matches based on a degr
 
 Instead of say `contains` which would hide the fact a question is being asked to a casual observer of the test:
 
-```typescript
+```ts
 {
   whenTranscript: contains("date of birth"),
   then: press("18121985"),
@@ -145,7 +145,7 @@ Instead of say `contains` which would hide the fact a question is being asked to
 Where possible the documentation is generated from the code using the following script in the root directory or
 individual packages:
 
-```shell
+```sh
 yarn docs
 ```
 

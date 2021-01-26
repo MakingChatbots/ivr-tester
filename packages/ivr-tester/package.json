@@ -9,9 +9,12 @@
   },
   "homepage": "https://github.com/SketchingDev/ivr-tester#ivr-tester",
   "keywords": [
-    "ivr",
+    "IVR",
+    "Interactive Voice Response",
     "call flow",
-    "test"
+    "call",
+    "test",
+    "telephony"
   ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

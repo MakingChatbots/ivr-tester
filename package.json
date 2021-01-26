@@ -4,13 +4,14 @@
   "version": "1.0.0",
   "license": "MIT",
   "devDependencies": {
-    "lerna": "^3.22.1",
+    "@typescript-eslint/eslint-plugin": "^4.13.0",
+    "@typescript-eslint/parser": "^4.3.0",
+    "embedme": "^1.22.0",
     "eslint": "^7.10.0",
     "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-jest": "^24.0.2",
     "eslint-plugin-tsdoc": "^0.2.7",
-    "@typescript-eslint/eslint-plugin": "^4.13.0",
-    "@typescript-eslint/parser": "^4.3.0",
+    "lerna": "^3.22.1",
     "typedoc": "^0.19.2",
     "typedoc-plugin-markdown": "^3.0.11"
   },
@@ -19,11 +20,12 @@
     "examples/*"
   ],
   "scripts": {
+    "prebuild": "embedme README.md",
     "build": "lerna run build",
     "lint": "lerna run lint",
     "test": "lerna run test",
     "doc": "lerna run doc",
-    "npm:doc": "cp README.md ./packages/ivr-tester/"
+    "readme:copy": "cp README.md ./packages/ivr-tester/"
   },
   "engines": {
     "node": ">= 10.14.2"
