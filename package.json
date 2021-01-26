@@ -22,7 +22,8 @@
     "build": "lerna run build",
     "lint": "lerna run lint",
     "test": "lerna run test",
-    "doc": "lerna run doc"
+    "doc": "lerna run doc",
+    "npm:doc": "cp README.md ./packages/ivr-tester/"
   },
   "engines": {
     "node": ">= 10.14.2"
