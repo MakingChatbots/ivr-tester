@@ -33,7 +33,7 @@
 
 \+ **new IteratingTestAssigner**(`tests`: [IvrTest](../interfaces/_testing_test_ivrtest_.ivrtest.md)[]): [IteratingTestAssigner](_testing_iteratingtestassigner_.iteratingtestassigner.md)
 
-*Defined in [packages/ivr-tester/src/testing/IteratingTestAssigner.ts:22](https://github.com/SketchingDev/ivr-tester/blob/cff7065/packages/ivr-tester/src/testing/IteratingTestAssigner.ts#L22)*
+*Defined in [packages/ivr-tester/src/testing/IteratingTestAssigner.ts:22](https://github.com/SketchingDev/ivr-tester/blob/d4b858b/packages/ivr-tester/src/testing/IteratingTestAssigner.ts#L22)*
 
 #### Parameters:
 
@@ -49,7 +49,7 @@ Name | Type |
 
 • `Private` `Readonly` **testIterator**: IterableIterator\<[number, [IvrTest](../interfaces/_testing_test_ivrtest_.ivrtest.md)]>
 
-*Defined in [packages/ivr-tester/src/testing/IteratingTestAssigner.ts:22](https://github.com/SketchingDev/ivr-tester/blob/cff7065/packages/ivr-tester/src/testing/IteratingTestAssigner.ts#L22)*
+*Defined in [packages/ivr-tester/src/testing/IteratingTestAssigner.ts:22](https://github.com/SketchingDev/ivr-tester/blob/d4b858b/packages/ivr-tester/src/testing/IteratingTestAssigner.ts#L22)*
 
 ___
 
@@ -57,7 +57,7 @@ ___
 
 • `Readonly` **tests**: [IvrTest](../interfaces/_testing_test_ivrtest_.ivrtest.md)[]
 
-*Defined in [packages/ivr-tester/src/testing/IteratingTestAssigner.ts:24](https://github.com/SketchingDev/ivr-tester/blob/cff7065/packages/ivr-tester/src/testing/IteratingTestAssigner.ts#L24)*
+*Defined in [packages/ivr-tester/src/testing/IteratingTestAssigner.ts:24](https://github.com/SketchingDev/ivr-tester/blob/d4b858b/packages/ivr-tester/src/testing/IteratingTestAssigner.ts#L24)*
 
 ## Methods
 
@@ -67,6 +67,6 @@ ___
 
 *Implementation of [TestAssigner](../interfaces/_testing_iteratingtestassigner_.testassigner.md)*
 
-*Defined in [packages/ivr-tester/src/testing/IteratingTestAssigner.ts:28](https://github.com/SketchingDev/ivr-tester/blob/cff7065/packages/ivr-tester/src/testing/IteratingTestAssigner.ts#L28)*
+*Defined in [packages/ivr-tester/src/testing/IteratingTestAssigner.ts:28](https://github.com/SketchingDev/ivr-tester/blob/d4b858b/packages/ivr-tester/src/testing/IteratingTestAssigner.ts#L28)*
 
 **Returns:** [TestAssigned](../interfaces/_testing_iteratingtestassigner_.testassigned.md) \| [NoneAssigned](../interfaces/_testing_iteratingtestassigner_.noneassigned.md)

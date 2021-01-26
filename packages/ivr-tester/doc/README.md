@@ -42,6 +42,7 @@
 * ["testing/test/conditions/AssertThen"](modules/_testing_test_conditions_assertthen_.md)
 * ["testing/test/conditions/then/Then"](modules/_testing_test_conditions_then_then_.md)
 * ["testing/test/conditions/then/doNothing"](modules/_testing_test_conditions_then_donothing_.md)
+* ["testing/test/conditions/then/hangUp"](modules/_testing_test_conditions_then_hangup_.md)
 * ["testing/test/conditions/then/press"](modules/_testing_test_conditions_then_press_.md)
 * ["testing/test/conditions/when/When"](modules/_testing_test_conditions_when_when_.md)
 * ["testing/test/conditions/when/contains"](modules/_testing_test_conditions_when_contains_.md)

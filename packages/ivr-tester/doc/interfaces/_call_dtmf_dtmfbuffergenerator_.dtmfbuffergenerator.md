@@ -26,7 +26,7 @@ Implementing class generates stream of DTMF encoded in an 8 bit PCM encoding (MU
 
 ▸ **generate**(`dtmfSequence`: string): Buffer
 
-*Defined in [packages/ivr-tester/src/call/dtmf/DtmfBufferGenerator.ts:8](https://github.com/SketchingDev/ivr-tester/blob/cff7065/packages/ivr-tester/src/call/dtmf/DtmfBufferGenerator.ts#L8)*
+*Defined in [packages/ivr-tester/src/call/dtmf/DtmfBufferGenerator.ts:8](https://github.com/SketchingDev/ivr-tester/blob/d4b858b/packages/ivr-tester/src/call/dtmf/DtmfBufferGenerator.ts#L8)*
 
 #### Parameters:
 

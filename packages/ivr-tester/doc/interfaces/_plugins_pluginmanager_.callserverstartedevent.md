@@ -20,4 +20,4 @@
 
 •  **callServer**: [CallServer](_testing_twiliocallserver_.callserver.md)
 
-*Defined in [packages/ivr-tester/src/plugins/PluginManager.ts:16](https://github.com/SketchingDev/ivr-tester/blob/cff7065/packages/ivr-tester/src/plugins/PluginManager.ts#L16)*
+*Defined in [packages/ivr-tester/src/plugins/PluginManager.ts:16](https://github.com/SketchingDev/ivr-tester/blob/d4b858b/packages/ivr-tester/src/plugins/PluginManager.ts#L16)*
