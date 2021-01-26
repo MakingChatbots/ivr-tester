@@ -20,11 +20,12 @@
     "examples/*"
   ],
   "scripts": {
-    "prebuild": "embedme README.md",
+    "prebuild": "yarn readme:build",
     "build": "lerna run build",
     "lint": "lerna run lint",
     "test": "lerna run test",
     "doc": "lerna run doc",
+    "readme:build": "embedme README.md",
     "readme:copy": "cp README.md ./packages/ivr-tester/"
   },
   "engines": {
