@@ -14,15 +14,15 @@
 
 ### callConnectedTimeout
 
-▸ `Const`**callConnectedTimeout**(`__namedParameters`: { msTimeoutWaitingForCall: number  }, `consoleLoggerPlugin`: [ConsoleLoggerPlugin](../interfaces/_testing_reporting_consoleuserinterface_.consoleloggerplugin.md)): [IvrTesterPlugin](../interfaces/_plugins_ivrtesterplugin_.ivrtesterplugin.md)
+▸ `Const`**callConnectedTimeout**(`__namedParameters`: { msTimeoutWaitingForCall: number  }, `consoleLoggerPlugin`: [ConsoleLoggerPlugin](../interfaces/_testing_ui_consoleuserinterface_.consoleloggerplugin.md)): [IvrTesterPlugin](../interfaces/_plugins_ivrtesterplugin_.ivrtesterplugin.md)
 
-*Defined in [packages/ivr-tester/src/testing/callConnectedTimeout.ts:7](https://github.com/SketchingDev/ivr-tester/blob/d4b858b/packages/ivr-tester/src/testing/callConnectedTimeout.ts#L7)*
+*Defined in [packages/ivr-tester/src/testing/callConnectedTimeout.ts:7](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/testing/callConnectedTimeout.ts#L7)*
 
 #### Parameters:
 
 Name | Type |
 ------ | ------ |
 `__namedParameters` | { msTimeoutWaitingForCall: number  } |
-`consoleLoggerPlugin` | [ConsoleLoggerPlugin](../interfaces/_testing_reporting_consoleuserinterface_.consoleloggerplugin.md) |
+`consoleLoggerPlugin` | [ConsoleLoggerPlugin](../interfaces/_testing_ui_consoleuserinterface_.consoleloggerplugin.md) |
 
 **Returns:** [IvrTesterPlugin](../interfaces/_plugins_ivrtesterplugin_.ivrtesterplugin.md)

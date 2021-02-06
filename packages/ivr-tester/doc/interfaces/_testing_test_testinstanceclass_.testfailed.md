@@ -21,7 +21,7 @@
 
 •  **test**: [IvrTest](_testing_test_ivrtest_.ivrtest.md)
 
-*Defined in [packages/ivr-tester/src/testing/test/TestInstanceClass.ts:16](https://github.com/SketchingDev/ivr-tester/blob/d4b858b/packages/ivr-tester/src/testing/test/TestInstanceClass.ts#L16)*
+*Defined in [packages/ivr-tester/src/testing/test/TestInstanceClass.ts:16](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/testing/test/TestInstanceClass.ts#L16)*
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 •  **transcription**: string
 
-*Defined in [packages/ivr-tester/src/testing/test/TestInstanceClass.ts:17](https://github.com/SketchingDev/ivr-tester/blob/d4b858b/packages/ivr-tester/src/testing/test/TestInstanceClass.ts#L17)*
+*Defined in [packages/ivr-tester/src/testing/test/TestInstanceClass.ts:17](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/testing/test/TestInstanceClass.ts#L17)*

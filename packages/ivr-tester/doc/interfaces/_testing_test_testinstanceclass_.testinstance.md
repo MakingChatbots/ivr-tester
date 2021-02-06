@@ -28,7 +28,7 @@
 
 *Inherited from [Emitter](_emitter_.emitter.md).[emit](_emitter_.emitter.md#emit)*
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:13](https://github.com/SketchingDev/ivr-tester/blob/d4b858b/packages/ivr-tester/src/Emitter.ts#L13)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:13](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/Emitter.ts#L13)*
 
 #### Type parameters:
 
@@ -51,7 +51,7 @@ ___
 
 ▸ **getCall**(): [Call](_call_call_.call.md)
 
-*Defined in [packages/ivr-tester/src/testing/test/TestInstanceClass.ts:47](https://github.com/SketchingDev/ivr-tester/blob/d4b858b/packages/ivr-tester/src/testing/test/TestInstanceClass.ts#L47)*
+*Defined in [packages/ivr-tester/src/testing/test/TestInstanceClass.ts:47](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/testing/test/TestInstanceClass.ts#L47)*
 
 **Returns:** [Call](_call_call_.call.md)
 
@@ -61,7 +61,7 @@ ___
 
 ▸ **getTest**(): [IvrTest](_testing_test_ivrtest_.ivrtest.md)
 
-*Defined in [packages/ivr-tester/src/testing/test/TestInstanceClass.ts:46](https://github.com/SketchingDev/ivr-tester/blob/d4b858b/packages/ivr-tester/src/testing/test/TestInstanceClass.ts#L46)*
+*Defined in [packages/ivr-tester/src/testing/test/TestInstanceClass.ts:46](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/testing/test/TestInstanceClass.ts#L46)*
 
 **Returns:** [IvrTest](_testing_test_ivrtest_.ivrtest.md)
 
@@ -73,7 +73,7 @@ ___
 
 *Inherited from [Emitter](_emitter_.emitter.md).[off](_emitter_.emitter.md#off)*
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:12](https://github.com/SketchingDev/ivr-tester/blob/d4b858b/packages/ivr-tester/src/Emitter.ts#L12)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:12](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/Emitter.ts#L12)*
 
 #### Type parameters:
 
@@ -98,7 +98,7 @@ ___
 
 *Inherited from [Emitter](_emitter_.emitter.md).[on](_emitter_.emitter.md#on)*
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:11](https://github.com/SketchingDev/ivr-tester/blob/d4b858b/packages/ivr-tester/src/Emitter.ts#L11)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:11](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/Emitter.ts#L11)*
 
 #### Type parameters:
 

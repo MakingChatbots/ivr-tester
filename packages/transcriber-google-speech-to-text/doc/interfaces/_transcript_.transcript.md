@@ -22,7 +22,7 @@
 
 •  **alternatives**: { transcript: string  }[]
 
-*Defined in [transcriber-google-speech-to-text/src/Transcript.ts:4](https://github.com/SketchingDev/ivr-tester/blob/d4b858b/packages/transcriber-google-speech-to-text/src/Transcript.ts#L4)*
+*Defined in [transcriber-google-speech-to-text/src/Transcript.ts:4](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/transcriber-google-speech-to-text/src/Transcript.ts#L4)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 •  **isFinal**: boolean
 
-*Defined in [transcriber-google-speech-to-text/src/Transcript.ts:2](https://github.com/SketchingDev/ivr-tester/blob/d4b858b/packages/transcriber-google-speech-to-text/src/Transcript.ts#L2)*
+*Defined in [transcriber-google-speech-to-text/src/Transcript.ts:2](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/transcriber-google-speech-to-text/src/Transcript.ts#L2)*
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 •  **stability**: number
 
-*Defined in [transcriber-google-speech-to-text/src/Transcript.ts:3](https://github.com/SketchingDev/ivr-tester/blob/d4b858b/packages/transcriber-google-speech-to-text/src/Transcript.ts#L3)*
+*Defined in [transcriber-google-speech-to-text/src/Transcript.ts:3](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/transcriber-google-speech-to-text/src/Transcript.ts#L3)*
