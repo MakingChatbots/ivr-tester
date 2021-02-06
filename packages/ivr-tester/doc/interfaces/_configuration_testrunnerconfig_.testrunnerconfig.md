@@ -22,7 +22,7 @@
 
 • `Optional` **plugins**: [IvrTesterPlugin](_plugins_ivrtesterplugin_.ivrtesterplugin.md)[]
 
-*Defined in [packages/ivr-tester/src/configuration/TestRunnerConfig.ts:18](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/configuration/TestRunnerConfig.ts#L18)*
+*Defined in [packages/ivr-tester/src/configuration/TestRunnerConfig.ts:18](https://github.com/SketchingDev/ivr-tester/blob/e182b43/packages/ivr-tester/src/configuration/TestRunnerConfig.ts#L18)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 • `Optional` **publicServerUrl**: string \| undefined
 
-*Defined in [packages/ivr-tester/src/configuration/TestRunnerConfig.ts:16](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/configuration/TestRunnerConfig.ts#L16)*
+*Defined in [packages/ivr-tester/src/configuration/TestRunnerConfig.ts:16](https://github.com/SketchingDev/ivr-tester/blob/e182b43/packages/ivr-tester/src/configuration/TestRunnerConfig.ts#L16)*
 
 URL of the server that is publicly accessible. This is the
 server that Twilio connects to when creating the bi-directional
@@ -43,6 +43,6 @@ ___
 
 • `Optional` **twilioClient**: Twilio
 
-*Defined in [packages/ivr-tester/src/configuration/TestRunnerConfig.ts:8](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/configuration/TestRunnerConfig.ts#L8)*
+*Defined in [packages/ivr-tester/src/configuration/TestRunnerConfig.ts:8](https://github.com/SketchingDev/ivr-tester/blob/e182b43/packages/ivr-tester/src/configuration/TestRunnerConfig.ts#L8)*
 
 Twilio client used to initiate the call to the IVR

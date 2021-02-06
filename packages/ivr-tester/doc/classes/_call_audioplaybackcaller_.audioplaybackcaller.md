@@ -33,7 +33,7 @@
 
 • `Private` **streamCounter**: number = 0
 
-*Defined in [packages/ivr-tester/src/call/AudioPlaybackCaller.ts:10](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/call/AudioPlaybackCaller.ts#L10)*
+*Defined in [packages/ivr-tester/src/call/AudioPlaybackCaller.ts:10](https://github.com/SketchingDev/ivr-tester/blob/e182b43/packages/ivr-tester/src/call/AudioPlaybackCaller.ts#L10)*
 
 ___
 
@@ -41,7 +41,7 @@ ___
 
 ▪ `Static` `Private` **bufferSize**: number = 1000
 
-*Defined in [packages/ivr-tester/src/call/AudioPlaybackCaller.ts:8](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/call/AudioPlaybackCaller.ts#L8)*
+*Defined in [packages/ivr-tester/src/call/AudioPlaybackCaller.ts:8](https://github.com/SketchingDev/ivr-tester/blob/e182b43/packages/ivr-tester/src/call/AudioPlaybackCaller.ts#L8)*
 
 ___
 
@@ -49,7 +49,7 @@ ___
 
 ▪ `Static` `Private` **msBetweenSendingBuffer**: number = 250
 
-*Defined in [packages/ivr-tester/src/call/AudioPlaybackCaller.ts:7](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/call/AudioPlaybackCaller.ts#L7)*
+*Defined in [packages/ivr-tester/src/call/AudioPlaybackCaller.ts:7](https://github.com/SketchingDev/ivr-tester/blob/e182b43/packages/ivr-tester/src/call/AudioPlaybackCaller.ts#L7)*
 
 ## Methods
 
@@ -57,7 +57,7 @@ ___
 
 ▸ **call**(`mulawAudio`: Buffer, `streamUrl`: URL \| string): Promise\<[RequestedCall](../modules/_call_caller_.md#requestedcall)>
 
-*Defined in [packages/ivr-tester/src/call/AudioPlaybackCaller.ts:12](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/call/AudioPlaybackCaller.ts#L12)*
+*Defined in [packages/ivr-tester/src/call/AudioPlaybackCaller.ts:12](https://github.com/SketchingDev/ivr-tester/blob/e182b43/packages/ivr-tester/src/call/AudioPlaybackCaller.ts#L12)*
 
 #### Parameters:
 
@@ -74,7 +74,7 @@ ___
 
 ▸ `Static` `Private`**createCallEndedEvent**(): string
 
-*Defined in [packages/ivr-tester/src/call/AudioPlaybackCaller.ts:75](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/call/AudioPlaybackCaller.ts#L75)*
+*Defined in [packages/ivr-tester/src/call/AudioPlaybackCaller.ts:75](https://github.com/SketchingDev/ivr-tester/blob/e182b43/packages/ivr-tester/src/call/AudioPlaybackCaller.ts#L75)*
 
 **Returns:** string
 
@@ -84,7 +84,7 @@ ___
 
 ▸ `Static` `Private`**createMediaEvent**(`sid`: string, `payload`: Buffer): string
 
-*Defined in [packages/ivr-tester/src/call/AudioPlaybackCaller.ts:65](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/call/AudioPlaybackCaller.ts#L65)*
+*Defined in [packages/ivr-tester/src/call/AudioPlaybackCaller.ts:65](https://github.com/SketchingDev/ivr-tester/blob/e182b43/packages/ivr-tester/src/call/AudioPlaybackCaller.ts#L65)*
 
 #### Parameters:
 
@@ -101,7 +101,7 @@ ___
 
 ▸ `Static` `Private`**createTwilioMediaStreamStartEvent**(`sid`: string): string
 
-*Defined in [packages/ivr-tester/src/call/AudioPlaybackCaller.ts:52](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/call/AudioPlaybackCaller.ts#L52)*
+*Defined in [packages/ivr-tester/src/call/AudioPlaybackCaller.ts:52](https://github.com/SketchingDev/ivr-tester/blob/e182b43/packages/ivr-tester/src/call/AudioPlaybackCaller.ts#L52)*
 
 #### Parameters:
 

@@ -24,7 +24,7 @@
 
 Ƭ  **CallTranscriptionEvents**: { transcription: [PromptTranscriptionEvent](../interfaces/_call_transcription_calltranscriber_.prompttranscriptionevent.md)  }
 
-*Defined in [packages/ivr-tester/src/call/transcription/CallTranscriber.ts:61](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/call/transcription/CallTranscriber.ts#L61)*
+*Defined in [packages/ivr-tester/src/call/transcription/CallTranscriber.ts:61](https://github.com/SketchingDev/ivr-tester/blob/e182b43/packages/ivr-tester/src/call/transcription/CallTranscriber.ts#L61)*
 
 #### Type declaration:
 

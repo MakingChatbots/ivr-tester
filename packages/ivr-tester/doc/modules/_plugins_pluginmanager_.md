@@ -26,7 +26,7 @@
 
 Ƭ  **PluginEvents**: { callRequestErrored: [CallRequestErroredEvent](../interfaces/_plugins_pluginmanager_.callrequesterroredevent.md) ; callRequested: [CallRequestedEvent](../interfaces/_plugins_pluginmanager_.callrequestedevent.md) ; callServerStarted: [CallServerStartedEvent](../interfaces/_plugins_pluginmanager_.callserverstartedevent.md)  }
 
-*Defined in [packages/ivr-tester/src/plugins/PluginManager.ts:19](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/plugins/PluginManager.ts#L19)*
+*Defined in [packages/ivr-tester/src/plugins/PluginManager.ts:19](https://github.com/SketchingDev/ivr-tester/blob/e182b43/packages/ivr-tester/src/plugins/PluginManager.ts#L19)*
 
 #### Type declaration:
 

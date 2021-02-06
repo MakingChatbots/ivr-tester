@@ -48,7 +48,7 @@
 
 \+ **new TwilioCallServer**(`dtmfBufferGenerator`: [DtmfBufferGenerator](../interfaces/_call_dtmf_dtmfbuffergenerator_.dtmfbuffergenerator.md), `testAssigner`: [TestAssigner](../interfaces/_testing_iteratingtestassigner_.testassigner.md), `testExecutor`: [TestExecutor](../interfaces/_testing_defaulttestexecutor_.testexecutor.md)): [TwilioCallServer](_testing_twiliocallserver_.twiliocallserver.md)
 
-*Defined in [packages/ivr-tester/src/testing/TwilioCallServer.ts:30](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/testing/TwilioCallServer.ts#L30)*
+*Defined in [packages/ivr-tester/src/testing/TwilioCallServer.ts:30](https://github.com/SketchingDev/ivr-tester/blob/e182b43/packages/ivr-tester/src/testing/TwilioCallServer.ts#L30)*
 
 #### Parameters:
 
@@ -66,7 +66,7 @@ Name | Type |
 
 • `Private` `Readonly` **dtmfBufferGenerator**: [DtmfBufferGenerator](../interfaces/_call_dtmf_dtmfbuffergenerator_.dtmfbuffergenerator.md)
 
-*Defined in [packages/ivr-tester/src/testing/TwilioCallServer.ts:33](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/testing/TwilioCallServer.ts#L33)*
+*Defined in [packages/ivr-tester/src/testing/TwilioCallServer.ts:33](https://github.com/SketchingDev/ivr-tester/blob/e182b43/packages/ivr-tester/src/testing/TwilioCallServer.ts#L33)*
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 • `Private` `Readonly` **testAssigner**: [TestAssigner](../interfaces/_testing_iteratingtestassigner_.testassigner.md)
 
-*Defined in [packages/ivr-tester/src/testing/TwilioCallServer.ts:34](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/testing/TwilioCallServer.ts#L34)*
+*Defined in [packages/ivr-tester/src/testing/TwilioCallServer.ts:34](https://github.com/SketchingDev/ivr-tester/blob/e182b43/packages/ivr-tester/src/testing/TwilioCallServer.ts#L34)*
 
 ___
 
@@ -82,7 +82,7 @@ ___
 
 • `Private` `Readonly` **testExecutor**: [TestExecutor](../interfaces/_testing_defaulttestexecutor_.testexecutor.md)
 
-*Defined in [packages/ivr-tester/src/testing/TwilioCallServer.ts:35](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/testing/TwilioCallServer.ts#L35)*
+*Defined in [packages/ivr-tester/src/testing/TwilioCallServer.ts:35](https://github.com/SketchingDev/ivr-tester/blob/e182b43/packages/ivr-tester/src/testing/TwilioCallServer.ts#L35)*
 
 ___
 
@@ -90,7 +90,7 @@ ___
 
 • `Private` **wss**: Server
 
-*Defined in [packages/ivr-tester/src/testing/TwilioCallServer.ts:30](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/testing/TwilioCallServer.ts#L30)*
+*Defined in [packages/ivr-tester/src/testing/TwilioCallServer.ts:30](https://github.com/SketchingDev/ivr-tester/blob/e182b43/packages/ivr-tester/src/testing/TwilioCallServer.ts#L30)*
 
 ___
 
@@ -98,7 +98,7 @@ ___
 
 ▪ `Static` `Private` **TestCouldNotBeAssignedReason**: string = "TestCouldNotBeAssigned"
 
-*Defined in [packages/ivr-tester/src/testing/TwilioCallServer.ts:28](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/testing/TwilioCallServer.ts#L28)*
+*Defined in [packages/ivr-tester/src/testing/TwilioCallServer.ts:28](https://github.com/SketchingDev/ivr-tester/blob/e182b43/packages/ivr-tester/src/testing/TwilioCallServer.ts#L28)*
 
 ## Methods
 
@@ -106,7 +106,7 @@ ___
 
 ▸ `Private`**callConnected**(`callWebSocket`: ws): void
 
-*Defined in [packages/ivr-tester/src/testing/TwilioCallServer.ts:107](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/testing/TwilioCallServer.ts#L107)*
+*Defined in [packages/ivr-tester/src/testing/TwilioCallServer.ts:107](https://github.com/SketchingDev/ivr-tester/blob/e182b43/packages/ivr-tester/src/testing/TwilioCallServer.ts#L107)*
 
 #### Parameters:
 
@@ -122,7 +122,7 @@ ___
 
 ▸ `Private`**closed**(): void
 
-*Defined in [packages/ivr-tester/src/testing/TwilioCallServer.ts:121](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/testing/TwilioCallServer.ts#L121)*
+*Defined in [packages/ivr-tester/src/testing/TwilioCallServer.ts:121](https://github.com/SketchingDev/ivr-tester/blob/e182b43/packages/ivr-tester/src/testing/TwilioCallServer.ts#L121)*
 
 **Returns:** void
 
@@ -136,7 +136,7 @@ ___
 
 *Inherited from [TypedEmitter](_emitter_.typedemitter.md).[emit](_emitter_.typedemitter.md#emit)*
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:35](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/Emitter.ts#L35)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:35](https://github.com/SketchingDev/ivr-tester/blob/e182b43/packages/ivr-tester/src/Emitter.ts#L35)*
 
 #### Type parameters:
 
@@ -161,7 +161,7 @@ ___
 
 *Implementation of [CallServer](../interfaces/_testing_twiliocallserver_.callserver.md)*
 
-*Defined in [packages/ivr-tester/src/testing/TwilioCallServer.ts:61](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/testing/TwilioCallServer.ts#L61)*
+*Defined in [packages/ivr-tester/src/testing/TwilioCallServer.ts:61](https://github.com/SketchingDev/ivr-tester/blob/e182b43/packages/ivr-tester/src/testing/TwilioCallServer.ts#L61)*
 
 #### Parameters:
 
@@ -181,7 +181,7 @@ ___
 
 *Inherited from [TypedEmitter](_emitter_.typedemitter.md).[off](_emitter_.typedemitter.md#off)*
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:27](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/Emitter.ts#L27)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:27](https://github.com/SketchingDev/ivr-tester/blob/e182b43/packages/ivr-tester/src/Emitter.ts#L27)*
 
 #### Type parameters:
 
@@ -208,7 +208,7 @@ ___
 
 *Inherited from [TypedEmitter](_emitter_.typedemitter.md).[on](_emitter_.typedemitter.md#on)*
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:19](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/Emitter.ts#L19)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:19](https://github.com/SketchingDev/ivr-tester/blob/e182b43/packages/ivr-tester/src/Emitter.ts#L19)*
 
 #### Type parameters:
 
@@ -231,7 +231,7 @@ ___
 
 ▸ `Private`**serverError**(`error`: [Error](_configuration_configurationerror_.configurationerror.md#error)): void
 
-*Defined in [packages/ivr-tester/src/testing/TwilioCallServer.ts:126](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/testing/TwilioCallServer.ts#L126)*
+*Defined in [packages/ivr-tester/src/testing/TwilioCallServer.ts:126](https://github.com/SketchingDev/ivr-tester/blob/e182b43/packages/ivr-tester/src/testing/TwilioCallServer.ts#L126)*
 
 #### Parameters:
 
@@ -249,7 +249,7 @@ ___
 
 *Implementation of [CallServer](../interfaces/_testing_twiliocallserver_.callserver.md)*
 
-*Defined in [packages/ivr-tester/src/testing/TwilioCallServer.ts:89](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/testing/TwilioCallServer.ts#L89)*
+*Defined in [packages/ivr-tester/src/testing/TwilioCallServer.ts:89](https://github.com/SketchingDev/ivr-tester/blob/e182b43/packages/ivr-tester/src/testing/TwilioCallServer.ts#L89)*
 
 **Returns:** Promise\<void>
 
@@ -259,7 +259,7 @@ ___
 
 ▸ `Static`**convertToWebSocketUrl**(`serverUrl`: string \| URL): URL
 
-*Defined in [packages/ivr-tester/src/testing/TwilioCallServer.ts:53](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/testing/TwilioCallServer.ts#L53)*
+*Defined in [packages/ivr-tester/src/testing/TwilioCallServer.ts:53](https://github.com/SketchingDev/ivr-tester/blob/e182b43/packages/ivr-tester/src/testing/TwilioCallServer.ts#L53)*
 
 #### Parameters:
 
@@ -275,7 +275,7 @@ ___
 
 ▸ `Static` `Private`**formatServerUrl**(`server`: Server): URL
 
-*Defined in [packages/ivr-tester/src/testing/TwilioCallServer.ts:40](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/testing/TwilioCallServer.ts#L40)*
+*Defined in [packages/ivr-tester/src/testing/TwilioCallServer.ts:40](https://github.com/SketchingDev/ivr-tester/blob/e182b43/packages/ivr-tester/src/testing/TwilioCallServer.ts#L40)*
 
 #### Parameters:
 

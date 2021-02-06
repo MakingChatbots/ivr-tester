@@ -22,4 +22,4 @@
 
 Ƭ  **RequestedCall**: [AudioPlaybackCall](../interfaces/_call_caller_.audioplaybackcall.md) \| [TelephonyCall](../interfaces/_call_caller_.telephonycall.md)
 
-*Defined in [packages/ivr-tester/src/call/Caller.ts:14](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/call/Caller.ts#L14)*
+*Defined in [packages/ivr-tester/src/call/Caller.ts:14](https://github.com/SketchingDev/ivr-tester/blob/e182b43/packages/ivr-tester/src/call/Caller.ts#L14)*
