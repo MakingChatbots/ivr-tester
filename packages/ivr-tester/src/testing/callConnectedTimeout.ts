@@ -1,7 +1,7 @@
 import { IvrTesterPlugin } from "../plugins/IvrTesterPlugin";
 import { Emitter } from "../Emitter";
 import { PluginEvents } from "../plugins/PluginManager";
-import { ConsoleLoggerPlugin } from "./reporting/consoleUserInterface";
+import { ConsoleLoggerPlugin } from "./ui/consoleUserInterface";
 import { Config } from "../configuration/Config";
 
 export const callConnectedTimeout = (

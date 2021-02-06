@@ -11,7 +11,7 @@ test.
 
 * **IvrTesterPlugin**
 
-  ↳ [ConsoleLoggerPlugin](_testing_reporting_consoleuserinterface_.consoleloggerplugin.md)
+  ↳ [ConsoleLoggerPlugin](_testing_ui_consoleuserinterface_.consoleloggerplugin.md)
 
 ## Implemented by
 
@@ -29,7 +29,7 @@ test.
 
 ▸ **initialise**(`eventEmitter`: [Emitter](_emitter_.emitter.md)\<[PluginEvents](../modules/_plugins_pluginmanager_.md#pluginevents)>): void
 
-*Defined in [packages/ivr-tester/src/plugins/IvrTesterPlugin.ts:9](https://github.com/SketchingDev/ivr-tester/blob/d4b858b/packages/ivr-tester/src/plugins/IvrTesterPlugin.ts#L9)*
+*Defined in [packages/ivr-tester/src/plugins/IvrTesterPlugin.ts:9](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/ivr-tester/src/plugins/IvrTesterPlugin.ts#L9)*
 
 #### Parameters:
 

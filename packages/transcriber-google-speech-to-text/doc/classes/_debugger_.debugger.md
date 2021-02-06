@@ -25,7 +25,7 @@
 
 ▪ `Static` `Private` **packageName**: string = "ivr-tester-transcriber-google-speech-to-text"
 
-*Defined in [transcriber-google-speech-to-text/src/Debugger.ts:4](https://github.com/SketchingDev/ivr-tester/blob/d4b858b/packages/transcriber-google-speech-to-text/src/Debugger.ts#L4)*
+*Defined in [transcriber-google-speech-to-text/src/Debugger.ts:4](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/transcriber-google-speech-to-text/src/Debugger.ts#L4)*
 
 ## Methods
 
@@ -33,7 +33,7 @@
 
 ▸ `Static`**enable**(): void
 
-*Defined in [transcriber-google-speech-to-text/src/Debugger.ts:10](https://github.com/SketchingDev/ivr-tester/blob/d4b858b/packages/transcriber-google-speech-to-text/src/Debugger.ts#L10)*
+*Defined in [transcriber-google-speech-to-text/src/Debugger.ts:10](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/transcriber-google-speech-to-text/src/Debugger.ts#L10)*
 
 **Returns:** void
 
@@ -43,6 +43,6 @@ ___
 
 ▸ `Static`**getPackageDebugger**(): Debugger
 
-*Defined in [transcriber-google-speech-to-text/src/Debugger.ts:6](https://github.com/SketchingDev/ivr-tester/blob/d4b858b/packages/transcriber-google-speech-to-text/src/Debugger.ts#L6)*
+*Defined in [transcriber-google-speech-to-text/src/Debugger.ts:6](https://github.com/SketchingDev/ivr-tester/blob/2e93db6/packages/transcriber-google-speech-to-text/src/Debugger.ts#L6)*
 
 **Returns:** Debugger

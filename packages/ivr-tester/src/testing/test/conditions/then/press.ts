@@ -45,5 +45,9 @@ export const press = (
 
     call.sendDtmfTone(sequence);
   },
-  describe: () => `press key(s) ${dtmfSequence}`,
+  describe: () => {
+    return dtmfSequence.length === 1
+      ? `press key ${dtmfSequence}`
+      : `press keys ${dtmfSequence}`;
+  },
 });
