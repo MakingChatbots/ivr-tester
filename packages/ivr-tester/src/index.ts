@@ -2,7 +2,7 @@ export * from "./testing/test/conditions/when";
 export * from "./testing/test/conditions/then";
 export * from "./testing/test/conditions/AssertThen";
 
-export * from "./testing/reporting/consoleUserInterface";
+export * from "./testing/ui/consoleUserInterface";
 export * from "./plugins/IvrTesterPlugin";
 export * from "./testing/CloseServerWhenTestsComplete";
 export * from "./Emitter";
