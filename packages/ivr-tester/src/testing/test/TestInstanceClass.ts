@@ -64,11 +64,13 @@ export class TestInstanceClass
     callTranscriber.on("transcription", this.processTranscript.bind(this));
   }
 
-  getCall(): Call {
+  public getCall(): Call {
     return this.call;
   }
 
-  private processTranscript(event: PromptTranscriptionEvent): void {
+  private async processTranscript(
+    event: PromptTranscriptionEvent
+  ): Promise<void> {
     const { transcription } = event;
 
     this.emit("progress", {
@@ -83,7 +85,7 @@ export class TestInstanceClass
       return;
     }
 
-    const testOutcome = this.ivrTest.test.test(transcription, this.call);
+    const testOutcome = await this.ivrTest.test.test(transcription, this.call);
     switch (testOutcome.result) {
       case "continue":
         if (testOutcome.matchedCondition) {

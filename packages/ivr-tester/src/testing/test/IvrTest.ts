@@ -6,7 +6,7 @@ export interface TestContainer {
   /**
    * Called each time with a transcript is received
    */
-  test(transcript: string, call: Call): TestResult;
+  test(transcript: string, call: Call): Promise<TestResult>;
 }
 
 export interface IvrTest {

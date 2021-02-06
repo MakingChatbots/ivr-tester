@@ -15,5 +15,5 @@ export interface Then {
   /**
    * Performs the action to the call
    */
-  do(call: Call): void;
+  do(call: Call): Promise<void>;
 }

@@ -13,7 +13,7 @@ export const inOrder: (
   const clonedConditions = Array.isArray(conditions) ? [...conditions] : [];
 
   return {
-    test(transcript, call): TestResult {
+    async test(transcript, call): Promise<TestResult> {
       const condition = clonedConditions[nextConditionIndex];
       if (!condition) {
         return { result: "pass" };
@@ -24,7 +24,7 @@ export const inOrder: (
         return { result: "fail" };
       }
 
-      condition.then.do(call);
+      await condition.then.do(call);
 
       nextConditionIndex++;
 
