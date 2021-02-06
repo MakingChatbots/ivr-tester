@@ -8,7 +8,7 @@ import { mediaStreamRecorderPlugin } from "./call/recording/MediaStreamRecorder"
 import { DefaultTestExecutor } from "./testing/DefaultTestExecutor";
 import { AudioPlaybackCaller } from "./call/AudioPlaybackCaller";
 import { Caller } from "./call/Caller";
-import { consoleUserInterface } from "./testing/reporting/consoleUserInterface";
+import { consoleUserInterface } from "./testing/ui/consoleUserInterface";
 import { CloseServerWhenTestsComplete } from "./testing/CloseServerWhenTestsComplete";
 import { IvrTest } from "./testing/test/IvrTest";
 import { callConnectedTimeout } from "./testing/callConnectedTimeout";

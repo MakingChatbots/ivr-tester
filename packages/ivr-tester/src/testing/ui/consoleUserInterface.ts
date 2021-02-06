@@ -38,7 +38,7 @@ const ivrTestFailed = (testInstance: TestInstance): void =>
 
 const callConnected = (callServer: CallServer): void => {
   callServer.on("callConnected", () => {
-    console.log("Call connected to the server");
+    console.log("Call connected");
   });
 };
 
@@ -68,14 +68,14 @@ const callRequested = (emitter: Emitter<PluginEvents>): void =>
         console.log("Playing back audio to simulate call");
         break;
       case "telephony":
-        console.log(`Told Twilio to call ${event.requestedCall.call.to}`);
+        console.log(`Calling ${event.requestedCall.call.to}...`);
         break;
     }
   });
 
 const callRequestErrored = (emitter: Emitter<PluginEvents>): void =>
   emitter.on("callRequestErrored", (event) =>
-    console.error("Twilio failed to make the call...", event.error.message)
+    console.error(`Call failed`, event.error.message)
   );
 
 const ivrTestConditionMet = (testInstance: TestInstance): void =>
