@@ -10,6 +10,26 @@ An automated testing framework for Interactive Voice Response (IVR) flows.
 IVR Tester automates the testing of IVR flows by calling them, transcribing voice responses and replying with DTMF tones
 based on fluent test definitions.
 
+## Quick Start
+
+1. Create a Twilio account, load it with money and rent a phone number
+    * [Referral link](www.twilio.com/referral/9E7LvU) that gives you and me $10 free if you upgrade
+1. TRANSCRIBER
+1. Install and start ngrok
+    ```sh
+    npm install ngrok -g
+    ngrok http 8080
+    ```
+1. Set environment variables
+1. Run the tests
+   ```sh
+   # Local port that IVR Tester will listen on
+   export LOCAL_SERVER_PORT=8080
+   # URL that ngrok exposes to the outside world
+   export PUBLIC_SERVER_URL=$(curl -s localhost:4040/api/tunnels | jq -r .tunnels[0].public_url)
+   node test.js
+   ```
+
 ```ts
 testRunner()(
   {from: "0123 456 789", to: "0123 123 123"},
