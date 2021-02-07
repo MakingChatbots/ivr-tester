@@ -16,11 +16,10 @@ based on fluent test definitions.
     * [Referral link](www.twilio.com/referral/9E7LvU) that gives you and me $10 free if you upgrade
 1. TRANSCRIBER
 1. Install and start ngrok
-    ```sh
-    npm install ngrok -g
-    ngrok http 8080
-    ```
-1. Set environment variables
+   ```sh
+   npm install ngrok -g
+   ngrok http 8080
+   ```
 1. Run the tests
    ```sh
    # Local port that IVR Tester will listen on
