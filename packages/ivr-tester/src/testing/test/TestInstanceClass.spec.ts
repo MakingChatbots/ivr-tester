@@ -54,7 +54,7 @@ describe("Then response", () => {
       test: inOrder([
         {
           whenPrompt: contains("Hello"),
-          then: press("123", { disableAutomaticSlowdown: true }),
+          then: press("123"),
         },
       ]),
     };
