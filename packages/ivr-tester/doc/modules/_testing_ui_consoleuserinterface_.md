@@ -20,6 +20,6 @@
 
 ▸ `Const`**consoleUserInterface**(): [ConsoleLoggerPlugin](../interfaces/_testing_ui_consoleuserinterface_.consoleloggerplugin.md)
 
-*Defined in [packages/ivr-tester/src/testing/ui/consoleUserInterface.ts:111](https://github.com/SketchingDev/ivr-tester/blob/c05dd5d/packages/ivr-tester/src/testing/ui/consoleUserInterface.ts#L111)*
+*Defined in [packages/ivr-tester/src/testing/ui/consoleUserInterface.ts:111](https://github.com/SketchingDev/ivr-tester/blob/437ae33/packages/ivr-tester/src/testing/ui/consoleUserInterface.ts#L111)*
 
 **Returns:** [ConsoleLoggerPlugin](../interfaces/_testing_ui_consoleuserinterface_.consoleloggerplugin.md)
