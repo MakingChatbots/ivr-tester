@@ -10,13 +10,16 @@
     "ngrok": "ngrok http 8080",
     "lint:prettier": "prettier --list-different 'src/**/*.ts' --write",
     "lint:eslint": "eslint 'src/**/*.ts'",
-    "lint": "yarn lint:prettier && yarn lint:eslint"
+    "lint": "yarn lint:prettier && yarn lint:eslint",
+    "record": "terminalizer record --config ../../doc-assets/terminalizer-config.yml --skip-sharing terminal-recording",
+    "record:play": "terminalizer play terminal-recording",
+    "record:render": "rm -f terminal-recording.gif && terminalizer render -o terminal-recording terminal-recording"
   },
   "dependencies": {
     "dotenv": "^8.2.0",
     "ivr-tester": "^0.1.0",
-    "ivr-tester-transcriber-google-speech-to-text": "^0.1.0",
-    "ivr-tester-transcriber-amazon-transcribe": "^0.1.0"
+    "ivr-tester-transcriber-amazon-transcribe": "^0.1.0",
+    "ivr-tester-transcriber-google-speech-to-text": "^0.1.0"
   },
   "devDependencies": {
     "@types/node": "^14.11.1",
@@ -28,6 +31,7 @@
     "eslint-plugin-jest": "^24.0.2",
     "ngrok": "^3.2.7",
     "prettier": "^2.1.2",
+    "terminalizer": "^0.7.2",
     "ts-node": "^9.0.0",
     "typescript": "^4.1.3"
   }
