@@ -23,7 +23,7 @@ Details about the stream about to be recorded
 
 •  **call**: { from: string ; to: string  }
 
-*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:21](https://github.com/SketchingDev/ivr-tester/blob/437ae33/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L21)*
+*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:21](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L21)*
 
 #### Type declaration:
 
@@ -38,4 +38,4 @@ ___
 
 •  **sid**: string
 
-*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:20](https://github.com/SketchingDev/ivr-tester/blob/437ae33/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L20)*
+*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:20](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L20)*

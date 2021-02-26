@@ -32,7 +32,7 @@
 
 *Inherited from [Emitter](_emitter_.emitter.md).[emit](_emitter_.emitter.md#emit)*
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:13](https://github.com/SketchingDev/ivr-tester/blob/437ae33/packages/ivr-tester/src/Emitter.ts#L13)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:13](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/Emitter.ts#L13)*
 
 #### Type parameters:
 
@@ -55,7 +55,7 @@ ___
 
 ▸ **listen**(`port`: number): Promise\<URL>
 
-*Defined in [packages/ivr-tester/src/testing/TwilioCallServer.ts:21](https://github.com/SketchingDev/ivr-tester/blob/437ae33/packages/ivr-tester/src/testing/TwilioCallServer.ts#L21)*
+*Defined in [packages/ivr-tester/src/testing/TwilioCallServer.ts:21](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/testing/TwilioCallServer.ts#L21)*
 
 #### Parameters:
 
@@ -73,7 +73,7 @@ ___
 
 *Inherited from [Emitter](_emitter_.emitter.md).[off](_emitter_.emitter.md#off)*
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:12](https://github.com/SketchingDev/ivr-tester/blob/437ae33/packages/ivr-tester/src/Emitter.ts#L12)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:12](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/Emitter.ts#L12)*
 
 #### Type parameters:
 
@@ -98,7 +98,7 @@ ___
 
 *Inherited from [Emitter](_emitter_.emitter.md).[on](_emitter_.emitter.md#on)*
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:11](https://github.com/SketchingDev/ivr-tester/blob/437ae33/packages/ivr-tester/src/Emitter.ts#L11)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:11](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/Emitter.ts#L11)*
 
 #### Type parameters:
 
@@ -121,6 +121,6 @@ ___
 
 ▸ **stop**(): void
 
-*Defined in [packages/ivr-tester/src/testing/TwilioCallServer.ts:22](https://github.com/SketchingDev/ivr-tester/blob/437ae33/packages/ivr-tester/src/testing/TwilioCallServer.ts#L22)*
+*Defined in [packages/ivr-tester/src/testing/TwilioCallServer.ts:22](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/testing/TwilioCallServer.ts#L22)*
 
 **Returns:** void

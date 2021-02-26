@@ -20,7 +20,7 @@
 
 ▸ **test**(`transcript`: string, `call`: [Call](_call_call_.call.md)): [TestResult](_testing_test_testinstanceclass_.testresult.md)
 
-*Defined in [packages/ivr-tester/src/testing/test/IvrTest.ts:9](https://github.com/SketchingDev/ivr-tester/blob/437ae33/packages/ivr-tester/src/testing/test/IvrTest.ts#L9)*
+*Defined in [packages/ivr-tester/src/testing/test/IvrTest.ts:9](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/testing/test/IvrTest.ts#L9)*
 
 Called each time with a transcript is received
 

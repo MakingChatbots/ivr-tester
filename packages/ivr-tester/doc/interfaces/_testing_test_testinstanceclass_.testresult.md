@@ -21,7 +21,7 @@
 
 • `Optional` **matchedCondition**: [AssertThen](_testing_test_conditions_assertthen_.assertthen.md)
 
-*Defined in [packages/ivr-tester/src/testing/test/TestInstanceClass.ts:11](https://github.com/SketchingDev/ivr-tester/blob/437ae33/packages/ivr-tester/src/testing/test/TestInstanceClass.ts#L11)*
+*Defined in [packages/ivr-tester/src/testing/test/TestInstanceClass.ts:11](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/testing/test/TestInstanceClass.ts#L11)*
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 •  **result**: \"continue\" \| \"fail\" \| \"pass\"
 
-*Defined in [packages/ivr-tester/src/testing/test/TestInstanceClass.ts:12](https://github.com/SketchingDev/ivr-tester/blob/437ae33/packages/ivr-tester/src/testing/test/TestInstanceClass.ts#L12)*
+*Defined in [packages/ivr-tester/src/testing/test/TestInstanceClass.ts:12](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/testing/test/TestInstanceClass.ts#L12)*
