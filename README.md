@@ -16,11 +16,11 @@ testRunner()(
   { name: "Customer is asked to provide account number",
     test: inOrder([
       {
-        whenTranscript: similarTo("Press 1 to update your account details"),
+        whenPrompt: similarTo("Press 1 to update your account details"),
         then: press("1"),
       },
       {
-        whenTranscript: contains("enter your account number"),
+        whenPrompt: contains("enter your account number"),
         then: doNothing(),
       },
     ]),
@@ -28,11 +28,11 @@ testRunner()(
   { name: "Customer is told their option is unrecognised",
     test: inOrder([
       {
-        whenTranscript: similarTo("Press 1 to update your account details"),
+        whenPrompt: similarTo("Press 1 to update your account details"),
         then: press("2"),
       },
       {
-        whenTranscript: similarTo("Sorry, we did not understand your response"),
+        whenPrompt: similarTo("Sorry, we did not understand your response"),
         then: doNothing(),
       },
     ]),
@@ -124,7 +124,7 @@ to understanding the flow I would use `similarTo`, which matches based on a degr
 
 ```typescript
 {
-  whenTranscript: similarTo("Please enter your date of birth"),
+  whenPrompt: similarTo("Please enter your date of birth"),
   then: press("18121985"),
 }
 ```
@@ -133,7 +133,7 @@ Instead of say `contains` which would hide the fact a question is being asked to
 
 ```typescript
 {
-  whenTranscript: contains("date of birth"),
+  whenPrompt: contains("date of birth"),
   then: press("18121985"),
 }
 ```
