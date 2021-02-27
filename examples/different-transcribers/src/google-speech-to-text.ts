@@ -3,8 +3,10 @@ import {
   contains,
   doNothing,
   inOrder,
+  isAnything,
   IvrTest,
   press,
+  similarTo,
   testRunner,
   TestSubject,
 } from "ivr-tester";
@@ -20,28 +22,65 @@ const call: TestSubject = {
 };
 
 const tests: IvrTest[] = [
+  // {
+  //   name: "Keys pressed are read back",
+  //   test: inOrder([
+  //     {
+  //       whenPrompt: isAnything(),
+  //       then: press("1"),
+  //     },
+  //     {
+  //       whenPrompt: contains("please enter a number"),
+  //       then: press("0123456789"),
+  //     },
+  //     {
+  //       whenPrompt: contains("you entered the values 0123456789"),
+  //       then: doNothing(),
+  //     },
+  //   ]),
+  // },
+  // {
+  //   name: "API call with short latency",
+  //   test: inOrder([
+  //     {
+  //       whenPrompt: isAnything(),
+  //       then: press("3"),
+  //     },
+  //     {
+  //       whenPrompt: similarTo(
+  //         "please wait while we search for your phone number on our system"
+  //       ),
+  //       then: doNothing(),
+  //     },
+  //     {
+  //       whenPrompt: contains("please enter a number"),
+  //       then: press("123"),
+  //     },
+  //     {
+  //       whenPrompt: similarTo("you entered the values 123"),
+  //       then: doNothing(),
+  //     },
+  //   ]),
+  // },
   {
-    name: "Keys pressed are read back",
+    name: "API call with long latency",
     test: inOrder([
       {
-        whenPrompt: contains("please enter a number"),
-        then: press("0w1w2w3w4w5w6w7w8w9"),
+        whenPrompt: isAnything(),
+        then: press("4"),
       },
       {
-        whenPrompt: contains("you entered the values 0123456789"),
-        then: doNothing(),
-      },
-    ]),
-  },
-  {
-    name: "Times out when keys not pressed",
-    test: inOrder([
-      {
-        whenPrompt: contains("please enter a number"),
+        whenPrompt: similarTo(
+          "please wait while we search for your phone number on our system"
+        ),
         then: doNothing(),
       },
       {
-        whenPrompt: contains("you timed out"),
+        whenPrompt: contains("please enter a number"),
+        then: press("123"),
+      },
+      {
+        whenPrompt: similarTo("you entered the values 123"),
         then: doNothing(),
       },
     ]),
@@ -57,6 +96,7 @@ const config: Config = {
   recording: {
     outputPath: path.join(__dirname, "../recordings"),
   },
+  completeTranscriptionTimeoutInMs: 3000,
 };
 
 testRunner(config)(call, tests)
