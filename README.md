@@ -5,7 +5,9 @@
 ![](https://github.com/SketchingDev/ivr-tester/workflows/On%20Push/badge.svg)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSketchingDev%2Fivr-tester.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FSketchingDev%2Fivr-tester?ref=badge_shield)
 
-An automated testing framework for Interactive Voice Response (IVR) flows.
+Automate interactions with Interactive Voice Response (IVR) call flows.
+
+![Recording of IVR Tester interacting with an IVR flow](doc-assets/terminal-recording.gif)
 
 IVR Tester automates the testing of IVR flows by calling them, transcribing voice responses and replying with DTMF tones
 based on fluent test definitions.
