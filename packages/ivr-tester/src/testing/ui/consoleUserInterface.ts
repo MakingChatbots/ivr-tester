@@ -6,17 +6,32 @@ import { Emitter } from "../../Emitter";
 import { PluginEvents } from "../../plugins/PluginManager";
 import { TestInstance } from "../test/TestInstanceClass";
 
-const ivrTranscription = (testInstance: TestInstance): void =>
+const ivrTranscription = (
+  callServer: CallServer,
+  testInstance: TestInstance
+): void => {
+  let includeTestName = false;
+
+  let totalTests = 0;
+  callServer.on("testStarted", () => {
+    totalTests++;
+    if (totalTests >= 2) {
+      includeTestName = true;
+    }
+  });
+
   testInstance.on("progress", (event) => {
-    const state = chalk.blue.bold(
-      event.transcription.isFinal ? "Finished: " : "Transcribing: "
+    const state = chalk.gray.bold(
+      // event.transcription.isFinal ? "Finished: " :
+      "Transcribing: "
     );
 
+    const testName = includeTestName ? `${event.test.name}: ` : "";
     console.log(
-      state +
-        chalk.blue(`${event.test.name}: ${event.transcription.transcription}`)
+      state + chalk.gray(`${testName}${event.transcription.transcription}`)
     );
   });
+};
 
 const ivrTestPassed = (emitter: TestInstance): void =>
   emitter.on("testPassed", (event) =>
@@ -38,7 +53,7 @@ const ivrTestFailed = (testInstance: TestInstance): void =>
 
 const callConnected = (callServer: CallServer): void => {
   callServer.on("callConnected", () => {
-    console.log("Call connected to the server");
+    console.log("Call connected");
   });
 };
 
@@ -68,24 +83,42 @@ const callRequested = (emitter: Emitter<PluginEvents>): void =>
         console.log("Playing back audio to simulate call");
         break;
       case "telephony":
-        console.log(`Told Twilio to call ${event.requestedCall.call.to}`);
+        console.log(`Calling ${event.requestedCall.call.to}...`);
         break;
     }
   });
 
 const callRequestErrored = (emitter: Emitter<PluginEvents>): void =>
   emitter.on("callRequestErrored", (event) =>
-    console.error("Twilio failed to make the call...", event.error.message)
+    console.error(`Call failed`, event.error.message)
   );
 
-const ivrTestConditionMet = (testInstance: TestInstance): void =>
-  testInstance.on("conditionMet", (event) =>
-    console.log(
-      `${chalk.bold.blue("Test -")} ${chalk.bold.blue(event.test.name)}\n`,
-      `Them: "${event.transcription}"\n`,
-      `You: ${event.condition.then.describe()}\n`
-    )
-  );
+const ivrTestConditionMet = (
+  callServer: CallServer,
+  testInstance: TestInstance
+): void => {
+  let includeTestName = false;
+
+  let totalTests = 0;
+  callServer.on("testStarted", () => {
+    totalTests++;
+    if (totalTests >= 2) {
+      includeTestName = true;
+    }
+  });
+
+  testInstance.on("conditionMet", (event) => {
+    const lines: string[] = [];
+
+    if (includeTestName) {
+      lines.push(`Test - ${event.test.name}`);
+    }
+    lines.push(`Them: "${event.transcription}"`);
+    lines.push(`You: ${event.condition.then.describe()}`);
+
+    console.log(chalk.bold.blue(lines.join(`\n`)));
+  });
+};
 
 const callServerStarted = (eventEmitter: Emitter<PluginEvents>) => {
   eventEmitter.on("callServerStarted", ({ callServer }) => {
@@ -98,8 +131,8 @@ const callServerStarted = (eventEmitter: Emitter<PluginEvents>) => {
       console.log(`Call using test '${testInstance.getTest().name}'`);
       ivrTestPassed(testInstance);
       ivrTestFailed(testInstance);
-      ivrTestConditionMet(testInstance);
-      ivrTranscription(testInstance);
+      ivrTestConditionMet(callServer, testInstance);
+      ivrTranscription(callServer, testInstance);
     });
   });
 };

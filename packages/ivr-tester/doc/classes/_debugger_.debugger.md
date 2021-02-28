@@ -26,7 +26,7 @@
 
 ▪ `Static` `Private` **packageName**: string = "ivr-tester"
 
-*Defined in [packages/ivr-tester/src/Debugger.ts:4](https://github.com/SketchingDev/ivr-tester/blob/d4b858b/packages/ivr-tester/src/Debugger.ts#L4)*
+*Defined in [packages/ivr-tester/src/Debugger.ts:4](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/Debugger.ts#L4)*
 
 ## Methods
 
@@ -34,7 +34,7 @@
 
 ▸ `Static` `Private`**getDebugger**(`feature`: string): Debugger
 
-*Defined in [packages/ivr-tester/src/Debugger.ts:6](https://github.com/SketchingDev/ivr-tester/blob/d4b858b/packages/ivr-tester/src/Debugger.ts#L6)*
+*Defined in [packages/ivr-tester/src/Debugger.ts:6](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/Debugger.ts#L6)*
 
 #### Parameters:
 
@@ -50,7 +50,7 @@ ___
 
 ▸ `Static`**getPackageDebugger**(): Debugger
 
-*Defined in [packages/ivr-tester/src/Debugger.ts:10](https://github.com/SketchingDev/ivr-tester/blob/d4b858b/packages/ivr-tester/src/Debugger.ts#L10)*
+*Defined in [packages/ivr-tester/src/Debugger.ts:10](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/Debugger.ts#L10)*
 
 **Returns:** Debugger
 
@@ -60,6 +60,6 @@ ___
 
 ▸ `Static`**getTwilioDebugger**(): Debugger
 
-*Defined in [packages/ivr-tester/src/Debugger.ts:14](https://github.com/SketchingDev/ivr-tester/blob/d4b858b/packages/ivr-tester/src/Debugger.ts#L14)*
+*Defined in [packages/ivr-tester/src/Debugger.ts:14](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/Debugger.ts#L14)*
 
 **Returns:** Debugger

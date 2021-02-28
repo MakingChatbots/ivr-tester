@@ -118,7 +118,7 @@ export class MediaStreamRecorder {
     const filename = this.createFilename(event);
     const filepath = path.join(this.config.outputPath, filename);
 
-    console.log(`Recording inbound stream to '${filepath}'`);
+    console.log(`Recording inbound audio to '${filepath}'`);
     mkdirSync(this.config.outputPath, { recursive: true });
     this.writeStream = createWriteStream(filepath);
   }

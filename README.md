@@ -36,11 +36,11 @@ testRunner()(
     name: "Customer is asked to provide account number",
     test: inOrder([
       {
-        whenPrompt: similarTo("Press 1 to update your account details"),
+        whenTranscript: similarTo("Press 1 to update your account details"),
         then: press("1"),
       },
       {
-        whenPrompt: contains("enter your account number"),
+        whenTranscript: contains("enter your account number"),
         then: doNothing(),
       },
     ]),
@@ -49,11 +49,11 @@ testRunner()(
     name: "Customer is told their option is unrecognised",
     test: inOrder([
       {
-        whenPrompt: similarTo("Press 1 to update your account details"),
+        whenTranscript: similarTo("Press 1 to update your account details"),
         then: press("2"),
       },
       {
-        whenPrompt: similarTo("Sorry, we did not understand your response"),
+        whenTranscript: similarTo("Sorry, we did not understand your response"),
         then: doNothing(),
       },
     ]),

@@ -21,7 +21,7 @@
 
 •  **isFinal**: boolean
 
-*Defined in [packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts:7](https://github.com/SketchingDev/ivr-tester/blob/d4b858b/packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts#L7)*
+*Defined in [packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts:7](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts#L7)*
 
 Indicates whether the transcription isn't going to change
 
@@ -31,4 +31,4 @@ ___
 
 •  **transcription**: string
 
-*Defined in [packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts:8](https://github.com/SketchingDev/ivr-tester/blob/d4b858b/packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts#L8)*
+*Defined in [packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts:8](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts#L8)*

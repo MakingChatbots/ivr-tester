@@ -21,7 +21,7 @@
 
 Ƭ  **CallEvents**: { callClosed: [CallClosedEvent](../interfaces/_call_call_.callclosedevent.md)  }
 
-*Defined in [packages/ivr-tester/src/call/Call.ts:9](https://github.com/SketchingDev/ivr-tester/blob/d4b858b/packages/ivr-tester/src/call/Call.ts#L9)*
+*Defined in [packages/ivr-tester/src/call/Call.ts:9](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/call/Call.ts#L9)*
 
 #### Type declaration:
 

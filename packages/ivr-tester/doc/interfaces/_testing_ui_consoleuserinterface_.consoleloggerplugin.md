@@ -1,6 +1,6 @@
 **[IVR Tester](../README.md)**
 
-> [Globals](../README.md) / ["testing/reporting/consoleUserInterface"](../modules/_testing_reporting_consoleuserinterface_.md) / ConsoleLoggerPlugin
+> [Globals](../README.md) / ["testing/ui/consoleUserInterface"](../modules/_testing_ui_consoleuserinterface_.md) / ConsoleLoggerPlugin
 
 # Interface: ConsoleLoggerPlugin
 
@@ -14,8 +14,8 @@
 
 ### Methods
 
-* [initialise](_testing_reporting_consoleuserinterface_.consoleloggerplugin.md#initialise)
-* [timedOut](_testing_reporting_consoleuserinterface_.consoleloggerplugin.md#timedout)
+* [initialise](_testing_ui_consoleuserinterface_.consoleloggerplugin.md#initialise)
+* [timedOut](_testing_ui_consoleuserinterface_.consoleloggerplugin.md#timedout)
 
 ## Methods
 
@@ -25,7 +25,7 @@
 
 *Inherited from [IvrTesterPlugin](_plugins_ivrtesterplugin_.ivrtesterplugin.md).[initialise](_plugins_ivrtesterplugin_.ivrtesterplugin.md#initialise)*
 
-*Defined in [packages/ivr-tester/src/plugins/IvrTesterPlugin.ts:9](https://github.com/SketchingDev/ivr-tester/blob/d4b858b/packages/ivr-tester/src/plugins/IvrTesterPlugin.ts#L9)*
+*Defined in [packages/ivr-tester/src/plugins/IvrTesterPlugin.ts:9](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/plugins/IvrTesterPlugin.ts#L9)*
 
 #### Parameters:
 
@@ -41,7 +41,7 @@ ___
 
 ▸ **timedOut**(`reason`: string): void
 
-*Defined in [packages/ivr-tester/src/testing/reporting/consoleUserInterface.ts:108](https://github.com/SketchingDev/ivr-tester/blob/d4b858b/packages/ivr-tester/src/testing/reporting/consoleUserInterface.ts#L108)*
+*Defined in [packages/ivr-tester/src/testing/ui/consoleUserInterface.ts:141](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/testing/ui/consoleUserInterface.ts#L141)*
 
 #### Parameters:
 

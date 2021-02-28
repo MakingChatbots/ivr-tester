@@ -21,7 +21,7 @@
 
 • `Optional` **filename**: string \| [FilenameFactory](../modules/_call_recording_filename_filenamefactory_.md#filenamefactory)
 
-*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:26](https://github.com/SketchingDev/ivr-tester/blob/d4b858b/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L26)*
+*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:26](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L26)*
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 •  **outputPath**: string
 
-*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:25](https://github.com/SketchingDev/ivr-tester/blob/d4b858b/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L25)*
+*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:25](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L25)*

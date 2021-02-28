@@ -1,6 +1,6 @@
 {
   "name": "ivr-tester-transcriber-amazon-transcribe",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Amazon Transcribe integration for IVR Tester",
   "license": "MIT",
   "repository": {

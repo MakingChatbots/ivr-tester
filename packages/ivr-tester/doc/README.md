@@ -36,7 +36,6 @@
 * ["testing/IteratingTestAssigner"](modules/_testing_iteratingtestassigner_.md)
 * ["testing/TwilioCallServer"](modules/_testing_twiliocallserver_.md)
 * ["testing/callConnectedTimeout"](modules/_testing_callconnectedtimeout_.md)
-* ["testing/reporting/consoleUserInterface"](modules/_testing_reporting_consoleuserinterface_.md)
 * ["testing/test/IvrTest"](modules/_testing_test_ivrtest_.md)
 * ["testing/test/TestInstanceClass"](modules/_testing_test_testinstanceclass_.md)
 * ["testing/test/conditions/AssertThen"](modules/_testing_test_conditions_assertthen_.md)
@@ -53,3 +52,4 @@
 * ["testing/test/conditions/when/provided"](modules/_testing_test_conditions_when_provided_.md)
 * ["testing/test/conditions/when/similarTo"](modules/_testing_test_conditions_when_similarto_.md)
 * ["testing/test/inOrder"](modules/_testing_test_inorder_.md)
+* ["testing/ui/consoleUserInterface"](modules/_testing_ui_consoleuserinterface_.md)

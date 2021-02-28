@@ -7,5 +7,9 @@ import { Call } from "../../../../call/Call";
  */
 export const press = (dtmfSequence: string): Then => ({
   do: (call: Call) => call.sendDtmfTone(dtmfSequence),
-  describe: () => `press key(s) ${dtmfSequence}`,
+  describe: () => {
+    return dtmfSequence.length === 1
+      ? `press key ${dtmfSequence}`
+      : `press keys ${dtmfSequence}`;
+  },
 });
