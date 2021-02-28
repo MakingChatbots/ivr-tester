@@ -1,12 +1,12 @@
-import { AssertThen } from "./conditions/AssertThen";
+import { PromptDefinition } from "./conditions/PromptDefinition";
 import { TestResult } from "./TestInstanceClass";
 import { TestContainer } from "./IvrTest";
 
 /**
- * Executes {@link AssertThen}'s in order
+ * Executes {@link PromptDefinition}'s in order
  */
 export const inOrder: (
-  conditions: ReadonlyArray<AssertThen>
+  conditions: ReadonlyArray<PromptDefinition>
 ) => TestContainer = (conditions) => {
   let nextConditionIndex = 0;
 

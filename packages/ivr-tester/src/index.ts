@@ -1,6 +1,6 @@
 export * from "./testing/test/conditions/when";
 export * from "./testing/test/conditions/then";
-export * from "./testing/test/conditions/AssertThen";
+export * from "./testing/test/conditions/PromptDefinition";
 
 export * from "./testing/ui/consoleUserInterface";
 export * from "./plugins/IvrTesterPlugin";

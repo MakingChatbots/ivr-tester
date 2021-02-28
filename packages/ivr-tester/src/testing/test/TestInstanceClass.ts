@@ -1,4 +1,4 @@
-import { AssertThen } from "./conditions/AssertThen";
+import { PromptDefinition } from "./conditions/PromptDefinition";
 import {
   PromptTranscriptionEvent,
   CallTranscriptionEvents,
@@ -8,7 +8,7 @@ import { Emitter, TypedEmitter } from "../../Emitter";
 import { IvrTest } from "./IvrTest";
 
 export interface TestResult {
-  matchedCondition?: AssertThen;
+  matchedCondition?: PromptDefinition;
   result: "continue" | "fail" | "pass";
 }
 
@@ -24,7 +24,7 @@ export interface TestPassed {
 export interface TestConditionMet {
   test: IvrTest;
   transcription: string;
-  condition: AssertThen;
+  condition: PromptDefinition;
 }
 
 export interface TestProgressEvent {
@@ -124,7 +124,7 @@ export class TestInstanceClass
 
   private notifyOfConditionBeingMet(
     transcription: string,
-    condition: AssertThen
+    condition: PromptDefinition
   ): void {
     const event: TestConditionMet = {
       test: this.ivrTest,

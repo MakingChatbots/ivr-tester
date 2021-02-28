@@ -1,7 +1,7 @@
 import { inOrder } from "./inOrder";
 import { contains } from "./conditions/when";
 import { press } from "./conditions/then";
-import { AssertThen } from "../../index";
+import { PromptDefinition } from "../../index";
 import { Call } from "../../call/Call";
 
 describe("ordered conditions", () => {
@@ -32,7 +32,7 @@ describe("ordered conditions", () => {
   });
 
   test("all match and test passes for last one", () => {
-    const conditions: AssertThen[] = [
+    const conditions: PromptDefinition[] = [
       {
         whenPrompt: contains("Hello"),
         then: press("1"),
@@ -72,7 +72,7 @@ describe("ordered conditions", () => {
   });
 
   test("test failed when second condition doesn't match", () => {
-    const conditions: AssertThen[] = [
+    const conditions: PromptDefinition[] = [
       {
         whenPrompt: contains("Hello"),
         then: press("1"),
