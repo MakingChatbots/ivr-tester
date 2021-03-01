@@ -6,18 +6,30 @@
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSketchingDev%2Fivr-tester.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FSketchingDev%2Fivr-tester?ref=badge_shield)
 
 <p align="center">
-  Automate interactions with Interactive Voice Response (IVR) call flows.
+  Automate the testing of your IVR call flows!
   <img alt="Recording of IVR Tester interacting with an IVR flow" src="doc-assets/terminal-recording.gif" width="500">
 </p>
 
-IVR Tester automates the testing of IVR flows by calling them, transcribing voice responses and replying with DTMF tones
-based on fluent test definitions.
+IVR Tester automates the testing of IVR flows by calling them, interpreting prompts and replying with DTMF tones based 
+on fluent test definitions. 
+
+Features:
+  * Define IVR flows in a fluent Test Definitions 
+
+## How it works
+
+Before getting started it's wor
+
 
 ## Quick Start
 
-1. Create a Twilio account, load it with money and rent a phone number
-    * [Referral link](www.twilio.com/referral/9E7LvU) that gives you and me $10 free if you upgrade
-1. TRANSCRIBER
+1. [Create a Twilio account](https://www.twilio.com/referral/9E7LvU) (referral link for $10 free if you upgrade), load it with money and rent a phone number
+    1. Store an [authentication token](https://support.twilio.com/hc/en-us/articles/223136027-Auth-Tokens-and-How-to-Change-Them) in environment variables:
+   ```sh
+   export TWILIO_ACCOUNT_SID=ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+   export TWILIO_AUTH_TOKEN=your_auth_token
+   ```
+1. Configure your environment for either [Google's](packages/transcriber-google-speech-to-text) or [Amazon's](packages/transcriber-amazon-transcribe) transcription service
 1. Install and start ngrok
    ```sh
    npm install ngrok -g
