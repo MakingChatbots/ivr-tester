@@ -23,7 +23,7 @@ Performs an assertion when a prompt has been transcribed.
 
 •  **then**: [Then](_testing_test_conditions_then_then_.then.md)
 
-*Defined in [packages/ivr-tester/src/testing/test/conditions/AssertThen.ts:16](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/testing/test/conditions/AssertThen.ts#L16)*
+*Defined in [packages/ivr-tester/src/testing/test/conditions/AssertThen.ts:16](https://github.com/SketchingDev/ivr-tester/blob/16cd721/packages/ivr-tester/src/testing/test/conditions/AssertThen.ts#L16)*
 
 Action to perform following a successful assertion
 
@@ -33,6 +33,6 @@ ___
 
 •  **whenPrompt**: [When](../modules/_testing_test_conditions_when_when_.md#when)
 
-*Defined in [packages/ivr-tester/src/testing/test/conditions/AssertThen.ts:11](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/testing/test/conditions/AssertThen.ts#L11)*
+*Defined in [packages/ivr-tester/src/testing/test/conditions/AssertThen.ts:11](https://github.com/SketchingDev/ivr-tester/blob/16cd721/packages/ivr-tester/src/testing/test/conditions/AssertThen.ts#L11)*
 
 Assertion to perform against the transcription of a prompt

@@ -35,7 +35,7 @@ Closes the server when all the tests complete
 
 • `Private` **server**: [CallServer](../interfaces/_testing_twiliocallserver_.callserver.md)
 
-*Defined in [packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts:8](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts#L8)*
+*Defined in [packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts:8](https://github.com/SketchingDev/ivr-tester/blob/16cd721/packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts#L8)*
 
 ___
 
@@ -43,7 +43,7 @@ ___
 
 • `Private` **testsCompleted**: number = 0
 
-*Defined in [packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts:10](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts#L10)*
+*Defined in [packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts:10](https://github.com/SketchingDev/ivr-tester/blob/16cd721/packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts#L10)*
 
 ___
 
@@ -51,7 +51,7 @@ ___
 
 • `Private` **totalTests**: number = 0
 
-*Defined in [packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts:9](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts#L9)*
+*Defined in [packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts:9](https://github.com/SketchingDev/ivr-tester/blob/16cd721/packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts#L9)*
 
 ## Methods
 
@@ -59,7 +59,7 @@ ___
 
 ▸ `Private`**callHandlingServerStarted**(`callServer`: [CallServer](../interfaces/_testing_twiliocallserver_.callserver.md)): void
 
-*Defined in [packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts:25](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts#L25)*
+*Defined in [packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts:25](https://github.com/SketchingDev/ivr-tester/blob/16cd721/packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts#L25)*
 
 #### Parameters:
 
@@ -77,7 +77,7 @@ ___
 
 *Implementation of [IvrTesterPlugin](../interfaces/_plugins_ivrtesterplugin_.ivrtesterplugin.md)*
 
-*Defined in [packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts:12](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts#L12)*
+*Defined in [packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts:12](https://github.com/SketchingDev/ivr-tester/blob/16cd721/packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts#L12)*
 
 #### Parameters:
 
@@ -93,7 +93,7 @@ ___
 
 ▸ `Private`**testCompleted**(): void
 
-*Defined in [packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts:33](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts#L33)*
+*Defined in [packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts:33](https://github.com/SketchingDev/ivr-tester/blob/16cd721/packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts#L33)*
 
 **Returns:** void
 
@@ -103,6 +103,6 @@ ___
 
 ▸ `Private`**testStarted**(): void
 
-*Defined in [packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts:29](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts#L29)*
+*Defined in [packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts:29](https://github.com/SketchingDev/ivr-tester/blob/16cd721/packages/ivr-tester/src/testing/CloseServerWhenTestsComplete.ts#L29)*
 
 **Returns:** void

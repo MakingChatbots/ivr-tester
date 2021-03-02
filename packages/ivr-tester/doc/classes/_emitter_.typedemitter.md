@@ -44,7 +44,7 @@ Name | Type |
 
 • `Private` `Readonly` **emitter**: EventEmitter = new EventEmitter()
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:17](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/Emitter.ts#L17)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:17](https://github.com/SketchingDev/ivr-tester/blob/16cd721/packages/ivr-tester/src/Emitter.ts#L17)*
 
 ## Methods
 
@@ -54,7 +54,7 @@ Name | Type |
 
 *Implementation of [Emitter](../interfaces/_emitter_.emitter.md)*
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:35](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/Emitter.ts#L35)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:35](https://github.com/SketchingDev/ivr-tester/blob/16cd721/packages/ivr-tester/src/Emitter.ts#L35)*
 
 #### Type parameters:
 
@@ -79,7 +79,7 @@ ___
 
 *Implementation of [Emitter](../interfaces/_emitter_.emitter.md)*
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:27](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/Emitter.ts#L27)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:27](https://github.com/SketchingDev/ivr-tester/blob/16cd721/packages/ivr-tester/src/Emitter.ts#L27)*
 
 #### Type parameters:
 
@@ -104,7 +104,7 @@ ___
 
 *Implementation of [Emitter](../interfaces/_emitter_.emitter.md)*
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:19](https://github.com/SketchingDev/ivr-tester/blob/60c8b59/packages/ivr-tester/src/Emitter.ts#L19)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:19](https://github.com/SketchingDev/ivr-tester/blob/16cd721/packages/ivr-tester/src/Emitter.ts#L19)*
 
 #### Type parameters:
 
