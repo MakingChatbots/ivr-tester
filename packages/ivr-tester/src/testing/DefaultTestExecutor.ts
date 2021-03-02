@@ -17,7 +17,7 @@ export class DefaultTestExecutor implements TestExecutor {
   public startTest(test: IvrTest, call: Call): TestInstance {
     const callTranscriber = new CallTranscriber(
       call,
-      this.transcriberFactory(),
+      this.transcriberFactory.create(),
       this.completeTranscriptionTimeoutInMs
     );
 
