@@ -40,10 +40,24 @@ export const googleSpeechToText = (
     useEnhanced = false,
   }: GoogleSpeechToTextOptions = {},
   speechClient = new SpeechClient()
-): TranscriberFactory => () =>
-  new GoogleSpeechToText(
-    languageCode,
-    speechPhrases,
-    useEnhanced,
-    speechClient
-  );
+): TranscriberFactory => ({
+  create: () =>
+    new GoogleSpeechToText(
+      languageCode,
+      speechPhrases,
+      useEnhanced,
+      speechClient
+    ),
+  checkCanRun: async () => {
+    try {
+      await speechClient.auth.getCredentials();
+    } catch (error) {
+      return {
+        canRun: false,
+        reason: `Cannot find Google Speech-to-Text credentials:\n${error.message}`,
+      };
+    }
+
+    return { canRun: true };
+  },
+});

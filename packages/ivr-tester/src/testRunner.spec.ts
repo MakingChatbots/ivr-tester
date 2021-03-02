@@ -64,7 +64,10 @@ describe("Test Runner", () => {
       localServerPort: callServerPort,
       twilioClient: (twilioClient as unknown) as Twilio,
       dtmfGenerator: { generate: jest.fn() },
-      transcriber: () => new TranscriberTestDouble(),
+      transcriber: {
+        create: () => new TranscriberTestDouble(),
+        checkCanRun: () => ({ canRun: true }),
+      },
     };
   });
 
@@ -161,7 +164,10 @@ describe("Test Runner", () => {
     const config: Config = {
       ...commonConfig,
       completeTranscriptionTimeoutInMs: 1,
-      transcriber: () => transcriber,
+      transcriber: {
+        create: () => transcriber,
+        checkCanRun: () => ({ canRun: true }),
+      },
     };
 
     const runner = testRunner(config);
