@@ -16,8 +16,9 @@ export type CanRunCheck = CanRun | CannotRun;
  */
 export interface TranscriberFactory {
   /**
-   * Called early on in the process to ensure the transcriber has
-   * everything it needs to work properly e.g. credentials
+   * Called on startup to check that the transcriber has
+   * everything it needs to work properly when a call is connected
+   * e.g. credentials
    */
   checkCanRun: () => Promise<CanRunCheck> | CanRunCheck;
 
