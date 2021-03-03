@@ -20,7 +20,7 @@
 
 ▸ `Const`**contains**(`partialOrWhen`: string \| string[] \| [When](_testing_test_conditions_when_when_.md#when), `__namedParameters?`: { ignoreCasing: boolean = true }): [When](_testing_test_conditions_when_when_.md#when)
 
-*Defined in [packages/ivr-tester/src/testing/test/conditions/when/contains.ts:36](https://github.com/SketchingDev/ivr-tester/blob/437ae33/packages/ivr-tester/src/testing/test/conditions/when/contains.ts#L36)*
+*Defined in [packages/ivr-tester/src/testing/test/conditions/when/contains.ts:36](https://github.com/SketchingDev/ivr-tester/blob/3b0e141/packages/ivr-tester/src/testing/test/conditions/when/contains.ts#L36)*
 
 Evaluates whether a transcript contains
 * Either a piece of text if a string is provided

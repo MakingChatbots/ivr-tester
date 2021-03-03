@@ -38,6 +38,13 @@ export const testRunner = (config: Config) => async (
   ]);
   pluginManager.initialise();
 
+  const checkResults = await config.transcriber.checkCanRun();
+  if (checkResults.canRun === false) {
+    throw new Error(
+      `Error with the transcriber you've chosen:\n${checkResults.reason}`
+    );
+  }
+
   const testExecutor = new DefaultTestExecutor(
     config.transcriber,
     config.completeTranscriptionTimeoutInMs

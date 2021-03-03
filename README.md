@@ -10,6 +10,12 @@ An automated testing framework for Interactive Voice Response (IVR) flows.
 IVR Tester automates the testing of IVR flows by calling them, transcribing voice responses and replying with DTMF tones
 based on fluent test definitions.
 
+---
+
+<p align="center">WORK IN PROGRESS</p>
+
+---
+
 ```typescript
 testRunner()(
   { from: "0123 456 789", to: "0123 123 123" },

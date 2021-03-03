@@ -21,7 +21,7 @@
 
 •  **call**: [TestSubject](_testrunner_.testsubject.md)
 
-*Defined in [packages/ivr-tester/src/call/Caller.ts:11](https://github.com/SketchingDev/ivr-tester/blob/437ae33/packages/ivr-tester/src/call/Caller.ts#L11)*
+*Defined in [packages/ivr-tester/src/call/Caller.ts:11](https://github.com/SketchingDev/ivr-tester/blob/3b0e141/packages/ivr-tester/src/call/Caller.ts#L11)*
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 •  **type**: \"telephony\"
 
-*Defined in [packages/ivr-tester/src/call/Caller.ts:10](https://github.com/SketchingDev/ivr-tester/blob/437ae33/packages/ivr-tester/src/call/Caller.ts#L10)*
+*Defined in [packages/ivr-tester/src/call/Caller.ts:10](https://github.com/SketchingDev/ivr-tester/blob/3b0e141/packages/ivr-tester/src/call/Caller.ts#L10)*

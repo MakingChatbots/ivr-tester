@@ -6,16 +6,20 @@
 
 ## Index
 
+### Interfaces
+
+* [CanRun](../interfaces/_call_transcription_plugin_transcriberfactory_.canrun.md)
+* [CannotRun](../interfaces/_call_transcription_plugin_transcriberfactory_.cannotrun.md)
+* [TranscriberFactory](../interfaces/_call_transcription_plugin_transcriberfactory_.transcriberfactory.md)
+
 ### Type aliases
 
-* [TranscriberFactory](_call_transcription_plugin_transcriberfactory_.md#transcriberfactory)
+* [CanRunCheck](_call_transcription_plugin_transcriberfactory_.md#canruncheck)
 
 ## Type aliases
 
-### TranscriberFactory
+### CanRunCheck
 
-Ƭ  **TranscriberFactory**: () => [TranscriberPlugin](../interfaces/_call_transcription_plugin_transcriberplugin_.transcriberplugin.md)
+Ƭ  **CanRunCheck**: [CanRun](../interfaces/_call_transcription_plugin_transcriberfactory_.canrun.md) \| [CannotRun](../interfaces/_call_transcription_plugin_transcriberfactory_.cannotrun.md)
 
-*Defined in [packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts:6](https://github.com/SketchingDev/ivr-tester/blob/437ae33/packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts#L6)*
-
-Factory to create a instance of a transcriber per test
+*Defined in [packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts:12](https://github.com/SketchingDev/ivr-tester/blob/3b0e141/packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts#L12)*

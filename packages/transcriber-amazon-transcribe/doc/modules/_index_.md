@@ -20,7 +20,7 @@
 
 ▸ `Const`**amazonTranscribe**(`__namedParameters`: { languageCode: LANGUAGES = "en-US"; region: AVAILABLE\_REGIONS  }): TranscriberFactory
 
-*Defined in [transcriber-amazon-transcribe/src/index.ts:25](https://github.com/SketchingDev/ivr-tester/blob/437ae33/packages/transcriber-amazon-transcribe/src/index.ts#L25)*
+*Defined in [transcriber-amazon-transcribe/src/index.ts:25](https://github.com/SketchingDev/ivr-tester/blob/3b0e141/packages/transcriber-amazon-transcribe/src/index.ts#L25)*
 
 Factory for creating an Amazon Transcribe transcriber plugin that is preconfigured for
 phone-calls - specifically 8-bit PCM mono uLaw with a sampling rate of 8Khz.

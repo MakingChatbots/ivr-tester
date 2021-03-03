@@ -42,4 +42,7 @@ const config: Config = {
 
 testRunner(config)(call, test)
   .then(() => process.exit(0))
-  .catch(() => process.exit(1));
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });

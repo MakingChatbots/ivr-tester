@@ -40,7 +40,7 @@ describe("Amazon Transcribe", () => {
     transcriber = amazonTranscribe({
       region: "us-east-1",
       languageCode: "en-GB",
-    })();
+    }).create();
   });
 
   afterEach(() => transcriber.close());

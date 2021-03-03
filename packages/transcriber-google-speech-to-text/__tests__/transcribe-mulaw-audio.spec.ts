@@ -37,7 +37,7 @@ describe("Google Speech-to-Text", () => {
   beforeEach(() => {
     audioFile = fs.readFileSync(audioFilePath);
 
-    transcriber = googleSpeechToText()();
+    transcriber = googleSpeechToText().create();
   });
 
   afterEach(() => transcriber.close());

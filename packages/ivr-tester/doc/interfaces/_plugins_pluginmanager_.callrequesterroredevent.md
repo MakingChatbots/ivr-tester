@@ -20,4 +20,4 @@
 
 •  **error**: [Error](../classes/_configuration_configurationerror_.configurationerror.md#error)
 
-*Defined in [packages/ivr-tester/src/plugins/PluginManager.ts:12](https://github.com/SketchingDev/ivr-tester/blob/437ae33/packages/ivr-tester/src/plugins/PluginManager.ts#L12)*
+*Defined in [packages/ivr-tester/src/plugins/PluginManager.ts:12](https://github.com/SketchingDev/ivr-tester/blob/3b0e141/packages/ivr-tester/src/plugins/PluginManager.ts#L12)*
