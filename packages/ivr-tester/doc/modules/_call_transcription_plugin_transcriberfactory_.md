@@ -22,4 +22,4 @@
 
 Ƭ  **CanRunCheck**: [CanRun](../interfaces/_call_transcription_plugin_transcriberfactory_.canrun.md) \| [CannotRun](../interfaces/_call_transcription_plugin_transcriberfactory_.cannotrun.md)
 
-*Defined in [packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts:12](https://github.com/SketchingDev/ivr-tester/blob/16cd721/packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts#L12)*
+*Defined in [packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts:12](https://github.com/SketchingDev/ivr-tester/blob/3b0e141/packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts#L12)*

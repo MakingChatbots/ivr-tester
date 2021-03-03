@@ -33,7 +33,7 @@
 
 \+ **new DefaultTestExecutor**(`transcriberFactory`: [TranscriberFactory](../interfaces/_call_transcription_plugin_transcriberfactory_.transcriberfactory.md), `completeTranscriptionTimeoutInMs`: number): [DefaultTestExecutor](_testing_defaulttestexecutor_.defaulttestexecutor.md)
 
-*Defined in [packages/ivr-tester/src/testing/DefaultTestExecutor.ts:11](https://github.com/SketchingDev/ivr-tester/blob/16cd721/packages/ivr-tester/src/testing/DefaultTestExecutor.ts#L11)*
+*Defined in [packages/ivr-tester/src/testing/DefaultTestExecutor.ts:11](https://github.com/SketchingDev/ivr-tester/blob/3b0e141/packages/ivr-tester/src/testing/DefaultTestExecutor.ts#L11)*
 
 #### Parameters:
 
@@ -50,7 +50,7 @@ Name | Type |
 
 • `Private` `Readonly` **completeTranscriptionTimeoutInMs**: number
 
-*Defined in [packages/ivr-tester/src/testing/DefaultTestExecutor.ts:14](https://github.com/SketchingDev/ivr-tester/blob/16cd721/packages/ivr-tester/src/testing/DefaultTestExecutor.ts#L14)*
+*Defined in [packages/ivr-tester/src/testing/DefaultTestExecutor.ts:14](https://github.com/SketchingDev/ivr-tester/blob/3b0e141/packages/ivr-tester/src/testing/DefaultTestExecutor.ts#L14)*
 
 ___
 
@@ -58,7 +58,7 @@ ___
 
 • `Private` `Readonly` **transcriberFactory**: [TranscriberFactory](../interfaces/_call_transcription_plugin_transcriberfactory_.transcriberfactory.md)
 
-*Defined in [packages/ivr-tester/src/testing/DefaultTestExecutor.ts:13](https://github.com/SketchingDev/ivr-tester/blob/16cd721/packages/ivr-tester/src/testing/DefaultTestExecutor.ts#L13)*
+*Defined in [packages/ivr-tester/src/testing/DefaultTestExecutor.ts:13](https://github.com/SketchingDev/ivr-tester/blob/3b0e141/packages/ivr-tester/src/testing/DefaultTestExecutor.ts#L13)*
 
 ## Methods
 
@@ -68,7 +68,7 @@ ___
 
 *Implementation of [TestExecutor](../interfaces/_testing_defaulttestexecutor_.testexecutor.md)*
 
-*Defined in [packages/ivr-tester/src/testing/DefaultTestExecutor.ts:17](https://github.com/SketchingDev/ivr-tester/blob/16cd721/packages/ivr-tester/src/testing/DefaultTestExecutor.ts#L17)*
+*Defined in [packages/ivr-tester/src/testing/DefaultTestExecutor.ts:17](https://github.com/SketchingDev/ivr-tester/blob/3b0e141/packages/ivr-tester/src/testing/DefaultTestExecutor.ts#L17)*
 
 #### Parameters:
 
