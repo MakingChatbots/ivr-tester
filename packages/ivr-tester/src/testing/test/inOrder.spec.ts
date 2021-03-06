@@ -1,11 +1,33 @@
 import { inOrder } from "./inOrder";
 import { contains } from "./conditions/when";
 import { press } from "./conditions/then";
-import { PromptDefinition } from "../../index";
+import { TranscriberPlugin, TranscriptEvent } from "../../index";
 import { Call } from "../../call/Call";
+import { EventEmitter } from "events";
+import waitForExpect from "wait-for-expect";
+
+class TranscriberTestDouble extends EventEmitter implements TranscriberPlugin {
+  public close(): void {
+    //Intentionally empty
+  }
+  public transcribe(): void {
+    //Intentionally empty
+  }
+
+  public produceTranscriptionEvent(event: TranscriptEvent): void {
+    this.emit("transcription", event);
+  }
+
+  public transcriptionComplete(): void {
+    //Intentionally empty
+  }
+}
+
+// TODO Update tests to use Fake Timers https://jestjs.io/docs/en/timer-mocks
 
 describe("ordered conditions", () => {
   let call: jest.Mocked<Call>;
+  let transcriberPlugin: TranscriberTestDouble;
 
   beforeEach(() => {
     call = {
@@ -18,84 +40,200 @@ describe("ordered conditions", () => {
       off: jest.fn(),
       emit: jest.fn(),
     };
+    transcriberPlugin = new TranscriberTestDouble();
   });
 
-  test("test passes if no conditions provided", () => {
-    const orderedConditions = inOrder([]);
+  test("prompt presses 123 when transcript only contains Hello", async () => {
+    const promptContainer = inOrder([
+      {
+        whenPrompt: contains("Hello"),
+        then: press("123"),
+        silenceAfterPrompt: 0,
+      },
+    ]);
 
-    const testOutcome = orderedConditions.test("Hello", call);
+    promptContainer.start(transcriberPlugin, call);
 
+    transcriberPlugin.produceTranscriptionEvent({
+      isFinal: false,
+      transcription: "Hel",
+    });
     expect(call.sendDtmfTone).not.toHaveBeenCalled();
-    expect(testOutcome).toMatchObject({
-      result: "pass",
+
+    transcriberPlugin.produceTranscriptionEvent({
+      isFinal: false,
+      transcription: "Hello",
     });
+
+    await waitForExpect(() => {
+      expect(call.sendDtmfTone).toHaveBeenCalledTimes(1);
+    });
+
+    expect(call.sendDtmfTone).toHaveBeenCalledWith("123");
   });
 
-  test("all match and test passes for last one", () => {
-    const conditions: PromptDefinition[] = [
+  test(`prompt presses 123 when transcript only contains Hello,
+  then second prompt presses 321 when transcript only contains World`, async () => {
+    const promptContainer = inOrder([
       {
         whenPrompt: contains("Hello"),
-        then: press("1"),
+        then: press("123"),
+        silenceAfterPrompt: 0,
       },
       {
-        whenPrompt: contains("Jane"),
-        then: press("2"),
+        whenPrompt: contains("World"),
+        then: press("321"),
+        silenceAfterPrompt: 0,
       },
-      {
-        whenPrompt: contains("Austen"),
-        then: press("3"),
-      },
-    ];
+    ]);
 
-    const orderedConditions = inOrder(conditions);
+    promptContainer.start(transcriberPlugin, call);
 
-    const testOutcome1 = orderedConditions.test("Hello", call);
-    expect(call.sendDtmfTone).toHaveBeenCalled();
-    expect(testOutcome1).toMatchObject({
-      matchedCondition: conditions[0],
-      result: "continue",
+    transcriberPlugin.produceTranscriptionEvent({
+      isFinal: false,
+      transcription: "Hello",
     });
 
-    const testOutcome2 = orderedConditions.test("Jane", call);
-    expect(call.sendDtmfTone).toHaveBeenCalled();
-    expect(testOutcome2).toMatchObject({
-      matchedCondition: conditions[1],
-      result: "continue",
+    await waitForExpect(() => {
+      expect(call.sendDtmfTone).toHaveBeenCalledTimes(1);
     });
 
-    const testOutcome3 = orderedConditions.test("Austen", call);
-    expect(call.sendDtmfTone).toHaveBeenCalled();
-    expect(testOutcome3).toMatchObject({
-      matchedCondition: conditions[2],
-      result: "pass",
+    transcriberPlugin.produceTranscriptionEvent({
+      isFinal: false,
+      transcription: "Wor",
     });
+
+    transcriberPlugin.produceTranscriptionEvent({
+      isFinal: false,
+      transcription: "World",
+    });
+
+    await waitForExpect(() => {
+      expect(call.sendDtmfTone).toHaveBeenCalledTimes(2);
+    });
+
+    expect(call.sendDtmfTone).toHaveBeenCalledWith("321");
   });
 
-  test("test failed when second condition doesn't match", () => {
-    const conditions: PromptDefinition[] = [
+  test(`prompt presses 234 when transcript contains Hello,
+  then second prompt presses 345 when transcript contains World within Hello World`, async () => {
+    const promptContainer = inOrder([
       {
         whenPrompt: contains("Hello"),
-        then: press("1"),
+        then: press("234"),
+        silenceAfterPrompt: 0,
       },
       {
-        whenPrompt: contains("Jane"),
-        then: press("2"),
+        whenPrompt: contains("World"),
+        then: press("345"),
+        silenceAfterPrompt: 0,
       },
-    ];
+    ]);
 
-    const orderedConditions = inOrder(conditions);
+    promptContainer.start(transcriberPlugin, call);
 
-    const testOutcome1 = orderedConditions.test("Hello", call);
-    expect(call.sendDtmfTone).toHaveBeenCalled();
-    expect(testOutcome1).toMatchObject({
-      matchedCondition: conditions[0],
-      result: "continue",
+    transcriberPlugin.produceTranscriptionEvent({
+      isFinal: false,
+      transcription: "Hello",
     });
 
-    const testOutcome2 = orderedConditions.test("Darcy", call);
-    expect(call.sendDtmfTone).toHaveBeenCalled();
-    expect(testOutcome2).toMatchObject({
-      result: "fail",
+    await waitForExpect(() => {
+      expect(call.sendDtmfTone).toHaveBeenCalledTimes(1);
     });
+
+    transcriberPlugin.produceTranscriptionEvent({
+      isFinal: false,
+      transcription: "Hello Wor",
+    });
+
+    transcriberPlugin.produceTranscriptionEvent({
+      isFinal: false,
+      transcription: "Hello World",
+    });
+
+    await waitForExpect(() => {
+      expect(call.sendDtmfTone).toHaveBeenCalledTimes(2);
+    });
+
+    expect(call.sendDtmfTone).toHaveBeenCalledWith("345");
   });
+
+  // test("test passes if no conditions provided", () => {
+  //   const orderedConditions = inOrder([]);
+  //
+  //   const testOutcome = orderedConditions.start("Hello", call);
+  //
+  //   expect(call.sendDtmfTone).not.toHaveBeenCalled();
+  //   expect(testOutcome).toMatchObject({
+  //     result: "pass",
+  //   });
+  // });
+  //
+  // test("all match and test passes for last one", () => {
+  //   const conditions: PromptDefinition[] = [
+  //     {
+  //       whenPrompt: contains("Hello"),
+  //       then: press("1"),
+  //     },
+  //     {
+  //       whenPrompt: contains("Jane"),
+  //       then: press("2"),
+  //     },
+  //     {
+  //       whenPrompt: contains("Austen"),
+  //       then: press("3"),
+  //     },
+  //   ];
+  //
+  //   const orderedConditions = inOrder(conditions);
+  //
+  //   const testOutcome1 = orderedConditions.start("Hello", call);
+  //   expect(call.sendDtmfTone).toHaveBeenCalled();
+  //   expect(testOutcome1).toMatchObject({
+  //     matchedCondition: conditions[0],
+  //     result: "continue",
+  //   });
+  //
+  //   const testOutcome2 = orderedConditions.start("Jane", call);
+  //   expect(call.sendDtmfTone).toHaveBeenCalled();
+  //   expect(testOutcome2).toMatchObject({
+  //     matchedCondition: conditions[1],
+  //     result: "continue",
+  //   });
+  //
+  //   const testOutcome3 = orderedConditions.start("Austen", call);
+  //   expect(call.sendDtmfTone).toHaveBeenCalled();
+  //   expect(testOutcome3).toMatchObject({
+  //     matchedCondition: conditions[2],
+  //     result: "pass",
+  //   });
+  // });
+  //
+  // test("test failed when second condition doesn't match", () => {
+  //   const conditions: PromptDefinition[] = [
+  //     {
+  //       whenPrompt: contains("Hello"),
+  //       then: press("1"),
+  //     },
+  //     {
+  //       whenPrompt: contains("Jane"),
+  //       then: press("2"),
+  //     },
+  //   ];
+  //
+  //   const orderedConditions = inOrder(conditions);
+  //
+  //   const testOutcome1 = orderedConditions.start("Hello", call);
+  //   expect(call.sendDtmfTone).toHaveBeenCalled();
+  //   expect(testOutcome1).toMatchObject({
+  //     matchedCondition: conditions[0],
+  //     result: "continue",
+  //   });
+  //
+  //   const testOutcome2 = orderedConditions.start("Darcy", call);
+  //   expect(call.sendDtmfTone).toHaveBeenCalled();
+  //   expect(testOutcome2).toMatchObject({
+  //     result: "fail",
+  //   });
+  // });
 });

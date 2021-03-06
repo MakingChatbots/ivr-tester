@@ -8,7 +8,7 @@ import { Emitter, TypedEmitter } from "../../Emitter";
 import { IvrTest } from "./IvrTest";
 
 export interface TestResult {
-  matchedCondition?: PromptDefinition;
+  matchedPrompt?: PromptDefinition;
   result: "continue" | "fail" | "pass";
 }
 
@@ -83,21 +83,25 @@ export class TestInstanceClass
       return;
     }
 
-    const testOutcome = this.ivrTest.test.test(transcription, this.call);
+    // XX Broke this intentionally
+    const testOutcome = this.ivrTest.test.start(
+      transcription as any,
+      this.call
+    );
     switch (testOutcome.result) {
       case "continue":
-        if (testOutcome.matchedCondition) {
+        if (testOutcome.matchedPrompt) {
           this.notifyOfConditionBeingMet(
             transcription,
-            testOutcome.matchedCondition
+            testOutcome.matchedPrompt
           );
         }
         return;
       case "pass":
-        if (testOutcome.matchedCondition) {
+        if (testOutcome.matchedPrompt) {
           this.notifyOfConditionBeingMet(
             transcription,
-            testOutcome.matchedCondition
+            testOutcome.matchedPrompt
           );
         }
         this.notifyOfPassedTest();
