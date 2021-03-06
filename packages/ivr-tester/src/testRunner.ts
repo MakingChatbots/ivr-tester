@@ -10,7 +10,7 @@ import { AudioPlaybackCaller } from "./call/AudioPlaybackCaller";
 import { Caller } from "./call/Caller";
 import { consoleUserInterface } from "./testing/ui/consoleUserInterface";
 import { CloseServerWhenTestsComplete } from "./testing/CloseServerWhenTestsComplete";
-import { IvrTest } from "./testing/test/IvrTest";
+import { CallFlowTest } from "./testing/test/CallFlowTest";
 import { callConnectedTimeout } from "./testing/callConnectedTimeout";
 
 export interface TestSubject {
@@ -23,7 +23,7 @@ export interface TestSubject {
  */
 export const testRunner = (config: Config) => async (
   call: TestSubject | Buffer,
-  ivrTest: IvrTest[] | IvrTest
+  ivrTest: CallFlowTest[] | CallFlowTest
 ): Promise<void> => {
   config = populateDefaults(config);
 

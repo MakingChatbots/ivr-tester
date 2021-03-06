@@ -1,11 +1,11 @@
 import { TranscriberFactory } from "../call/transcription/plugin/TranscriberFactory";
 import { Call } from "../call/Call";
 import { CallTranscriber } from "../call/transcription/CallTranscriber";
-import { IvrTest } from "./test/IvrTest";
+import { CallFlowTest } from "./test/CallFlowTest";
 import { TestInstance, TestInstanceClass } from "./test/TestInstanceClass";
 
 export interface TestExecutor {
-  startTest(test: IvrTest, call: Call): TestInstance;
+  startTest(test: CallFlowTest, call: Call): TestInstance;
 }
 
 export class DefaultTestExecutor implements TestExecutor {
@@ -14,7 +14,7 @@ export class DefaultTestExecutor implements TestExecutor {
     private readonly completeTranscriptionTimeoutInMs: number
   ) {}
 
-  public startTest(test: IvrTest, call: Call): TestInstance {
+  public startTest(test: CallFlowTest, call: Call): TestInstance {
     const callTranscriber = new CallTranscriber(
       call,
       this.transcriberFactory.create(),

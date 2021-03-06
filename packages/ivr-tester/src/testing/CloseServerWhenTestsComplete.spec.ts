@@ -8,7 +8,7 @@ import {
 } from "./TwilioCallServer";
 import { Call } from "../call/Call";
 import { TestInstance, TestInstanceEvents } from "./test/TestInstanceClass";
-import { IvrTest } from "./test/IvrTest";
+import { CallFlowTest } from "./test/CallFlowTest";
 import { URL } from "url";
 
 class StubCallServer
@@ -37,7 +37,7 @@ class StubTestInstance
     throw new Error("Not Implemented");
   }
 
-  getTest(): IvrTest {
+  getTest(): CallFlowTest {
     throw new Error("Not Implemented");
   }
 }

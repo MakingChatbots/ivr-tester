@@ -1,4 +1,4 @@
-import { IvrTest } from "./test/IvrTest";
+import { CallFlowTest } from "./test/CallFlowTest";
 
 export interface AssignedResult {
   isAssigned: boolean;
@@ -6,7 +6,7 @@ export interface AssignedResult {
 
 export interface TestAssigned extends AssignedResult {
   isAssigned: true;
-  test: IvrTest;
+  test: CallFlowTest;
 }
 
 export interface NoneAssigned extends AssignedResult {
@@ -19,16 +19,16 @@ export interface TestAssigner {
 }
 
 export class IteratingTestAssigner implements TestAssigner {
-  private readonly testIterator: IterableIterator<[number, IvrTest]>;
+  private readonly testIterator: IterableIterator<[number, CallFlowTest]>;
 
-  constructor(readonly tests: IvrTest[]) {
+  constructor(readonly tests: CallFlowTest[]) {
     this.testIterator = tests.entries();
   }
 
   public assign(): TestAssigned | NoneAssigned {
     const testEntry = this.testIterator.next();
     if (!testEntry.done) {
-      const [, test]: [number, IvrTest] = testEntry.value;
+      const [, test]: [number, CallFlowTest] = testEntry.value;
       return { isAssigned: true, test };
     }
 

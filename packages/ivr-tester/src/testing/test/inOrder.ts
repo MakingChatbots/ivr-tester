@@ -1,6 +1,6 @@
 import { PromptDefinition } from "./conditions/PromptDefinition";
 import { TestResult } from "./TestInstanceClass";
-import { TestContainer } from "./IvrTest";
+import { CallFlowInstructions } from "./CallFlowTest";
 import { setTimeout } from "timers";
 import { TranscriptEvent } from "../../call/transcription/plugin/TranscriberPlugin";
 import { Call } from "../../call/Call";
@@ -105,18 +105,14 @@ class PostSilencePrompt extends AbstractHandler {
 
 type PromptCollection = (
   prompts: ReadonlyArray<PromptDefinition>
-) => TestContainer;
+) => CallFlowInstructions;
 
 /**
  * Executes {@link PromptDefinition}'s in order
  */
 export const inOrder: PromptCollection = (prompts) => {
-  // let nextConditionIndex = 0;
-  //
-  // const clonedConditions = Array.isArray(conditions) ? [...conditions] : [];
-
   return {
-    start(transcriber, call) {
+    startListening(transcriber, call) {
       const postSilencePrompts = prompts.map(
         (prompt) => new PostSilencePrompt(prompt, call)
       );

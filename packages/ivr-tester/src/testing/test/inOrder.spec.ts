@@ -52,7 +52,7 @@ describe("ordered conditions", () => {
       },
     ]);
 
-    promptContainer.start(transcriberPlugin, call);
+    promptContainer.startListening(transcriberPlugin, call);
 
     transcriberPlugin.produceTranscriptionEvent({
       isFinal: false,
@@ -87,7 +87,7 @@ describe("ordered conditions", () => {
       },
     ]);
 
-    promptContainer.start(transcriberPlugin, call);
+    promptContainer.startListening(transcriberPlugin, call);
 
     transcriberPlugin.produceTranscriptionEvent({
       isFinal: false,
@@ -130,7 +130,7 @@ describe("ordered conditions", () => {
       },
     ]);
 
-    promptContainer.start(transcriberPlugin, call);
+    promptContainer.startListening(transcriberPlugin, call);
 
     transcriberPlugin.produceTranscriptionEvent({
       isFinal: false,

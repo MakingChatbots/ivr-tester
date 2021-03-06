@@ -5,7 +5,7 @@ import {
 } from "../../call/transcription/CallTranscriber";
 import { Call } from "../../call/Call";
 import { Emitter, TypedEmitter } from "../../Emitter";
-import { IvrTest } from "./IvrTest";
+import { CallFlowTest } from "./CallFlowTest";
 
 export interface TestResult {
   matchedPrompt?: PromptDefinition;
@@ -13,22 +13,22 @@ export interface TestResult {
 }
 
 export interface TestFailed {
-  test: IvrTest;
+  test: CallFlowTest;
   transcription: string;
 }
 
 export interface TestPassed {
-  test: IvrTest;
+  test: CallFlowTest;
 }
 
 export interface TestConditionMet {
-  test: IvrTest;
+  test: CallFlowTest;
   transcription: string;
   condition: PromptDefinition;
 }
 
 export interface TestProgressEvent {
-  test: IvrTest;
+  test: CallFlowTest;
   transcription: {
     isFinal: boolean;
     transcription: string;
@@ -43,7 +43,7 @@ export type TestInstanceEvents = {
 };
 
 export interface TestInstance extends Emitter<TestInstanceEvents> {
-  getTest(): IvrTest;
+  getTest(): CallFlowTest;
   getCall(): Call;
 }
 
@@ -58,7 +58,7 @@ export class TestInstanceClass
   constructor(
     private readonly call: Call,
     private readonly callTranscriber: Emitter<CallTranscriptionEvents>,
-    private readonly ivrTest: IvrTest
+    private readonly ivrTest: CallFlowTest
   ) {
     super();
     callTranscriber.on("transcription", this.processTranscript.bind(this));
@@ -84,7 +84,7 @@ export class TestInstanceClass
     }
 
     // XX Broke this intentionally
-    const testOutcome = this.ivrTest.test.start(
+    const testOutcome = this.ivrTest.test.startListening(
       transcription as any,
       this.call
     );
@@ -138,7 +138,7 @@ export class TestInstanceClass
     this.emit("conditionMet", event);
   }
 
-  getTest(): IvrTest {
+  getTest(): CallFlowTest {
     return this.ivrTest;
   }
 }
