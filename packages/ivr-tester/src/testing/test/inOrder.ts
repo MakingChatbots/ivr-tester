@@ -1,16 +1,12 @@
 import { PromptDefinition } from "./conditions/PromptDefinition";
 import { CallFlowInstructions } from "./CallFlowTest";
 import { setTimeout } from "timers";
-import { TranscriptEvent } from "../../call/transcription/plugin/TranscriberPlugin";
 import { Call } from "../../call/Call";
-import {
-  CallTranscriptionEvents,
-  PromptTranscriptionEvent,
-} from "../../call/transcription/CallTranscriber";
+import { PromptTranscriptionBuilder } from "../../call/transcription/PromptTranscriptionBuilder";
 
 interface Handler {
   setNext(handler: Handler): Handler;
-  handle(transcriptEvent: PromptTranscriptionEvent): void;
+  transcriptUpdated(transcriptEvent: PromptTranscriptionBuilder): void;
 }
 
 abstract class AbstractHandler implements Handler {
@@ -21,9 +17,9 @@ abstract class AbstractHandler implements Handler {
     return handler;
   }
 
-  public handle(transcriptEvent: PromptTranscriptionEvent): void {
+  public transcriptUpdated(transcriptEvent: PromptTranscriptionBuilder): void {
     if (this.nextHandler) {
-      return this.nextHandler.handle(transcriptEvent);
+      return this.nextHandler.transcriptUpdated(transcriptEvent);
     }
 
     return;
@@ -43,13 +39,13 @@ export class Prompt extends AbstractHandler {
     super();
   }
 
-  public handle(transcriptEvent: PromptTranscriptionEvent): void {
+  public transcriptUpdated(transcriptEvent: PromptTranscriptionBuilder): void {
     if (this.skipPrompt) {
-      return super.handle(transcriptEvent);
+      return super.transcriptUpdated(transcriptEvent);
     }
 
     this.clearTimer();
-    if (this.definition.whenPrompt(transcriptEvent.transcription)) {
+    if (this.definition.whenPrompt(transcriptEvent.merge())) {
       // The timeout interval that is set cannot be relied upon to execute after that
       // exact number of milliseconds. This is because other executing code that blocks
       // or holds onto the event loop will push the execution of the timeout back. The only
@@ -59,6 +55,7 @@ export class Prompt extends AbstractHandler {
       this.timeout = this.timeoutSet(() => {
         this.skipPrompt = true;
         this.clearTimer();
+        transcriptEvent.clear();
         this.definition.then.do(this.call);
       }, this.definition.silenceAfterPrompt);
     }
@@ -84,32 +81,34 @@ const defaultPromptFactory: PromptFactory = (definition, call) =>
  * Creates an ordered prompt collection
  */
 export const inOrder = (
-  prompts: ReadonlyArray<PromptDefinition>,
+  promptDefinitions: ReadonlyArray<PromptDefinition>,
   promptFactory: PromptFactory = defaultPromptFactory
 ): CallFlowInstructions => {
   return {
     startListening(transcriber, call) {
-      promptTranscriptionBuilder;
-      const postSilencePrompts = prompts.map((prompt) =>
+      const prompts = promptDefinitions.map((prompt) =>
         promptFactory(prompt, call)
       );
 
-      if (postSilencePrompts.length === 0) {
-        return {} as any;
+      if (prompts.length === 0) {
+        return;
       }
 
-      const firstPrompt: Handler = postSilencePrompts.shift();
+      const firstPrompt: Handler = prompts.shift();
       let chain: Handler = firstPrompt;
 
-      postSilencePrompts.forEach((item) => {
+      prompts.forEach((item) => {
         chain = chain.setNext(item);
       });
 
+      const promptTranscriptionBuilder = new PromptTranscriptionBuilder();
+
       transcriber.on("transcription", (event) => {
-        firstPrompt.handle(event);
+        promptTranscriptionBuilder.add(event);
+
+        firstPrompt.transcriptUpdated(promptTranscriptionBuilder);
       });
 
-      return {} as any;
       // const condition = clonedConditions[nextConditionIndex];
       // if (!condition) {
       //   return { result: "pass" };

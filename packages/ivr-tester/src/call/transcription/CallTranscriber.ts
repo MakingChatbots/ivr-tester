@@ -1,20 +1,23 @@
 import { WebSocketEvents } from "../TwilioCall";
 import { TwilioConnectionEvents } from "../twilio";
-import { TranscriberPlugin, TranscriptEvent } from "./plugin/TranscriberPlugin";
+import {
+  TranscriberPlugin,
+  TranscriptEvent,
+  TranscriptionEvents,
+} from "./plugin/TranscriberPlugin";
 import { Debugger } from "../../Debugger";
 import { TypedEmitter } from "../../Emitter";
 import { Call } from "../Call";
-import { PromptTranscriptionBuilder } from "./PromptTranscriptionBuilder";
 
-export interface PromptTranscriptionEvent {
-  transcription: string;
-}
+// export interface PromptTranscriptionEvent {
+//   transcription: string;
+// }
 
-export type CallTranscriptionEvents = {
-  transcription: PromptTranscriptionEvent;
-};
+// export type CallTranscriptionEvents = {
+//   transcription: PromptTranscriptionEvent;
+// };
 
-export class CallTranscriber extends TypedEmitter<CallTranscriptionEvents> {
+export class CallTranscriber extends TypedEmitter<TranscriptionEvents> {
   private static debug = Debugger.getPackageDebugger();
 
   private readonly processMessageRef: (message: string) => void;
@@ -22,8 +25,7 @@ export class CallTranscriber extends TypedEmitter<CallTranscriptionEvents> {
 
   constructor(
     private readonly call: Call,
-    private readonly transcriber: TranscriberPlugin,
-    private readonly promptTranscriptionBuilder: PromptTranscriptionBuilder = new PromptTranscriptionBuilder()
+    private readonly transcriber: TranscriberPlugin
   ) {
     super();
     this.processMessageRef = this.processMessage.bind(this);
@@ -54,18 +56,9 @@ export class CallTranscriber extends TypedEmitter<CallTranscriptionEvents> {
     this.transcriber.close();
   }
 
-  private saveAndEmitPartialTranscript() {
-    const partialTranscript = this.promptTranscriptionBuilder.merge();
-    CallTranscriber.debug("Transcript: %s", partialTranscript);
-
-    const event: PromptTranscriptionEvent = {
-      transcription: partialTranscript,
-    };
-    this.emit("transcription", event);
-  }
-
   private collects(event: TranscriptEvent) {
-    this.promptTranscriptionBuilder.add(event);
-    this.saveAndEmitPartialTranscript();
+    CallTranscriber.debug("Transcript: %s", event.transcription);
+
+    this.emit("transcription", event);
   }
 }

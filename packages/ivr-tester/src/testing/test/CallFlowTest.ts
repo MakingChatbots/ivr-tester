@@ -1,13 +1,9 @@
 import { Call } from "../../call/Call";
-import { Emitter, TypedEmitter } from "../../Emitter";
+import { Emitter } from "../../Emitter";
 import { TranscriptionEvents } from "../../call/transcription/plugin/TranscriberPlugin";
-import { CallTranscriptionEvents } from "../../call/transcription/CallTranscriber";
 
 export interface CallFlowInstructions {
-  startListening(
-    transcriber: Emitter<CallTranscriptionEvents>,
-    call: Call
-  ): void;
+  startListening(transcriber: Emitter<TranscriptionEvents>, call: Call): void;
 }
 
 export interface CallFlowTest {

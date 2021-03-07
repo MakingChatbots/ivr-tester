@@ -1,11 +1,8 @@
 import { PromptDefinition } from "./conditions/PromptDefinition";
-import {
-  PromptTranscriptionEvent,
-  CallTranscriptionEvents,
-} from "../../call/transcription/CallTranscriber";
 import { Call } from "../../call/Call";
 import { Emitter, TypedEmitter } from "../../Emitter";
 import { CallFlowTest } from "./CallFlowTest";
+import { TranscriptionEvents } from "../../call/transcription/plugin/TranscriberPlugin";
 
 export interface TestResult {
   matchedPrompt?: PromptDefinition;
@@ -57,25 +54,28 @@ export class TestInstanceClass
   implements TestInstance {
   constructor(
     private readonly call: Call,
-    private readonly callTranscriber: Emitter<CallTranscriptionEvents>,
+    private readonly callTranscriber: Emitter<TranscriptionEvents>,
     private readonly ivrTest: CallFlowTest
   ) {
     super();
-    callTranscriber.on("transcription", this.processTranscript.bind(this));
+    this.initionalise();
+    // callTranscriber.on("transcription", this.processTranscript.bind(this));
   }
 
-  getCall(): Call {
+  public getCall(): Call {
     return this.call;
   }
 
+  private initionalise(): void {}
+
   private processTranscript(event: PromptTranscriptionEvent): void {
-    const { transcription } = event;
+    const { transcription: callTranscriber } = event;
 
     this.emit("progress", {
       test: this.ivrTest,
       transcription: {
         isFinal: event.isComplete,
-        transcription,
+        transcription: callTranscriber,
       },
     });
 
@@ -83,16 +83,13 @@ export class TestInstanceClass
       return;
     }
 
-    // XX Broke this intentionally
-    const testOutcome = this.ivrTest.test.startListening(
-      transcription as any,
-      this.call
-    );
+    this.ivrTest.test.startListening(this.callTranscriber, this.call);
+
     switch (testOutcome.result) {
       case "continue":
         if (testOutcome.matchedPrompt) {
           this.notifyOfConditionBeingMet(
-            transcription,
+            callTranscriber,
             testOutcome.matchedPrompt
           );
         }
@@ -100,14 +97,14 @@ export class TestInstanceClass
       case "pass":
         if (testOutcome.matchedPrompt) {
           this.notifyOfConditionBeingMet(
-            transcription,
+            callTranscriber,
             testOutcome.matchedPrompt
           );
         }
         this.notifyOfPassedTest();
         return;
       case "fail":
-        this.notifyOfFailedTest(transcription);
+        this.notifyOfFailedTest(callTranscriber);
         return;
       default:
         return;
