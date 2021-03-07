@@ -1,5 +1,4 @@
 import { PromptDefinition } from "./conditions/PromptDefinition";
-import { TestResult } from "./TestInstanceClass";
 import { CallFlowInstructions } from "./CallFlowTest";
 import { setTimeout } from "timers";
 import { TranscriptEvent } from "../../call/transcription/plugin/TranscriberPlugin";
@@ -7,7 +6,6 @@ import { Call } from "../../call/Call";
 
 interface Handler {
   setNext(handler: Handler): Handler;
-
   handle(transcriptEvent: TranscriptEvent): void;
 }
 
@@ -19,9 +17,6 @@ abstract class AbstractHandler implements Handler {
 
   public setNext(handler: Handler): Handler {
     this.nextHandler = handler;
-    // Returning a handler from here will let us link handlers in a
-    // convenient way like this:
-    // monkey.setNext(squirrel).setNext(dog);
     return handler;
   }
 
@@ -33,98 +28,82 @@ abstract class AbstractHandler implements Handler {
     return null;
   }
 }
-// class PromptTranscriptionBuilder {
-//   private static readonly EMPTY_TRANSCRIPTION = "";
-//
-//   private transcriptions: TranscriptEvent[] = [];
-//
-//   public add(event: TranscriptEvent): void {
-//     this.transcriptions.push(event);
-//   }
-//
-//   public clear(): void {
-//     this.transcriptions = [];
-//   }
-//
-//   public merge(): string {
-//     if (this.transcriptions.length === 0) {
-//       return PromptTranscriptionBuilder.EMPTY_TRANSCRIPTION;
-//     }
-//
-//     // If all transcripts partial then return last partial
-//     const areAllPartial = this.transcriptions.every((t) => t.isFinal === false);
-//     if (areAllPartial) {
-//       const lastPartial = this.transcriptions[this.transcriptions.length - 1];
-//       return lastPartial.transcription;
-//     }
-//
-//     // Return finals
-//     const areAllFinals = this.transcriptions.every((t) => t.isFinal);
-//     if (areAllFinals) {
-//       return this.transcriptions.map((t) => t.transcription).join(" ");
-//     }
-//
-//     // Return Merged finals and last partial
-//     const lastTranscription = this.transcriptions[
-//     this.transcriptions.length - 1
-//         ];
-//     const mergedFinals = this.transcriptions
-//         .filter((t) => t.isFinal)
-//         .map((t) => t.transcription)
-//         .join(" ");
-//
-//     if (lastTranscription.isFinal) {
-//       return mergedFinals;
-//     } else {
-//       return `${mergedFinals} ${lastTranscription.transcription}`;
-//     }
-//   }
-// }
 
-class PostSilencePrompt extends AbstractHandler {
-  private promptHappened = false;
+export class Prompt extends AbstractHandler {
+  private skipPrompt = false;
+  private timeout: ReturnType<typeof setTimeout>;
 
   constructor(
     private readonly definition: PromptDefinition,
-    private readonly call: Call
+    private readonly call: Call,
+    private readonly timeoutSet: typeof setTimeout,
+    private readonly timeoutClear: typeof clearTimeout
   ) {
     super();
   }
 
   public handle(transcriptEvent: TranscriptEvent): void {
-    if (this.promptHappened) {
+    if (this.skipPrompt) {
       return super.handle(transcriptEvent);
     }
 
+    this.clearTimer();
     if (this.definition.whenPrompt(transcriptEvent.transcription)) {
-      this.promptHappened = true;
-      this.definition.then.do(this.call);
+      this.timeout = this.timeoutSet(() => {
+        // The timeout interval that is set cannot be relied upon to execute after that
+        // exact number of milliseconds. This is because other executing code that blocks
+        // or holds onto the event loop will push the execution of the timeout back. The only
+        // guarantee is that the timeout will not execute sooner than the declared
+        // timeout interval.
+        // -- https://nodejs.org/en/docs/guides/timers-in-node/
+
+        this.skipPrompt = true;
+        this.clearTimer();
+        this.definition.then.do(this.call);
+      }, this.definition.silenceAfterPrompt);
+    }
+  }
+
+  private clearTimer() {
+    if (this.timeout) {
+      this.timeoutClear(this.timeout);
+      this.timeout = undefined;
     }
   }
 }
 
-type PromptCollection = (
-  prompts: ReadonlyArray<PromptDefinition>
-) => CallFlowInstructions;
+export type PromptFactory = (
+  definition: PromptDefinition,
+  call: Call
+) => Handler | undefined;
+
+// type PromptCollection = (
+//   prompts: ReadonlyArray<PromptDefinition>,
+//   promptFactory?: PromptFactory
+// ) => CallFlowInstructions;
+
+const defaultPromptFactory: PromptFactory = (definition, call) =>
+  new Prompt(definition, call, setTimeout, clearTimeout);
 
 /**
- * Executes {@link PromptDefinition}'s in order
+ * Creates an ordered prompt collection
  */
-export const inOrder: PromptCollection = (prompts) => {
+export const inOrder = (
+  prompts: ReadonlyArray<PromptDefinition>,
+  promptFactory: PromptFactory = defaultPromptFactory
+): CallFlowInstructions => {
   return {
     startListening(transcriber, call) {
-      const postSilencePrompts = prompts.map(
-        (prompt) => new PostSilencePrompt(prompt, call)
+      const postSilencePrompts = prompts.map((prompt) =>
+        promptFactory(prompt, call)
       );
 
       if (postSilencePrompts.length === 0) {
         return {} as any;
       }
 
-      const firstPrompt: Handler = postSilencePrompts[0];
-
+      const firstPrompt: Handler = postSilencePrompts.shift();
       let chain: Handler = firstPrompt;
-      postSilencePrompts.shift();
 
       postSilencePrompts.forEach((item) => {
         chain = chain.setNext(item);
