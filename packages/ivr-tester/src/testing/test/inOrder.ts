@@ -3,15 +3,16 @@ import { CallFlowInstructions } from "./CallFlowTest";
 import { setTimeout } from "timers";
 import { TranscriptEvent } from "../../call/transcription/plugin/TranscriberPlugin";
 import { Call } from "../../call/Call";
+import {
+  CallTranscriptionEvents,
+  PromptTranscriptionEvent,
+} from "../../call/transcription/CallTranscriber";
 
 interface Handler {
   setNext(handler: Handler): Handler;
-  handle(transcriptEvent: TranscriptEvent): void;
+  handle(transcriptEvent: PromptTranscriptionEvent): void;
 }
 
-/**
- * The default chaining behavior can be implemented inside a base handler class.
- */
 abstract class AbstractHandler implements Handler {
   private nextHandler: Handler;
 
@@ -20,12 +21,12 @@ abstract class AbstractHandler implements Handler {
     return handler;
   }
 
-  public handle(transcriptEvent: TranscriptEvent): void {
+  public handle(transcriptEvent: PromptTranscriptionEvent): void {
     if (this.nextHandler) {
       return this.nextHandler.handle(transcriptEvent);
     }
 
-    return null;
+    return;
   }
 }
 
@@ -42,21 +43,20 @@ export class Prompt extends AbstractHandler {
     super();
   }
 
-  public handle(transcriptEvent: TranscriptEvent): void {
+  public handle(transcriptEvent: PromptTranscriptionEvent): void {
     if (this.skipPrompt) {
       return super.handle(transcriptEvent);
     }
 
     this.clearTimer();
     if (this.definition.whenPrompt(transcriptEvent.transcription)) {
+      // The timeout interval that is set cannot be relied upon to execute after that
+      // exact number of milliseconds. This is because other executing code that blocks
+      // or holds onto the event loop will push the execution of the timeout back. The only
+      // guarantee is that the timeout will not execute sooner than the declared
+      // timeout interval.
+      // -- https://nodejs.org/en/docs/guides/timers-in-node/
       this.timeout = this.timeoutSet(() => {
-        // The timeout interval that is set cannot be relied upon to execute after that
-        // exact number of milliseconds. This is because other executing code that blocks
-        // or holds onto the event loop will push the execution of the timeout back. The only
-        // guarantee is that the timeout will not execute sooner than the declared
-        // timeout interval.
-        // -- https://nodejs.org/en/docs/guides/timers-in-node/
-
         this.skipPrompt = true;
         this.clearTimer();
         this.definition.then.do(this.call);
@@ -77,11 +77,6 @@ export type PromptFactory = (
   call: Call
 ) => Handler | undefined;
 
-// type PromptCollection = (
-//   prompts: ReadonlyArray<PromptDefinition>,
-//   promptFactory?: PromptFactory
-// ) => CallFlowInstructions;
-
 const defaultPromptFactory: PromptFactory = (definition, call) =>
   new Prompt(definition, call, setTimeout, clearTimeout);
 
@@ -94,6 +89,7 @@ export const inOrder = (
 ): CallFlowInstructions => {
   return {
     startListening(transcriber, call) {
+      promptTranscriptionBuilder;
       const postSilencePrompts = prompts.map((prompt) =>
         promptFactory(prompt, call)
       );

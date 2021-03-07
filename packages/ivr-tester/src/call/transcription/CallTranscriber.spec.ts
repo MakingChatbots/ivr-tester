@@ -20,9 +20,9 @@ class TranscriberTestDouble extends EventEmitter implements TranscriberPlugin {
   }
 }
 
-describe("Call Transcriber", () => {
-  const oneSecondInterval = 1000;
+// TODO Update these tests
 
+describe("Call Transcriber", () => {
   let callTranscriber: CallTranscriber;
   let transcriberPlugin: TranscriberTestDouble;
 
@@ -41,11 +41,7 @@ describe("Call Transcriber", () => {
       emit: jest.fn(),
     };
 
-    callTranscriber = new CallTranscriber(
-      call,
-      transcriberPlugin,
-      oneSecondInterval
-    );
+    callTranscriber = new CallTranscriber(call, transcriberPlugin);
   });
 
   test("transcriber told transcription completed after final transcription", async () => {
@@ -81,7 +77,6 @@ describe("Call Transcriber", () => {
     );
 
     expect(transcription).toStrictEqual<PromptTranscriptionEvent>({
-      isComplete: true,
       transcription: "this is final. this is final too",
     });
   });
@@ -104,7 +99,6 @@ describe("Call Transcriber", () => {
     );
 
     expect(transcription).toStrictEqual<PromptTranscriptionEvent>({
-      isComplete: true,
       transcription: "second partial",
     });
   });
@@ -127,7 +121,6 @@ describe("Call Transcriber", () => {
     );
 
     expect(transcription).toStrictEqual<PromptTranscriptionEvent>({
-      isComplete: true,
       transcription: "final sentence latest partial",
     });
   });

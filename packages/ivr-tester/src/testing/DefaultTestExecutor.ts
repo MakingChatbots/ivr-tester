@@ -17,8 +17,7 @@ export class DefaultTestExecutor implements TestExecutor {
   public startTest(test: CallFlowTest, call: Call): TestInstance {
     const callTranscriber = new CallTranscriber(
       call,
-      this.transcriberFactory.create(),
-      this.completeTranscriptionTimeoutInMs
+      this.transcriberFactory.create()
     );
 
     return new TestInstanceClass(call, callTranscriber, test);
