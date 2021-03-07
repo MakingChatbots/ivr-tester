@@ -1,9 +1,10 @@
-import { inOrder, Prompt, PromptFactory } from "./inOrder";
+import { inOrder, MatchedCallback, PromptFactory } from "./inOrder";
 import { contains } from "./conditions/when";
 import { press } from "./conditions/then";
 import { TranscriberPlugin, TranscriptEvent } from "../../index";
 import { Call } from "../../call/Call";
 import { EventEmitter } from "events";
+import { PostSilencePrompt } from "./PostSilencePrompt";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const FakeTimers = require("@sinonjs/fake-timers");
 
@@ -30,6 +31,7 @@ describe("ordered conditions", () => {
 
   let clock: any;
   let testPromptFactory: PromptFactory;
+  let matchedCallback: jest.Mocked<MatchedCallback>;
 
   beforeEach(() => {
     call = {
@@ -45,9 +47,16 @@ describe("ordered conditions", () => {
     transcriberPlugin = new TranscriberTestDouble();
 
     clock = FakeTimers.createClock();
+    matchedCallback = jest.fn();
 
     testPromptFactory = (definition, call) =>
-      new Prompt(definition, call, clock.setTimeout, clock.clearTimeout);
+      new PostSilencePrompt(
+        definition,
+        call,
+        matchedCallback,
+        clock.setTimeout,
+        clock.clearTimeout
+      );
   });
 
   test("prompt presses 123 when transcript eventually contains Hello", () => {

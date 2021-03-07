@@ -8,16 +8,16 @@ export interface PromptDefinition {
   /**
    * Assertion to perform against the transcription of a prompt
    */
-  whenPrompt: When;
+  readonly whenPrompt: When;
 
   /**
    * Action to perform following a successful assertion
    */
-  then: Then;
+  readonly then: Then;
 
   /**
    * Milliseconds of silence expected after the prompt. This is used to determine when
    * the prompt has ended.
    */
-  silenceAfterPrompt: number;
+  readonly silenceAfterPrompt: number;
 }

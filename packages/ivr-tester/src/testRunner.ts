@@ -5,13 +5,15 @@ import { populateDefaults } from "./configuration/populateDefaults";
 import { TwilioCaller } from "./call/TwilioCaller";
 import { IteratingTestAssigner } from "./testing/IteratingTestAssigner";
 import { mediaStreamRecorderPlugin } from "./call/recording/MediaStreamRecorder";
-import { DefaultTestExecutor } from "./testing/DefaultTestExecutor";
+import { TestExecutor } from "./testing/TestExecutor";
 import { AudioPlaybackCaller } from "./call/AudioPlaybackCaller";
 import { Caller } from "./call/Caller";
 import { consoleUserInterface } from "./testing/ui/consoleUserInterface";
 import { CloseServerWhenTestsComplete } from "./testing/CloseServerWhenTestsComplete";
 import { CallFlowTest } from "./testing/test/CallFlowTest";
 import { callConnectedTimeout } from "./testing/callConnectedTimeout";
+import { Call } from "./call/Call";
+import { CallTranscriber } from "./call/transcription/CallTranscriber";
 
 export interface TestSubject {
   from: string;
@@ -45,10 +47,17 @@ export const testRunner = (config: Config) => async (
     );
   }
 
-  const testExecutor = new DefaultTestExecutor(
-    config.transcriber,
-    config.completeTranscriptionTimeoutInMs
-  );
+  const testExecutor: TestExecutor = {
+    startTest(test: CallFlowTest, call: Call) {
+      const callTranscriber = new CallTranscriber(
+        call,
+        this.transcriberFactory.create()
+      );
+
+      test.test.startListening(callTranscriber, call);
+      return test.test;
+    },
+  };
 
   const callServer = new TwilioCallServer(
     config.dtmfGenerator,

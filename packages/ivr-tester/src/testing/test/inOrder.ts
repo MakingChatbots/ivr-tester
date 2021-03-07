@@ -1,81 +1,105 @@
 import { PromptDefinition } from "./conditions/PromptDefinition";
-import { CallFlowInstructions } from "./CallFlowTest";
+import { CallFlowInstructions, TestInstanceEvents } from "./CallFlowTest";
 import { setTimeout } from "timers";
 import { Call } from "../../call/Call";
 import { PromptTranscriptionBuilder } from "../../call/transcription/PromptTranscriptionBuilder";
+import { Emitter, TypedEmitter } from "../../Emitter";
+import { TranscriptionEvents } from "../../call/transcription/plugin/TranscriberPlugin";
+import { PostSilencePrompt } from "./PostSilencePrompt";
 
-interface Handler {
-  setNext(handler: Handler): Handler;
+interface Prompt {
+  readonly definition: PromptDefinition;
+  setNext(prompt: Prompt): Prompt;
+  // TODO Refactor PromptTranscriptionBuilder parameter
   transcriptUpdated(transcriptEvent: PromptTranscriptionBuilder): void;
 }
 
-abstract class AbstractHandler implements Handler {
-  private nextHandler: Handler;
+export abstract class AbstractPrompt implements Prompt {
+  private nextPrompt: Prompt;
 
-  public setNext(handler: Handler): Handler {
-    this.nextHandler = handler;
-    return handler;
+  public setNext(prompt: Prompt): Prompt {
+    this.nextPrompt = prompt;
+    return prompt;
   }
 
   public transcriptUpdated(transcriptEvent: PromptTranscriptionBuilder): void {
-    if (this.nextHandler) {
-      return this.nextHandler.transcriptUpdated(transcriptEvent);
+    if (this.nextPrompt) {
+      return this.nextPrompt.transcriptUpdated(transcriptEvent);
     }
-
     return;
   }
+
+  public abstract readonly definition: PromptDefinition;
 }
 
-export class Prompt extends AbstractHandler {
-  private skipPrompt = false;
-  private timeout: ReturnType<typeof setTimeout>;
+export type MatchedCallback = (
+  prompt: Prompt,
+  transcriptMatched: string
+) => void;
 
+export type PromptFactory = (
+  definition: PromptDefinition,
+  call: Call,
+  matchedCallback: MatchedCallback
+) => Prompt | undefined;
+
+const defaultPromptFactory: PromptFactory = (
+  definition,
+  call,
+  matchedCallback
+) =>
+  new PostSilencePrompt(
+    definition,
+    call,
+    matchedCallback,
+    setTimeout,
+    clearTimeout
+  );
+
+class OrderedCallFlowInstructions
+  extends TypedEmitter<TestInstanceEvents>
+  implements CallFlowInstructions {
   constructor(
-    private readonly definition: PromptDefinition,
-    private readonly call: Call,
-    private readonly timeoutSet: typeof setTimeout,
-    private readonly timeoutClear: typeof clearTimeout
+    private readonly promptDefinitions: ReadonlyArray<PromptDefinition>,
+    private readonly promptFactory: PromptFactory
   ) {
     super();
   }
 
-  public transcriptUpdated(transcriptEvent: PromptTranscriptionBuilder): void {
-    if (this.skipPrompt) {
-      return super.transcriptUpdated(transcriptEvent);
+  public startListening(
+    transcriber: Emitter<TranscriptionEvents>,
+    call: Call
+  ): void {
+    const matchedCallback: MatchedCallback = (prompt, transcriptMatched) => {
+      this.emit("promptMatched", {
+        transcription: transcriptMatched,
+        promptDefinition: prompt.definition,
+      });
+    };
+
+    const prompts = this.promptDefinitions.map((prompt) =>
+      this.promptFactory(prompt, call, matchedCallback)
+    );
+
+    if (prompts.length === 0) {
+      return;
     }
 
-    this.clearTimer();
-    if (this.definition.whenPrompt(transcriptEvent.merge())) {
-      // The timeout interval that is set cannot be relied upon to execute after that
-      // exact number of milliseconds. This is because other executing code that blocks
-      // or holds onto the event loop will push the execution of the timeout back. The only
-      // guarantee is that the timeout will not execute sooner than the declared
-      // timeout interval.
-      // -- https://nodejs.org/en/docs/guides/timers-in-node/
-      this.timeout = this.timeoutSet(() => {
-        this.skipPrompt = true;
-        this.clearTimer();
-        transcriptEvent.clear();
-        this.definition.then.do(this.call);
-      }, this.definition.silenceAfterPrompt);
-    }
-  }
+    const firstPrompt: Prompt = prompts.shift();
+    let chain: Prompt = firstPrompt;
 
-  private clearTimer() {
-    if (this.timeout) {
-      this.timeoutClear(this.timeout);
-      this.timeout = undefined;
-    }
+    prompts.forEach((item) => {
+      chain = chain.setNext(item);
+    });
+
+    const promptTranscriptionBuilder = new PromptTranscriptionBuilder();
+
+    transcriber.on("transcription", (event) => {
+      promptTranscriptionBuilder.add(event);
+      firstPrompt.transcriptUpdated(promptTranscriptionBuilder);
+    });
   }
 }
-
-export type PromptFactory = (
-  definition: PromptDefinition,
-  call: Call
-) => Handler | undefined;
-
-const defaultPromptFactory: PromptFactory = (definition, call) =>
-  new Prompt(definition, call, setTimeout, clearTimeout);
 
 /**
  * Creates an ordered prompt collection
@@ -83,52 +107,5 @@ const defaultPromptFactory: PromptFactory = (definition, call) =>
 export const inOrder = (
   promptDefinitions: ReadonlyArray<PromptDefinition>,
   promptFactory: PromptFactory = defaultPromptFactory
-): CallFlowInstructions => {
-  return {
-    startListening(transcriber, call) {
-      const prompts = promptDefinitions.map((prompt) =>
-        promptFactory(prompt, call)
-      );
-
-      if (prompts.length === 0) {
-        return;
-      }
-
-      const firstPrompt: Handler = prompts.shift();
-      let chain: Handler = firstPrompt;
-
-      prompts.forEach((item) => {
-        chain = chain.setNext(item);
-      });
-
-      const promptTranscriptionBuilder = new PromptTranscriptionBuilder();
-
-      transcriber.on("transcription", (event) => {
-        promptTranscriptionBuilder.add(event);
-
-        firstPrompt.transcriptUpdated(promptTranscriptionBuilder);
-      });
-
-      // const condition = clonedConditions[nextConditionIndex];
-      // if (!condition) {
-      //   return { result: "pass" };
-      // }
-      //
-      // const isMatch = condition.whenPrompt(transcript);
-      // if (!isMatch) {
-      //   return { result: "fail" };
-      // }
-      //
-      // condition.then.do(call);
-      //
-      // nextConditionIndex++;
-      //
-      // const isLastCondition = !clonedConditions[nextConditionIndex];
-      //
-      // return {
-      //   matchedPrompt: condition,
-      //   result: isLastCondition ? "pass" : "continue",
-      // };
-    },
-  };
-};
+): CallFlowInstructions =>
+  new OrderedCallFlowInstructions(promptDefinitions, promptFactory);

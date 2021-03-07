@@ -9,14 +9,6 @@ import { Debugger } from "../../Debugger";
 import { TypedEmitter } from "../../Emitter";
 import { Call } from "../Call";
 
-// export interface PromptTranscriptionEvent {
-//   transcription: string;
-// }
-
-// export type CallTranscriptionEvents = {
-//   transcription: PromptTranscriptionEvent;
-// };
-
 export class CallTranscriber extends TypedEmitter<TranscriptionEvents> {
   private static debug = Debugger.getPackageDebugger();
 

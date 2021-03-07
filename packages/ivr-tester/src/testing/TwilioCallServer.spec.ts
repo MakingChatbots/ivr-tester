@@ -10,7 +10,7 @@ import {
   TestAssigned,
   TestAssigner,
 } from "./IteratingTestAssigner";
-import { TestExecutor } from "./DefaultTestExecutor";
+import { TestExecutor } from "./TestExecutor";
 import { CallFlowTest } from "./test/CallFlowTest";
 
 const waitForConnection = async (ws: WebSocket): Promise<void> =>

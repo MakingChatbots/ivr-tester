@@ -5,7 +5,7 @@ import { DtmfBufferGenerator } from "../call/dtmf/DtmfBufferGenerator";
 import { Emitter, TypedEmitter } from "../Emitter";
 import { Call } from "../call/Call";
 import { TestAssigner } from "./IteratingTestAssigner";
-import { TestExecutor } from "./DefaultTestExecutor";
+import { TestExecutor } from "./TestExecutor";
 import { TestInstance } from "./test/TestInstanceClass";
 
 export type CallServerEvents = {
