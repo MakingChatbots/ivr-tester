@@ -21,6 +21,8 @@ const call: TestSubject = {
   to: process.env.TO_PHONE_NUMBER,
 };
 
+const timeout = 6000;
+
 const tests: CallFlowTestDefinition[] = [
   {
     name: "Keys pressed are read back",
@@ -29,76 +31,84 @@ const tests: CallFlowTestDefinition[] = [
         whenPrompt: isAnything(),
         then: press("1"),
         silenceAfterPrompt: 3000,
-        timeout: 6000,
+        timeout,
       },
       {
         whenPrompt: contains("please enter a number"),
         then: press("0123456789"),
         silenceAfterPrompt: 3000,
-        timeout: 6000,
+        timeout,
       },
       {
         whenPrompt: contains("you entered the values 0123456789"),
         then: doNothing(),
         silenceAfterPrompt: 3000,
-        timeout: 6000,
+        timeout,
       },
     ]),
   },
-  // {
-  //   name: "API call with short latency",
-  //   instructions: inOrder([
-  //     {
-  //       whenPrompt: isAnything(),
-  //       then: press("3"),
-  //       silenceAfterPrompt: 3000,
-  //     },
-  //     {
-  //       whenPrompt: similarTo(
-  //         "please wait while we search for your phone number on our system"
-  //       ),
-  //       then: doNothing(),
-  //       silenceAfterPrompt: 1500,
-  //     },
-  //     {
-  //       whenPrompt: contains("please enter a number"),
-  //       then: press("123"),
-  //       silenceAfterPrompt: 3000,
-  //     },
-  //     {
-  //       whenPrompt: similarTo("you entered the values 123"),
-  //       then: doNothing(),
-  //       silenceAfterPrompt: 3000,
-  //     },
-  //   ]),
-  // },
-  // {
-  //   name: "API call with long latency",
-  //   instructions: inOrder([
-  //     {
-  //       whenPrompt: isAnything(),
-  //       then: press("4"),
-  //       silenceAfterPrompt: 3000,
-  //     },
-  //     {
-  //       whenPrompt: similarTo(
-  //         "please wait while we search for your phone number on our system"
-  //       ),
-  //       then: doNothing(),
-  //       silenceAfterPrompt: 3000,
-  //     },
-  //     {
-  //       whenPrompt: contains("please enter a number"),
-  //       then: press("123"),
-  //       silenceAfterPrompt: 3000,
-  //     },
-  //     {
-  //       whenPrompt: similarTo("you entered the values 123"),
-  //       then: doNothing(),
-  //       silenceAfterPrompt: 3000,
-  //     },
-  //   ]),
-  // },
+  {
+    name: "API call with short latency",
+    instructions: inOrder([
+      {
+        whenPrompt: isAnything(),
+        then: press("3"),
+        silenceAfterPrompt: 3000,
+        timeout,
+      },
+      {
+        whenPrompt: similarTo(
+          "please wait while we search for your phone number on our system"
+        ),
+        then: doNothing(),
+        silenceAfterPrompt: 1500,
+        timeout,
+      },
+      {
+        whenPrompt: contains("please enter a number"),
+        then: press("123"),
+        silenceAfterPrompt: 3000,
+        timeout,
+      },
+      {
+        whenPrompt: similarTo("you entered the values 123"),
+        then: doNothing(),
+        silenceAfterPrompt: 3000,
+        timeout,
+      },
+    ]),
+  },
+  {
+    name: "API call with long latency",
+    instructions: inOrder([
+      {
+        whenPrompt: isAnything(),
+        then: press("4"),
+        silenceAfterPrompt: 3000,
+        timeout,
+      },
+      {
+        whenPrompt: similarTo(
+          "please wait while we search for your phone number on our system"
+        ),
+        then: doNothing(),
+        silenceAfterPrompt: 3000,
+        timeout,
+      },
+      {
+        whenPrompt: contains("please enter a number"),
+        then: press("123"),
+        silenceAfterPrompt: 3000,
+        timeout,
+      },
+      {
+        whenPrompt: similarTo("you entered the values 123"),
+        then: doNothing(),
+        silenceAfterPrompt: 3000,
+        timeout,
+      },
+    ]),
+  },
 ];
 
 const config: Config = {
@@ -110,7 +120,6 @@ const config: Config = {
   recording: {
     outputPath: path.join(__dirname, "../recordings"),
   },
-  completeTranscriptionTimeoutInMs: 3000,
 };
 
 testRunner(config)(call, tests)

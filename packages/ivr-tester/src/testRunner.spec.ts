@@ -172,7 +172,6 @@ describe("Test Runner", () => {
 
     const config: Config = {
       ...commonConfig,
-      completeTranscriptionTimeoutInMs: 1,
       transcriber: {
         create: () => transcriber,
         checkCanRun: () => ({ canRun: true }),

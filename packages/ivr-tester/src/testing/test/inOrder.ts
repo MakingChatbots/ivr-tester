@@ -126,18 +126,20 @@ class RunningOrderedCallFlowInstructions
 /**
  * Creates an ordered prompt collection
  */
-export const inOrder = (
+export function inOrder(
   promptDefinitions: ReadonlyArray<PromptDefinition>,
   promptFactory: PromptFactory = defaultPromptFactory
-): CallFlowInstructions => ({
-  runAgainstCallFlow: (
-    transcriber: Emitter<TranscriptionEvents>,
-    call: Call
-  ): CallFlowSession =>
-    new RunningOrderedCallFlowInstructions(
-      promptDefinitions,
-      promptFactory,
-      transcriber,
-      call
-    ),
-});
+): CallFlowInstructions {
+  return {
+    runAgainstCallFlow: (
+      transcriber: Emitter<TranscriptionEvents>,
+      call: Call
+    ): CallFlowSession =>
+      new RunningOrderedCallFlowInstructions(
+        promptDefinitions,
+        promptFactory,
+        transcriber,
+        call
+      ),
+  };
+}
