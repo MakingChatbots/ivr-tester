@@ -36,7 +36,7 @@
 
 \+ **new ConfigurationError**(`propertyName`: string, `reason`: string): [ConfigurationError](_configuration_configurationerror_.configurationerror.md)
 
-*Defined in [packages/ivr-tester/src/configuration/ConfigurationError.ts:1](https://github.com/SketchingDev/ivr-tester/blob/3b0e141/packages/ivr-tester/src/configuration/ConfigurationError.ts#L1)*
+*Defined in [packages/ivr-tester/src/configuration/ConfigurationError.ts:1](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/configuration/ConfigurationError.ts#L1)*
 
 #### Parameters:
 
@@ -73,7 +73,7 @@ ___
 
 • `Private` `Readonly` **propertyName**: string
 
-*Defined in [packages/ivr-tester/src/configuration/ConfigurationError.ts:2](https://github.com/SketchingDev/ivr-tester/blob/3b0e141/packages/ivr-tester/src/configuration/ConfigurationError.ts#L2)*
+*Defined in [packages/ivr-tester/src/configuration/ConfigurationError.ts:2](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/configuration/ConfigurationError.ts#L2)*
 
 ___
 
@@ -81,7 +81,7 @@ ___
 
 • `Readonly` **reason**: string
 
-*Defined in [packages/ivr-tester/src/configuration/ConfigurationError.ts:2](https://github.com/SketchingDev/ivr-tester/blob/3b0e141/packages/ivr-tester/src/configuration/ConfigurationError.ts#L2)*
+*Defined in [packages/ivr-tester/src/configuration/ConfigurationError.ts:2](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/configuration/ConfigurationError.ts#L2)*
 
 ___
 
@@ -107,7 +107,7 @@ ___
 
 ▸ **getProperty**(): string
 
-*Defined in [packages/ivr-tester/src/configuration/ConfigurationError.ts:9](https://github.com/SketchingDev/ivr-tester/blob/3b0e141/packages/ivr-tester/src/configuration/ConfigurationError.ts#L9)*
+*Defined in [packages/ivr-tester/src/configuration/ConfigurationError.ts:9](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/configuration/ConfigurationError.ts#L9)*
 
 **Returns:** string
 
@@ -117,6 +117,6 @@ ___
 
 ▸ **getReason**(): string
 
-*Defined in [packages/ivr-tester/src/configuration/ConfigurationError.ts:13](https://github.com/SketchingDev/ivr-tester/blob/3b0e141/packages/ivr-tester/src/configuration/ConfigurationError.ts#L13)*
+*Defined in [packages/ivr-tester/src/configuration/ConfigurationError.ts:13](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/configuration/ConfigurationError.ts#L13)*
 
 **Returns:** string

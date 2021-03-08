@@ -4,6 +4,10 @@
 
 # Interface: TestAssigner
 
+The number of calls that are made reflect the amount of tests needed
+to be run. As each call's stream connects this is used to determine
+the test that should be run
+
 ## Hierarchy
 
 * **TestAssigner**
@@ -24,6 +28,6 @@
 
 ▸ **assign**(): [TestAssigned](_testing_iteratingtestassigner_.testassigned.md) \| [NoneAssigned](_testing_iteratingtestassigner_.noneassigned.md)
 
-*Defined in [packages/ivr-tester/src/testing/IteratingTestAssigner.ts:18](https://github.com/SketchingDev/ivr-tester/blob/3b0e141/packages/ivr-tester/src/testing/IteratingTestAssigner.ts#L18)*
+*Defined in [packages/ivr-tester/src/testing/IteratingTestAssigner.ts:23](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/testing/IteratingTestAssigner.ts#L23)*
 
 **Returns:** [TestAssigned](_testing_iteratingtestassigner_.testassigned.md) \| [NoneAssigned](_testing_iteratingtestassigner_.noneassigned.md)

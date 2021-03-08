@@ -25,12 +25,12 @@
 
 *Overrides [AssignedResult](_testing_iteratingtestassigner_.assignedresult.md).[isAssigned](_testing_iteratingtestassigner_.assignedresult.md#isassigned)*
 
-*Defined in [packages/ivr-tester/src/testing/IteratingTestAssigner.ts:8](https://github.com/SketchingDev/ivr-tester/blob/3b0e141/packages/ivr-tester/src/testing/IteratingTestAssigner.ts#L8)*
+*Defined in [packages/ivr-tester/src/testing/IteratingTestAssigner.ts:8](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/testing/IteratingTestAssigner.ts#L8)*
 
 ___
 
 ### test
 
-•  **test**: [IvrTest](_testing_test_ivrtest_.ivrtest.md)
+•  **test**: [CallFlowTestDefinition](_testing_test_callflowtestdefinition_.callflowtestdefinition.md)
 
-*Defined in [packages/ivr-tester/src/testing/IteratingTestAssigner.ts:9](https://github.com/SketchingDev/ivr-tester/blob/3b0e141/packages/ivr-tester/src/testing/IteratingTestAssigner.ts#L9)*
+*Defined in [packages/ivr-tester/src/testing/IteratingTestAssigner.ts:9](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/testing/IteratingTestAssigner.ts#L9)*

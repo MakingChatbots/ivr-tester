@@ -18,8 +18,6 @@ Name | Type |
 
   ↳ [TranscriberPlugin](_call_transcription_plugin_transcriberplugin_.transcriberplugin.md)
 
-  ↳ [TestInstance](_testing_test_testinstanceclass_.testinstance.md)
-
   ↳ [CallServer](_testing_twiliocallserver_.callserver.md)
 
 ## Implemented by
@@ -44,7 +42,7 @@ Name | Type |
 
 ▸ **emit**\<K>(`eventName`: K, `params`: T[K]): void
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:13](https://github.com/SketchingDev/ivr-tester/blob/3b0e141/packages/ivr-tester/src/Emitter.ts#L13)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:13](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/Emitter.ts#L13)*
 
 #### Type parameters:
 
@@ -67,7 +65,7 @@ ___
 
 ▸ **off**\<K>(`eventName`: K, `fn`: EventReceiver\<T[K]>): void
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:12](https://github.com/SketchingDev/ivr-tester/blob/3b0e141/packages/ivr-tester/src/Emitter.ts#L12)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:12](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/Emitter.ts#L12)*
 
 #### Type parameters:
 
@@ -90,7 +88,7 @@ ___
 
 ▸ **on**\<K>(`eventName`: K, `fn`: EventReceiver\<T[K]>): void
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:11](https://github.com/SketchingDev/ivr-tester/blob/3b0e141/packages/ivr-tester/src/Emitter.ts#L11)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:11](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/Emitter.ts#L11)*
 
 #### Type parameters:
 

@@ -16,7 +16,7 @@
 
 ▸ `Const`**callConnectedTimeout**(`__namedParameters`: { msTimeoutWaitingForCall: number  }, `consoleLoggerPlugin`: [ConsoleLoggerPlugin](../interfaces/_testing_ui_consoleuserinterface_.consoleloggerplugin.md)): [IvrTesterPlugin](../interfaces/_plugins_ivrtesterplugin_.ivrtesterplugin.md)
 
-*Defined in [packages/ivr-tester/src/testing/callConnectedTimeout.ts:7](https://github.com/SketchingDev/ivr-tester/blob/3b0e141/packages/ivr-tester/src/testing/callConnectedTimeout.ts#L7)*
+*Defined in [packages/ivr-tester/src/testing/callConnectedTimeout.ts:7](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/testing/callConnectedTimeout.ts#L7)*
 
 #### Parameters:
 

@@ -12,7 +12,6 @@
 
 ### Properties
 
-* [completeTranscriptionTimeoutInMs](_configuration_config_.config.md#completetranscriptiontimeoutinms)
 * [dtmfGenerator](_configuration_config_.config.md#dtmfgenerator)
 * [localServerPort](_configuration_config_.config.md#localserverport)
 * [msTimeoutWaitingForCall](_configuration_config_.config.md#mstimeoutwaitingforcall)
@@ -23,25 +22,11 @@
 
 ## Properties
 
-### completeTranscriptionTimeoutInMs
-
-• `Optional` **completeTranscriptionTimeoutInMs**: number
-
-*Defined in [packages/ivr-tester/src/configuration/Config.ts:24](https://github.com/SketchingDev/ivr-tester/blob/3b0e141/packages/ivr-tester/src/configuration/Config.ts#L24)*
-
-The amount of time to wait, in milliseconds, after the last
-transcription event before marking the transcription of the
-IVR's prompt as complete.
-
-Default is 5 seconds
-
-___
-
 ### dtmfGenerator
 
 • `Optional` **dtmfGenerator**: [DtmfBufferGenerator](_call_dtmf_dtmfbuffergenerator_.dtmfbuffergenerator.md)
 
-*Defined in [packages/ivr-tester/src/configuration/Config.ts:10](https://github.com/SketchingDev/ivr-tester/blob/3b0e141/packages/ivr-tester/src/configuration/Config.ts#L10)*
+*Defined in [packages/ivr-tester/src/configuration/Config.ts:10](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/configuration/Config.ts#L10)*
 
 DTMF tone generator
 
@@ -51,7 +36,7 @@ ___
 
 • `Optional` **localServerPort**: number \| undefined
 
-*Defined in [packages/ivr-tester/src/configuration/Config.ts:35](https://github.com/SketchingDev/ivr-tester/blob/3b0e141/packages/ivr-tester/src/configuration/Config.ts#L35)*
+*Defined in [packages/ivr-tester/src/configuration/Config.ts:26](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/configuration/Config.ts#L26)*
 
 Port that the server listens on.
 This value can be overridden by setting the environment variable LOCAL_SERVER_PORT
@@ -62,7 +47,7 @@ ___
 
 • `Optional` **msTimeoutWaitingForCall**: number \| undefined
 
-*Defined in [packages/ivr-tester/src/configuration/Config.ts:50](https://github.com/SketchingDev/ivr-tester/blob/3b0e141/packages/ivr-tester/src/configuration/Config.ts#L50)*
+*Defined in [packages/ivr-tester/src/configuration/Config.ts:41](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/configuration/Config.ts#L41)*
 
 ___
 
@@ -70,7 +55,7 @@ ___
 
 • `Optional` **publicServerUrl**: string \| undefined
 
-*Defined in [packages/ivr-tester/src/configuration/Config.ts:48](https://github.com/SketchingDev/ivr-tester/blob/3b0e141/packages/ivr-tester/src/configuration/Config.ts#L48)*
+*Defined in [packages/ivr-tester/src/configuration/Config.ts:39](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/configuration/Config.ts#L39)*
 
 URL of the server that is publicly accessible. This is the
 server that Twilio connects to when creating the bi-directional
@@ -83,7 +68,7 @@ ___
 
 • `Optional` **recording**: { filename?: string \| [FilenameFactory](../modules/_call_recording_filename_filenamefactory_.md#filenamefactory) ; outputPath: string  }
 
-*Defined in [packages/ivr-tester/src/configuration/Config.ts:26](https://github.com/SketchingDev/ivr-tester/blob/3b0e141/packages/ivr-tester/src/configuration/Config.ts#L26)*
+*Defined in [packages/ivr-tester/src/configuration/Config.ts:17](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/configuration/Config.ts#L17)*
 
 #### Type declaration:
 
@@ -98,7 +83,7 @@ ___
 
 •  **transcriber**: [TranscriberFactory](_call_transcription_plugin_transcriberfactory_.transcriberfactory.md)
 
-*Defined in [packages/ivr-tester/src/configuration/Config.ts:15](https://github.com/SketchingDev/ivr-tester/blob/3b0e141/packages/ivr-tester/src/configuration/Config.ts#L15)*
+*Defined in [packages/ivr-tester/src/configuration/Config.ts:15](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/configuration/Config.ts#L15)*
 
 Factory to create a instance of a transcriber per test
 
@@ -108,6 +93,6 @@ ___
 
 • `Optional` **twilioClient**: Twilio
 
-*Defined in [packages/ivr-tester/src/configuration/Config.ts:40](https://github.com/SketchingDev/ivr-tester/blob/3b0e141/packages/ivr-tester/src/configuration/Config.ts#L40)*
+*Defined in [packages/ivr-tester/src/configuration/Config.ts:31](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/configuration/Config.ts#L31)*
 
 Twilio client used to initiate the call to the IVR
