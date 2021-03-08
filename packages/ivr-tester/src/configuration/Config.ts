@@ -14,15 +14,6 @@ export interface Config {
    */
   transcriber: TranscriberFactory;
 
-  /**
-   * The amount of time to wait, in milliseconds, after the last
-   * transcription event before marking the transcription of the
-   * IVR's prompt as complete.
-   *
-   * Default is 5 seconds
-   */
-  completeTranscriptionTimeoutInMs?: number;
-
   recording?: {
     outputPath: string;
     filename?: string | FilenameFactory;

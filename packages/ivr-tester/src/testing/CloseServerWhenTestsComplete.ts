@@ -13,11 +13,17 @@ export class CloseServerWhenTestsComplete implements IvrTesterPlugin {
     eventEmitter.on("callServerStarted", ({ callServer }) => {
       this.callHandlingServerStarted(callServer);
 
-      callServer.on("testStarted", ({ testInstance }) => {
+      callServer.on("testStarted", ({ testSession }) => {
         this.testStarted();
 
-        testInstance.on("testPassed", this.testCompleted.bind(this));
-        testInstance.on("testFailed", this.testCompleted.bind(this));
+        testSession.callFlowSession.on(
+          "allPromptsMatched",
+          this.testCompleted.bind(this)
+        );
+        testSession.callFlowSession.on(
+          "timeoutWaitingForMatch",
+          this.testCompleted.bind(this)
+        );
       });
     });
   }

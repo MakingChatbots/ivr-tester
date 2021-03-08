@@ -2,14 +2,16 @@ import { CloseServerWhenTestsComplete } from "./CloseServerWhenTestsComplete";
 import { PluginEvents } from "../plugins/PluginManager";
 import { Emitter, TypedEmitter } from "../Emitter";
 import {
-  TwilioCallServer,
   CallServer,
   CallServerEvents,
+  TwilioCallServer,
 } from "./TwilioCallServer";
-import { Call } from "../call/Call";
-import { TestInstance, TestInstanceEvents } from "./test/TestInstanceClass";
-import { IvrTest } from "./test/IvrTest";
 import { URL } from "url";
+import { TestSession } from "../testRunner";
+import {
+  CallFlowSession,
+  CallFlowSessionEvents,
+} from "./test/CallFlowTestDefinition";
 
 class StubCallServer
   extends TypedEmitter<CallServerEvents>
@@ -21,26 +23,11 @@ class StubCallServer
   stop(): void {
     // Intentionally empty
   }
-
-  // getEstablishedCalls(): ReadonlyArray<Call> {
-  //   return undefined;
-  // }
-  //
-  // preventNewCalls(): void {
-  // }
 }
 
-class StubTestInstance
-  extends TypedEmitter<TestInstanceEvents>
-  implements TestInstance {
-  getCall(): Call {
-    throw new Error("Not Implemented");
-  }
-
-  getTest(): IvrTest {
-    throw new Error("Not Implemented");
-  }
-}
+class StubCallFlowSession
+  extends TypedEmitter<CallFlowSessionEvents>
+  implements CallFlowSession {}
 
 describe("Close server when tests complete", () => {
   let pluginEmitter: Emitter<PluginEvents>;
@@ -51,7 +38,7 @@ describe("Close server when tests complete", () => {
     callServer = new StubCallServer();
   });
 
-  test("closes server when all tests succeed", () => {
+  test("server closed when all call-flow sessions have matched all their prompts", () => {
     const stopWhenAllTestsComplete = new CloseServerWhenTestsComplete();
     stopWhenAllTestsComplete.initialise(pluginEmitter);
 
@@ -59,36 +46,24 @@ describe("Close server when tests complete", () => {
       callServer: (callServer as unknown) as TwilioCallServer,
     });
 
-    const testInstance = new StubTestInstance();
-    callServer.emit("testStarted", { testInstance });
+    const callFlowSession = new StubCallFlowSession();
+    const testSession: TestSession = {
+      callFlowTestDefinition: undefined,
+      call: undefined,
+      callFlowSession,
+    };
+
+    callServer.emit("testStarted", { testSession });
 
     jest.spyOn(callServer, "stop");
-    testInstance.emit("testPassed", { test: undefined });
-
-    expect(callServer.stop).toHaveBeenCalled();
-  });
-
-  test("closes server when all tests fail", () => {
-    const stopWhenAllTestsComplete = new CloseServerWhenTestsComplete();
-    stopWhenAllTestsComplete.initialise(pluginEmitter);
-
-    pluginEmitter.emit("callServerStarted", {
-      callServer: (callServer as unknown) as TwilioCallServer,
-    });
-
-    const testInstance = new StubTestInstance();
-    callServer.emit("testStarted", { testInstance });
-
-    jest.spyOn(callServer, "stop");
-    testInstance.emit("testFailed", {
-      test: undefined,
-      transcription: undefined,
+    callFlowSession.emit("allPromptsMatched", {
+      transcription: "",
     });
 
     expect(callServer.stop).toHaveBeenCalled();
   });
 
-  test("server not closed if all tests are not complete", () => {
+  test("server closed when all call-flow sessions have timed out", () => {
     const stopWhenAllTestsComplete = new CloseServerWhenTestsComplete();
     stopWhenAllTestsComplete.initialise(pluginEmitter);
 
@@ -96,13 +71,47 @@ describe("Close server when tests complete", () => {
       callServer: (callServer as unknown) as TwilioCallServer,
     });
 
-    const testInstance1 = new StubTestInstance();
-    const testInstance2 = new StubTestInstance();
-    callServer.emit("testStarted", { testInstance: testInstance1 });
-    callServer.emit("testStarted", { testInstance: testInstance2 });
+    const callFlowSession = new StubCallFlowSession();
+    const testSession: TestSession = {
+      callFlowTestDefinition: undefined,
+      call: undefined,
+      callFlowSession,
+    };
+
+    callServer.emit("testStarted", { testSession });
 
     jest.spyOn(callServer, "stop");
-    testInstance1.emit("testPassed", { test: undefined });
+    callFlowSession.emit("timeoutWaitingForMatch", {
+      transcription: "",
+    });
+
+    expect(callServer.stop).toHaveBeenCalled();
+  });
+
+  test("server not closed until all call-flow sessions have matched all their prompts", () => {
+    const stopWhenAllTestsComplete = new CloseServerWhenTestsComplete();
+    stopWhenAllTestsComplete.initialise(pluginEmitter);
+
+    pluginEmitter.emit("callServerStarted", {
+      callServer: (callServer as unknown) as TwilioCallServer,
+    });
+
+    const testSession1: TestSession = {
+      callFlowTestDefinition: undefined,
+      call: undefined,
+      callFlowSession: new StubCallFlowSession(),
+    };
+    const testSession2: TestSession = {
+      callFlowTestDefinition: undefined,
+      call: undefined,
+      callFlowSession: new StubCallFlowSession(),
+    };
+
+    callServer.emit("testStarted", { testSession: testSession1 });
+    callServer.emit("testStarted", { testSession: testSession2 });
+
+    jest.spyOn(callServer, "stop");
+    testSession1.callFlowSession.emit("allPromptsMatched", {});
 
     expect(callServer.stop).not.toHaveBeenCalled();
   });

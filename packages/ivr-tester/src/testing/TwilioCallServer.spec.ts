@@ -10,8 +10,8 @@ import {
   TestAssigned,
   TestAssigner,
 } from "./IteratingTestAssigner";
-import { TestExecutor } from "./DefaultTestExecutor";
-import { IvrTest } from "./test/IvrTest";
+import { TestExecutor } from "./TestExecutor";
+import { CallFlowTestDefinition } from "./test/CallFlowTestDefinition";
 
 const waitForConnection = async (ws: WebSocket): Promise<void> =>
   new Promise((resolve) => ws.on("open", resolve));
@@ -88,7 +88,10 @@ describe("Call Server", () => {
   });
 
   test("test assigned started when call connected", async () => {
-    const test: IvrTest = { name: "example-test", test: undefined };
+    const test: CallFlowTestDefinition = {
+      name: "example-test",
+      instructions: undefined,
+    };
 
     testAssigner.assign.mockReturnValue({ isAssigned: true, test });
 

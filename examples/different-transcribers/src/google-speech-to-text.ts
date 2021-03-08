@@ -1,10 +1,12 @@
 import {
+  CallFlowTestDefinition,
   Config,
   contains,
   doNothing,
   inOrder,
-  IvrTest,
+  isAnything,
   press,
+  similarTo,
   testRunner,
   TestSubject,
 } from "ivr-tester";
@@ -19,30 +21,91 @@ const call: TestSubject = {
   to: process.env.TO_PHONE_NUMBER,
 };
 
-const tests: IvrTest[] = [
+const timeout = 6000;
+
+const tests: CallFlowTestDefinition[] = [
   {
     name: "Keys pressed are read back",
-    test: inOrder([
+    instructions: inOrder([
+      {
+        whenPrompt: isAnything(),
+        then: press("1"),
+        silenceAfterPrompt: 3000,
+        timeout,
+      },
       {
         whenPrompt: contains("please enter a number"),
-        then: press("0w1w2w3w4w5w6w7w8w9"),
+        then: press("0123456789"),
+        silenceAfterPrompt: 3000,
+        timeout,
       },
       {
         whenPrompt: contains("you entered the values 0123456789"),
         then: doNothing(),
+        silenceAfterPrompt: 3000,
+        timeout,
       },
     ]),
   },
   {
-    name: "Times out when keys not pressed",
-    test: inOrder([
+    name: "API call with short latency",
+    instructions: inOrder([
       {
-        whenPrompt: contains("please enter a number"),
-        then: doNothing(),
+        whenPrompt: isAnything(),
+        then: press("3"),
+        silenceAfterPrompt: 3000,
+        timeout,
       },
       {
-        whenPrompt: contains("you timed out"),
+        whenPrompt: similarTo(
+          "please wait while we search for your phone number on our system"
+        ),
         then: doNothing(),
+        silenceAfterPrompt: 1500,
+        timeout,
+      },
+      {
+        whenPrompt: contains("please enter a number"),
+        then: press("123"),
+        silenceAfterPrompt: 3000,
+        timeout,
+      },
+      {
+        whenPrompt: similarTo("you entered the values 123"),
+        then: doNothing(),
+        silenceAfterPrompt: 3000,
+        timeout,
+      },
+    ]),
+  },
+  {
+    name: "API call with long latency",
+    instructions: inOrder([
+      {
+        whenPrompt: isAnything(),
+        then: press("4"),
+        silenceAfterPrompt: 3000,
+        timeout,
+      },
+      {
+        whenPrompt: similarTo(
+          "please wait while we search for your phone number on our system"
+        ),
+        then: doNothing(),
+        silenceAfterPrompt: 3000,
+        timeout,
+      },
+      {
+        whenPrompt: contains("please enter a number"),
+        then: press("123"),
+        silenceAfterPrompt: 3000,
+        timeout,
+      },
+      {
+        whenPrompt: similarTo("you entered the values 123"),
+        then: doNothing(),
+        silenceAfterPrompt: 3000,
+        timeout,
       },
     ]),
   },

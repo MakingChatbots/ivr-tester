@@ -5,17 +5,27 @@ import { populateDefaults } from "./configuration/populateDefaults";
 import { TwilioCaller } from "./call/TwilioCaller";
 import { IteratingTestAssigner } from "./testing/IteratingTestAssigner";
 import { mediaStreamRecorderPlugin } from "./call/recording/MediaStreamRecorder";
-import { DefaultTestExecutor } from "./testing/DefaultTestExecutor";
+import { testExecutor } from "./testing/TestExecutor";
 import { AudioPlaybackCaller } from "./call/AudioPlaybackCaller";
 import { Caller } from "./call/Caller";
 import { consoleUserInterface } from "./testing/ui/consoleUserInterface";
 import { CloseServerWhenTestsComplete } from "./testing/CloseServerWhenTestsComplete";
-import { IvrTest } from "./testing/test/IvrTest";
+import {
+  CallFlowSession,
+  CallFlowTestDefinition,
+} from "./testing/test/CallFlowTestDefinition";
 import { callConnectedTimeout } from "./testing/callConnectedTimeout";
+import { Call } from "./call/Call";
 
 export interface TestSubject {
   from: string;
   to: string;
+}
+
+export interface TestSession {
+  readonly callFlowTestDefinition: CallFlowTestDefinition;
+  readonly call: Call;
+  readonly callFlowSession: CallFlowSession;
 }
 
 /**
@@ -23,7 +33,7 @@ export interface TestSubject {
  */
 export const testRunner = (config: Config) => async (
   call: TestSubject | Buffer,
-  ivrTest: IvrTest[] | IvrTest
+  ivrTest: CallFlowTestDefinition[] | CallFlowTestDefinition
 ): Promise<void> => {
   config = populateDefaults(config);
 
@@ -45,15 +55,10 @@ export const testRunner = (config: Config) => async (
     );
   }
 
-  const testExecutor = new DefaultTestExecutor(
-    config.transcriber,
-    config.completeTranscriptionTimeoutInMs
-  );
-
   const callServer = new TwilioCallServer(
     config.dtmfGenerator,
     new IteratingTestAssigner(tests),
-    testExecutor
+    testExecutor(config.transcriber)
   );
   const serverUrl = await callServer.listen(config.localServerPort);
   pluginManager.serverListening(callServer);

@@ -1,11 +1,43 @@
-import { inOrder } from "./inOrder";
+import {
+  inOrder,
+  MatchedCallback,
+  PromptFactory,
+  TimeoutCallback,
+} from "./inOrder";
 import { contains } from "./conditions/when";
 import { press } from "./conditions/then";
-import { AssertThen } from "../../index";
+import { TranscriberPlugin, TranscriptEvent } from "../../index";
 import { Call } from "../../call/Call";
+import { EventEmitter } from "events";
+import { PostSilencePrompt } from "./PostSilencePrompt";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const FakeTimers = require("@sinonjs/fake-timers");
+
+class TranscriberTestDouble extends EventEmitter implements TranscriberPlugin {
+  public close(): void {
+    //Intentionally empty
+  }
+  public transcribe(): void {
+    //Intentionally empty
+  }
+
+  public produceTranscriptionEvent(event: TranscriptEvent): void {
+    this.emit("transcription", event);
+  }
+
+  public transcriptionComplete(): void {
+    //Intentionally empty
+  }
+}
 
 describe("ordered conditions", () => {
   let call: jest.Mocked<Call>;
+  let transcriberPlugin: TranscriberTestDouble;
+
+  let clock: any;
+  let testPromptFactory: PromptFactory;
+  let matchedCallback: jest.Mocked<MatchedCallback>;
+  let timeoutCallback: jest.Mocked<TimeoutCallback>;
 
   beforeEach(() => {
     call = {
@@ -18,84 +50,245 @@ describe("ordered conditions", () => {
       off: jest.fn(),
       emit: jest.fn(),
     };
+    transcriberPlugin = new TranscriberTestDouble();
+
+    clock = FakeTimers.createClock();
+    matchedCallback = jest.fn();
+    timeoutCallback = jest.fn();
+
+    testPromptFactory = (definition, call) =>
+      new PostSilencePrompt(
+        definition,
+        call,
+        matchedCallback,
+        timeoutCallback,
+        clock.setTimeout,
+        clock.clearTimeout
+      );
   });
 
-  test("test passes if no conditions provided", () => {
-    const orderedConditions = inOrder([]);
+  test("prompt presses 123 when transcript eventually contains Hello", () => {
+    const silenceAfterPrompt = 1;
 
-    const testOutcome = orderedConditions.test("Hello", call);
+    const promptContainer = inOrder(
+      [
+        {
+          whenPrompt: contains("Hello"),
+          then: press("123"),
+          silenceAfterPrompt,
+          timeout: silenceAfterPrompt * 2,
+        },
+      ],
+      testPromptFactory
+    );
 
+    promptContainer.runAgainstCallFlow(transcriberPlugin, call);
+
+    transcriberPlugin.produceTranscriptionEvent({
+      isFinal: false,
+      transcription: "Hel",
+    });
+
+    clock.tick(silenceAfterPrompt);
     expect(call.sendDtmfTone).not.toHaveBeenCalled();
-    expect(testOutcome).toMatchObject({
-      result: "pass",
+
+    transcriberPlugin.produceTranscriptionEvent({
+      isFinal: false,
+      transcription: "Hello",
     });
+
+    clock.tick(silenceAfterPrompt);
+    expect(call.sendDtmfTone).toHaveBeenCalledTimes(1);
+    expect(call.sendDtmfTone).toHaveBeenCalledWith("123");
   });
 
-  test("all match and test passes for last one", () => {
-    const conditions: AssertThen[] = [
-      {
-        whenPrompt: contains("Hello"),
-        then: press("1"),
-      },
-      {
-        whenPrompt: contains("Jane"),
-        then: press("2"),
-      },
-      {
-        whenPrompt: contains("Austen"),
-        then: press("3"),
-      },
-    ];
+  test("prompt does not press 123 when transcript corrected from Hello to Cello", () => {
+    const silenceAfterPrompt = 1;
 
-    const orderedConditions = inOrder(conditions);
+    const promptContainer = inOrder(
+      [
+        {
+          whenPrompt: contains("Hello"),
+          then: press("123"),
+          silenceAfterPrompt,
+          timeout: silenceAfterPrompt * 2,
+        },
+      ],
+      testPromptFactory
+    );
 
-    const testOutcome1 = orderedConditions.test("Hello", call);
-    expect(call.sendDtmfTone).toHaveBeenCalled();
-    expect(testOutcome1).toMatchObject({
-      matchedCondition: conditions[0],
-      result: "continue",
+    promptContainer.runAgainstCallFlow(transcriberPlugin, call);
+
+    transcriberPlugin.produceTranscriptionEvent({
+      isFinal: false,
+      transcription: "Hello",
     });
 
-    const testOutcome2 = orderedConditions.test("Jane", call);
-    expect(call.sendDtmfTone).toHaveBeenCalled();
-    expect(testOutcome2).toMatchObject({
-      matchedCondition: conditions[1],
-      result: "continue",
+    clock.tick(silenceAfterPrompt / 2);
+    expect(call.sendDtmfTone).not.toHaveBeenCalled();
+
+    transcriberPlugin.produceTranscriptionEvent({
+      isFinal: false,
+      transcription: "Cello",
     });
 
-    const testOutcome3 = orderedConditions.test("Austen", call);
-    expect(call.sendDtmfTone).toHaveBeenCalled();
-    expect(testOutcome3).toMatchObject({
-      matchedCondition: conditions[2],
-      result: "pass",
-    });
+    clock.tick(silenceAfterPrompt);
+    expect(call.sendDtmfTone).not.toHaveBeenCalledTimes(1);
   });
 
-  test("test failed when second condition doesn't match", () => {
-    const conditions: AssertThen[] = [
-      {
-        whenPrompt: contains("Hello"),
-        then: press("1"),
-      },
-      {
-        whenPrompt: contains("Jane"),
-        then: press("2"),
-      },
-    ];
+  test("Silence After Prompt time reached without match doesn't result in call", () => {
+    const silenceAfterPrompt = 1;
+    const promptContainer = inOrder(
+      [
+        {
+          whenPrompt: contains("Hello"),
+          then: press("123"),
+          silenceAfterPrompt,
+          timeout: silenceAfterPrompt * 2,
+        },
+      ],
+      testPromptFactory
+    );
 
-    const orderedConditions = inOrder(conditions);
+    promptContainer.runAgainstCallFlow(transcriberPlugin, call);
 
-    const testOutcome1 = orderedConditions.test("Hello", call);
-    expect(call.sendDtmfTone).toHaveBeenCalled();
-    expect(testOutcome1).toMatchObject({
-      matchedCondition: conditions[0],
-      result: "continue",
+    transcriberPlugin.produceTranscriptionEvent({
+      isFinal: false,
+      transcription: "Hel",
     });
 
-    const testOutcome2 = orderedConditions.test("Darcy", call);
-    expect(call.sendDtmfTone).toHaveBeenCalled();
-    expect(testOutcome2).toMatchObject({
-      result: "fail",
+    clock.tick(silenceAfterPrompt);
+    expect(call.sendDtmfTone).not.toHaveBeenCalled();
+
+    transcriberPlugin.produceTranscriptionEvent({
+      isFinal: false,
+      transcription: "Hello",
     });
+
+    clock.tick(silenceAfterPrompt);
+    expect(call.sendDtmfTone).toHaveBeenCalledTimes(1);
+    expect(call.sendDtmfTone).toHaveBeenCalledWith("123");
+  });
+
+  test(`prompt presses 123 when transcript only contains Hello,
+  then second prompt presses 321 when transcript only contains World`, () => {
+    const silenceAfterPrompt = 1;
+    const promptContainer = inOrder(
+      [
+        {
+          whenPrompt: contains("Hello"),
+          then: press("123"),
+          silenceAfterPrompt,
+          timeout: silenceAfterPrompt * 2,
+        },
+        {
+          whenPrompt: contains("World"),
+          then: press("321"),
+          silenceAfterPrompt,
+          timeout: silenceAfterPrompt * 2,
+        },
+      ],
+      testPromptFactory
+    );
+
+    promptContainer.runAgainstCallFlow(transcriberPlugin, call);
+
+    transcriberPlugin.produceTranscriptionEvent({
+      isFinal: false,
+      transcription: "Hello",
+    });
+
+    clock.tick(silenceAfterPrompt);
+
+    transcriberPlugin.produceTranscriptionEvent({
+      isFinal: false,
+      transcription: "Wor",
+    });
+
+    transcriberPlugin.produceTranscriptionEvent({
+      isFinal: false,
+      transcription: "World",
+    });
+
+    clock.tick(silenceAfterPrompt);
+
+    expect(call.sendDtmfTone).toHaveBeenCalledTimes(2);
+    expect(call.sendDtmfTone).toHaveBeenCalledWith("321");
+  });
+
+  test(`prompt presses 234 when transcript contains Hello,
+  then second prompt presses 345 when transcript contains World within Hello World`, () => {
+    const silenceAfterPrompt = 1;
+    const promptContainer = inOrder(
+      [
+        {
+          whenPrompt: contains("Hello"),
+          then: press("234"),
+          silenceAfterPrompt,
+          timeout: silenceAfterPrompt * 2,
+        },
+        {
+          whenPrompt: contains("World"),
+          then: press("345"),
+          silenceAfterPrompt,
+          timeout: silenceAfterPrompt * 2,
+        },
+      ],
+      testPromptFactory
+    );
+
+    promptContainer.runAgainstCallFlow(transcriberPlugin, call);
+
+    transcriberPlugin.produceTranscriptionEvent({
+      isFinal: false,
+      transcription: "Hello",
+    });
+
+    clock.tick(silenceAfterPrompt);
+
+    transcriberPlugin.produceTranscriptionEvent({
+      isFinal: false,
+      transcription: "Hello Wor",
+    });
+
+    clock.tick(silenceAfterPrompt);
+
+    transcriberPlugin.produceTranscriptionEvent({
+      isFinal: false,
+      transcription: "Hello World",
+    });
+
+    clock.tick(silenceAfterPrompt);
+
+    expect(call.sendDtmfTone).toHaveBeenCalledWith("345");
+  });
+
+  test("prompt times out if it does not find match within timeout limit", () => {
+    const timeout = 2;
+    const promptContainer = inOrder(
+      [
+        {
+          whenPrompt: contains("Hello"),
+          then: press("123"),
+          silenceAfterPrompt: 1,
+          timeout,
+        },
+      ],
+      testPromptFactory
+    );
+
+    promptContainer.runAgainstCallFlow(transcriberPlugin, call);
+
+    transcriberPlugin.produceTranscriptionEvent({
+      isFinal: false,
+      transcription: "World",
+    });
+
+    clock.tick(timeout);
+    expect(call.sendDtmfTone).not.toHaveBeenCalled();
+    expect(timeoutCallback).toHaveBeenCalledWith(
+      expect.any(PostSilencePrompt),
+      "World"
+    );
   });
 });
