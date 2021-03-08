@@ -86,7 +86,10 @@ describe("Test Runner", () => {
     });
 
     try {
-      await runner({ from: "", to: "" }, { name: "", test: inOrder([]) });
+      await runner(
+        { from: "", to: "" },
+        { name: "", instructions: inOrder([]) }
+      );
     } catch (err) {
       /* Intentionally ignore*/
     }
@@ -108,7 +111,10 @@ describe("Test Runner", () => {
     });
 
     try {
-      await runner({ from: "", to: "" }, { name: "", test: inOrder([]) });
+      await runner(
+        { from: "", to: "" },
+        { name: "", instructions: inOrder([]) }
+      );
     } catch (err) {
       /* Intentionally ignore*/
     }
@@ -130,7 +136,10 @@ describe("Test Runner", () => {
     };
 
     try {
-      await testRunner(commonConfig)(call, { name: "", test: inOrder([]) });
+      await testRunner(commonConfig)(call, {
+        name: "",
+        instructions: inOrder([]),
+      });
     } catch (err) {
       /* Intentionally ignore*/
     }
@@ -148,7 +157,7 @@ describe("Test Runner", () => {
     await expect(() =>
       testRunner(commonConfig)(
         { from: "", to: "" },
-        { name: "", test: inOrder([]) }
+        { name: "", instructions: inOrder([]) }
       )
     ).rejects.toThrowError(new Error("Error Occurred"));
   });
@@ -173,7 +182,7 @@ describe("Test Runner", () => {
     const runner = testRunner(config);
     const runnerPromise = runner(
       { from: "", to: "" },
-      { name: "", test: inOrder([]) }
+      { name: "", instructions: inOrder([]) }
     );
 
     // Wait for calls to be made

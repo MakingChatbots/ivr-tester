@@ -15,7 +15,7 @@ export * from "./call/transcription/plugin/TranscriberPlugin";
 export * from "./call/transcription/plugin/TranscriberFactory";
 
 export { TestSubject } from "./testRunner";
-export { CallFlowTest } from "./testing/test/CallFlowTest";
+export { CallFlowTestDefinition } from "./testing/test/CallFlowTestDefinition";
 export { inOrder } from "./testing/test/inOrder";
 export { PluginManager } from "./plugins/PluginManager";
 export { populateDefaults } from "./configuration/populateDefaults";

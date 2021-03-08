@@ -8,10 +8,10 @@ import { filenameContainingIvrNumberAndTestName } from "./filename/filenameConta
 import { Config } from "../../configuration/Config";
 import { ConfigurationError } from "../../configuration/ConfigurationError";
 import { TwilioCaller, TwilioMediaStreamStartEvent } from "../TwilioCaller";
-import { TestInstance } from "../../testing/test/TestInstanceClass";
 import { IvrTesterPlugin } from "../../plugins/IvrTesterPlugin";
 import { Emitter } from "../../Emitter";
 import { PluginEvents } from "../../plugins/PluginManager";
+import { TestSession } from "../../testRunner";
 
 /**
  * Details about the stream about to be recorded
@@ -55,8 +55,8 @@ export const mediaStreamRecorderPlugin = (config: Config): IvrTesterPlugin => {
   return {
     initialise(eventEmitter: Emitter<PluginEvents>): void {
       eventEmitter.on("callServerStarted", ({ callServer }) => {
-        callServer.on("testStarted", ({ testInstance }) => {
-          new MediaStreamRecorder(testInstance, recorderConfig);
+        callServer.on("testStarted", ({ testSession }) => {
+          new MediaStreamRecorder(testSession, recorderConfig);
         });
       });
     },
@@ -71,13 +71,13 @@ export class MediaStreamRecorder {
   private readonly closeRef: () => void;
 
   constructor(
-    private readonly testInstance: TestInstance,
+    private readonly testSession: TestSession,
     private readonly config: RecorderConfig
   ) {
     this.processMessageRef = this.processMessage.bind(this);
     this.closeRef = this.close.bind(this);
 
-    const connection = this.testInstance.getCall().getStream();
+    const connection = this.testSession.call.getStream();
     connection
       .on(WebSocketEvents.Message, this.processMessageRef)
       .on(WebSocketEvents.Close, this.closeRef);
@@ -107,7 +107,7 @@ export class MediaStreamRecorder {
           sid: event.streamSid,
           call,
         },
-        this.testInstance.getTest()
+        this.testSession.callFlowTestDefinition
       );
     }
 
@@ -128,7 +128,7 @@ export class MediaStreamRecorder {
   }
 
   private close() {
-    const connection = this.testInstance.getCall().getStream();
+    const connection = this.testSession.call.getStream();
     connection
       .off(WebSocketEvents.Message, this.processMessageRef)
       .off(WebSocketEvents.Close, this.closeRef);

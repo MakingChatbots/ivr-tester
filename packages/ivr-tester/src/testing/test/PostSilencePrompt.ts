@@ -2,27 +2,37 @@ import { setTimeout } from "timers";
 import { PromptDefinition } from "./conditions/PromptDefinition";
 import { Call } from "../../call/Call";
 import { PromptTranscriptionBuilder } from "../../call/transcription/PromptTranscriptionBuilder";
-import { AbstractPrompt, MatchedCallback } from "./inOrder";
+import { MatchedCallback, Prompt } from "./inOrder";
 
-export class PostSilencePrompt extends AbstractPrompt {
-  private skipPrompt = false;
+export class PostSilencePrompt implements Prompt {
   private timeout: ReturnType<typeof setTimeout>;
+  private skipPrompt = false;
+  private nextPrompt: Prompt;
 
   constructor(
-    readonly definition: PromptDefinition,
+    public readonly definition: PromptDefinition,
     private readonly call: Call,
     private readonly matchedCallback: MatchedCallback,
     private readonly timeoutSet: typeof setTimeout,
     private readonly timeoutClear: typeof clearTimeout
-  ) {
-    super();
+  ) {}
+
+  public setNext(prompt: Prompt): Prompt {
+    this.nextPrompt = prompt;
+    return prompt;
   }
 
   public transcriptUpdated(transcriptEvent: PromptTranscriptionBuilder): void {
-    if (this.skipPrompt) {
-      return super.transcriptUpdated(transcriptEvent);
+    if (this.skipPrompt && this.nextPrompt) {
+      this.nextPrompt.transcriptUpdated(transcriptEvent);
+    } else {
+      this.processUpdatedTranscript(transcriptEvent);
     }
+  }
 
+  private processUpdatedTranscript(
+    transcriptEvent: PromptTranscriptionBuilder
+  ): void {
     this.clearTimer();
 
     const transcript = transcriptEvent.merge();

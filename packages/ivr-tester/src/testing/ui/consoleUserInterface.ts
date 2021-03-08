@@ -4,11 +4,11 @@ import logSymbols from "log-symbols";
 import { CallServer } from "../TwilioCallServer";
 import { Emitter } from "../../Emitter";
 import { PluginEvents } from "../../plugins/PluginManager";
-import { TestInstance } from "../test/TestInstanceClass";
+import { TestSession } from "../../testRunner";
 
 const ivrTranscription = (
   callServer: CallServer,
-  testInstance: TestInstance
+  testSession: TestSession
 ): void => {
   let includeTestName = false;
 
@@ -20,31 +20,32 @@ const ivrTranscription = (
     }
   });
 
-  testInstance.on("progress", (event) => {
-    const state = chalk.gray.bold(
-      // event.transcription.isFinal ? "Finished: " :
-      "Transcribing: "
-    );
+  testSession.callFlowSession.on("progress", (event) => {
+    const state = chalk.gray.bold("Transcribing: ");
 
-    const testName = includeTestName ? `${event.test.name}: ` : "";
-    console.log(
-      state + chalk.gray(`${testName}${event.transcription.transcription}`)
-    );
+    const testName = includeTestName
+      ? `${testSession.callFlowTestDefinition.name}: `
+      : "";
+    console.log(state + chalk.gray(`${testName}${event.transcription}`));
   });
 };
 
-const ivrTestPassed = (emitter: TestInstance): void =>
-  emitter.on("testPassed", (event) =>
+const ivrTestPassed = (testSession: TestSession): void =>
+  testSession.callFlowSession.on("allPromptsMatched", () =>
     console.log(
       logSymbols.success,
-      chalk.green(`Test Complete: ${event.test.name}...`)
+      chalk.green(
+        `Test Complete: ${testSession.callFlowTestDefinition.name}...`
+      )
     )
   );
 
-const ivrTestFailed = (testInstance: TestInstance): void =>
-  testInstance.on("testFailed", (event) => {
+const ivrTestFailed = (testSession: TestSession): void =>
+  testSession.callFlowSession.on("timeoutWaitingForMatch", (event) => {
     console.log(
-      `${chalk.bold.blue("Test -")} ${chalk.bold.blue(event.test.name)}\n`,
+      `${chalk.bold.blue("Test -")} ${chalk.bold.blue(
+        testSession.callFlowTestDefinition.name
+      )}\n`,
       `Them: "${event.transcription}"\n`,
       chalk.red("No condition matched this transcript\n")
     );
@@ -95,7 +96,7 @@ const callRequestErrored = (emitter: Emitter<PluginEvents>): void =>
 
 const ivrTestConditionMet = (
   callServer: CallServer,
-  testInstance: TestInstance
+  testSession: TestSession
 ): void => {
   let includeTestName = false;
 
@@ -107,14 +108,14 @@ const ivrTestConditionMet = (
     }
   });
 
-  testInstance.on("conditionMet", (event) => {
+  testSession.callFlowSession.on("promptMatched", (event) => {
     const lines: string[] = [];
 
     if (includeTestName) {
-      lines.push(`Test - ${event.test.name}`);
+      lines.push(`Test - ${testSession.callFlowTestDefinition.name}`);
     }
     lines.push(`Them: "${event.transcription}"`);
-    lines.push(`You: ${event.condition.then.describe()}`);
+    lines.push(`You: ${event.promptDefinition.then.describe()}`);
 
     console.log(chalk.bold.blue(lines.join(`\n`)));
   });
@@ -127,12 +128,14 @@ const callServerStarted = (eventEmitter: Emitter<PluginEvents>) => {
     callServerStopped(callServer);
     callServerErrored(callServer);
 
-    callServer.on("testStarted", ({ testInstance }) => {
-      console.log(`Call using test '${testInstance.getTest().name}'`);
-      ivrTestPassed(testInstance);
-      ivrTestFailed(testInstance);
-      ivrTestConditionMet(callServer, testInstance);
-      ivrTranscription(callServer, testInstance);
+    callServer.on("testStarted", ({ testSession }) => {
+      console.log(
+        `Call using test '${testSession.callFlowTestDefinition.name}'`
+      );
+      ivrTestPassed(testSession);
+      ivrTestFailed(testSession);
+      ivrTestConditionMet(callServer, testSession);
+      ivrTranscription(callServer, testSession);
     });
   });
 };

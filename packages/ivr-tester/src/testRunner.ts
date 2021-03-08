@@ -5,19 +5,27 @@ import { populateDefaults } from "./configuration/populateDefaults";
 import { TwilioCaller } from "./call/TwilioCaller";
 import { IteratingTestAssigner } from "./testing/IteratingTestAssigner";
 import { mediaStreamRecorderPlugin } from "./call/recording/MediaStreamRecorder";
-import { TestExecutor } from "./testing/TestExecutor";
+import { testExecutor } from "./testing/TestExecutor";
 import { AudioPlaybackCaller } from "./call/AudioPlaybackCaller";
 import { Caller } from "./call/Caller";
 import { consoleUserInterface } from "./testing/ui/consoleUserInterface";
 import { CloseServerWhenTestsComplete } from "./testing/CloseServerWhenTestsComplete";
-import { CallFlowTest } from "./testing/test/CallFlowTest";
+import {
+  CallFlowSession,
+  CallFlowTestDefinition,
+} from "./testing/test/CallFlowTestDefinition";
 import { callConnectedTimeout } from "./testing/callConnectedTimeout";
 import { Call } from "./call/Call";
-import { CallTranscriber } from "./call/transcription/CallTranscriber";
 
 export interface TestSubject {
   from: string;
   to: string;
+}
+
+export interface TestSession {
+  readonly callFlowTestDefinition: CallFlowTestDefinition;
+  readonly call: Call;
+  readonly callFlowSession: CallFlowSession;
 }
 
 /**
@@ -25,7 +33,7 @@ export interface TestSubject {
  */
 export const testRunner = (config: Config) => async (
   call: TestSubject | Buffer,
-  ivrTest: CallFlowTest[] | CallFlowTest
+  ivrTest: CallFlowTestDefinition[] | CallFlowTestDefinition
 ): Promise<void> => {
   config = populateDefaults(config);
 
@@ -47,22 +55,10 @@ export const testRunner = (config: Config) => async (
     );
   }
 
-  const testExecutor: TestExecutor = {
-    startTest(test: CallFlowTest, call: Call) {
-      const callTranscriber = new CallTranscriber(
-        call,
-        this.transcriberFactory.create()
-      );
-
-      test.test.startListening(callTranscriber, call);
-      return test.test;
-    },
-  };
-
   const callServer = new TwilioCallServer(
     config.dtmfGenerator,
     new IteratingTestAssigner(tests),
-    testExecutor
+    testExecutor(config.transcriber)
   );
   const serverUrl = await callServer.listen(config.localServerPort);
   pluginManager.serverListening(callServer);

@@ -20,4 +20,9 @@ export interface PromptDefinition {
    * the prompt has ended.
    */
   readonly silenceAfterPrompt: number;
+
+  /**
+   * Amount of time to wait for before timing out
+   */
+  // readonly timeout: number;
 }

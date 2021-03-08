@@ -6,11 +6,11 @@ import { Emitter, TypedEmitter } from "../Emitter";
 import { Call } from "../call/Call";
 import { TestAssigner } from "./IteratingTestAssigner";
 import { TestExecutor } from "./TestExecutor";
-import { TestInstance } from "./test/TestInstanceClass";
+import { TestSession } from "../testRunner";
 
 export type CallServerEvents = {
   callConnected: { call: Call };
-  testStarted: { testInstance: TestInstance };
+  testStarted: { testSession: TestSession };
 
   listening: { localUrl: URL };
   stopped: undefined;
@@ -111,8 +111,8 @@ export class TwilioCallServer
 
     const result = this.testAssigner.assign();
     if (result.isAssigned === true) {
-      const testInstance = this.testExecutor.startTest(result.test, call);
-      this.emit("testStarted", { testInstance });
+      const testSession = this.testExecutor.startTest(result.test, call);
+      this.emit("testStarted", { testSession });
     } else {
       call.close(TwilioCallServer.TestCouldNotBeAssignedReason);
     }

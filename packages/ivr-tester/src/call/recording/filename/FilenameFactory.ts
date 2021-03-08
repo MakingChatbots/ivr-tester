@@ -1,5 +1,5 @@
 import { StreamDetails } from "../MediaStreamRecorder";
-import { CallFlowTest } from "../../../testing/test/CallFlowTest";
+import { CallFlowTestDefinition } from "../../../testing/test/CallFlowTestDefinition";
 
 /**
  * Returns the filename used for recording a stream. The filename returned does not
@@ -7,5 +7,5 @@ import { CallFlowTest } from "../../../testing/test/CallFlowTest";
  */
 export type FilenameFactory = (
   stream: StreamDetails,
-  test: CallFlowTest
+  callFlowTestDefinition: CallFlowTestDefinition
 ) => string;

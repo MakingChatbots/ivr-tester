@@ -1,5 +1,9 @@
 import { PromptDefinition } from "./conditions/PromptDefinition";
-import { CallFlowInstructions, TestInstanceEvents } from "./CallFlowTest";
+import {
+  CallFlowInstructions,
+  CallFlowSession,
+  CallFlowSessionEvents,
+} from "./CallFlowTestDefinition";
 import { setTimeout } from "timers";
 import { Call } from "../../call/Call";
 import { PromptTranscriptionBuilder } from "../../call/transcription/PromptTranscriptionBuilder";
@@ -7,29 +11,11 @@ import { Emitter, TypedEmitter } from "../../Emitter";
 import { TranscriptionEvents } from "../../call/transcription/plugin/TranscriberPlugin";
 import { PostSilencePrompt } from "./PostSilencePrompt";
 
-interface Prompt {
+export interface Prompt {
   readonly definition: PromptDefinition;
   setNext(prompt: Prompt): Prompt;
   // TODO Refactor PromptTranscriptionBuilder parameter
   transcriptUpdated(transcriptEvent: PromptTranscriptionBuilder): void;
-}
-
-export abstract class AbstractPrompt implements Prompt {
-  private nextPrompt: Prompt;
-
-  public setNext(prompt: Prompt): Prompt {
-    this.nextPrompt = prompt;
-    return prompt;
-  }
-
-  public transcriptUpdated(transcriptEvent: PromptTranscriptionBuilder): void {
-    if (this.nextPrompt) {
-      return this.nextPrompt.transcriptUpdated(transcriptEvent);
-    }
-    return;
-  }
-
-  public abstract readonly definition: PromptDefinition;
 }
 
 export type MatchedCallback = (
@@ -56,30 +42,41 @@ const defaultPromptFactory: PromptFactory = (
     clearTimeout
   );
 
-class OrderedCallFlowInstructions
-  extends TypedEmitter<TestInstanceEvents>
-  implements CallFlowInstructions {
+class RunningOrderedCallFlowInstructions
+  extends TypedEmitter<CallFlowSessionEvents>
+  implements CallFlowSession {
   constructor(
     private readonly promptDefinitions: ReadonlyArray<PromptDefinition>,
-    private readonly promptFactory: PromptFactory
+    private readonly promptFactory: PromptFactory,
+    private readonly transcriber: Emitter<TranscriptionEvents>,
+    private readonly call: Call
   ) {
     super();
+    this.initialise();
   }
 
-  public startListening(
-    transcriber: Emitter<TranscriptionEvents>,
-    call: Call
-  ): void {
+  private initialise(): void {
     const matchedCallback: MatchedCallback = (prompt, transcriptMatched) => {
       this.emit("promptMatched", {
         transcription: transcriptMatched,
         promptDefinition: prompt.definition,
       });
     };
+    const lastMatchedCallback: MatchedCallback = (
+      prompt,
+      transcriptMatched
+    ) => {
+      matchedCallback(prompt, transcriptMatched);
+      this.emit("allPromptsMatched", {});
+    };
 
-    const prompts = this.promptDefinitions.map((prompt) =>
-      this.promptFactory(prompt, call, matchedCallback)
-    );
+    const prompts = this.promptDefinitions.map((prompt, index) => {
+      const callback =
+        this.promptDefinitions.length - 1 === index
+          ? lastMatchedCallback
+          : matchedCallback;
+      return this.promptFactory(prompt, this.call, callback);
+    });
 
     if (prompts.length === 0) {
       return;
@@ -94,8 +91,12 @@ class OrderedCallFlowInstructions
 
     const promptTranscriptionBuilder = new PromptTranscriptionBuilder();
 
-    transcriber.on("transcription", (event) => {
+    this.transcriber.on("transcription", (event) => {
       promptTranscriptionBuilder.add(event);
+      this.emit("progress", {
+        transcription: promptTranscriptionBuilder.merge(),
+      });
+
       firstPrompt.transcriptUpdated(promptTranscriptionBuilder);
     });
   }
@@ -107,5 +108,15 @@ class OrderedCallFlowInstructions
 export const inOrder = (
   promptDefinitions: ReadonlyArray<PromptDefinition>,
   promptFactory: PromptFactory = defaultPromptFactory
-): CallFlowInstructions =>
-  new OrderedCallFlowInstructions(promptDefinitions, promptFactory);
+): CallFlowInstructions => ({
+  runAgainstCallFlow: (
+    transcriber: Emitter<TranscriptionEvents>,
+    call: Call
+  ): CallFlowSession =>
+    new RunningOrderedCallFlowInstructions(
+      promptDefinitions,
+      promptFactory,
+      transcriber,
+      call
+    ),
+});

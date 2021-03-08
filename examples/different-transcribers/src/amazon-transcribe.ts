@@ -1,9 +1,9 @@
 import {
+  CallFlowTestDefinition,
   Config,
   contains,
   doNothing,
   inOrder,
-  IvrTest,
   press,
   testRunner,
   TestSubject,
@@ -19,16 +19,18 @@ const call: TestSubject = {
   to: process.env.TO_PHONE_NUMBER,
 };
 
-const test: IvrTest = {
+const test: CallFlowTestDefinition = {
   name: "Keys pressed are read back",
-  test: inOrder([
+  instructions: inOrder([
     {
       whenPrompt: contains("please enter a number"),
-      then: press("0w1w2w3w4w5w6w7w8w9"),
+      then: press("0123456789"),
+      silenceAfterPrompt: 3000,
     },
     {
       whenPrompt: contains(["you entered", "0123456789"]),
       then: doNothing(),
+      silenceAfterPrompt: 3000,
     },
   ]),
 };
