@@ -8,7 +8,10 @@ import { setTimeout } from "timers";
 import { Call } from "../../call/Call";
 import { PromptTranscriptionBuilder } from "../../call/transcription/PromptTranscriptionBuilder";
 import { Emitter, TypedEmitter } from "../../Emitter";
-import { TranscriptionEvents } from "../../call/transcription/plugin/TranscriberPlugin";
+import {
+  TranscriptEvent,
+  TranscriptionEvents,
+} from "../../call/transcription/plugin/TranscriberPlugin";
 import { PostSilencePrompt } from "./PostSilencePrompt";
 
 export interface Prompt {
@@ -60,6 +63,8 @@ class RunningOrderedCallFlowInstructions
     this.initialise();
   }
 
+  // TODO Stop transcribe on
+  // TODO Tidy this
   private initialise(): void {
     const timedOutCallback: TimeoutCallback = (prompt, transcript) => {
       this.emit("timeoutWaitingForMatch", {
@@ -91,10 +96,6 @@ class RunningOrderedCallFlowInstructions
       return this.promptFactory(prompt, this.call, callback, timedOutCallback);
     });
 
-    if (prompts.length === 0) {
-      return;
-    }
-
     const firstPrompt: Prompt = prompts.shift();
     let chain: Prompt = firstPrompt;
 
@@ -104,14 +105,21 @@ class RunningOrderedCallFlowInstructions
 
     const promptTranscriptionBuilder = new PromptTranscriptionBuilder();
 
-    this.transcriber.on("transcription", (event) => {
+    const onTranscription = (event: TranscriptEvent) => {
+      if (this.promptDefinitions.length === 0) {
+        this.emit("allPromptsMatched", {});
+        return;
+      }
+
       promptTranscriptionBuilder.add(event);
       this.emit("progress", {
         transcription: promptTranscriptionBuilder.merge(),
       });
 
       firstPrompt.transcriptUpdated(promptTranscriptionBuilder);
-    });
+    };
+
+    this.transcriber.on("transcription", onTranscription);
   }
 }
 

@@ -262,4 +262,33 @@ describe("ordered conditions", () => {
 
     expect(call.sendDtmfTone).toHaveBeenCalledWith("345");
   });
+
+  test("prompt times out if it does not find match within timeout limit", () => {
+    const timeout = 2;
+    const promptContainer = inOrder(
+      [
+        {
+          whenPrompt: contains("Hello"),
+          then: press("123"),
+          silenceAfterPrompt: 1,
+          timeout,
+        },
+      ],
+      testPromptFactory
+    );
+
+    promptContainer.runAgainstCallFlow(transcriberPlugin, call);
+
+    transcriberPlugin.produceTranscriptionEvent({
+      isFinal: false,
+      transcription: "World",
+    });
+
+    clock.tick(timeout);
+    expect(call.sendDtmfTone).not.toHaveBeenCalled();
+    expect(timeoutCallback).toHaveBeenCalledWith(
+      expect.any(PostSilencePrompt),
+      "World"
+    );
+  });
 });
