@@ -23,21 +23,26 @@ export type MatchedCallback = (
   transcriptMatched: string
 ) => void;
 
+export type TimeoutCallback = (prompt: Prompt, transcript: string) => void;
+
 export type PromptFactory = (
   definition: PromptDefinition,
   call: Call,
-  matchedCallback: MatchedCallback
+  matchedCallback: MatchedCallback,
+  timeoutCallback: TimeoutCallback
 ) => Prompt | undefined;
 
 const defaultPromptFactory: PromptFactory = (
   definition,
   call,
-  matchedCallback
+  matchedCallback,
+  timeoutCallback
 ) =>
   new PostSilencePrompt(
     definition,
     call,
     matchedCallback,
+    timeoutCallback,
     setTimeout,
     clearTimeout
   );
@@ -56,6 +61,13 @@ class RunningOrderedCallFlowInstructions
   }
 
   private initialise(): void {
+    const timedOutCallback: TimeoutCallback = (prompt, transcript) => {
+      this.emit("timeoutWaitingForMatch", {
+        transcription: transcript,
+        promptDefinition: prompt.definition,
+      });
+    };
+
     const matchedCallback: MatchedCallback = (prompt, transcriptMatched) => {
       this.emit("promptMatched", {
         transcription: transcriptMatched,
@@ -75,7 +87,8 @@ class RunningOrderedCallFlowInstructions
         this.promptDefinitions.length - 1 === index
           ? lastMatchedCallback
           : matchedCallback;
-      return this.promptFactory(prompt, this.call, callback);
+
+      return this.promptFactory(prompt, this.call, callback, timedOutCallback);
     });
 
     if (prompts.length === 0) {

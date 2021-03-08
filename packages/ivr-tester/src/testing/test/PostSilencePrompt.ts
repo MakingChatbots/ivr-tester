@@ -2,10 +2,15 @@ import { setTimeout } from "timers";
 import { PromptDefinition } from "./conditions/PromptDefinition";
 import { Call } from "../../call/Call";
 import { PromptTranscriptionBuilder } from "../../call/transcription/PromptTranscriptionBuilder";
-import { MatchedCallback, Prompt } from "./inOrder";
+import { MatchedCallback, Prompt, TimeoutCallback } from "./inOrder";
 
 export class PostSilencePrompt implements Prompt {
-  private timeout: ReturnType<typeof setTimeout>;
+  private timeoutTimer: ReturnType<typeof setTimeout>;
+  private promptTimedOut = false;
+  private isFirstInvocation = true;
+  private lastKnownTranscript = "";
+
+  private silenceAfterPromptTimer: ReturnType<typeof setTimeout>;
   private skipPrompt = false;
   private nextPrompt: Prompt;
 
@@ -13,6 +18,7 @@ export class PostSilencePrompt implements Prompt {
     public readonly definition: PromptDefinition,
     private readonly call: Call,
     private readonly matchedCallback: MatchedCallback,
+    private readonly timeoutCallback: TimeoutCallback,
     private readonly timeoutSet: typeof setTimeout,
     private readonly timeoutClear: typeof clearTimeout
   ) {}
@@ -23,29 +29,43 @@ export class PostSilencePrompt implements Prompt {
   }
 
   public transcriptUpdated(transcriptEvent: PromptTranscriptionBuilder): void {
+    if (this.promptTimedOut) {
+      return;
+    }
+
     if (this.skipPrompt && this.nextPrompt) {
       this.nextPrompt.transcriptUpdated(transcriptEvent);
-    } else {
-      this.processUpdatedTranscript(transcriptEvent);
+      return;
     }
+
+    this.lastKnownTranscript = transcriptEvent.merge();
+    if (this.isFirstInvocation) {
+      this.startTimeoutTimer();
+      this.isFirstInvocation = false;
+    }
+
+    this.processUpdatedTranscript(transcriptEvent);
   }
 
   private processUpdatedTranscript(
     transcriptEvent: PromptTranscriptionBuilder
   ): void {
-    this.clearTimer();
+    this.clearSilenceAfterPromptTimer();
 
     const transcript = transcriptEvent.merge();
     if (this.definition.whenPrompt(transcript)) {
+      this.clearTimeoutTimer();
+
       // The timeout interval that is set cannot be relied upon to execute after that
       // exact number of milliseconds. This is because other executing code that blocks
       // or holds onto the event loop will push the execution of the timeout back. The only
       // guarantee is that the timeout will not execute sooner than the declared
       // timeout interval.
       // -- https://nodejs.org/en/docs/guides/timers-in-node/
-      this.timeout = this.timeoutSet(() => {
+      this.silenceAfterPromptTimer = this.timeoutSet(() => {
         this.skipPrompt = true;
-        this.clearTimer();
+
+        this.clearSilenceAfterPromptTimer();
         transcriptEvent.clear();
         this.matchedCallback(this, transcript);
         this.definition.then.do(this.call);
@@ -53,10 +73,24 @@ export class PostSilencePrompt implements Prompt {
     }
   }
 
-  private clearTimer() {
-    if (this.timeout) {
-      this.timeoutClear(this.timeout);
-      this.timeout = undefined;
+  private clearSilenceAfterPromptTimer() {
+    if (this.silenceAfterPromptTimer) {
+      this.timeoutClear(this.silenceAfterPromptTimer);
+      this.silenceAfterPromptTimer = undefined;
+    }
+  }
+
+  private startTimeoutTimer() {
+    this.timeoutTimer = this.timeoutSet(() => {
+      this.promptTimedOut = true;
+      this.timeoutCallback(this, this.lastKnownTranscript);
+    }, this.definition.timeout);
+  }
+
+  private clearTimeoutTimer() {
+    if (this.timeoutTimer) {
+      this.timeoutClear(this.timeoutTimer);
+      this.timeoutTimer = undefined;
     }
   }
 }

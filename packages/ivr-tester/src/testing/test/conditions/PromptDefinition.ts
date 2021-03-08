@@ -16,13 +16,12 @@ export interface PromptDefinition {
   readonly then: Then;
 
   /**
-   * Milliseconds of silence expected after the prompt. This is used to determine when
-   * the prompt has ended.
+   * Milliseconds of silence expected after the prompt has been matched before concluding the prompt has ended.
    */
   readonly silenceAfterPrompt: number;
 
   /**
-   * Amount of time to wait for before timing out
+   * Amount of time a prompt should wait for a match before timing out.
    */
-  // readonly timeout: number;
+  readonly timeout: number;
 }

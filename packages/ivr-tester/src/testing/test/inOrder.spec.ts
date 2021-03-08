@@ -1,4 +1,9 @@
-import { inOrder, MatchedCallback, PromptFactory } from "./inOrder";
+import {
+  inOrder,
+  MatchedCallback,
+  PromptFactory,
+  TimeoutCallback,
+} from "./inOrder";
 import { contains } from "./conditions/when";
 import { press } from "./conditions/then";
 import { TranscriberPlugin, TranscriptEvent } from "../../index";
@@ -32,6 +37,7 @@ describe("ordered conditions", () => {
   let clock: any;
   let testPromptFactory: PromptFactory;
   let matchedCallback: jest.Mocked<MatchedCallback>;
+  let timeoutCallback: jest.Mocked<TimeoutCallback>;
 
   beforeEach(() => {
     call = {
@@ -48,12 +54,14 @@ describe("ordered conditions", () => {
 
     clock = FakeTimers.createClock();
     matchedCallback = jest.fn();
+    timeoutCallback = jest.fn();
 
     testPromptFactory = (definition, call) =>
       new PostSilencePrompt(
         definition,
         call,
         matchedCallback,
+        timeoutCallback,
         clock.setTimeout,
         clock.clearTimeout
       );
@@ -68,6 +76,7 @@ describe("ordered conditions", () => {
           whenPrompt: contains("Hello"),
           then: press("123"),
           silenceAfterPrompt,
+          timeout: silenceAfterPrompt * 2,
         },
       ],
       testPromptFactory
@@ -102,6 +111,7 @@ describe("ordered conditions", () => {
           whenPrompt: contains("Hello"),
           then: press("123"),
           silenceAfterPrompt,
+          timeout: silenceAfterPrompt * 2,
         },
       ],
       testPromptFactory
@@ -134,6 +144,7 @@ describe("ordered conditions", () => {
           whenPrompt: contains("Hello"),
           then: press("123"),
           silenceAfterPrompt,
+          timeout: silenceAfterPrompt * 2,
         },
       ],
       testPromptFactory
@@ -168,11 +179,13 @@ describe("ordered conditions", () => {
           whenPrompt: contains("Hello"),
           then: press("123"),
           silenceAfterPrompt,
+          timeout: silenceAfterPrompt * 2,
         },
         {
           whenPrompt: contains("World"),
           then: press("321"),
           silenceAfterPrompt,
+          timeout: silenceAfterPrompt * 2,
         },
       ],
       testPromptFactory
@@ -212,11 +225,13 @@ describe("ordered conditions", () => {
           whenPrompt: contains("Hello"),
           then: press("234"),
           silenceAfterPrompt,
+          timeout: silenceAfterPrompt * 2,
         },
         {
           whenPrompt: contains("World"),
           then: press("345"),
           silenceAfterPrompt,
+          timeout: silenceAfterPrompt * 2,
         },
       ],
       testPromptFactory
