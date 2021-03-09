@@ -27,7 +27,7 @@ export interface RecorderConfig {
 }
 
 export const mediaStreamRecorderPlugin = (config: Config): IvrTesterPlugin => {
-  if (!config.recording) {
+  if (!config.recording?.audio) {
     return {
       initialise(): void {
         /* Intentionally empty */
@@ -36,9 +36,10 @@ export const mediaStreamRecorderPlugin = (config: Config): IvrTesterPlugin => {
   }
 
   const recorderConfig: RecorderConfig = {
-    outputPath: config.recording?.outputPath,
+    outputPath: config.recording?.audio?.outputPath,
     filename:
-      config.recording?.filename || filenameContainingIvrNumberAndTestName,
+      config.recording?.audio?.filename ||
+      filenameContainingIvrNumberAndTestName,
   };
 
   if (!recorderConfig.outputPath) {

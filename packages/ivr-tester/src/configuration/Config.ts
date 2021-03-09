@@ -15,8 +15,10 @@ export interface Config {
   transcriber: TranscriberFactory;
 
   recording?: {
-    outputPath: string;
-    filename?: string | FilenameFactory;
+    audio?: {
+      outputPath: string;
+      filename?: string | FilenameFactory;
+    };
   };
 
   /**

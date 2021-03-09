@@ -38,13 +38,15 @@ const test: CallFlowTestDefinition = {
 const config: Config = {
   transcriber: amazonTranscribe({ region: "us-east-1", languageCode: "en-GB" }),
   recording: {
-    outputPath: path.join(__dirname, "../recordings"),
+    audio: {
+      outputPath: path.join(__dirname, "../recordings"),
+    },
   },
 };
 
 testRunner(config)(call, test)
   .then(() => process.exit(0))
-  .catch((error) => {
+  .catch((error: Error) => {
     console.error(error);
     process.exit(1);
   });
