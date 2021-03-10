@@ -12,14 +12,16 @@ import { IvrTesterPlugin } from "../../plugins/IvrTesterPlugin";
 import { Emitter } from "../../Emitter";
 import { PluginEvents } from "../../plugins/PluginManager";
 import { TestSession } from "../../testRunner";
+import { PromptMatchedEvent } from "../../testing/test/CallFlowTestDefinition";
 
 export interface RecorderConfig {
   outputPath: string;
   filename?: string | FilenameFactory;
+  includeResponse: boolean;
 }
 
-export const mediaStreamRecorderPlugin = (config: Config): IvrTesterPlugin => {
-  if (!config.recording?.audio) {
+export const transcriptRecorderPlugin = (config: Config): IvrTesterPlugin => {
+  if (!config.recording?.transcript) {
     return {
       initialise(): void {
         /* Intentionally empty */
@@ -28,20 +30,22 @@ export const mediaStreamRecorderPlugin = (config: Config): IvrTesterPlugin => {
   }
 
   const recorderConfig: RecorderConfig = {
-    outputPath: config.recording?.audio?.outputPath,
-    filename: config.recording?.audio?.filename || ivrNumberAndTestNameFilename,
+    outputPath: config.recording?.transcript?.outputPath,
+    filename:
+      config.recording?.transcript?.filename || ivrNumberAndTestNameFilename,
+    includeResponse: config.recording?.transcript?.includeResponse ?? false,
   };
 
   if (!recorderConfig.outputPath) {
     throw new ConfigurationError(
-      "recording.audio.outputPath",
+      "recording.transcript.outputPath",
       "Path must be defined"
     );
   }
 
   if (!fs.existsSync(recorderConfig.outputPath)) {
     throw new ConfigurationError(
-      "recording.audio.outputPath",
+      "recording.transcript.outputPath",
       "Path does not exist"
     );
   }
@@ -50,43 +54,65 @@ export const mediaStreamRecorderPlugin = (config: Config): IvrTesterPlugin => {
     initialise(eventEmitter: Emitter<PluginEvents>): void {
       eventEmitter.on("callServerStarted", ({ callServer }) => {
         callServer.on("testStarted", ({ testSession }) => {
-          new MediaStreamRecorder(testSession, recorderConfig);
+          new TranscriptRecorder(testSession, recorderConfig);
         });
       });
     },
   };
 };
 
-export class MediaStreamRecorder {
-  private static readonly FILE_EXT = "wav";
+export class TranscriptRecorder {
+  private static readonly FILE_EXT = "txt";
+  private static readonly FILENAME_SUFFIX = "transcript";
+
+  private readonly processTwilioMessageRef: (message: string) => void;
+  private readonly saveMatchedPromptRef: (event: PromptMatchedEvent) => void;
+  private readonly closeRef: () => void;
 
   private writeStream: WriteStream;
-  private readonly processMessageRef: (message: string) => void;
-  private readonly closeRef: () => void;
 
   constructor(
     private readonly testSession: TestSession,
     private readonly config: RecorderConfig
   ) {
-    this.processMessageRef = this.processMessage.bind(this);
+    this.saveMatchedPromptRef = this.saveMatchedPrompts.bind(this);
+    this.testSession.callFlowSession.on(
+      "promptMatched",
+      this.saveMatchedPromptRef
+    );
+
     this.closeRef = this.close.bind(this);
+    this.testSession.callFlowSession.on("allPromptsMatched", this.closeRef);
+
+    this.testSession.callFlowSession.on(
+      "timeoutWaitingForMatch",
+      this.closeRef
+    );
+
+    this.processTwilioMessageRef = this.processTwilioMessage.bind(this);
 
     const connection = this.testSession.call.getStream();
-    connection
-      .on(WebSocketEvents.Message, this.processMessageRef)
-      .on(WebSocketEvents.Close, this.closeRef);
+    connection.on(WebSocketEvents.Message, this.processTwilioMessageRef);
   }
 
-  private processMessage(message: string) {
+  private processTwilioMessage(message: string) {
     const data = JSON.parse(message);
-    switch (data.event) {
-      case TwilioConnectionEvents.MediaStreamStart:
-        this.createFile(data as TwilioMediaStreamStartEvent);
-        break;
-      case TwilioConnectionEvents.Media:
-        this.writeToFile(Buffer.from(data.media.payload, "base64"));
-        break;
+
+    if (data.event === TwilioConnectionEvents.MediaStreamStart) {
+      this.createFile(data as TwilioMediaStreamStartEvent);
     }
+  }
+
+  private saveMatchedPrompts(event: PromptMatchedEvent) {
+    const prompt = [];
+    if (this.config.includeResponse) {
+      prompt.push(`Them: ${event.transcription}`);
+      prompt.push(`You: ${event.promptDefinition.then.describe()}`);
+    } else {
+      prompt.push(`${event.transcription}`);
+    }
+
+    this.writeStream.write(`${prompt.join("\n")}\n\n`);
   }
 
   private createFilename(event: TwilioMediaStreamStartEvent): string {
@@ -101,31 +127,37 @@ export class MediaStreamRecorder {
           sid: event.streamSid,
           call,
         },
-        this.testSession.callFlowTestDefinition
+        this.testSession.callFlowTestDefinition,
+        TranscriptRecorder.FILENAME_SUFFIX
       );
     }
 
-    return `${filename}.${MediaStreamRecorder.FILE_EXT}`;
+    return `${filename}.${TranscriptRecorder.FILE_EXT}`;
   }
 
   private createFile(event: TwilioMediaStreamStartEvent): void {
     const filename = this.createFilename(event);
     const filepath = path.join(this.config.outputPath, filename);
 
-    console.log(`Recording inbound audio to '${filepath}'`);
+    console.log(`Recording transcript to '${filepath}'`);
     mkdirSync(this.config.outputPath, { recursive: true });
+
     this.writeStream = createWriteStream(filepath);
   }
 
-  private writeToFile(data: Buffer): void {
-    this.writeStream.write(data);
-  }
-
   private close() {
+    const callFlowSession = this.testSession.callFlowSession;
+    callFlowSession.off("promptMatched", this.saveMatchedPromptRef);
+
+    this.testSession.callFlowSession.off("allPromptsMatched", this.closeRef);
+
+    this.testSession.callFlowSession.off(
+      "timeoutWaitingForMatch",
+      this.closeRef
+    );
+
     const connection = this.testSession.call.getStream();
-    connection
-      .off(WebSocketEvents.Message, this.processMessageRef)
-      .off(WebSocketEvents.Close, this.closeRef);
+    connection.off(WebSocketEvents.Close, this.closeRef);
 
     this.writeStream.close();
     this.writeStream = null;

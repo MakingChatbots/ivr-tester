@@ -121,6 +121,10 @@ const config: Config = {
     audio: {
       outputPath: path.join(__dirname, "../recordings"),
     },
+    transcript: {
+      outputPath: path.join(__dirname, "../recordings"),
+      includeResponse: true,
+    },
   },
 };
 

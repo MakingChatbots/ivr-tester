@@ -16,6 +16,7 @@ import {
 } from "./testing/test/CallFlowTestDefinition";
 import { callConnectedTimeout } from "./testing/callConnectedTimeout";
 import { Call } from "./call/Call";
+import { transcriptRecorderPlugin } from "./call/recording/TranscriptRecorder";
 
 export interface TestSubject {
   from: string;
@@ -45,6 +46,7 @@ export const testRunner = (config: Config) => async (
     userInterface,
     callConnectedTimeout(config, userInterface),
     mediaStreamRecorderPlugin(config),
+    transcriptRecorderPlugin(config),
   ]);
   pluginManager.initialise();
 

@@ -19,6 +19,14 @@ export interface Config {
       outputPath: string;
       filename?: string | FilenameFactory;
     };
+    transcript?: {
+      outputPath: string;
+      filename?: string | FilenameFactory;
+      /**
+       * Includes what you responded with to the prompt
+       */
+      includeResponse?: boolean;
+    };
   };
 
   /**
