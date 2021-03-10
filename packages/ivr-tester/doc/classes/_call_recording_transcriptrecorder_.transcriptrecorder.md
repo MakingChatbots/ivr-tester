@@ -39,7 +39,7 @@
 
 \+ **new TranscriptRecorder**(`testSession`: [TestSession](../interfaces/_testrunner_.testsession.md), `config`: [RecorderConfig](../interfaces/_call_recording_transcriptrecorder_.recorderconfig.md)): [TranscriptRecorder](_call_recording_transcriptrecorder_.transcriptrecorder.md)
 
-*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:72](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L72)*
+*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:72](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L72)*
 
 #### Parameters:
 
@@ -56,7 +56,7 @@ Name | Type |
 
 • `Private` `Readonly` **closeRef**: () => void
 
-*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:70](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L70)*
+*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:70](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L70)*
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 • `Private` `Readonly` **config**: [RecorderConfig](../interfaces/_call_recording_transcriptrecorder_.recorderconfig.md)
 
-*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:76](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L76)*
+*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:76](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L76)*
 
 ___
 
@@ -72,7 +72,7 @@ ___
 
 • `Private` `Readonly` **processTwilioMessageRef**: (message: string) => void
 
-*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:68](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L68)*
+*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:68](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L68)*
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 • `Private` `Readonly` **saveMatchedPromptRef**: (event: [PromptMatchedEvent](../interfaces/_testing_test_callflowtestdefinition_.promptmatchedevent.md)) => void
 
-*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:69](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L69)*
+*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:69](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L69)*
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 • `Private` `Readonly` **testSession**: [TestSession](../interfaces/_testrunner_.testsession.md)
 
-*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:75](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L75)*
+*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:75](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L75)*
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 • `Private` **writeStream**: WriteStream
 
-*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:72](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L72)*
+*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:72](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L72)*
 
 ___
 
@@ -104,7 +104,7 @@ ___
 
 ▪ `Static` `Private` `Readonly` **FILENAME\_SUFFIX**: \"transcript\" = "transcript"
 
-*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:66](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L66)*
+*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:66](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L66)*
 
 ___
 
@@ -112,7 +112,7 @@ ___
 
 ▪ `Static` `Private` `Readonly` **FILE\_EXT**: \"txt\" = "txt"
 
-*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:65](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L65)*
+*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:65](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L65)*
 
 ## Methods
 
@@ -120,7 +120,7 @@ ___
 
 ▸ `Private`**close**(): void
 
-*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:148](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L148)*
+*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:148](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L148)*
 
 **Returns:** void
 
@@ -130,7 +130,7 @@ ___
 
 ▸ `Private`**createFile**(`event`: [TwilioMediaStreamStartEvent](../interfaces/_call_twiliocaller_.twiliomediastreamstartevent.md)): void
 
-*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:138](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L138)*
+*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:138](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L138)*
 
 #### Parameters:
 
@@ -146,7 +146,7 @@ ___
 
 ▸ `Private`**createFilename**(`event`: [TwilioMediaStreamStartEvent](../interfaces/_call_twiliocaller_.twiliomediastreamstartevent.md)): string
 
-*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:118](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L118)*
+*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:118](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L118)*
 
 #### Parameters:
 
@@ -162,7 +162,7 @@ ___
 
 ▸ `Private`**processTwilioMessage**(`message`: string): void
 
-*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:98](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L98)*
+*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:98](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L98)*
 
 #### Parameters:
 
@@ -178,7 +178,7 @@ ___
 
 ▸ `Private`**saveMatchedPrompts**(`event`: [PromptMatchedEvent](../interfaces/_testing_test_callflowtestdefinition_.promptmatchedevent.md)): void
 
-*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:106](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L106)*
+*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:106](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L106)*
 
 #### Parameters:
 

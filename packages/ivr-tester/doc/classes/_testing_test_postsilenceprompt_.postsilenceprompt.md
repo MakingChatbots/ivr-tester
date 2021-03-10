@@ -49,7 +49,7 @@
 
 \+ **new PostSilencePrompt**(`definition`: [PromptDefinition](../interfaces/_testing_test_conditions_promptdefinition_.promptdefinition.md), `call`: [Call](../interfaces/_call_call_.call.md), `matchedCallback`: [MatchedCallback](../modules/_testing_test_inorder_.md#matchedcallback), `timeoutCallback`: [TimeoutCallback](../modules/_testing_test_inorder_.md#timeoutcallback), `timeoutSet`: *typeof* setTimeout, `timeoutClear`: *typeof* clearTimeout): [PostSilencePrompt](_testing_test_postsilenceprompt_.postsilenceprompt.md)
 
-*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:15](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L15)*
+*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:15](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L15)*
 
 #### Parameters:
 
@@ -70,7 +70,7 @@ Name | Type |
 
 • `Private` `Readonly` **call**: [Call](../interfaces/_call_call_.call.md)
 
-*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:19](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L19)*
+*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:19](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L19)*
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 *Implementation of [Prompt](../interfaces/_testing_test_inorder_.prompt.md).[definition](../interfaces/_testing_test_inorder_.prompt.md#definition)*
 
-*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:18](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L18)*
+*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:18](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L18)*
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 • `Private` **isFirstInvocation**: boolean = true
 
-*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:10](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L10)*
+*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:10](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L10)*
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 • `Private` **lastKnownTranscript**: string = ""
 
-*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:11](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L11)*
+*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:11](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L11)*
 
 ___
 
@@ -104,7 +104,7 @@ ___
 
 • `Private` `Readonly` **matchedCallback**: [MatchedCallback](../modules/_testing_test_inorder_.md#matchedcallback)
 
-*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:20](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L20)*
+*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:20](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L20)*
 
 ___
 
@@ -112,7 +112,7 @@ ___
 
 • `Private` **nextPrompt**: [Prompt](../interfaces/_testing_test_inorder_.prompt.md)
 
-*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:15](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L15)*
+*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:15](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L15)*
 
 ___
 
@@ -120,7 +120,7 @@ ___
 
 • `Private` **promptTimedOut**: boolean = false
 
-*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:9](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L9)*
+*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:9](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L9)*
 
 ___
 
@@ -128,7 +128,7 @@ ___
 
 • `Private` **silenceAfterPromptTimer**: ReturnType\<*typeof* setTimeout>
 
-*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:13](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L13)*
+*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:13](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L13)*
 
 ___
 
@@ -136,7 +136,7 @@ ___
 
 • `Private` **skipPrompt**: boolean = false
 
-*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:14](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L14)*
+*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:14](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L14)*
 
 ___
 
@@ -144,7 +144,7 @@ ___
 
 • `Private` `Readonly` **timeoutCallback**: [TimeoutCallback](../modules/_testing_test_inorder_.md#timeoutcallback)
 
-*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:21](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L21)*
+*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:21](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L21)*
 
 ___
 
@@ -152,7 +152,7 @@ ___
 
 • `Private` `Readonly` **timeoutClear**: *typeof* clearTimeout
 
-*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:23](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L23)*
+*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:23](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L23)*
 
 ___
 
@@ -160,7 +160,7 @@ ___
 
 • `Private` `Readonly` **timeoutSet**: *typeof* setTimeout
 
-*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:22](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L22)*
+*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:22](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L22)*
 
 ___
 
@@ -168,7 +168,7 @@ ___
 
 • `Private` **timeoutTimer**: ReturnType\<*typeof* setTimeout>
 
-*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:8](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L8)*
+*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:8](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L8)*
 
 ## Methods
 
@@ -176,7 +176,7 @@ ___
 
 ▸ `Private`**clearSilenceAfterPromptTimer**(): void
 
-*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:76](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L76)*
+*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:76](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L76)*
 
 **Returns:** void
 
@@ -186,7 +186,7 @@ ___
 
 ▸ `Private`**clearTimeoutTimer**(): void
 
-*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:90](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L90)*
+*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:90](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L90)*
 
 **Returns:** void
 
@@ -196,7 +196,7 @@ ___
 
 ▸ `Private`**processUpdatedTranscript**(`transcriptEvent`: [PromptTranscriptionBuilder](_call_transcription_prompttranscriptionbuilder_.prompttranscriptionbuilder.md)): void
 
-*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:50](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L50)*
+*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:50](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L50)*
 
 #### Parameters:
 
@@ -214,7 +214,7 @@ ___
 
 *Implementation of [Prompt](../interfaces/_testing_test_inorder_.prompt.md)*
 
-*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:26](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L26)*
+*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:26](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L26)*
 
 #### Parameters:
 
@@ -230,7 +230,7 @@ ___
 
 ▸ `Private`**startTimeoutTimer**(): void
 
-*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:83](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L83)*
+*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:83](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L83)*
 
 **Returns:** void
 
@@ -242,7 +242,7 @@ ___
 
 *Implementation of [Prompt](../interfaces/_testing_test_inorder_.prompt.md)*
 
-*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:31](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L31)*
+*Defined in [packages/ivr-tester/src/testing/test/PostSilencePrompt.ts:31](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/testing/test/PostSilencePrompt.ts#L31)*
 
 #### Parameters:
 

@@ -17,7 +17,7 @@
 
 •  **Close**:  = "close"
 
-*Defined in [packages/ivr-tester/src/call/TwilioCall.ts:10](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/TwilioCall.ts#L10)*
+*Defined in [packages/ivr-tester/src/call/TwilioCall.ts:10](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/call/TwilioCall.ts#L10)*
 
 ___
 
@@ -25,4 +25,4 @@ ___
 
 •  **Message**:  = "message"
 
-*Defined in [packages/ivr-tester/src/call/TwilioCall.ts:9](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/TwilioCall.ts#L9)*
+*Defined in [packages/ivr-tester/src/call/TwilioCall.ts:9](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/call/TwilioCall.ts#L9)*

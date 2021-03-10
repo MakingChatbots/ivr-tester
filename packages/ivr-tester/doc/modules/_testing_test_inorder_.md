@@ -26,7 +26,7 @@
 
 Ƭ  **MatchedCallback**: (prompt: [Prompt](../interfaces/_testing_test_inorder_.prompt.md), transcriptMatched: string) => void
 
-*Defined in [packages/ivr-tester/src/testing/test/inOrder.ts:24](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/testing/test/inOrder.ts#L24)*
+*Defined in [packages/ivr-tester/src/testing/test/inOrder.ts:24](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/testing/test/inOrder.ts#L24)*
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 Ƭ  **PromptFactory**: (definition: [PromptDefinition](../interfaces/_testing_test_conditions_promptdefinition_.promptdefinition.md), call: [Call](../interfaces/_call_call_.call.md), matchedCallback: [MatchedCallback](_testing_test_inorder_.md#matchedcallback), timeoutCallback: [TimeoutCallback](_testing_test_inorder_.md#timeoutcallback)) => [Prompt](../interfaces/_testing_test_inorder_.prompt.md) \| undefined
 
-*Defined in [packages/ivr-tester/src/testing/test/inOrder.ts:31](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/testing/test/inOrder.ts#L31)*
+*Defined in [packages/ivr-tester/src/testing/test/inOrder.ts:31](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/testing/test/inOrder.ts#L31)*
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 Ƭ  **TimeoutCallback**: (prompt: [Prompt](../interfaces/_testing_test_inorder_.prompt.md), transcript: string) => void
 
-*Defined in [packages/ivr-tester/src/testing/test/inOrder.ts:29](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/testing/test/inOrder.ts#L29)*
+*Defined in [packages/ivr-tester/src/testing/test/inOrder.ts:29](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/testing/test/inOrder.ts#L29)*
 
 ## Functions
 
@@ -50,7 +50,7 @@ ___
 
 ▸ **inOrder**(`promptDefinitions`: ReadonlyArray\<[PromptDefinition](../interfaces/_testing_test_conditions_promptdefinition_.promptdefinition.md)>, `promptFactory?`: [PromptFactory](_testing_test_inorder_.md#promptfactory)): [CallFlowInstructions](../interfaces/_testing_test_callflowtestdefinition_.callflowinstructions.md)
 
-*Defined in [packages/ivr-tester/src/testing/test/inOrder.ts:129](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/testing/test/inOrder.ts#L129)*
+*Defined in [packages/ivr-tester/src/testing/test/inOrder.ts:129](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/testing/test/inOrder.ts#L129)*
 
 Creates an ordered prompt collection
 

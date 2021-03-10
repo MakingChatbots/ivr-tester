@@ -25,7 +25,7 @@
 
 *Inherited from [IvrTesterPlugin](_plugins_ivrtesterplugin_.ivrtesterplugin.md).[initialise](_plugins_ivrtesterplugin_.ivrtesterplugin.md#initialise)*
 
-*Defined in [packages/ivr-tester/src/plugins/IvrTesterPlugin.ts:9](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/plugins/IvrTesterPlugin.ts#L9)*
+*Defined in [packages/ivr-tester/src/plugins/IvrTesterPlugin.ts:9](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/plugins/IvrTesterPlugin.ts#L9)*
 
 #### Parameters:
 
@@ -41,7 +41,7 @@ ___
 
 ▸ **timedOut**(`reason`: string): void
 
-*Defined in [packages/ivr-tester/src/testing/ui/consoleUserInterface.ts:144](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/testing/ui/consoleUserInterface.ts#L144)*
+*Defined in [packages/ivr-tester/src/testing/ui/consoleUserInterface.ts:144](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/testing/ui/consoleUserInterface.ts#L144)*
 
 #### Parameters:
 
