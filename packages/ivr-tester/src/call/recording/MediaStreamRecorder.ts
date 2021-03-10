@@ -58,7 +58,7 @@ export const mediaStreamRecorderPlugin = (config: Config): IvrTesterPlugin => {
 };
 
 export class MediaStreamRecorder {
-  private static readonly FILE_EXT = "wav";
+  private static readonly FILE_EXT = "raw";
 
   private writeStream: WriteStream;
   private readonly processMessageRef: (message: string) => void;

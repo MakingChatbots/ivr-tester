@@ -3,7 +3,7 @@ import { FilenameFactory, StreamDetails } from "./FilenameFactory";
 import { CallFlowTestDefinition } from "../../../testing/test/CallFlowTestDefinition";
 
 /**
- * Produces filename that looks like '<phone-number>-<datetime>-<test-name>.wav'
+ * Produces filename that looks like '<phone-number>-<datetime>-<test-name>-<optional-suffix>'
  */
 export const ivrNumberAndTestNameFilename: FilenameFactory = (
   { call }: StreamDetails,
