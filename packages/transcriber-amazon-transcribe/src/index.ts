@@ -29,15 +29,13 @@ export const amazonTranscribe = ({
   create: () => new AmazonTranscribe(region, languageCode),
   checkCanRun: () => {
     const credentialsDefined =
-      process.env.AWS_REGION &&
-      process.env.AWS_ACCESS_KEY_ID &&
-      process.env.AWS_SECRET_ACCESS_KEY;
+      process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY;
 
     if (!credentialsDefined) {
       return {
         canRun: false,
         reason: `Cannot find Amazon Transcribe credentials. Please ensure you define the environment variables:
-AWS_REGION, AWS_ACCESS_KEY_ID & AWS_SECRET_ACCESS_KEY`,
+AWS_ACCESS_KEY_ID & AWS_SECRET_ACCESS_KEY`,
       };
     }
 
