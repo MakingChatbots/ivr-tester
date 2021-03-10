@@ -1,8 +1,5 @@
 import { CallFlowTestDefinition } from "../../../testing/test/CallFlowTestDefinition";
 
-/**
- * Details about the stream about to be recorded
- */
 export interface StreamDetails {
   sid: string;
   call: { from: string; to: string };

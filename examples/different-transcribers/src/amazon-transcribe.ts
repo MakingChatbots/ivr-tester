@@ -19,6 +19,8 @@ const call: TestSubject = {
   to: process.env.TO_PHONE_NUMBER,
 };
 
+const timeout = 6000;
+
 const test: CallFlowTestDefinition = {
   name: "Keys pressed are read back",
   instructions: inOrder([
@@ -26,11 +28,13 @@ const test: CallFlowTestDefinition = {
       whenPrompt: contains("please enter a number"),
       then: press("0123456789"),
       silenceAfterPrompt: 3000,
+      timeout,
     },
     {
       whenPrompt: contains(["you entered", "0123456789"]),
       then: doNothing(),
       silenceAfterPrompt: 3000,
+      timeout,
     },
   ]),
 };
