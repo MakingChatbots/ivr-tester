@@ -118,13 +118,19 @@ const config: Config = {
     useEnhanced: true,
   }),
   recording: {
-    outputPath: path.join(__dirname, "../recordings"),
+    audio: {
+      outputPath: path.join(__dirname, "../recordings"),
+    },
+    transcript: {
+      outputPath: path.join(__dirname, "../recordings"),
+      includeResponse: true,
+    },
   },
 };
 
 testRunner(config)(call, tests)
   .then(() => process.exit(0))
-  .catch((error) => {
+  .catch((error: Error) => {
     console.error(error);
     process.exit(1);
   });
