@@ -16,6 +16,6 @@
 
 ▸ `Const`**hangUp**(): [Then](../interfaces/_testing_test_conditions_then_then_.then.md)
 
-*Defined in [packages/ivr-tester/src/testing/test/conditions/then/hangUp.ts:4](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/testing/test/conditions/then/hangUp.ts#L4)*
+*Defined in [packages/ivr-tester/src/testing/test/conditions/then/hangUp.ts:4](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/testing/test/conditions/then/hangUp.ts#L4)*
 
 **Returns:** [Then](../interfaces/_testing_test_conditions_then_then_.then.md)

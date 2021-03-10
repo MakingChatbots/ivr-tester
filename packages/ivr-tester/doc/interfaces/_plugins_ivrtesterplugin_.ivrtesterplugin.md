@@ -29,7 +29,7 @@ test.
 
 ▸ **initialise**(`eventEmitter`: [Emitter](_emitter_.emitter.md)\<[PluginEvents](../modules/_plugins_pluginmanager_.md#pluginevents)>): void
 
-*Defined in [packages/ivr-tester/src/plugins/IvrTesterPlugin.ts:9](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/plugins/IvrTesterPlugin.ts#L9)*
+*Defined in [packages/ivr-tester/src/plugins/IvrTesterPlugin.ts:9](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/plugins/IvrTesterPlugin.ts#L9)*
 
 #### Parameters:
 

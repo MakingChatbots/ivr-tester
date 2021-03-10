@@ -23,7 +23,7 @@ Factory to create a instance of a transcriber per test
 
 •  **checkCanRun**: () => Promise\<[CanRunCheck](../modules/_call_transcription_plugin_transcriberfactory_.md#canruncheck)> \| [CanRunCheck](../modules/_call_transcription_plugin_transcriberfactory_.md#canruncheck)
 
-*Defined in [packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts:23](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts#L23)*
+*Defined in [packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts:23](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts#L23)*
 
 Called on startup to check that the transcriber has
 everything it needs to work properly when a call is connected
@@ -35,6 +35,6 @@ ___
 
 •  **create**: () => [TranscriberPlugin](_call_transcription_plugin_transcriberplugin_.transcriberplugin.md)
 
-*Defined in [packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts:28](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts#L28)*
+*Defined in [packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts:28](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts#L28)*
 
 Creates the transcriber. This will be called once per call.

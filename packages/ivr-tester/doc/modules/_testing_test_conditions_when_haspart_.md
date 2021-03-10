@@ -16,7 +16,7 @@
 
 ▸ `Const`**hasPart**(`when`: [When](_testing_test_conditions_when_when_.md#when)): [When](_testing_test_conditions_when_when_.md#when)
 
-*Defined in [packages/ivr-tester/src/testing/test/conditions/when/hasPart.ts:19](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/testing/test/conditions/when/hasPart.ts#L19)*
+*Defined in [packages/ivr-tester/src/testing/test/conditions/when/hasPart.ts:19](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/testing/test/conditions/when/hasPart.ts#L19)*
 
 Splits the transcript into parts which are then passed to the argument When.
 

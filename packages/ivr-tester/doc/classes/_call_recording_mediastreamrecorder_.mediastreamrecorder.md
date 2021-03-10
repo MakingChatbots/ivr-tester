@@ -37,7 +37,7 @@
 
 \+ **new MediaStreamRecorder**(`testSession`: [TestSession](../interfaces/_testrunner_.testsession.md), `config`: [RecorderConfig](../interfaces/_call_recording_mediastreamrecorder_.recorderconfig.md)): [MediaStreamRecorder](_call_recording_mediastreamrecorder_.mediastreamrecorder.md)
 
-*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:71](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L71)*
+*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:65](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L65)*
 
 #### Parameters:
 
@@ -54,7 +54,7 @@ Name | Type |
 
 • `Private` `Readonly` **closeRef**: () => void
 
-*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:71](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L71)*
+*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:65](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L65)*
 
 ___
 
@@ -62,7 +62,7 @@ ___
 
 • `Private` `Readonly` **config**: [RecorderConfig](../interfaces/_call_recording_mediastreamrecorder_.recorderconfig.md)
 
-*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:75](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L75)*
+*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:69](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L69)*
 
 ___
 
@@ -70,7 +70,7 @@ ___
 
 • `Private` `Readonly` **processMessageRef**: (message: string) => void
 
-*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:70](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L70)*
+*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:64](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L64)*
 
 ___
 
@@ -78,7 +78,7 @@ ___
 
 • `Private` `Readonly` **testSession**: [TestSession](../interfaces/_testrunner_.testsession.md)
 
-*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:74](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L74)*
+*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:68](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L68)*
 
 ___
 
@@ -86,15 +86,15 @@ ___
 
 • `Private` **writeStream**: WriteStream
 
-*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:69](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L69)*
+*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:63](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L63)*
 
 ___
 
 ### FILE\_EXT
 
-▪ `Static` `Private` `Readonly` **FILE\_EXT**: \"wav\" = "wav"
+▪ `Static` `Private` `Readonly` **FILE\_EXT**: \"raw\" = "raw"
 
-*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:67](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L67)*
+*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:61](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L61)*
 
 ## Methods
 
@@ -102,7 +102,7 @@ ___
 
 ▸ `Private`**close**(): void
 
-*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:130](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L130)*
+*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:124](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L124)*
 
 **Returns:** void
 
@@ -112,7 +112,7 @@ ___
 
 ▸ `Private`**createFile**(`event`: [TwilioMediaStreamStartEvent](../interfaces/_call_twiliocaller_.twiliomediastreamstartevent.md)): void
 
-*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:117](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L117)*
+*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:111](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L111)*
 
 #### Parameters:
 
@@ -128,7 +128,7 @@ ___
 
 ▸ `Private`**createFilename**(`event`: [TwilioMediaStreamStartEvent](../interfaces/_call_twiliocaller_.twiliomediastreamstartevent.md)): string
 
-*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:98](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L98)*
+*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:92](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L92)*
 
 #### Parameters:
 
@@ -144,7 +144,7 @@ ___
 
 ▸ `Private`**processMessage**(`message`: string): void
 
-*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:86](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L86)*
+*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:80](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L80)*
 
 #### Parameters:
 
@@ -160,7 +160,7 @@ ___
 
 ▸ `Private`**writeToFile**(`data`: Buffer): void
 
-*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:126](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L126)*
+*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:120](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L120)*
 
 #### Parameters:
 

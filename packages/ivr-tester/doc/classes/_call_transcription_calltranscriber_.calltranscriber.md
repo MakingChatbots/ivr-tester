@@ -43,7 +43,7 @@
 
 \+ **new CallTranscriber**(`call`: [Call](../interfaces/_call_call_.call.md), `transcriber`: [TranscriberPlugin](../interfaces/_call_transcription_plugin_transcriberplugin_.transcriberplugin.md)): [CallTranscriber](_call_transcription_calltranscriber_.calltranscriber.md)
 
-*Defined in [packages/ivr-tester/src/call/transcription/CallTranscriber.ts:16](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/call/transcription/CallTranscriber.ts#L16)*
+*Defined in [packages/ivr-tester/src/call/transcription/CallTranscriber.ts:16](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/transcription/CallTranscriber.ts#L16)*
 
 #### Parameters:
 
@@ -60,7 +60,7 @@ Name | Type |
 
 • `Private` `Readonly` **call**: [Call](../interfaces/_call_call_.call.md)
 
-*Defined in [packages/ivr-tester/src/call/transcription/CallTranscriber.ts:19](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/call/transcription/CallTranscriber.ts#L19)*
+*Defined in [packages/ivr-tester/src/call/transcription/CallTranscriber.ts:19](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/transcription/CallTranscriber.ts#L19)*
 
 ___
 
@@ -68,7 +68,7 @@ ___
 
 • `Private` `Readonly` **closeRef**: () => void
 
-*Defined in [packages/ivr-tester/src/call/transcription/CallTranscriber.ts:16](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/call/transcription/CallTranscriber.ts#L16)*
+*Defined in [packages/ivr-tester/src/call/transcription/CallTranscriber.ts:16](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/transcription/CallTranscriber.ts#L16)*
 
 ___
 
@@ -76,7 +76,7 @@ ___
 
 • `Private` `Readonly` **processMessageRef**: (message: string) => void
 
-*Defined in [packages/ivr-tester/src/call/transcription/CallTranscriber.ts:15](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/call/transcription/CallTranscriber.ts#L15)*
+*Defined in [packages/ivr-tester/src/call/transcription/CallTranscriber.ts:15](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/transcription/CallTranscriber.ts#L15)*
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 • `Private` `Readonly` **transcriber**: [TranscriberPlugin](../interfaces/_call_transcription_plugin_transcriberplugin_.transcriberplugin.md)
 
-*Defined in [packages/ivr-tester/src/call/transcription/CallTranscriber.ts:20](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/call/transcription/CallTranscriber.ts#L20)*
+*Defined in [packages/ivr-tester/src/call/transcription/CallTranscriber.ts:20](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/transcription/CallTranscriber.ts#L20)*
 
 ___
 
@@ -92,7 +92,7 @@ ___
 
 ▪ `Static` `Private` **debug**: Debugger = Debugger.getPackageDebugger()
 
-*Defined in [packages/ivr-tester/src/call/transcription/CallTranscriber.ts:13](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/call/transcription/CallTranscriber.ts#L13)*
+*Defined in [packages/ivr-tester/src/call/transcription/CallTranscriber.ts:13](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/transcription/CallTranscriber.ts#L13)*
 
 ## Methods
 
@@ -100,7 +100,7 @@ ___
 
 ▸ `Private`**close**(): void
 
-*Defined in [packages/ivr-tester/src/call/transcription/CallTranscriber.ts:42](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/call/transcription/CallTranscriber.ts#L42)*
+*Defined in [packages/ivr-tester/src/call/transcription/CallTranscriber.ts:42](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/transcription/CallTranscriber.ts#L42)*
 
 **Returns:** void
 
@@ -110,7 +110,7 @@ ___
 
 ▸ `Private`**collects**(`event`: [TranscriptEvent](../interfaces/_call_transcription_plugin_transcriberplugin_.transcriptevent.md)): void
 
-*Defined in [packages/ivr-tester/src/call/transcription/CallTranscriber.ts:51](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/call/transcription/CallTranscriber.ts#L51)*
+*Defined in [packages/ivr-tester/src/call/transcription/CallTranscriber.ts:51](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/transcription/CallTranscriber.ts#L51)*
 
 #### Parameters:
 
@@ -128,7 +128,7 @@ ___
 
 *Inherited from [TypedEmitter](_emitter_.typedemitter.md).[emit](_emitter_.typedemitter.md#emit)*
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:35](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/Emitter.ts#L35)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:35](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/Emitter.ts#L35)*
 
 #### Type parameters:
 
@@ -155,7 +155,7 @@ ___
 
 *Inherited from [TypedEmitter](_emitter_.typedemitter.md).[off](_emitter_.typedemitter.md#off)*
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:27](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/Emitter.ts#L27)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:27](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/Emitter.ts#L27)*
 
 #### Type parameters:
 
@@ -182,7 +182,7 @@ ___
 
 *Inherited from [TypedEmitter](_emitter_.typedemitter.md).[on](_emitter_.typedemitter.md#on)*
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:19](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/Emitter.ts#L19)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:19](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/Emitter.ts#L19)*
 
 #### Type parameters:
 
@@ -205,7 +205,7 @@ ___
 
 ▸ `Private`**processMessage**(`message`: string): void
 
-*Defined in [packages/ivr-tester/src/call/transcription/CallTranscriber.ts:33](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/call/transcription/CallTranscriber.ts#L33)*
+*Defined in [packages/ivr-tester/src/call/transcription/CallTranscriber.ts:33](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/transcription/CallTranscriber.ts#L33)*
 
 #### Parameters:
 
