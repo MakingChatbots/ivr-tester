@@ -13,7 +13,6 @@
 ### Interfaces
 
 * [RecorderConfig](../interfaces/_call_recording_mediastreamrecorder_.recorderconfig.md)
-* [StreamDetails](../interfaces/_call_recording_mediastreamrecorder_.streamdetails.md)
 
 ### Functions
 
@@ -25,7 +24,7 @@
 
 ▸ `Const`**mediaStreamRecorderPlugin**(`config`: [Config](../interfaces/_configuration_config_.config.md)): [IvrTesterPlugin](../interfaces/_plugins_ivrtesterplugin_.ivrtesterplugin.md)
 
-*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:29](https://github.com/SketchingDev/ivr-tester/blob/e4629d5/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L29)*
+*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:21](https://github.com/SketchingDev/ivr-tester/blob/aa015fb/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L21)*
 
 #### Parameters:
 
