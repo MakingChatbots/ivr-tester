@@ -49,7 +49,7 @@ testRunner()(
 ## How it works
 
 <p align="center">
-  <img src="doc-assets/flow.jpg">
+  <img src="doc/assets/flow.jpg">
 </p>
 
 Under the hood this orchestrates: 

@@ -11,7 +11,7 @@
     "lint:prettier": "prettier --list-different 'src/**/*.ts' --write",
     "lint:eslint": "eslint 'src/**/*.ts'",
     "lint": "yarn lint:prettier && yarn lint:eslint",
-    "record": "terminalizer record --config ../../doc-assets/terminalizer-config.yml --skip-sharing terminal-recording",
+    "record": "terminalizer record --config ../../doc/assets/terminalizer-config.yml --skip-sharing terminal-recording",
     "record:play": "terminalizer play terminal-recording",
     "record:render": "rm -f terminal-recording.gif && terminalizer render -o terminal-recording terminal-recording"
   },

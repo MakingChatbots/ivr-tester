@@ -1,24 +1,9 @@
 import path from "path";
 import { readFileSync } from "fs";
 import { DtmfBufferGenerator } from "./DtmfBufferGenerator";
+import { convertToDtmfArray, dtmfSequenceValidator } from "./dtmfSequenceUtils";
 
 export class UlawDtmfBufferGenerator implements DtmfBufferGenerator {
-  private static readonly VALID_DTMF_DIGITS = [
-    "0",
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "*",
-    "#",
-    "w",
-  ];
-  private static readonly DIGIT_SEPARATOR = "";
   private static readonly DEFAULT_RAW_BASE_PATH = path.join(
     __dirname,
     "./raw/"
@@ -55,11 +40,12 @@ export class UlawDtmfBufferGenerator implements DtmfBufferGenerator {
     }
     digits = digits.toLocaleLowerCase();
 
-    const separateDigits = digits.split(
-      UlawDtmfBufferGenerator.DIGIT_SEPARATOR
-    );
-    UlawDtmfBufferGenerator.validateDigits(separateDigits);
+    const validationResults = dtmfSequenceValidator(digits);
+    if (validationResults.valid === false) {
+      throw new Error(validationResults.reason);
+    }
 
+    const separateDigits = convertToDtmfArray(digits);
     return Buffer.concat(separateDigits.map((d) => this.getRawBuffer(d)));
   }
 
@@ -72,15 +58,5 @@ export class UlawDtmfBufferGenerator implements DtmfBufferGenerator {
     this.rawCache.set(digit, file);
 
     return file;
-  }
-
-  private static validateDigits(digits: string[]) {
-    for (const digit of digits) {
-      if (!UlawDtmfBufferGenerator.VALID_DTMF_DIGITS.some((d) => d === digit)) {
-        throw new Error(
-          `${digit} is not a valid DTMF digit. It must be any of the following: ${UlawDtmfBufferGenerator.VALID_DTMF_DIGITS}`
-        );
-      }
-    }
   }
 }
