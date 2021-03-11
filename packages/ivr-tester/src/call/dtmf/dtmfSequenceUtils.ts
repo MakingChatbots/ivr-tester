@@ -16,7 +16,7 @@ const validDtmfDigits: ReadonlyArray<string> = [
 
 export function convertToDtmfArray(dtmfSequence: string | string[]): string[] {
   if (typeof dtmfSequence === "string") {
-    return dtmfSequence.split("");
+    return dtmfSequence.split("").map((c) => c.toLocaleLowerCase());
   }
 
   if (Array.isArray(dtmfSequence)) {
@@ -26,7 +26,7 @@ export function convertToDtmfArray(dtmfSequence: string | string[]): string[] {
       .filter((d) => typeof d === "string")
       .forEach((e) => sequence.push(...e.split("")));
 
-    return sequence;
+    return sequence.map((c) => c.toLocaleLowerCase());
   }
 
   return [];
@@ -48,8 +48,13 @@ export function dtmfSequenceValidator(
     };
   }
 
-  const invalidDigits = convertToDtmfArray(possibleDtmfSequence).filter(
-    (c) => !validDtmfDigits.includes(c)
+  const dtmfSequence = convertToDtmfArray(possibleDtmfSequence);
+  if (dtmfSequence.length === 0) {
+    return { valid: false, reason: "At least one digit must be provided" };
+  }
+
+  const invalidDigits = dtmfSequence.filter(
+    (c) => !validDtmfDigits.includes(c.toLocaleLowerCase())
   );
   if (invalidDigits.length > 0) {
     return {

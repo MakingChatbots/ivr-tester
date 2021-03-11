@@ -38,7 +38,6 @@ export class UlawDtmfBufferGenerator implements DtmfBufferGenerator {
     if (typeof digits !== "string" || digits.length === 0) {
       throw new Error("At least one digit must be provided");
     }
-    digits = digits.toLocaleLowerCase();
 
     const validationResults = dtmfSequenceValidator(digits);
     if (validationResults.valid === false) {

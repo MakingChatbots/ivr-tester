@@ -10,12 +10,15 @@ test.each([
   [undefined, []],
   [1, []],
   ["", []],
-])("convertToDtmfArray ('%s') = '%s'", (dtmfSequence: any, expected) =>
-  expect(convertToDtmfArray(dtmfSequence)).toStrictEqual(expected)
+  ["W", ["w"]],
+  [["W"], ["w"]],
+])("convertToDtmfArray ('%s') = '%s'", (dtmfSequence, expected) =>
+  expect(convertToDtmfArray(dtmfSequence as any)).toStrictEqual(expected)
 );
 
 test.each([
   ["123", { valid: true }],
+  ["W", { valid: true }],
   [
     "abc",
     {
@@ -27,7 +30,8 @@ test.each([
   [
     "",
     {
-      valid: true,
+      valid: false,
+      reason: "At least one digit must be provided",
     },
   ],
   [
@@ -44,6 +48,6 @@ test.each([
       reason: "DTMF sequence '1,0,2' must be a string or array of strings",
     },
   ],
-])("dtmfSequenceValidator ('%s') = '%s'", (dtmfSequence: any, expected) =>
-  expect(dtmfSequenceValidator(dtmfSequence)).toStrictEqual(expected)
+])("dtmfSequenceValidator ('%s') = '%s'", (dtmfSequence, expected) =>
+  expect(dtmfSequenceValidator(dtmfSequence as any)).toStrictEqual(expected)
 );
