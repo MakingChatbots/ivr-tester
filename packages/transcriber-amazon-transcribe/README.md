@@ -2,7 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/ivr-tester-transcriber-amazon-transcribe)](https://www.npmjs.com/package/ivr-tester-transcriber-amazon-transcribe)
 
-A plugin for [IVR Tester](https://github.com/SketchingDev/ivr-tester) to transcribe IVR call flows using 
+A plugin for [IVR Tester](https://github.com/SketchingDev/ivr-tester) to transcribe IVR call flows using
 [AWS Transcribe](https://aws.amazon.com/transcribe/).
 
 ## Installation
@@ -23,7 +23,7 @@ npm install ivr-tester-transcriber-amazon-transcribe
 
 1. [Create an AWS Account](https://docs.aws.amazon.com/transcribe/latest/dg/setting-up-asc.html)
 2. Store AWS keys in environment variables:
-   
+
 ```shell
 export AWS_ACCESS_KEY_ID=<Your access key ID>
 export AWS_SECRET_ACCESS_KEY=<Your secret access key>

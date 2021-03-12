@@ -88,7 +88,7 @@ the wording that could negatively impact customers.
 Each transcription service is trained differently, but usually involves providing it with a list of words/phrases that
 it cleverly learns to recognise in the audio stream.
 
-IVR Tester currently supports AWS Transcribe and Google Speech-to-Text (refer to their READMEs on how to train them), 
+IVR Tester currently supports AWS Transcribe and Google Speech-to-Text (refer to their READMEs on how to train them),
 but we'll focus on Google Speech-to-Text as its so simple to train...
 
 ```typescript
@@ -147,12 +147,12 @@ const balanceTest = {
 
 #### Measuring the accuracy
 
-Let's calculate how much our training has improved the accuracy of the transcription by calculating the 
+Let's calculate how much our training has improved the accuracy of the transcription by calculating the
 Word Error Rate (WER) - a metric commonly used for measuring the performance of speech recognition systems.
 
 To determine the WER we'll:
 
-1. Install the [speech-recognition-evaluation](https://github.com/symblai/speech-recognition-evaluation#installation) 
+1. Install the [speech-recognition-evaluation](https://github.com/symblai/speech-recognition-evaluation#installation)
    tool.
     ```shell
     npm install -g speech-recognition-evaluation
