@@ -9240,7 +9240,7 @@ tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
   integrity sha1-WuaBd/GS1EViadEIr6k/+HQ/T2Q=
 
-twilio@^3.55.0:
+twilio@^3.57.0:
   version "3.57.0"
   resolved "https://registry.yarnpkg.com/twilio/-/twilio-3.57.0.tgz#626d212fb86c5d73abf23e7d39cb83f25d477a49"
   integrity sha512-gt1NtEM647c/+KGcPiBEY2YCCrvm7nKXfd2bOT6PNYUAbBF5n0s3Ed0lYQW5BngpJEjeZROMZjfp9ikwehS/pg==

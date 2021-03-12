@@ -41,7 +41,7 @@
     "getenv": "^1.0.0",
     "log-symbols": "^4.0.0",
     "string-similarity": "^4.0.4",
-    "twilio": "^3.55.0",
+    "twilio": "^3.57.0",
     "ws": "^7.4.4"
   },
   "devDependencies": {
