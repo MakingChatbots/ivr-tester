@@ -21,8 +21,9 @@ npm install ivr-tester-transcriber-amazon-transcribe
 
 ## Configuration
 
-Ensure AWS credentials are defined in environment variables:
-
+1. [Create an AWS Account](https://docs.aws.amazon.com/transcribe/latest/dg/setting-up-asc.html)
+2. Store AWS keys in environment variables:
+   
 ```shell
 export AWS_ACCESS_KEY_ID=<Your access key ID>
 export AWS_SECRET_ACCESS_KEY=<Your secret access key>
@@ -42,7 +43,10 @@ const config: Config = {
 
 ### Training a custom language model
 
-[Building custom language models to supercharge speech-to-text performance for Amazon Transcribe](https://aws.amazon.com/blogs/machine-learning/building-custom-language-models-to-supercharge-speech-to-text-performance-for-amazon-transcribe/)
+[You can train a model with domain specific terminology](https://docs.aws.amazon.com/transcribe/latest/dg/custom-language-models.html)
+to improve accuracy. As of writing this it is only available for US English (en-US).
+
+Interesting blog article on the subject: [Building custom language models to supercharge speech-to-text performance for Amazon Transcribe](https://aws.amazon.com/blogs/machine-learning/building-custom-language-models-to-supercharge-speech-to-text-performance-for-amazon-transcribe/)
 
 ## Testing
 

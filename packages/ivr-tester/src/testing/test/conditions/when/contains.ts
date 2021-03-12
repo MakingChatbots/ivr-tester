@@ -16,20 +16,20 @@ const containsText = (
 
 /**
  * Evaluates whether a transcript contains
- * * Either a piece of text if a string is provided
+ * * A piece of text if a string is provided
  * * Every piece of text if array is provided
  * * When condition passes, having been passed every portion of
  *   the transcript until it returns true, else will return false.
  *
- * ```
+ * ```ts
  * contains(['test', 'transcript'])('this is a test transcript') //true
  * ```
  *
- * ```
+ * ```ts
  * contains('test')('this is a test transcript') // true
  * ```
  *
- * ```
+ * ```ts
  * contains(similarTo('this is a best'))('this is a test transcript') // true
  * ```
  */

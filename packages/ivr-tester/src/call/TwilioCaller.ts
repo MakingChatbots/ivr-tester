@@ -20,6 +20,7 @@ export class TwilioCaller implements Caller<TestSubject> {
   constructor(private readonly twilioClient: Twilio) {}
 
   private static addParameters(stream: VoiceResponse.Stream, call: Call): void {
+    // TODO Adding parameters throws a warning, but is even done here https://www.twilio.com/blog/media-streams-public-beta
     stream.parameter({ name: "from", value: call.from });
     stream.parameter({ name: "to", value: call.to });
   }
