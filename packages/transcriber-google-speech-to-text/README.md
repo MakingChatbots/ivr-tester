@@ -25,7 +25,7 @@ npm install ivr-tester-transcriber-google-speech-to-text
 
 Follow GCP's [quick-start guide](https://cloud.google.com/speech-to-text/docs/quickstart-client-libraries) to:
 1. Setup a Google Cloud project
-2. Enable the Google Speech-to-Text service 
+2. Enable the Google Speech-to-Text service
 3. Create a service account, then set the environment variable to the path of the JSON file that contains the service
 account's key.
 
@@ -51,7 +51,7 @@ The plugin exposes two properties that allow you to improve the accuracy of tran
 
 * `useEnhanced` - Whether to use an [enhanced model](https://cloud.google.com/speech-to-text/docs/enhanced-models)
   for speech recognition if it is available for the language code provided. Beware this costs more!
-* `speechPhrases` - Allows you to specify specific words or phrases used more frequently within the speech. See 
+* `speechPhrases` - Allows you to specify specific words or phrases used more frequently within the speech. See
   [Google's guide for more info on what to provide](https://cloud.google.com/speech-to-text/docs/speech-adaptation).
 
 ```typescript
