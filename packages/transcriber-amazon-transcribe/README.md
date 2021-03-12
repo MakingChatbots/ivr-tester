@@ -2,7 +2,8 @@
 
 [![npm](https://img.shields.io/npm/v/ivr-tester-transcriber-amazon-transcribe)](https://www.npmjs.com/package/ivr-tester-transcriber-amazon-transcribe)
 
-> Transcriber plugin for using Amazon Transcribe to transcribe phone-calls.
+A plugin for [IVR Tester](https://github.com/SketchingDev/ivr-tester) to transcribe IVR call flows using 
+[AWS Transcribe](https://aws.amazon.com/transcribe/).
 
 ## Installation
 
@@ -38,6 +39,10 @@ const config: Config = {
   transcriber: amazonTranscribe("us-east-1", "en-GB"),
 };
 ```
+
+### Training a custom language model
+
+[Building custom language models to supercharge speech-to-text performance for Amazon Transcribe](https://aws.amazon.com/blogs/machine-learning/building-custom-language-models-to-supercharge-speech-to-text-performance-for-amazon-transcribe/)
 
 ## Testing
 
