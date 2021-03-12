@@ -24,7 +24,7 @@
 
 ▸ `Const`**mediaStreamRecorderPlugin**(`config`: [Config](../interfaces/_configuration_config_.config.md)): [IvrTesterPlugin](../interfaces/_plugins_ivrtesterplugin_.ivrtesterplugin.md)
 
-*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:21](https://github.com/SketchingDev/ivr-tester/blob/e17074e/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L21)*
+*Defined in [packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts:21](https://github.com/SketchingDev/ivr-tester/blob/8e8019a/packages/ivr-tester/src/call/recording/MediaStreamRecorder.ts#L21)*
 
 #### Parameters:
 

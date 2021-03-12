@@ -24,4 +24,4 @@
 
 •  **isAssigned**: boolean
 
-*Defined in [packages/ivr-tester/src/testing/IteratingTestAssigner.ts:4](https://github.com/SketchingDev/ivr-tester/blob/e17074e/packages/ivr-tester/src/testing/IteratingTestAssigner.ts#L4)*
+*Defined in [packages/ivr-tester/src/testing/IteratingTestAssigner.ts:4](https://github.com/SketchingDev/ivr-tester/blob/8e8019a/packages/ivr-tester/src/testing/IteratingTestAssigner.ts#L4)*

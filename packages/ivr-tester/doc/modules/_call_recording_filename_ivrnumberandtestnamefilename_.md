@@ -16,7 +16,7 @@
 
 ▸ `Const`**ivrNumberAndTestNameFilename**(`__namedParameters`: { call: { from: string ; to: string  }  }, `test`: [CallFlowTestDefinition](../interfaces/_testing_test_callflowtestdefinition_.callflowtestdefinition.md), `suffix?`: string): string
 
-*Defined in [packages/ivr-tester/src/call/recording/filename/ivrNumberAndTestNameFilename.ts:8](https://github.com/SketchingDev/ivr-tester/blob/e17074e/packages/ivr-tester/src/call/recording/filename/ivrNumberAndTestNameFilename.ts#L8)*
+*Defined in [packages/ivr-tester/src/call/recording/filename/ivrNumberAndTestNameFilename.ts:8](https://github.com/SketchingDev/ivr-tester/blob/8e8019a/packages/ivr-tester/src/call/recording/filename/ivrNumberAndTestNameFilename.ts#L8)*
 
 Produces filename that looks like '<phone-number>-<datetime>-<test-name>-<optional-suffix>'
 

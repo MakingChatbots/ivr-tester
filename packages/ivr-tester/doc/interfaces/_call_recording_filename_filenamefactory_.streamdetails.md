@@ -21,7 +21,7 @@
 
 •  **call**: { from: string ; to: string  }
 
-*Defined in [packages/ivr-tester/src/call/recording/filename/FilenameFactory.ts:5](https://github.com/SketchingDev/ivr-tester/blob/e17074e/packages/ivr-tester/src/call/recording/filename/FilenameFactory.ts#L5)*
+*Defined in [packages/ivr-tester/src/call/recording/filename/FilenameFactory.ts:5](https://github.com/SketchingDev/ivr-tester/blob/8e8019a/packages/ivr-tester/src/call/recording/filename/FilenameFactory.ts#L5)*
 
 #### Type declaration:
 
@@ -36,4 +36,4 @@ ___
 
 •  **sid**: string
 
-*Defined in [packages/ivr-tester/src/call/recording/filename/FilenameFactory.ts:4](https://github.com/SketchingDev/ivr-tester/blob/e17074e/packages/ivr-tester/src/call/recording/filename/FilenameFactory.ts#L4)*
+*Defined in [packages/ivr-tester/src/call/recording/filename/FilenameFactory.ts:4](https://github.com/SketchingDev/ivr-tester/blob/8e8019a/packages/ivr-tester/src/call/recording/filename/FilenameFactory.ts#L4)*
