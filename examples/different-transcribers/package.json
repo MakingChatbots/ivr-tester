@@ -11,15 +11,15 @@
     "lint:prettier": "prettier --list-different 'src/**/*.ts' --write",
     "lint:eslint": "eslint 'src/**/*.ts'",
     "lint": "yarn lint:prettier && yarn lint:eslint",
-    "record": "terminalizer record --config ../../doc-assets/terminalizer-config.yml --skip-sharing terminal-recording",
+    "record": "terminalizer record --config ../../doc/assets/terminalizer-config.yml --skip-sharing terminal-recording",
     "record:play": "terminalizer play terminal-recording",
     "record:render": "rm -f terminal-recording.gif && terminalizer render -o terminal-recording terminal-recording"
   },
   "dependencies": {
     "dotenv": "^8.2.0",
-    "ivr-tester": "^0.1.0",
-    "ivr-tester-transcriber-amazon-transcribe": "^0.1.0",
-    "ivr-tester-transcriber-google-speech-to-text": "^0.1.0"
+    "ivr-tester": "^0.1.8",
+    "ivr-tester-transcriber-amazon-transcribe": "^0.1.3",
+    "ivr-tester-transcriber-google-speech-to-text": "^0.1.2"
   },
   "devDependencies": {
     "@types/node": "^14.11.1",

@@ -114,7 +114,14 @@ const tests: CallFlowTestDefinition[] = [
 const config: Config = {
   transcriber: googleSpeechToText({
     languageCode: "en-GB",
-    speechPhrases: ["you entered the values", "you timed out"],
+    speechPhrases: [
+      "Press 1 for playback flow",
+      "Press 2 for long pauses flow",
+      "Press 3 for short latency flow",
+      "Press 4 for long latency flow",
+      "Please enter a number",
+      "You entered the value 0123456789. Thank you.",
+    ],
     useEnhanced: true,
   }),
   recording: {

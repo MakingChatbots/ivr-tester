@@ -1,9 +1,9 @@
 import {
   CallFlowTestDefinition,
   Config,
-  contains,
   doNothing,
   inOrder,
+  isAnything,
   press,
   testRunner,
   TestSubject,
@@ -25,13 +25,19 @@ const test: CallFlowTestDefinition = {
   name: "Keys pressed are read back",
   instructions: inOrder([
     {
-      whenPrompt: contains("please enter a number"),
+      whenPrompt: isAnything(),
+      then: press("1"),
+      silenceAfterPrompt: 3000,
+      timeout,
+    },
+    {
+      whenPrompt: isAnything(),
       then: press("0123456789"),
       silenceAfterPrompt: 3000,
       timeout,
     },
     {
-      whenPrompt: contains(["you entered", "0123456789"]),
+      whenPrompt: isAnything(),
       then: doNothing(),
       silenceAfterPrompt: 3000,
       timeout,
@@ -47,7 +53,8 @@ const config: Config = {
     },
     transcript: {
       outputPath: path.join(__dirname, "../recordings"),
-      includeResponse: true,
+      includeResponse: false,
+      filename: "transcription-aws",
     },
   },
 };

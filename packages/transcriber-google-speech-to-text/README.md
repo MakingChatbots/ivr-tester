@@ -2,7 +2,8 @@
 
 [![npm](https://img.shields.io/npm/v/ivr-tester-transcriber-google-speech-to-text)](https://www.npmjs.com/package/ivr-tester-transcriber-google-speech-to-text)
 
-> Transcriber plugin for using Google Speech-to-Text to transcribe phone-calls.
+A plugin for [IVR Tester](https://github.com/SketchingDev/ivr-tester) to transcribe IVR call flows using
+[Google Speech-to-Text](https://cloud.google.com/speech-to-text).
 
 ## Installation
 
@@ -24,7 +25,8 @@ npm install ivr-tester-transcriber-google-speech-to-text
 
 Follow GCP's [quick-start guide](https://cloud.google.com/speech-to-text/docs/quickstart-client-libraries) to:
 1. Setup a Google Cloud project
-2. Create a service account, then set the environment variable to the path of the JSON file that contains the service
+2. Enable the Google Speech-to-Text service 
+3. Create a service account, then set the environment variable to the path of the JSON file that contains the service
 account's key.
 
 ```shell
@@ -39,11 +41,28 @@ See the [API's documentation](./doc/modules/_index_.md) for details of each para
 import { googleSpeechToText } from "ivr-tester-transcriber-google-speech-to-text";
 
 const config: Config = {
+  transcriber: googleSpeechToText({ languageCode: "en-GB" })
+};
+```
+
+#### Speech Adaptation
+
+The plugin exposes two properties that allow you to improve the accuracy of transcriptions:
+
+* `useEnhanced` - Whether to use an [enhanced model](https://cloud.google.com/speech-to-text/docs/enhanced-models)
+  for speech recognition if it is available for the language code provided. Beware this costs more!
+* `speechPhrases` - Allows you to specify specific words or phrases used more frequently within the speech. See 
+  [Google's guide for more info on what to provide](https://cloud.google.com/speech-to-text/docs/speech-adaptation).
+
+```typescript
+import { googleSpeechToText } from "ivr-tester-transcriber-google-speech-to-text";
+
+const config: Config = {
   transcriber: googleSpeechToText(
     {
       languageCode: "en-GB",
-      speechPhrases: [],
-      useEnhanced: true
+      useEnhanced: true,
+      speechPhrases: ["balance", "costing", "financial services"]
     }
   ),
 };
@@ -51,7 +70,8 @@ const config: Config = {
 
 ## Debugging
 
-Console logging can be enabled by specifying the [package name in the `DEBUG` environment variable](https://github.com/visionmedia/debug#environment-variables):
+Console logging can be enabled by specifying the
+[package name in the `DEBUG` environment variable](https://github.com/visionmedia/debug#environment-variables):
 
 ```
 DEBUG=ivr-tester-transcriber-google-speech-to-text
