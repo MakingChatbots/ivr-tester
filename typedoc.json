@@ -1,14 +1,10 @@
 {
   "readme": "none",
   "out": "doc",
-  "inputFiles": [
-    "./src"
-  ],
   "plugin": [
     "typedoc-plugin-markdown"
   ],
-  "excludeNotExported": true,
-  "stripInternal": true,
+  "excludeInternal": true,
   "exclude": [
     "**/*+(index|.spec|.test).ts"
   ]

@@ -1,4 +1,5 @@
 {
   "extends": "../../typedoc.json",
-  "name": "IVR Tester"
+  "name": "IVR Tester",
+  "entryPoints": ["./src/index.ts"]
 }

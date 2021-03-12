@@ -1,6 +1,7 @@
 {
   "extends": "../../typedoc.json",
   "name": "Amazon Transcribe Transcriber",
+  "entryPoints": ["./src/index.ts"],
   "exclude": [
     "**/*+(.spec|.test).ts"
   ]
