@@ -1,13 +1,32 @@
-**[Amazon Transcribe Transcriber](README.md)**
-
-> Globals
+Amazon Transcribe Transcriber
 
 # Amazon Transcribe Transcriber
 
-## Index
+## Table of contents
 
-### Modules
+### Interfaces
 
-* ["AmazonTranscribe"](modules/_amazontranscribe_.md)
-* ["Debugger"](modules/_debugger_.md)
-* ["index"](modules/_index_.md)
+- [AmazonTranscribeOptions](interfaces/amazontranscribeoptions.md)
+
+### Functions
+
+- [amazonTranscribe](README.md#amazontranscribe)
+
+## Functions
+
+### amazonTranscribe
+
+▸ `Const`**amazonTranscribe**(`__namedParameters`: [*AmazonTranscribeOptions*](interfaces/amazontranscribeoptions.md)): TranscriberFactory
+
+Factory for creating an Amazon Transcribe transcriber plugin that is preconfigured for
+phone-calls - specifically 8-bit PCM mono uLaw with a sampling rate of 8Khz.
+
+#### Parameters:
+
+Name | Type |
+:------ | :------ |
+`__namedParameters` | [*AmazonTranscribeOptions*](interfaces/amazontranscribeoptions.md) |
+
+**Returns:** TranscriberFactory
+
+Defined in: [index.ts:25](https://github.com/SketchingDev/ivr-tester/blob/a815992/packages/transcriber-amazon-transcribe/src/index.ts#L25)
