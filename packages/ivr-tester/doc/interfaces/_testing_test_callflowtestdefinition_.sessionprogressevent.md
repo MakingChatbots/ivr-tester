@@ -20,4 +20,4 @@
 
 •  **transcription**: string
 
-*Defined in [packages/ivr-tester/src/testing/test/CallFlowTestDefinition.ts:7](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/testing/test/CallFlowTestDefinition.ts#L7)*
+*Defined in [packages/ivr-tester/src/testing/test/CallFlowTestDefinition.ts:7](https://github.com/SketchingDev/ivr-tester/blob/e17074e/packages/ivr-tester/src/testing/test/CallFlowTestDefinition.ts#L7)*

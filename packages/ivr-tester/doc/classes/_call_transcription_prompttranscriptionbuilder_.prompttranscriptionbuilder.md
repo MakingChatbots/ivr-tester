@@ -27,7 +27,7 @@
 
 • `Private` **transcriptions**: [TranscriptEvent](../interfaces/_call_transcription_plugin_transcriberplugin_.transcriptevent.md)[] = []
 
-*Defined in [packages/ivr-tester/src/call/transcription/PromptTranscriptionBuilder.ts:6](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/call/transcription/PromptTranscriptionBuilder.ts#L6)*
+*Defined in [packages/ivr-tester/src/call/transcription/PromptTranscriptionBuilder.ts:6](https://github.com/SketchingDev/ivr-tester/blob/e17074e/packages/ivr-tester/src/call/transcription/PromptTranscriptionBuilder.ts#L6)*
 
 ___
 
@@ -35,7 +35,7 @@ ___
 
 ▪ `Static` `Private` `Readonly` **EMPTY\_TRANSCRIPTION**: "" = ""
 
-*Defined in [packages/ivr-tester/src/call/transcription/PromptTranscriptionBuilder.ts:4](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/call/transcription/PromptTranscriptionBuilder.ts#L4)*
+*Defined in [packages/ivr-tester/src/call/transcription/PromptTranscriptionBuilder.ts:4](https://github.com/SketchingDev/ivr-tester/blob/e17074e/packages/ivr-tester/src/call/transcription/PromptTranscriptionBuilder.ts#L4)*
 
 ## Methods
 
@@ -43,7 +43,7 @@ ___
 
 ▸ **add**(`event`: [TranscriptEvent](../interfaces/_call_transcription_plugin_transcriberplugin_.transcriptevent.md)): void
 
-*Defined in [packages/ivr-tester/src/call/transcription/PromptTranscriptionBuilder.ts:8](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/call/transcription/PromptTranscriptionBuilder.ts#L8)*
+*Defined in [packages/ivr-tester/src/call/transcription/PromptTranscriptionBuilder.ts:8](https://github.com/SketchingDev/ivr-tester/blob/e17074e/packages/ivr-tester/src/call/transcription/PromptTranscriptionBuilder.ts#L8)*
 
 #### Parameters:
 
@@ -59,7 +59,7 @@ ___
 
 ▸ **clear**(): void
 
-*Defined in [packages/ivr-tester/src/call/transcription/PromptTranscriptionBuilder.ts:12](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/call/transcription/PromptTranscriptionBuilder.ts#L12)*
+*Defined in [packages/ivr-tester/src/call/transcription/PromptTranscriptionBuilder.ts:12](https://github.com/SketchingDev/ivr-tester/blob/e17074e/packages/ivr-tester/src/call/transcription/PromptTranscriptionBuilder.ts#L12)*
 
 **Returns:** void
 
@@ -69,6 +69,6 @@ ___
 
 ▸ **merge**(): string
 
-*Defined in [packages/ivr-tester/src/call/transcription/PromptTranscriptionBuilder.ts:16](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/call/transcription/PromptTranscriptionBuilder.ts#L16)*
+*Defined in [packages/ivr-tester/src/call/transcription/PromptTranscriptionBuilder.ts:16](https://github.com/SketchingDev/ivr-tester/blob/e17074e/packages/ivr-tester/src/call/transcription/PromptTranscriptionBuilder.ts#L16)*
 
 **Returns:** string

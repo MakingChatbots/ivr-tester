@@ -35,7 +35,7 @@ Represents an active call
 
 ▸ **close**(`reason`: string): void
 
-*Defined in [packages/ivr-tester/src/call/Call.ts:29](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/call/Call.ts#L29)*
+*Defined in [packages/ivr-tester/src/call/Call.ts:29](https://github.com/SketchingDev/ivr-tester/blob/e17074e/packages/ivr-tester/src/call/Call.ts#L29)*
 
 #### Parameters:
 
@@ -53,7 +53,7 @@ ___
 
 *Inherited from [Emitter](_emitter_.emitter.md).[emit](_emitter_.emitter.md#emit)*
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:13](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/Emitter.ts#L13)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:13](https://github.com/SketchingDev/ivr-tester/blob/e17074e/packages/ivr-tester/src/Emitter.ts#L13)*
 
 #### Type parameters:
 
@@ -76,7 +76,7 @@ ___
 
 ▸ **getStream**(): ws
 
-*Defined in [packages/ivr-tester/src/call/Call.ts:27](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/call/Call.ts#L27)*
+*Defined in [packages/ivr-tester/src/call/Call.ts:27](https://github.com/SketchingDev/ivr-tester/blob/e17074e/packages/ivr-tester/src/call/Call.ts#L27)*
 
 **Returns:** ws
 
@@ -86,7 +86,7 @@ ___
 
 ▸ **isOpen**(): boolean
 
-*Defined in [packages/ivr-tester/src/call/Call.ts:31](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/call/Call.ts#L31)*
+*Defined in [packages/ivr-tester/src/call/Call.ts:31](https://github.com/SketchingDev/ivr-tester/blob/e17074e/packages/ivr-tester/src/call/Call.ts#L31)*
 
 **Returns:** boolean
 
@@ -98,7 +98,7 @@ ___
 
 *Inherited from [Emitter](_emitter_.emitter.md).[off](_emitter_.emitter.md#off)*
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:12](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/Emitter.ts#L12)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:12](https://github.com/SketchingDev/ivr-tester/blob/e17074e/packages/ivr-tester/src/Emitter.ts#L12)*
 
 #### Type parameters:
 
@@ -123,7 +123,7 @@ ___
 
 *Inherited from [Emitter](_emitter_.emitter.md).[on](_emitter_.emitter.md#on)*
 
-*Defined in [packages/ivr-tester/src/Emitter.ts:11](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/Emitter.ts#L11)*
+*Defined in [packages/ivr-tester/src/Emitter.ts:11](https://github.com/SketchingDev/ivr-tester/blob/e17074e/packages/ivr-tester/src/Emitter.ts#L11)*
 
 #### Type parameters:
 
@@ -146,7 +146,7 @@ ___
 
 ▸ **sendDtmfTone**(`dtmfSequence`: string): void
 
-*Defined in [packages/ivr-tester/src/call/Call.ts:20](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/call/Call.ts#L20)*
+*Defined in [packages/ivr-tester/src/call/Call.ts:20](https://github.com/SketchingDev/ivr-tester/blob/e17074e/packages/ivr-tester/src/call/Call.ts#L20)*
 
 Sends DTMF tone to the call
 
@@ -164,7 +164,7 @@ ___
 
 ▸ **sendMedia**(`buffer`: Buffer): void
 
-*Defined in [packages/ivr-tester/src/call/Call.ts:25](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/call/Call.ts#L25)*
+*Defined in [packages/ivr-tester/src/call/Call.ts:25](https://github.com/SketchingDev/ivr-tester/blob/e17074e/packages/ivr-tester/src/call/Call.ts#L25)*
 
 Sends 8 bit PCM encoded (MULAW) at 8000 Hertz media to call
 

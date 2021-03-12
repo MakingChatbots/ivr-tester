@@ -22,7 +22,7 @@
 
 • `Optional` **filename**: string \| [FilenameFactory](../modules/_call_recording_filename_filenamefactory_.md#filenamefactory)
 
-*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:19](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L19)*
+*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:19](https://github.com/SketchingDev/ivr-tester/blob/e17074e/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L19)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 •  **includeResponse**: boolean
 
-*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:20](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L20)*
+*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:20](https://github.com/SketchingDev/ivr-tester/blob/e17074e/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L20)*
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 •  **outputPath**: string
 
-*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:18](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L18)*
+*Defined in [packages/ivr-tester/src/call/recording/TranscriptRecorder.ts:18](https://github.com/SketchingDev/ivr-tester/blob/e17074e/packages/ivr-tester/src/call/recording/TranscriptRecorder.ts#L18)*

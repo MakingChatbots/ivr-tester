@@ -25,7 +25,7 @@ for more detailed info](https://cloud.google.com/speech-to-text/docs/reference/r
 
 • `Optional` **languageCode**: string
 
-*Defined in [transcriber-google-speech-to-text/src/index.ts:16](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/transcriber-google-speech-to-text/src/index.ts#L16)*
+*Defined in [transcriber-google-speech-to-text/src/index.ts:16](https://github.com/SketchingDev/ivr-tester/blob/e17074e/packages/transcriber-google-speech-to-text/src/index.ts#L16)*
 
 Language of the supplied audio as a BCP-47 language tag.
 
@@ -38,7 +38,7 @@ ___
 
 • `Optional` **speechPhrases**: string[]
 
-*Defined in [transcriber-google-speech-to-text/src/index.ts:22](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/transcriber-google-speech-to-text/src/index.ts#L22)*
+*Defined in [transcriber-google-speech-to-text/src/index.ts:22](https://github.com/SketchingDev/ivr-tester/blob/e17074e/packages/transcriber-google-speech-to-text/src/index.ts#L22)*
 
 A list of strings containing words and phrases "hints" so that the speech recognition is more likely to recognize
 them. This can be used to improve the accuracy for specific words and phrases.
@@ -49,7 +49,7 @@ ___
 
 • `Optional` **useEnhanced**: boolean
 
-*Defined in [transcriber-google-speech-to-text/src/index.ts:29](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/transcriber-google-speech-to-text/src/index.ts#L29)*
+*Defined in [transcriber-google-speech-to-text/src/index.ts:29](https://github.com/SketchingDev/ivr-tester/blob/e17074e/packages/transcriber-google-speech-to-text/src/index.ts#L29)*
 
 Whether to use an enhanced model for speech recognition if it is available for the language code provided.
 

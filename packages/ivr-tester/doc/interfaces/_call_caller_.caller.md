@@ -31,7 +31,7 @@ Name |
 
 ▸ **call**(`call`: T, `streamUrl`: URL \| string): Promise\<[RequestedCall](../modules/_call_caller_.md#requestedcall)>
 
-*Defined in [packages/ivr-tester/src/call/Caller.ts:17](https://github.com/SketchingDev/ivr-tester/blob/8e79354/packages/ivr-tester/src/call/Caller.ts#L17)*
+*Defined in [packages/ivr-tester/src/call/Caller.ts:17](https://github.com/SketchingDev/ivr-tester/blob/e17074e/packages/ivr-tester/src/call/Caller.ts#L17)*
 
 #### Parameters:
 

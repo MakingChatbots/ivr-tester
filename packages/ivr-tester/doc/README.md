@@ -17,6 +17,7 @@
 * ["call/TwilioCaller"](modules/_call_twiliocaller_.md)
 * ["call/dtmf/DtmfBufferGenerator"](modules/_call_dtmf_dtmfbuffergenerator_.md)
 * ["call/dtmf/UlawDtmfBufferGenerator"](modules/_call_dtmf_ulawdtmfbuffergenerator_.md)
+* ["call/dtmf/dtmfSequenceUtils"](modules/_call_dtmf_dtmfsequenceutils_.md)
 * ["call/recording/MediaStreamRecorder"](modules/_call_recording_mediastreamrecorder_.md)
 * ["call/recording/TranscriptRecorder"](modules/_call_recording_transcriptrecorder_.md)
 * ["call/recording/filename/FilenameFactory"](modules/_call_recording_filename_filenamefactory_.md)
