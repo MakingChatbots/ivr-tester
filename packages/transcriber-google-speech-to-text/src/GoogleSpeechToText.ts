@@ -34,9 +34,7 @@ export class GoogleSpeechToText
     };
   }
 
-  private readonly config: Readonly<
-    protos.google.cloud.speech.v1.IStreamingRecognitionConfig
-  >;
+  private readonly config: Readonly<protos.google.cloud.speech.v1.IStreamingRecognitionConfig>;
   private stream: internal.Writable;
   private streamCreatedAt: Date;
 
