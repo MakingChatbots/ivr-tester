@@ -1,14 +1,28 @@
 # IVR Tester
 
 [![npm](https://img.shields.io/npm/v/ivr-tester)](https://www.npmjs.com/package/ivr-tester)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSketchingDev%2Fivr-tester.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FSketchingDev%2Fivr-tester?ref=badge_shield)
-![](https://github.com/SketchingDev/ivr-tester/workflows/On%20Push/badge.svg)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/SketchingDev/ivr-tester.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/SketchingDev/ivr-tester/context:javascript)
+![](https://github.com/SketchingDev/ivr-tester/workflows/On%20Push/badge.svg)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSketchingDev%2Fivr-tester.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FSketchingDev%2Fivr-tester?ref=badge_shield)
 
-An automated testing framework for Interactive Voice Response (IVR) flows.
+<p align="center">
+  Automate the testing of your IVR call flows!
+</p>
 
-IVR Tester automates the testing of IVR flows by calling them, transcribing voice responses and replying with DTMF tones
-based on fluent test definitions.
+IVR Tester automates the testing of IVR flows by calling them, interpreting prompts and replying with DTMF tones based
+on fluent test definitions.
+
+Features:
+* Fully automate testing call flows
+* Fluent test definitions that document the call flow
+* Flexible conditions for interpreting prompts
+* Record call to audio file for manual inspection on failures
+* Record transcriptions to file
+* Plugin architecture 
+* Supports Google Speech-to-Text and AWS Transcript for transcribing calls
+* Runs on NodeJS  
+* TypeScript type definitions
+* Open-source
 
 ---
 
@@ -17,34 +31,55 @@ based on fluent test definitions.
 ---
 
 ```typescript
-testRunner()(
+const config = { transcriber: googleSpeechToText({ languageCode: "en-GB" }) };
+
+testRunner(config)(
   { from: "0123 456 789", to: "0123 123 123" },
-  { name: "Customer is asked to provide account number",
-    test: inOrder([
+  {
+    name: "Customer is provided a menu after their account number confirmed",
+    instructions: inOrder([
       {
-        whenPrompt: similarTo("Press 1 to update your account details"),
-        then: press("1"),
+        whenPrompt: similarTo("Please enter your account number"),
+        then: press("184748"),
+        silenceAfterPrompt: 3000,
+        timeout: 6000,
       },
       {
-        whenPrompt: contains("enter your account number"),
-        then: doNothing(),
-      },
-    ]),
-  },
-  { name: "Customer is told their option is unrecognised",
-    test: inOrder([
-      {
-        whenPrompt: similarTo("Press 1 to update your account details"),
-        then: press("2"),
-      },
-      {
-        whenPrompt: similarTo("Sorry, we did not understand your response"),
-        then: doNothing(),
-      },
-    ]),
+        whenPrompt: similarTo(
+          "press 1 for booking a repair or 2 for changing your address"
+        ),
+        then: hangUp(),
+        silenceAfterPrompt: 3000,
+        timeout: 6000,
+        },
+     ]),
   }
 );
 ```
+
+## Quick Start
+
+1. [Create a Twilio account](https://www.twilio.com/referral/9E7LvU) (referral link for $10 free if you upgrade), load it with money and rent a phone number
+   1. Store an [authentication token](https://support.twilio.com/hc/en-us/articles/223136027-Auth-Tokens-and-How-to-Change-Them) in environment variables:
+   ```shell
+   export TWILIO_ACCOUNT_SID=ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+   export TWILIO_AUTH_TOKEN=your_auth_token
+   ```
+1. Configure your environment for either [Google](packages/transcriber-google-speech-to-text) or [Amazon's](packages/transcriber-amazon-transcribe) transcription service
+1. Install and start ngrok
+   ```shell
+   npm install ngrok -g
+   ngrok http 8080
+   ```
+1. Run the tests
+   ```shell
+   # Local port that IVR Tester will listen on
+   export LOCAL_SERVER_PORT=8080
+   # URL that ngrok exposes to the outside world
+   export PUBLIC_SERVER_URL=$(curl -s localhost:4040/api/tunnels | jq -r .tunnels[0].public_url)
+   
+   node test.js
+   ```
 
 ## How it works
 
@@ -109,40 +144,27 @@ machine it runs on
 
 ## Writing tests
 
-### Reducing flakiness
+| When         | Overview                             |
+| -------------|--------------------------------------|
+| [contains]   | Prompt contains a piece of text      |
+| [matches]    | Prompt matches regular expression    |
+| [similarTo]  | Prompt is similar to a piece of text |
+| [isAnything] | Prompt can be anything               |
 
-Automatically transcribing speech to text is not an accurate process, so you have to be careful about how you define 
-your `when` clauses. A spoken sentence such as:
+[contains]: ./packages/ivr-tester/doc/modules/_testing_test_conditions_when_contains_.md
+[matches]: ./packages/ivr-tester/doc/modules/_testing_test_conditions_when_matches_.md
+[similarTo]:  ./packages/ivr-tester/doc/modules/_testing_test_conditions_when_similarto_.md
+[isAnything]: ./packages/ivr-tester/doc/modules/_testing_test_conditions_when_isanything_.md
 
-```
-Please enter your date of birth
-```
+| Then        | Overview            |
+| ------------|---------------------|
+| [press]     | Produces DTMF tones |
+| [hangUp]    | Terminates the call |
+| [doNothing] | Doesn't do anything |
 
-Could be transcribed as:
-
-```
-please entreat your date of birth
-```
-
-This introduces flakiness into your tests and puts importance on the balancing act of making your tests readable, whilst
-being resilient to inaccuracies. In this example since being asked to **enter** your date of birth is important
-to understanding the flow I would use `similarTo`, which matches based on a degree of similarity: 
-
-```typescript
-{
-  whenPrompt: similarTo("Please enter your date of birth"),
-  then: press("18121985"),
-}
-```
-
-Instead of say `contains` which would hide the fact a question is being asked to a casual observer of the test:
-
-```typescript
-{
-  whenPrompt: contains("date of birth"),
-  then: press("18121985"),
-}
-```
+[press]: ./packages/ivr-tester/doc/modules/_testing_test_conditions_then_press_.md
+[hangUp]: ./packages/ivr-tester/doc/modules/_testing_test_conditions_then_hangup_.md
+[doNothing]: ./packages/ivr-tester/doc/modules/_testing_test_conditions_then_donothing_.md
 
 ## Development
 
@@ -158,5 +180,6 @@ yarn docs
 The documentation is automatically generated and committed as part of the CI pipeline when merged to the main branch.
 
 ## License
+
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSketchingDev%2Fivr-tester.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FSketchingDev%2Fivr-tester?ref=badge_large)
 
