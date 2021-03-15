@@ -36,7 +36,6 @@ export class GoogleSpeechToText
 
   private readonly config: Readonly<protos.google.cloud.speech.v1.IStreamingRecognitionConfig>;
   private stream: internal.Writable;
-  private streamCreatedAt: Date;
 
   constructor(
     languageCode: string,
@@ -68,45 +67,32 @@ export class GoogleSpeechToText
     }
   }
 
-  private newStreamRequired() {
-    if (!this.stream) {
-      return true;
-    } else {
-      const now = new Date();
-      const timeSinceStreamCreated =
-        now.valueOf() - this.streamCreatedAt.valueOf();
-      return timeSinceStreamCreated / 1000 > 60;
-    }
+  private createStream(): internal.Writable {
+    return (this.stream = this.speechClient
+      .streamingRecognize(this.config)
+      .on("error", (error) => {
+        GoogleSpeechToText.debug(error);
+        throw error;
+      })
+      .on("data", (data: { results: Transcript[] }) => {
+        GoogleSpeechToText.debug("Data: %O", data);
+
+        const result = data.results[0];
+        if (result?.alternatives[0] !== undefined) {
+          const event: TranscriptEvent = {
+            transcription: result.alternatives[0].transcript.trim(),
+            isFinal: result.isFinal,
+          };
+          GoogleSpeechToText.debug("Emitted: %O", event);
+          this.emit("transcription", event);
+        }
+      }));
   }
 
   public getStream(): internal.Writable {
-    if (this.newStreamRequired()) {
-      if (this.stream) {
-        this.close();
-      }
-
-      this.streamCreatedAt = new Date();
-      this.stream = this.speechClient
-        .streamingRecognize(this.config)
-        .on("error", (error) => {
-          GoogleSpeechToText.debug(error);
-          throw error;
-        })
-        .on("data", (data: { results: Transcript[] }) => {
-          GoogleSpeechToText.debug("Data: %O", data);
-
-          const result = data.results[0];
-          if (result?.alternatives[0] !== undefined) {
-            const event: TranscriptEvent = {
-              transcription: result.alternatives[0].transcript.trim(),
-              isFinal: result.isFinal,
-            };
-            GoogleSpeechToText.debug("Emitted: %O", event);
-            this.emit("transcription", event);
-          }
-        });
+    if (!this.stream) {
+      this.stream = this.createStream();
     }
-
     return this.stream;
   }
 

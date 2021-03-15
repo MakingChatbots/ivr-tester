@@ -1,6 +1,6 @@
 {
   "name": "ivr-tester-transcriber-google-speech-to-text",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Google Speech-to-Text integration for IVR Tester",
   "license": "MIT",
   "repository": {
