@@ -63,6 +63,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: yarn --frozen-lockfile
       - run: yarn readme:copy
+      - run: yarn build
         # Flag --no-verify-access is necessary to skip user and access validation due to third-party registry
         # Alternatively set command.publish.registry in root lerna.json
       - run: yarn lerna publish from-package --yes --no-verify-access
