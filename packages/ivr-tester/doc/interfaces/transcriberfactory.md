@@ -27,9 +27,9 @@ e.g. credentials
 
 **Returns:** [*CanRunCheck*](../README.md#canruncheck) \| *Promise*<[*CanRunCheck*](../README.md#canruncheck)\>
 
-Defined in: [call/transcription/plugin/TranscriberFactory.ts:23](https://github.com/SketchingDev/ivr-tester/blob/a815992/packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts#L23)
+Defined in: [call/transcription/plugin/TranscriberFactory.ts:23](https://github.com/SketchingDev/ivr-tester/blob/d22226c/packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts#L23)
 
-Defined in: [call/transcription/plugin/TranscriberFactory.ts:23](https://github.com/SketchingDev/ivr-tester/blob/a815992/packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts#L23)
+Defined in: [call/transcription/plugin/TranscriberFactory.ts:23](https://github.com/SketchingDev/ivr-tester/blob/d22226c/packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts#L23)
 
 ___
 
@@ -45,6 +45,6 @@ Creates the transcriber. This will be called once per call.
 
 **Returns:** [*TranscriberPlugin*](transcriberplugin.md)
 
-Defined in: [call/transcription/plugin/TranscriberFactory.ts:28](https://github.com/SketchingDev/ivr-tester/blob/a815992/packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts#L28)
+Defined in: [call/transcription/plugin/TranscriberFactory.ts:28](https://github.com/SketchingDev/ivr-tester/blob/d22226c/packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts#L28)
 
-Defined in: [call/transcription/plugin/TranscriberFactory.ts:28](https://github.com/SketchingDev/ivr-tester/blob/a815992/packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts#L28)
+Defined in: [call/transcription/plugin/TranscriberFactory.ts:28](https://github.com/SketchingDev/ivr-tester/blob/d22226c/packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts#L28)

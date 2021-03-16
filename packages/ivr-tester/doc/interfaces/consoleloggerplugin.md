@@ -31,7 +31,7 @@ Name | Type |
 
 Inherited from: [IvrTesterPlugin](ivrtesterplugin.md)
 
-Defined in: [plugins/IvrTesterPlugin.ts:9](https://github.com/SketchingDev/ivr-tester/blob/a815992/packages/ivr-tester/src/plugins/IvrTesterPlugin.ts#L9)
+Defined in: [plugins/IvrTesterPlugin.ts:9](https://github.com/SketchingDev/ivr-tester/blob/d22226c/packages/ivr-tester/src/plugins/IvrTesterPlugin.ts#L9)
 
 ___
 
@@ -47,4 +47,4 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [testing/ui/consoleUserInterface.ts:144](https://github.com/SketchingDev/ivr-tester/blob/a815992/packages/ivr-tester/src/testing/ui/consoleUserInterface.ts#L144)
+Defined in: [testing/ui/consoleUserInterface.ts:144](https://github.com/SketchingDev/ivr-tester/blob/d22226c/packages/ivr-tester/src/testing/ui/consoleUserInterface.ts#L144)
