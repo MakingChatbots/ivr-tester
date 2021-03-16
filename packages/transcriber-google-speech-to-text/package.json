@@ -9,8 +9,10 @@
   },
   "homepage": "https://github.com/SketchingDev/ivr-tester/tree/main/packages/transcriber-google-speech-to-text#google-speech-to-text-transcriber",
   "keywords": [
-    "ivr",
+    "IVR",
+    "Interactive Voice Response",
     "call flow",
+    "telephony",
     "test",
     "google speech-to-text",
     "transcriber"
