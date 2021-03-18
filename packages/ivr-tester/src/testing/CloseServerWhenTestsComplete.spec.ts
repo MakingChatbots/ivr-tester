@@ -59,7 +59,6 @@ describe("Close server when tests complete", () => {
 
     callServer.emit("testStarted", { testSession });
 
-    // jest.spyOn(callServer, "stop");
     callFlowSession.emit("allPromptsMatched", {
       transcription: "",
     });
@@ -84,7 +83,6 @@ describe("Close server when tests complete", () => {
 
     callServer.emit("testStarted", { testSession });
 
-    // jest.spyOn(callServer, "stop");
     callFlowSession.emit("timeoutWaitingForMatch", {
       transcription: "",
     });
