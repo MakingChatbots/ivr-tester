@@ -1,13 +1,13 @@
 import { IvrTesterPlugin } from "../../plugins/IvrTesterPlugin";
 import chalk from "chalk";
 import logSymbols from "log-symbols";
-import { CallServer } from "../TwilioCallServer";
+import { CallServerEvents } from "../TwilioCallServer";
 import { Emitter } from "../../Emitter";
 import { PluginEvents } from "../../plugins/PluginManager";
 import { TestSession } from "../../testRunner";
 
 const ivrTranscription = (
-  callServer: CallServer,
+  callServer: Emitter<CallServerEvents>,
   testSession: TestSession
 ): void => {
   let includeTestName = false;
@@ -52,26 +52,25 @@ const ivrTestFailed = (testSession: TestSession): void =>
     console.log(logSymbols.error, chalk.bold.red(`Test Failed`));
   });
 
-const callConnected = (callServer: CallServer): void => {
+const callConnected = (callServer: Emitter<CallServerEvents>): void => {
   callServer.on("callConnected", () => {
     console.log("Call connected");
   });
 };
 
-const callServerListening = (callServer: CallServer): void => {
+const callServerListening = (callServer: Emitter<CallServerEvents>): void => {
   callServer.on("listening", ({ localUrl }) => {
-    // const { port } = localUrl.port.address() as AddressInfo;
     console.log(
       `Server is listening on ${localUrl.port} for the stream for the call`
     );
   });
 };
 
-const callServerStopped = (callServer: CallServer): void => {
+const callServerStopped = (callServer: Emitter<CallServerEvents>): void => {
   callServer.on("stopped", () => console.log("The server has closed"));
 };
 
-const callServerErrored = (callServer: CallServer): void => {
+const callServerErrored = (callServer: Emitter<CallServerEvents>): void => {
   callServer.on("error", (event) =>
     console.error("Server experienced an error", event.error.message)
   );
@@ -95,7 +94,7 @@ const callRequestErrored = (emitter: Emitter<PluginEvents>): void =>
   );
 
 const ivrTestConditionMet = (
-  callServer: CallServer,
+  callServer: Emitter<CallServerEvents>,
   testSession: TestSession
 ): void => {
   let includeTestName = false;

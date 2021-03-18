@@ -4,12 +4,13 @@ import {
   doNothing,
   inOrder,
   isAnything,
+  IvrTester,
   press,
-  testRunner,
   TestSubject,
 } from "ivr-tester";
 import path from "path";
 import { amazonTranscribe } from "ivr-tester-transcriber-amazon-transcribe";
+import ngrok from "ngrok";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require("dotenv").config();
@@ -59,9 +60,9 @@ const config: Config = {
   },
 };
 
-testRunner(config)(call, test)
-  .then(() => process.exit(0))
-  .catch((error: Error) => {
-    console.error(error);
-    process.exit(1);
-  });
+ngrok.connect(config.localServerPort).then((url) =>
+  new IvrTester({ ...config, publicServerUrl: url })
+    .run(call, test)
+    .then(() => process.exit())
+    .catch(() => process.exit(1))
+);

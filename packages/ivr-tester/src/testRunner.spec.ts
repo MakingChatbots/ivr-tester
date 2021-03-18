@@ -1,5 +1,5 @@
 import { Config } from "./configuration/Config";
-import { testRunner, TestSubject } from "./testRunner";
+import { IvrTester, TestSubject } from "./testRunner";
 import getPort from "get-port";
 import { Twilio } from "twilio";
 import {
@@ -80,13 +80,13 @@ describe("Test Runner", () => {
   test("HTTPS public server URL converted to WSS URL in TWIML", async () => {
     twilioClient.calls.create.mockRejectedValue(new Error());
 
-    const runner = await testRunner({
+    const ivrTester = new IvrTester({
       ...commonConfig,
       publicServerUrl: "https://example.test/",
     });
 
     try {
-      await runner(
+      await ivrTester.run(
         { from: "", to: "" },
         { name: "", instructions: inOrder([]) }
       );
@@ -105,13 +105,13 @@ describe("Test Runner", () => {
   test("HTTP public server URL converted to WS URL in TWIML", async () => {
     twilioClient.calls.create.mockRejectedValue(new Error());
 
-    const runner = await testRunner({
+    const ivrTester = new IvrTester({
       ...commonConfig,
       publicServerUrl: "http://example.test/",
     });
 
     try {
-      await runner(
+      await ivrTester.run(
         { from: "", to: "" },
         { name: "", instructions: inOrder([]) }
       );
@@ -136,7 +136,7 @@ describe("Test Runner", () => {
     };
 
     try {
-      await testRunner(commonConfig)(call, {
+      await new IvrTester(commonConfig).run(call, {
         name: "",
         instructions: inOrder([]),
       });
@@ -155,7 +155,7 @@ describe("Test Runner", () => {
     twilioClient.calls.create.mockRejectedValue(new Error("Error Occurred"));
 
     await expect(() =>
-      testRunner(commonConfig)(
+      new IvrTester(commonConfig).run(
         { from: "", to: "" },
         { name: "", instructions: inOrder([]) }
       )
@@ -178,8 +178,8 @@ describe("Test Runner", () => {
       },
     };
 
-    const runner = testRunner(config);
-    const runnerPromise = runner(
+    const ivrTester = new IvrTester(config);
+    const runnerPromise = ivrTester.run(
       { from: "", to: "" },
       { name: "", instructions: inOrder([]) }
     );

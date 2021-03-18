@@ -5,13 +5,14 @@ import {
   doNothing,
   inOrder,
   isAnything,
+  IvrTester,
   press,
   similarTo,
-  testRunner,
   TestSubject,
 } from "ivr-tester";
 import path from "path";
 import { googleSpeechToText } from "ivr-tester-transcriber-google-speech-to-text";
+import ngrok from "ngrok";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require("dotenv").config();
@@ -112,6 +113,7 @@ const tests: CallFlowTestDefinition[] = [
 ];
 
 const config: Config = {
+  localServerPort: 8080,
   transcriber: googleSpeechToText({
     languageCode: "en-GB",
     speechPhrases: [
@@ -120,7 +122,7 @@ const config: Config = {
       "Press 3 for short latency flow",
       "Press 4 for long latency flow",
       "Please enter a number",
-      "You entered the value 0123456789. Thank you.",
+      "You entered the values 0123456789. Thank you.",
     ],
     useEnhanced: true,
   }),
@@ -135,9 +137,9 @@ const config: Config = {
   },
 };
 
-testRunner(config)(call, tests)
-  .then(() => process.exit(0))
-  .catch((error: Error) => {
-    console.error(error);
-    process.exit(1);
-  });
+ngrok.connect(config.localServerPort).then((url) =>
+  new IvrTester({ ...config, publicServerUrl: url })
+    .run(call, tests)
+    .then(() => process.exit())
+    .catch(() => process.exit(1))
+);

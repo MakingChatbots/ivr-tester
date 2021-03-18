@@ -1,47 +1,55 @@
 import { IvrTesterPlugin } from "../plugins/IvrTesterPlugin";
 import { Emitter } from "../Emitter";
 import { PluginEvents } from "../plugins/PluginManager";
-import { CallServer } from "./TwilioCallServer";
+import { Runner } from "../testRunner";
 
 /** Closes the server when all the tests complete */
 export class CloseServerWhenTestsComplete implements IvrTesterPlugin {
-  private server: CallServer;
-  private totalTests = 0;
-  private testsCompleted = 0;
+  private testRunner: Runner;
+  private totalRunning = 0;
+  private totalSuccessful = 0;
+  private totalFailed = 0;
 
-  public initialise(eventEmitter: Emitter<PluginEvents>): void {
+  public initialise(eventEmitter: Emitter<PluginEvents>, runner: Runner): void {
     eventEmitter.on("callServerStarted", ({ callServer }) => {
-      this.callHandlingServerStarted(callServer);
+      this.testRunner = runner;
 
       callServer.on("testStarted", ({ testSession }) => {
         this.testStarted();
 
         testSession.callFlowSession.on(
           "allPromptsMatched",
-          this.testCompleted.bind(this)
+          this.testSuccessful.bind(this)
         );
         testSession.callFlowSession.on(
           "timeoutWaitingForMatch",
-          this.testCompleted.bind(this)
+          this.testFailed.bind(this)
         );
       });
     });
   }
 
-  private callHandlingServerStarted(callServer: CallServer): void {
-    this.server = callServer;
+  private testStarted(): void {
+    this.totalRunning++;
   }
 
-  private testStarted(): void {
-    this.totalTests++;
+  private testSuccessful(): void {
+    this.totalSuccessful++;
+    this.testCompleted();
+  }
+
+  private testFailed(): void {
+    this.totalFailed++;
+    this.testCompleted();
   }
 
   private testCompleted(): void {
-    this.testsCompleted++;
+    const totalCompletedTests = this.totalSuccessful + this.totalFailed;
 
-    const allTestsCompleted = this.testsCompleted >= this.totalTests;
-    if (this.server && allTestsCompleted) {
-      this.server.stop();
+    const allTestsCompleted = totalCompletedTests >= this.totalRunning;
+    if (this.testRunner && allTestsCompleted) {
+      const failed = this.totalFailed > 0;
+      this.testRunner.stop(failed);
     }
   }
 }
