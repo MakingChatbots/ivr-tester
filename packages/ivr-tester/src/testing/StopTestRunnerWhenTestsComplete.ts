@@ -26,10 +26,6 @@ export class StopTestRunnerWhenTestsComplete implements IvrTesterPlugin {
     );
   }
 
-  // private testStarted(): void {
-  //
-  // }
-
   private testSuccessful(): void {
     this.totalSuccessful++;
     this.testCompleted();
