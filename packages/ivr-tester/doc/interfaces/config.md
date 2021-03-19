@@ -22,7 +22,7 @@
 
 DTMF tone generator
 
-Defined in: [configuration/Config.ts:10](https://github.com/SketchingDev/ivr-tester/blob/d22226c/packages/ivr-tester/src/configuration/Config.ts#L10)
+Defined in: [configuration/Config.ts:10](https://github.com/SketchingDev/ivr-tester/blob/cfb72a0/packages/ivr-tester/src/configuration/Config.ts#L10)
 
 ___
 
@@ -33,7 +33,7 @@ ___
 Port that the server listens on.
 This value can be overridden by setting the environment variable LOCAL_SERVER_PORT
 
-Defined in: [configuration/Config.ts:36](https://github.com/SketchingDev/ivr-tester/blob/d22226c/packages/ivr-tester/src/configuration/Config.ts#L36)
+Defined in: [configuration/Config.ts:36](https://github.com/SketchingDev/ivr-tester/blob/cfb72a0/packages/ivr-tester/src/configuration/Config.ts#L36)
 
 ___
 
@@ -41,7 +41,7 @@ ___
 
 • `Optional` **msTimeoutWaitingForCall**: *number*
 
-Defined in: [configuration/Config.ts:51](https://github.com/SketchingDev/ivr-tester/blob/d22226c/packages/ivr-tester/src/configuration/Config.ts#L51)
+Defined in: [configuration/Config.ts:51](https://github.com/SketchingDev/ivr-tester/blob/cfb72a0/packages/ivr-tester/src/configuration/Config.ts#L51)
 
 ___
 
@@ -54,7 +54,7 @@ server that Twilio connects to when creating the bi-directional
 stream of the call
 This value can be overridden by setting the environment variable PUBLIC_SERVER_URL
 
-Defined in: [configuration/Config.ts:49](https://github.com/SketchingDev/ivr-tester/blob/d22226c/packages/ivr-tester/src/configuration/Config.ts#L49)
+Defined in: [configuration/Config.ts:49](https://github.com/SketchingDev/ivr-tester/blob/cfb72a0/packages/ivr-tester/src/configuration/Config.ts#L49)
 
 ___
 
@@ -74,7 +74,7 @@ Name | Type |
 `transcript.includeResponse`? | *boolean* |
 `transcript.outputPath` | *string* |
 
-Defined in: [configuration/Config.ts:17](https://github.com/SketchingDev/ivr-tester/blob/d22226c/packages/ivr-tester/src/configuration/Config.ts#L17)
+Defined in: [configuration/Config.ts:17](https://github.com/SketchingDev/ivr-tester/blob/cfb72a0/packages/ivr-tester/src/configuration/Config.ts#L17)
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 Factory to create a instance of a transcriber per test
 
-Defined in: [configuration/Config.ts:15](https://github.com/SketchingDev/ivr-tester/blob/d22226c/packages/ivr-tester/src/configuration/Config.ts#L15)
+Defined in: [configuration/Config.ts:15](https://github.com/SketchingDev/ivr-tester/blob/cfb72a0/packages/ivr-tester/src/configuration/Config.ts#L15)
 
 ___
 
@@ -94,4 +94,4 @@ ___
 
 Twilio client used to initiate the call to the IVR
 
-Defined in: [configuration/Config.ts:41](https://github.com/SketchingDev/ivr-tester/blob/d22226c/packages/ivr-tester/src/configuration/Config.ts#L41)
+Defined in: [configuration/Config.ts:41](https://github.com/SketchingDev/ivr-tester/blob/cfb72a0/packages/ivr-tester/src/configuration/Config.ts#L41)

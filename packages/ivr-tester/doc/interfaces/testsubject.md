@@ -15,7 +15,7 @@
 
 • **from**: *string*
 
-Defined in: [testRunner.ts:22](https://github.com/SketchingDev/ivr-tester/blob/d22226c/packages/ivr-tester/src/testRunner.ts#L22)
+Defined in: [testRunner.ts:22](https://github.com/SketchingDev/ivr-tester/blob/cfb72a0/packages/ivr-tester/src/testRunner.ts#L22)
 
 ___
 
@@ -23,4 +23,4 @@ ___
 
 • **to**: *string*
 
-Defined in: [testRunner.ts:23](https://github.com/SketchingDev/ivr-tester/blob/d22226c/packages/ivr-tester/src/testRunner.ts#L23)
+Defined in: [testRunner.ts:23](https://github.com/SketchingDev/ivr-tester/blob/cfb72a0/packages/ivr-tester/src/testRunner.ts#L23)
