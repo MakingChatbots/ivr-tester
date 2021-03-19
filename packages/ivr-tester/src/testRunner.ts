@@ -44,7 +44,6 @@ export interface TestRunnerManager {
   testRunner: TestRunner;
 }
 
-// TODO If the plugin manager tells plugins when a test has run then I don't think any of them need access to the call server now
 function createTestRunnerManager(): TestRunnerManager {
   let callback: OnStopCallback = undefined;
   let stopped = false;
