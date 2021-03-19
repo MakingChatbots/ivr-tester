@@ -33,7 +33,7 @@ Features:
 ```typescript
 const config = { transcriber: googleSpeechToText({ languageCode: "en-GB" }) };
 
-testRunner(config)(
+new IvrTester(config).run(
   { from: "0123 456 789", to: "0123 123 123" },
   {
     name: "Customer is provided a menu after their account number confirmed",

@@ -8,17 +8,17 @@ export const callConnectedTimeout = (
   { msTimeoutWaitingForCall }: Config,
   consoleLoggerPlugin: ConsoleLoggerPlugin
 ): IvrTesterPlugin => ({
-  initialise(eventEmitter: Emitter<PluginEvents>) {
+  initialise(eventEmitter: Emitter<PluginEvents>, testRunner) {
     eventEmitter.on("callServerStarted", ({ callServer }) => {
       let timeoutCallbackId: NodeJS.Timeout;
 
       eventEmitter.on("callRequested", () => {
         clearTimeout(timeoutCallbackId);
         timeoutCallbackId = setTimeout(() => {
-          callServer.stop();
           consoleLoggerPlugin.timedOut(
             `call did not connect after ${msTimeoutWaitingForCall / 1000}s`
           );
+          testRunner.stop(true);
         }, msTimeoutWaitingForCall);
       });
 

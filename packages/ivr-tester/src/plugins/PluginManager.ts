@@ -1,7 +1,8 @@
 import { IvrTesterPlugin } from "./IvrTesterPlugin";
-import { CallServer } from "../testing/TwilioCallServer";
-import { TypedEmitter } from "../Emitter";
+import { CallServer, CallServerEvents } from "../testing/TwilioCallServer";
+import { Emitter, TypedEmitter } from "../Emitter";
 import { RequestedCall } from "../call/Caller";
+import { TestRunner } from "../testRunner";
 
 export interface CallRequestedEvent {
   requestedCall: RequestedCall;
@@ -13,7 +14,7 @@ export interface CallRequestErroredEvent {
 }
 
 export interface CallServerStartedEvent {
-  callServer: CallServer;
+  callServer: Emitter<CallServerEvents>;
 }
 
 export type PluginEvents = {
@@ -27,14 +28,22 @@ export class PluginManager extends TypedEmitter<PluginEvents> {
     super();
   }
 
-  public initialise(): void {
+  public initialise(testRunner: TestRunner): void {
     for (const plugin of this.plugins) {
-      plugin.initialise(this);
+      plugin.initialise(this, testRunner);
     }
   }
 
   public serverListening(callServer: CallServer): void {
     this.emit("callServerStarted", { callServer });
+
+    callServer.on("testStarted", (event) => {
+      for (const plugin of this.plugins) {
+        if (typeof plugin.testStarted === "function") {
+          plugin.testStarted(event.testSession);
+        }
+      }
+    });
   }
 
   public callRequested(requestedCall: RequestedCall, total: number): void {
