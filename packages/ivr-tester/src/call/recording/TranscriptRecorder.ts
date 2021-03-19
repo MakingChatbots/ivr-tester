@@ -9,8 +9,6 @@ import { Config } from "../../configuration/Config";
 import { ConfigurationError } from "../../configuration/ConfigurationError";
 import { TwilioCaller, TwilioMediaStreamStartEvent } from "../TwilioCaller";
 import { IvrTesterPlugin } from "../../plugins/IvrTesterPlugin";
-import { Emitter } from "../../Emitter";
-import { PluginEvents } from "../../plugins/PluginManager";
 import { TestSession } from "../../testRunner";
 import { PromptMatchedEvent } from "../../testing/test/CallFlowTestDefinition";
 
@@ -24,7 +22,7 @@ export const transcriptRecorderPlugin = (config: Config): IvrTesterPlugin => {
   if (!config.recording?.transcript) {
     return {
       initialise(): void {
-        /* Intentionally empty */
+        // Intentionally empty
       },
     };
   }
@@ -51,12 +49,11 @@ export const transcriptRecorderPlugin = (config: Config): IvrTesterPlugin => {
   }
 
   return {
-    initialise(eventEmitter: Emitter<PluginEvents>): void {
-      eventEmitter.on("callServerStarted", ({ callServer }) => {
-        callServer.on("testStarted", ({ testSession }) => {
-          new TranscriptRecorder(testSession, recorderConfig);
-        });
-      });
+    initialise(): void {
+      // Intentionally empty
+    },
+    testStarted(testSession): void {
+      new TranscriptRecorder(testSession, recorderConfig);
     },
   };
 };

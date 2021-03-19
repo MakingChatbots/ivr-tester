@@ -4,7 +4,7 @@ export * from "./testing/test/conditions/PromptDefinition";
 
 export * from "./testing/ui/consoleUserInterface";
 export * from "./plugins/IvrTesterPlugin";
-export * from "./testing/CloseServerWhenTestsComplete";
+export * from "./testing/StopTestRunnerWhenTestsComplete";
 export * from "./Emitter";
 
 export * from "./testRunner";

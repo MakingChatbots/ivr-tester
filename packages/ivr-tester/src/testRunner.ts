@@ -9,7 +9,7 @@ import { testExecutor } from "./testing/TestExecutor";
 import { AudioPlaybackCaller } from "./call/AudioPlaybackCaller";
 import { Caller } from "./call/Caller";
 import { consoleUserInterface } from "./testing/ui/consoleUserInterface";
-import { CloseServerWhenTestsComplete } from "./testing/CloseServerWhenTestsComplete";
+import { StopTestRunnerWhenTestsComplete } from "./testing/StopTestRunnerWhenTestsComplete";
 import {
   CallFlowSession,
   CallFlowTestDefinition,
@@ -29,7 +29,7 @@ export interface TestSession {
   readonly callFlowSession: CallFlowSession;
 }
 
-export interface Runner {
+export interface TestRunner {
   /**
    * Stops the test runner
    * @param failure - Whether the running being stopped was due to a failure
@@ -38,35 +38,26 @@ export interface Runner {
   stop(failure?: boolean): void;
 }
 
-function createPluginManager(config: Config): PluginManager {
-  const userInterface = consoleUserInterface();
-
-  return new PluginManager([
-    new CloseServerWhenTestsComplete(),
-    userInterface,
-    callConnectedTimeout(config, userInterface),
-    mediaStreamRecorderPlugin(config),
-    transcriptRecorderPlugin(config),
-  ]);
+type OnStopCallback = (failure: boolean) => void;
+export interface TestRunnerManager {
+  setOnStopCallback: (cb: OnStopCallback) => void;
+  testRunner: TestRunner;
 }
 
-// TODO Tidy this by integrating into IvrTester
-function createStoppableRunner(): {
-  setCallback: (cb: (failure: boolean) => void) => void;
-  runner: Runner;
-} {
-  let callback: (failure: boolean) => void = undefined;
+// TODO If the plugin manager tells plugins when a test has run then I don't think any of them need access to the call server now
+function createTestRunnerManager(): TestRunnerManager {
+  let callback: OnStopCallback = undefined;
   let stopped = false;
   let stoppedDueToFailure = false;
 
   return {
-    setCallback(cb: (failure: boolean) => void) {
+    setOnStopCallback(cb: OnStopCallback) {
       callback = cb;
       if (stopped) {
         callback(stoppedDueToFailure);
       }
     },
-    runner: {
+    testRunner: {
       stop(failure = false) {
         stopped = true;
         stoppedDueToFailure = failure;
@@ -77,6 +68,18 @@ function createStoppableRunner(): {
       },
     },
   };
+}
+
+function createPluginManager(config: Config): PluginManager {
+  const userInterface = consoleUserInterface();
+
+  return new PluginManager([
+    new StopTestRunnerWhenTestsComplete(),
+    userInterface,
+    callConnectedTimeout(config, userInterface),
+    mediaStreamRecorderPlugin(config),
+    transcriptRecorderPlugin(config),
+  ]);
 }
 
 export class IvrTester {
@@ -112,8 +115,8 @@ export class IvrTester {
       ? new AudioPlaybackCaller()
       : new TwilioCaller(this.config.twilioClient);
 
-    const stoppableRunner = createStoppableRunner();
-    this.pluginManager.initialise(stoppableRunner.runner);
+    const testRunnerManager = createTestRunnerManager();
+    this.pluginManager.initialise(testRunnerManager.testRunner);
 
     const serverUrl = await callServer.listen(this.config.localServerPort);
     this.pluginManager.serverListening(callServer);
@@ -138,7 +141,7 @@ export class IvrTester {
           callServer.on("stopped", reject);
           callServer.on("error", reject);
 
-          stoppableRunner.setCallback((failure) => {
+          testRunnerManager.setOnStopCallback((failure) => {
             callServer.off("stopped", reject);
             callServer.off("error", reject);
 

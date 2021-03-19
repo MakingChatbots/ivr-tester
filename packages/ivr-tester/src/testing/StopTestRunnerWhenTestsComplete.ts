@@ -1,37 +1,34 @@
 import { IvrTesterPlugin } from "../plugins/IvrTesterPlugin";
 import { Emitter } from "../Emitter";
 import { PluginEvents } from "../plugins/PluginManager";
-import { Runner } from "../testRunner";
+import { TestRunner, TestSession } from "../testRunner";
 
-/** Closes the server when all the tests complete */
-export class CloseServerWhenTestsComplete implements IvrTesterPlugin {
-  private testRunner: Runner;
+/** Stops the test run when all the tests complete */
+export class StopTestRunnerWhenTestsComplete implements IvrTesterPlugin {
+  private testRunner: TestRunner;
   private totalRunning = 0;
   private totalSuccessful = 0;
   private totalFailed = 0;
 
-  public initialise(eventEmitter: Emitter<PluginEvents>, runner: Runner): void {
-    eventEmitter.on("callServerStarted", ({ callServer }) => {
-      this.testRunner = runner;
-
-      callServer.on("testStarted", ({ testSession }) => {
-        this.testStarted();
-
-        testSession.callFlowSession.on(
-          "allPromptsMatched",
-          this.testSuccessful.bind(this)
-        );
-        testSession.callFlowSession.on(
-          "timeoutWaitingForMatch",
-          this.testFailed.bind(this)
-        );
-      });
-    });
+  public initialise(_: Emitter<PluginEvents>, testRunner: TestRunner): void {
+    this.testRunner = testRunner;
   }
 
-  private testStarted(): void {
+  public testStarted(testSession: TestSession): void {
     this.totalRunning++;
+    testSession.callFlowSession.on(
+      "allPromptsMatched",
+      this.testSuccessful.bind(this)
+    );
+    testSession.callFlowSession.on(
+      "timeoutWaitingForMatch",
+      this.testFailed.bind(this)
+    );
   }
+
+  // private testStarted(): void {
+  //
+  // }
 
   private testSuccessful(): void {
     this.totalSuccessful++;
