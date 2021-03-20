@@ -5223,6 +5223,20 @@ istanbul-reports@^3.0.2:
     html-escaper "^2.0.0"
     istanbul-lib-report "^3.0.0"
 
+ivr-tester@^0.1.8:
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/ivr-tester/-/ivr-tester-0.1.8.tgz#8bbc33aca022f02f93af1b46942cd29eeaaf62a3"
+  integrity sha512-gt1PLPyI3IDzC7pkfeAE2n3ObpjDgtq6ifhpMrcE2l55YCIL2jcBRsblGjZZHHHfibpMxAFP+tEgVGIyt5zWgg==
+  dependencies:
+    chalk "^4.1.0"
+    debug "^4.3.1"
+    filenamify "^4.2.0"
+    getenv "^1.0.0"
+    log-symbols "^4.0.0"
+    string-similarity "^4.0.2"
+    twilio "^3.55.0"
+    ws "^7.3.1"
+
 jest-changed-files@^26.6.2:
   version "26.6.2"
   resolved "https://registry.yarnpkg.com/jest-changed-files/-/jest-changed-files-26.6.2.tgz#f6198479e1cc66f22f9ae1e22acaa0b429c042d0"
