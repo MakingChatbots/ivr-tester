@@ -16,7 +16,7 @@
 
 • `Readonly` **call**: *Call*
 
-Defined in: [testRunner.ts:28](https://github.com/SketchingDev/ivr-tester/blob/cfb72a0/packages/ivr-tester/src/testRunner.ts#L28)
+Defined in: [testRunner.ts:28](https://github.com/SketchingDev/ivr-tester/blob/2dd1912/packages/ivr-tester/src/testRunner.ts#L28)
 
 ___
 
@@ -24,12 +24,12 @@ ___
 
 • `Readonly` **callFlowSession**: CallFlowSession
 
-Defined in: [testRunner.ts:29](https://github.com/SketchingDev/ivr-tester/blob/cfb72a0/packages/ivr-tester/src/testRunner.ts#L29)
+Defined in: [testRunner.ts:29](https://github.com/SketchingDev/ivr-tester/blob/2dd1912/packages/ivr-tester/src/testRunner.ts#L29)
 
 ___
 
 ### callFlowTestDefinition
 
-• `Readonly` **callFlowTestDefinition**: [*CallFlowTestDefinition*](callflowtestdefinition.md)
+• `Readonly` **callFlowTestDefinition**: CallFlowTestDefinition
 
-Defined in: [testRunner.ts:27](https://github.com/SketchingDev/ivr-tester/blob/cfb72a0/packages/ivr-tester/src/testRunner.ts#L27)
+Defined in: [testRunner.ts:27](https://github.com/SketchingDev/ivr-tester/blob/2dd1912/packages/ivr-tester/src/testRunner.ts#L27)

@@ -29,4 +29,4 @@ Name | Type |
 
 **Returns:** TranscriberFactory
 
-Defined in: [index.ts:25](https://github.com/SketchingDev/ivr-tester/blob/cfb72a0/packages/transcriber-amazon-transcribe/src/index.ts#L25)
+Defined in: [index.ts:25](https://github.com/SketchingDev/ivr-tester/blob/2dd1912/packages/transcriber-amazon-transcribe/src/index.ts#L25)
