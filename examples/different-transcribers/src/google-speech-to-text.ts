@@ -31,7 +31,7 @@ const tests: CallFlowTestDefinition[] = [
       {
         whenPrompt: isAnything(),
         then: press("1"),
-        silenceAfterPrompt: 3000,
+        silenceAfterPrompt: 2000,
         timeout,
       },
       {
@@ -54,7 +54,7 @@ const tests: CallFlowTestDefinition[] = [
       {
         whenPrompt: isAnything(),
         then: press("3"),
-        silenceAfterPrompt: 3000,
+        silenceAfterPrompt: 2000,
         timeout,
       },
       {
@@ -85,7 +85,7 @@ const tests: CallFlowTestDefinition[] = [
       {
         whenPrompt: isAnything(),
         then: press("4"),
-        silenceAfterPrompt: 3000,
+        silenceAfterPrompt: 2000,
         timeout,
       },
       {
