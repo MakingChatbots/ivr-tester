@@ -1,6 +1,12 @@
-import filenamify from "filenamify";
 import { FilenameFactory, StreamDetails } from "./FilenameFactory";
 import { CallFlowTestDefinition } from "../../../testing/test/CallFlowTestDefinition";
+
+export function sanitise(text: string): string {
+  return `${text}`
+    .toLowerCase()
+    .replace(/\s/g, "-")
+    .replace(/[^a-z0-9\-_]/gi, "");
+}
 
 /**
  * Produces filename that looks like '<phone-number>-<datetime>-<test-name>-<optional-suffix>'
@@ -10,6 +16,6 @@ export const ivrNumberAndTestNameFilename: FilenameFactory = (
   test: CallFlowTestDefinition,
   suffix?: string
 ) =>
-  filenamify(
+  sanitise(
     [`${Date.now()}`, call.to, test.name, suffix].filter((e) => e).join("-")
   );
