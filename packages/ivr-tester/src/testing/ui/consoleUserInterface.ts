@@ -1,6 +1,5 @@
 import { IvrTesterPlugin } from "../../plugins/IvrTesterPlugin";
 import chalk from "chalk";
-import logSymbols from "log-symbols";
 import { CallServerEvents } from "../TwilioCallServer";
 import { Emitter } from "../../Emitter";
 import { PluginEvents } from "../../plugins/PluginManager";
@@ -33,7 +32,6 @@ const ivrTranscription = (
 const ivrTestPassed = (testSession: TestSession): void =>
   testSession.callFlowSession.on("allPromptsMatched", () =>
     console.log(
-      logSymbols.success,
       chalk.green(
         `Test Complete: ${testSession.callFlowTestDefinition.name}...`
       )
@@ -49,7 +47,7 @@ const ivrTestFailed = (testSession: TestSession): void =>
       `Them: "${event.transcription}"\n`,
       chalk.red("No condition matched this transcript\n")
     );
-    console.log(logSymbols.error, chalk.bold.red(`Test Failed`));
+    console.log(chalk.bold.red(`Test Failed`));
   });
 
 const callConnected = (callServer: Emitter<CallServerEvents>): void => {
