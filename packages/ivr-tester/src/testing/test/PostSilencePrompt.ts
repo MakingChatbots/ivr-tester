@@ -1,5 +1,5 @@
 import { setTimeout } from "timers";
-import { PromptDefinition } from "./conditions/PromptDefinition";
+import { PromptDefinition } from "../scenario/PromptDefinition";
 import { Call } from "../../call/Call";
 import { PromptTranscriptionBuilder } from "../../call/transcription/PromptTranscriptionBuilder";
 import { MatchedCallback, Prompt, TimeoutCallback } from "./inOrder";

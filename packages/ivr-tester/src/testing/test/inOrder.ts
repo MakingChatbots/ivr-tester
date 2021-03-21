@@ -1,9 +1,9 @@
-import { PromptDefinition } from "./conditions/PromptDefinition";
+import { PromptDefinition } from "../scenario/PromptDefinition";
 import {
   CallFlowInstructions,
   CallFlowSession,
   CallFlowSessionEvents,
-} from "./CallFlowTestDefinition";
+} from "./CallFlowInstructions";
 import { setTimeout } from "timers";
 import { Call } from "../../call/Call";
 import { PromptTranscriptionBuilder } from "../../call/transcription/PromptTranscriptionBuilder";

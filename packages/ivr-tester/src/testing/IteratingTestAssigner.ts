@@ -1,4 +1,4 @@
-import { CallFlowTestDefinition } from "./test/CallFlowTestDefinition";
+import { TestScenario } from "./scenario/TestScenario";
 
 export interface AssignedResult {
   isAssigned: boolean;
@@ -6,7 +6,7 @@ export interface AssignedResult {
 
 export interface TestAssigned extends AssignedResult {
   isAssigned: true;
-  test: CallFlowTestDefinition;
+  test: TestScenario;
 }
 
 export interface NoneAssigned extends AssignedResult {
@@ -24,18 +24,16 @@ export interface TestAssigner {
 }
 
 export class IteratingTestAssigner implements TestAssigner {
-  private readonly testIterator: IterableIterator<
-    [number, CallFlowTestDefinition]
-  >;
+  private readonly testIterator: IterableIterator<[number, TestScenario]>;
 
-  constructor(readonly tests: CallFlowTestDefinition[]) {
+  constructor(readonly tests: TestScenario[]) {
     this.testIterator = tests.entries();
   }
 
   public assign(): TestAssigned | NoneAssigned {
     const testEntry = this.testIterator.next();
     if (!testEntry.done) {
-      const [, test]: [number, CallFlowTestDefinition] = testEntry.value;
+      const [, test]: [number, TestScenario] = testEntry.value;
       return { isAssigned: true, test };
     }
 

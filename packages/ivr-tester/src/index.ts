@@ -1,6 +1,6 @@
 export * from "./testing/test/conditions/when";
 export * from "./testing/test/conditions/then";
-export * from "./testing/test/conditions/PromptDefinition";
+export * from "./testing/scenario/PromptDefinition";
 
 export * from "./testing/ui/consoleUserInterface";
 export * from "./plugins/IvrTesterPlugin";
@@ -15,7 +15,7 @@ export * from "./call/transcription/plugin/TranscriberPlugin";
 export * from "./call/transcription/plugin/TranscriberFactory";
 
 export { TestSubject } from "./testRunner";
-export { CallFlowTestDefinition } from "./testing/test/CallFlowTestDefinition";
+export { TestScenario } from "./testing/scenario/TestScenario";
 export { inOrder } from "./testing/test/inOrder";
 export { PluginManager } from "./plugins/PluginManager";
 export { populateDefaults } from "./configuration/populateDefaults";

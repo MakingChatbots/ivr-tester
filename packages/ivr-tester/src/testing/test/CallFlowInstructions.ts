@@ -1,7 +1,7 @@
 import { Call } from "../../call/Call";
 import { Emitter } from "../../Emitter";
 import { TranscriptionEvents } from "../../call/transcription/plugin/TranscriberPlugin";
-import { PromptDefinition } from "./conditions/PromptDefinition";
+import { PromptDefinition } from "../scenario/PromptDefinition";
 
 export interface SessionProgressEvent {
   transcription: string;
@@ -34,10 +34,4 @@ export interface CallFlowInstructions {
     transcriber: Emitter<TranscriptionEvents>,
     call: Call
   ): CallFlowSession;
-}
-
-export interface CallFlowTestDefinition {
-  // TODO Enforce that test names are defined and unique
-  name: string;
-  instructions: CallFlowInstructions;
 }

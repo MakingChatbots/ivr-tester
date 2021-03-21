@@ -10,13 +10,11 @@ import { AudioPlaybackCaller } from "./call/AudioPlaybackCaller";
 import { Caller } from "./call/Caller";
 import { consoleUserInterface } from "./testing/ui/consoleUserInterface";
 import { StopTestRunnerWhenTestsComplete } from "./testing/StopTestRunnerWhenTestsComplete";
-import {
-  CallFlowSession,
-  CallFlowTestDefinition,
-} from "./testing/test/CallFlowTestDefinition";
+import { CallFlowSession } from "./testing/test/CallFlowInstructions";
 import { callConnectedTimeout } from "./testing/callConnectedTimeout";
 import { Call } from "./call/Call";
 import { transcriptRecorderPlugin } from "./call/recording/TranscriptRecorder";
+import { TestScenario } from "./testing/scenario/TestScenario";
 
 export interface TestSubject {
   from: string;
@@ -24,7 +22,7 @@ export interface TestSubject {
 }
 
 export interface TestSession {
-  readonly callFlowTestDefinition: CallFlowTestDefinition;
+  readonly callFlowTestDefinition: TestScenario;
   readonly call: Call;
   readonly callFlowSession: CallFlowSession;
 }
@@ -93,7 +91,7 @@ export class IvrTester {
 
   public async run(
     call: TestSubject | Buffer,
-    ivrTest: CallFlowTestDefinition[] | CallFlowTestDefinition
+    ivrTest: TestScenario[] | TestScenario
   ): Promise<void> {
     if (this.running) {
       throw new Error("Instance of IvrTester can only run a single test suite");

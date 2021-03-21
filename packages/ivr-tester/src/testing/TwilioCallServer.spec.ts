@@ -11,7 +11,7 @@ import {
   TestAssigner,
 } from "./IteratingTestAssigner";
 import { TestExecutor } from "./TestExecutor";
-import { CallFlowTestDefinition } from "./test/CallFlowTestDefinition";
+import { TestScenario } from "./scenario/TestScenario";
 
 const waitForConnection = async (ws: WebSocket): Promise<void> =>
   new Promise((resolve) => ws.on("open", resolve));
@@ -88,7 +88,7 @@ describe("Call Server", () => {
   });
 
   test("test assigned started when call connected", async () => {
-    const test: CallFlowTestDefinition = {
+    const test: TestScenario = {
       name: "example-test",
       instructions: undefined,
     };

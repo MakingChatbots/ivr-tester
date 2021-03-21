@@ -1,11 +1,10 @@
 import {
-  CallFlowTestDefinition,
   Config,
   doNothing,
-  inOrder,
   isAnything,
   IvrTester,
   press,
+  TestScenario,
   TestSubject,
 } from "ivr-tester";
 import path from "path";
@@ -22,9 +21,9 @@ const call: TestSubject = {
 
 const timeout = 6000;
 
-const test: CallFlowTestDefinition = {
+const test: TestScenario = {
   name: "Keys pressed are read back",
-  instructions: inOrder([
+  instructions: [
     {
       whenPrompt: isAnything(),
       then: press("1"),
@@ -43,7 +42,7 @@ const test: CallFlowTestDefinition = {
       silenceAfterPrompt: 3000,
       timeout,
     },
-  ]),
+  ],
 };
 
 const config: Config = {

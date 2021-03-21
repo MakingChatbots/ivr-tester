@@ -5,7 +5,7 @@ import { TestRunner, TestSession } from "../testRunner";
 import {
   CallFlowSession,
   CallFlowSessionEvents,
-} from "./test/CallFlowTestDefinition";
+} from "./test/CallFlowInstructions";
 
 class StubCallFlowSession
   extends TypedEmitter<CallFlowSessionEvents>

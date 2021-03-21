@@ -1,5 +1,5 @@
 import { FilenameFactory, StreamDetails } from "./FilenameFactory";
-import { CallFlowTestDefinition } from "../../../testing/test/CallFlowTestDefinition";
+import { TestScenario } from "../../../testing/scenario/TestScenario";
 
 export function sanitise(text: string): string {
   return `${text}`
@@ -13,7 +13,7 @@ export function sanitise(text: string): string {
  */
 export const ivrNumberAndTestNameFilename: FilenameFactory = (
   { call }: StreamDetails,
-  test: CallFlowTestDefinition,
+  test: TestScenario,
   suffix?: string
 ) =>
   sanitise(

@@ -1,13 +1,12 @@
 import {
-  CallFlowTestDefinition,
   Config,
   contains,
   doNothing,
-  inOrder,
   isAnything,
   IvrTester,
   press,
   similarTo,
+  TestScenario,
   TestSubject,
 } from "ivr-tester";
 import path from "path";
@@ -24,10 +23,10 @@ const call: TestSubject = {
 
 const timeout = 6000;
 
-const tests: CallFlowTestDefinition[] = [
+const tests: TestScenario[] = [
   {
     name: "Keys pressed are read back",
-    instructions: inOrder([
+    instructions: [
       {
         whenPrompt: isAnything(),
         then: press("1"),
@@ -46,11 +45,11 @@ const tests: CallFlowTestDefinition[] = [
         silenceAfterPrompt: 3000,
         timeout,
       },
-    ]),
+    ],
   },
   {
     name: "API call with short latency",
-    instructions: inOrder([
+    instructions: [
       {
         whenPrompt: isAnything(),
         then: press("3"),
@@ -77,11 +76,11 @@ const tests: CallFlowTestDefinition[] = [
         silenceAfterPrompt: 3000,
         timeout,
       },
-    ]),
+    ],
   },
   {
     name: "API call with long latency",
-    instructions: inOrder([
+    instructions: [
       {
         whenPrompt: isAnything(),
         then: press("4"),
@@ -108,7 +107,7 @@ const tests: CallFlowTestDefinition[] = [
         silenceAfterPrompt: 3000,
         timeout,
       },
-    ]),
+    ],
   },
 ];
 
