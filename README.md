@@ -37,7 +37,7 @@ new IvrTester(config).run(
   { from: "0123 456 789", to: "0123 123 123" },
   {
     name: "Customer is provided a menu after their account number confirmed",
-    instructions: inOrder([
+    steps: [
       {
         whenPrompt: similarTo("Please enter your account number"),
         then: press("184748"),
@@ -52,7 +52,7 @@ new IvrTester(config).run(
         silenceAfterPrompt: 3000,
         timeout: 6000,
         },
-     ]),
+     ],
   }
 );
 ```

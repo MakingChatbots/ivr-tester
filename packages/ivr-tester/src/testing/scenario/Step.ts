@@ -1,10 +1,10 @@
-import { Then } from "./then";
-import { When } from "./when";
+import { Then } from "../test/conditions/then";
+import { When } from "../test/conditions/when";
 
 /**
  * Performs an assertion when a prompt has been transcribed.
  */
-export interface PromptDefinition {
+export interface Step {
   /**
    * Assertion to perform against the transcription of a prompt
    */

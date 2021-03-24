@@ -9,7 +9,6 @@ import {
 import { EventEmitter } from "events";
 import WebSocket from "ws";
 import waitForExpect from "wait-for-expect";
-import { inOrder } from "./testing/test/inOrder";
 
 const waitForConnection = async (ws: WebSocket): Promise<void> =>
   new Promise((resolve) => ws.on("open", resolve));
@@ -86,10 +85,7 @@ describe("Test Runner", () => {
     });
 
     try {
-      await ivrTester.run(
-        { from: "", to: "" },
-        { name: "", instructions: inOrder([]) }
-      );
+      await ivrTester.run({ from: "", to: "" }, { name: "", steps: [] });
     } catch (err) {
       /* Intentionally ignore*/
     }
@@ -111,10 +107,7 @@ describe("Test Runner", () => {
     });
 
     try {
-      await ivrTester.run(
-        { from: "", to: "" },
-        { name: "", instructions: inOrder([]) }
-      );
+      await ivrTester.run({ from: "", to: "" }, { name: "", steps: [] });
     } catch (err) {
       /* Intentionally ignore*/
     }
@@ -138,7 +131,7 @@ describe("Test Runner", () => {
     try {
       await new IvrTester(commonConfig).run(call, {
         name: "",
-        instructions: inOrder([]),
+        steps: [],
       });
     } catch (err) {
       /* Intentionally ignore*/
@@ -157,7 +150,7 @@ describe("Test Runner", () => {
     await expect(() =>
       new IvrTester(commonConfig).run(
         { from: "", to: "" },
-        { name: "", instructions: inOrder([]) }
+        { name: "", steps: [] }
       )
     ).rejects.toThrowError(new Error("Error Occurred"));
   });
@@ -181,7 +174,7 @@ describe("Test Runner", () => {
     const ivrTester = new IvrTester(config);
     const runnerPromise = ivrTester.run(
       { from: "", to: "" },
-      { name: "", instructions: inOrder([]) }
+      { name: "", steps: [] }
     );
 
     // Wait for calls to be made

@@ -22,27 +22,21 @@ const ivrTranscription = (
   testSession.callFlowSession.on("progress", (event) => {
     const state = chalk.gray.bold("Transcribing: ");
 
-    const testName = includeTestName
-      ? `${testSession.callFlowTestDefinition.name}: `
-      : "";
+    const testName = includeTestName ? `${testSession.scenario.name}: ` : "";
     console.log(state + chalk.gray(`${testName}${event.transcription}`));
   });
 };
 
 const ivrTestPassed = (testSession: TestSession): void =>
   testSession.callFlowSession.on("allPromptsMatched", () =>
-    console.log(
-      chalk.green(
-        `Test Complete: ${testSession.callFlowTestDefinition.name}...`
-      )
-    )
+    console.log(chalk.green(`Test Complete: ${testSession.scenario.name}...`))
   );
 
 const ivrTestFailed = (testSession: TestSession): void =>
   testSession.callFlowSession.on("timeoutWaitingForMatch", (event) => {
     console.log(
       `${chalk.bold.blue("Test -")} ${chalk.bold.blue(
-        testSession.callFlowTestDefinition.name
+        testSession.scenario.name
       )}\n`,
       `Them: "${event.transcription}"\n`,
       chalk.red("No condition matched this transcript\n")
@@ -109,7 +103,7 @@ const ivrTestConditionMet = (
     const lines: string[] = [];
 
     if (includeTestName) {
-      lines.push(`Test - ${testSession.callFlowTestDefinition.name}`);
+      lines.push(`Test - ${testSession.scenario.name}`);
     }
     lines.push(`Them: "${event.transcription}"`);
     lines.push(`You: ${event.promptDefinition.then.describe()}`);
@@ -126,9 +120,7 @@ const callServerStarted = (eventEmitter: Emitter<PluginEvents>) => {
     callServerErrored(callServer);
 
     callServer.on("testStarted", ({ testSession }) => {
-      console.log(
-        `Call using test '${testSession.callFlowTestDefinition.name}'`
-      );
+      console.log(`Call using test '${testSession.scenario.name}'`);
       ivrTestPassed(testSession);
       ivrTestFailed(testSession);
       ivrTestConditionMet(callServer, testSession);

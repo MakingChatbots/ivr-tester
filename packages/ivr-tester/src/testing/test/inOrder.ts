@@ -1,9 +1,9 @@
-import { PromptDefinition } from "./conditions/PromptDefinition";
+import { Step } from "../scenario/Step";
 import {
   CallFlowInstructions,
   CallFlowSession,
   CallFlowSessionEvents,
-} from "./CallFlowTestDefinition";
+} from "./CallFlowInstructions";
 import { setTimeout } from "timers";
 import { Call } from "../../call/Call";
 import { PromptTranscriptionBuilder } from "../../call/transcription/PromptTranscriptionBuilder";
@@ -15,7 +15,7 @@ import {
 import { PostSilencePrompt } from "./PostSilencePrompt";
 
 export interface Prompt {
-  readonly definition: PromptDefinition;
+  readonly definition: Step;
   setNext(prompt: Prompt): Prompt;
   // TODO Refactor PromptTranscriptionBuilder parameter
   transcriptUpdated(transcriptEvent: PromptTranscriptionBuilder): void;
@@ -29,7 +29,7 @@ export type MatchedCallback = (
 export type TimeoutCallback = (prompt: Prompt, transcript: string) => void;
 
 export type PromptFactory = (
-  definition: PromptDefinition,
+  definition: Step,
   call: Call,
   matchedCallback: MatchedCallback,
   timeoutCallback: TimeoutCallback
@@ -54,7 +54,7 @@ class RunningOrderedCallFlowInstructions
   extends TypedEmitter<CallFlowSessionEvents>
   implements CallFlowSession {
   constructor(
-    private readonly promptDefinitions: ReadonlyArray<PromptDefinition>,
+    private readonly promptDefinitions: ReadonlyArray<Step>,
     private readonly promptFactory: PromptFactory,
     private readonly transcriber: Emitter<TranscriptionEvents>,
     private readonly call: Call
@@ -127,7 +127,7 @@ class RunningOrderedCallFlowInstructions
  * Creates an ordered prompt collection
  */
 export function inOrder(
-  promptDefinitions: ReadonlyArray<PromptDefinition>,
+  promptDefinitions: ReadonlyArray<Step>,
   promptFactory: PromptFactory = defaultPromptFactory
 ): CallFlowInstructions {
   return {

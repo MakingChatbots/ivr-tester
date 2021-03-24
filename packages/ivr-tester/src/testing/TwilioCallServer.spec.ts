@@ -11,7 +11,7 @@ import {
   TestAssigner,
 } from "./IteratingTestAssigner";
 import { TestExecutor } from "./TestExecutor";
-import { CallFlowTestDefinition } from "./test/CallFlowTestDefinition";
+import { Scenario } from "./scenario/Scenario";
 
 const waitForConnection = async (ws: WebSocket): Promise<void> =>
   new Promise((resolve) => ws.on("open", resolve));
@@ -88,12 +88,12 @@ describe("Call Server", () => {
   });
 
   test("test assigned started when call connected", async () => {
-    const test: CallFlowTestDefinition = {
+    const scenario: Scenario = {
       name: "example-test",
-      instructions: undefined,
+      steps: undefined,
     };
 
-    testAssigner.assign.mockReturnValue({ isAssigned: true, test });
+    testAssigner.assign.mockReturnValue({ isAssigned: true, scenario });
 
     callServer = new TwilioCallServer(
       dtmfGenerator,
@@ -108,7 +108,7 @@ describe("Call Server", () => {
 
     await waitForExpect(() =>
       expect(testExecutor.startTest).toBeCalledWith(
-        test,
+        scenario,
         expect.any(TwilioCall)
       )
     );

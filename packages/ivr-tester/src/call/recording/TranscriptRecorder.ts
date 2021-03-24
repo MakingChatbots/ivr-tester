@@ -10,7 +10,7 @@ import { ConfigurationError } from "../../configuration/ConfigurationError";
 import { TwilioCaller, TwilioMediaStreamStartEvent } from "../TwilioCaller";
 import { IvrTesterPlugin } from "../../plugins/IvrTesterPlugin";
 import { TestSession } from "../../testRunner";
-import { PromptMatchedEvent } from "../../testing/test/CallFlowTestDefinition";
+import { PromptMatchedEvent } from "../../testing/test/CallFlowInstructions";
 
 export interface RecorderConfig {
   outputPath: string;
@@ -124,7 +124,7 @@ export class TranscriptRecorder {
           sid: event.streamSid,
           call,
         },
-        this.testSession.callFlowTestDefinition,
+        this.testSession.scenario,
         TranscriptRecorder.FILENAME_SUFFIX
       );
     }

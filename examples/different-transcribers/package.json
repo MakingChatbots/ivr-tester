@@ -14,12 +14,6 @@
     "record:play": "terminalizer play terminal-recording",
     "record:render": "rm -f terminal-recording.gif && terminalizer render -o terminal-recording terminal-recording"
   },
-  "dependencies": {
-    "dotenv": "^8.2.0",
-    "ivr-tester": "^0.2.9",
-    "ivr-tester-transcriber-amazon-transcribe": "^0.1.3",
-    "ivr-tester-transcriber-google-speech-to-text": "^0.1.3"
-  },
   "devDependencies": {
     "@types/node": "^14.11.1",
     "@typescript-eslint/eslint-plugin": "^4.17.0",
@@ -32,6 +26,10 @@
     "prettier": "^2.2.1",
     "terminalizer": "^0.7.2",
     "ts-node": "^9.1.1",
-    "typescript": "^4.2.3"
+    "typescript": "^4.2.3",
+    "dotenv": "^8.2.0",
+    "ivr-tester": "^0.2.9",
+    "ivr-tester-transcriber-amazon-transcribe": "^0.1.3",
+    "ivr-tester-transcriber-google-speech-to-text": "^0.1.3"
   }
 }

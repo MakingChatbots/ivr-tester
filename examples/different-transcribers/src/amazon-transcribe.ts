@@ -1,11 +1,10 @@
 import {
-  CallFlowTestDefinition,
   Config,
   doNothing,
-  inOrder,
   isAnything,
   IvrTester,
   press,
+  Scenario,
   TestSubject,
 } from "ivr-tester";
 import path from "path";
@@ -22,9 +21,9 @@ const call: TestSubject = {
 
 const timeout = 6000;
 
-const test: CallFlowTestDefinition = {
+const scenario: Scenario = {
   name: "Keys pressed are read back",
-  instructions: inOrder([
+  steps: [
     {
       whenPrompt: isAnything(),
       then: press("1"),
@@ -43,7 +42,7 @@ const test: CallFlowTestDefinition = {
       silenceAfterPrompt: 3000,
       timeout,
     },
-  ]),
+  ],
 };
 
 const config: Config = {
@@ -62,7 +61,7 @@ const config: Config = {
 
 ngrok.connect(config.localServerPort).then((url) =>
   new IvrTester({ ...config, publicServerUrl: url })
-    .run(call, test)
+    .run(call, scenario)
     .then(() => process.exit())
     .catch(() => process.exit(1))
 );

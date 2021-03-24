@@ -1,5 +1,5 @@
 import { FilenameFactory, StreamDetails } from "./FilenameFactory";
-import { CallFlowTestDefinition } from "../../../testing/test/CallFlowTestDefinition";
+import { Scenario } from "../../../testing/scenario/Scenario";
 
 export function sanitise(text: string): string {
   return `${text}`
@@ -9,13 +9,13 @@ export function sanitise(text: string): string {
 }
 
 /**
- * Produces filename that looks like '<phone-number>-<datetime>-<test-name>-<optional-suffix>'
+ * Produces filename that looks like '<phone-number>-<datetime>-<scenario-name>-<optional-suffix>'
  */
 export const ivrNumberAndTestNameFilename: FilenameFactory = (
   { call }: StreamDetails,
-  test: CallFlowTestDefinition,
+  scenario: Scenario,
   suffix?: string
 ) =>
   sanitise(
-    [`${Date.now()}`, call.to, test.name, suffix].filter((e) => e).join("-")
+    [`${Date.now()}`, call.to, scenario.name, suffix].filter((e) => e).join("-")
   );

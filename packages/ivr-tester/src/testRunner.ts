@@ -10,13 +10,11 @@ import { AudioPlaybackCaller } from "./call/AudioPlaybackCaller";
 import { Caller } from "./call/Caller";
 import { consoleUserInterface } from "./testing/ui/consoleUserInterface";
 import { StopTestRunnerWhenTestsComplete } from "./testing/StopTestRunnerWhenTestsComplete";
-import {
-  CallFlowSession,
-  CallFlowTestDefinition,
-} from "./testing/test/CallFlowTestDefinition";
+import { CallFlowSession } from "./testing/test/CallFlowInstructions";
 import { callConnectedTimeout } from "./testing/callConnectedTimeout";
 import { Call } from "./call/Call";
 import { transcriptRecorderPlugin } from "./call/recording/TranscriptRecorder";
+import { Scenario } from "./testing/scenario/Scenario";
 
 export interface TestSubject {
   from: string;
@@ -24,7 +22,7 @@ export interface TestSubject {
 }
 
 export interface TestSession {
-  readonly callFlowTestDefinition: CallFlowTestDefinition;
+  readonly scenario: Scenario;
   readonly call: Call;
   readonly callFlowSession: CallFlowSession;
 }
@@ -93,20 +91,22 @@ export class IvrTester {
 
   public async run(
     call: TestSubject | Buffer,
-    ivrTest: CallFlowTestDefinition[] | CallFlowTestDefinition
+    scenario: Scenario[] | Scenario
   ): Promise<void> {
     if (this.running) {
-      throw new Error("Instance of IvrTester can only run a single test suite");
+      throw new Error(
+        "Instance of IvrTester can only run a single suite of scenarios"
+      );
     }
     this.running = true;
 
-    const tests = Array.isArray(ivrTest) ? ivrTest : [ivrTest];
+    const scenarios = Array.isArray(scenario) ? scenario : [scenario];
 
     await this.preflightChecks();
 
     const callServer = new TwilioCallServer(
       this.config.dtmfGenerator,
-      new IteratingTestAssigner(tests),
+      new IteratingTestAssigner(scenarios),
       testExecutor(this.config.transcriber)
     );
 
@@ -121,11 +121,11 @@ export class IvrTester {
     this.pluginManager.serverListening(callServer);
 
     const calls = Promise.all(
-      tests.map(() =>
+      scenarios.map(() =>
         caller
           .call(call, this.config.publicServerUrl || serverUrl)
           .then((callRequested) =>
-            this.pluginManager.callRequested(callRequested, tests.length)
+            this.pluginManager.callRequested(callRequested, scenarios.length)
           )
           .catch((error) => {
             this.pluginManager.callRequestErrored(new Error(error));
