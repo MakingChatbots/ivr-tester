@@ -6,6 +6,6 @@
   ],
   "excludeInternal": true,
   "exclude": [
-    "**/*+(index|.spec|.test).ts"
+    "**/*+(.spec|.test).ts"
   ]
 }
