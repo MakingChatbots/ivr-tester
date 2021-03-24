@@ -101,10 +101,10 @@ Under the hood this orchestrates:
 | [similarTo]  | Prompt is similar to a piece of text |
 | [isAnything] | Prompt can be anything               |
 
-[contains]: ./packages/ivr-tester/doc/modules/_testing_test_conditions_when_contains_.md
-[matches]: ./packages/ivr-tester/doc/modules/_testing_test_conditions_when_matches_.md
-[similarTo]:  ./packages/ivr-tester/doc/modules/_testing_test_conditions_when_similarto_.md
-[isAnything]: ./packages/ivr-tester/doc/modules/_testing_test_conditions_when_isanything_.md
+[contains]: ./packages/ivr-tester/doc#contains
+[matches]: ./packages/ivr-tester/doc#matches
+[similarTo]:  ./packages/ivr-tester/doc#similarto
+[isAnything]: ./packages/ivr-tester/doc#isanything
 
 | Then        | Overview            |
 | ------------|---------------------|
@@ -112,9 +112,9 @@ Under the hood this orchestrates:
 | [hangUp]    | Terminates the call |
 | [doNothing] | Doesn't do anything |
 
-[press]: ./packages/ivr-tester/doc/modules/_testing_test_conditions_then_press_.md
-[hangUp]: ./packages/ivr-tester/doc/modules/_testing_test_conditions_then_hangup_.md
-[doNothing]: ./packages/ivr-tester/doc/modules/_testing_test_conditions_then_donothing_.md
+[press]: ./packages/ivr-tester/doc#press
+[hangUp]: ./packages/ivr-tester/doc#hangup
+[doNothing]: ./packages/ivr-tester/doc#donothing
 
 ## Development
 
