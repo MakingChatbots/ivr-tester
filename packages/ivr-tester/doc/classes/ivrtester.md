@@ -33,7 +33,7 @@ Name | Type |
 
 **Returns:** [*IvrTester*](ivrtester.md)
 
-Defined in: [testRunner.ts:87](https://github.com/SketchingDev/ivr-tester/blob/2dd1912/packages/ivr-tester/src/testRunner.ts#L87)
+Defined in: [testRunner.ts:85](https://github.com/SketchingDev/ivr-tester/blob/28834f4/packages/ivr-tester/src/testRunner.ts#L85)
 
 ## Properties
 
@@ -41,7 +41,7 @@ Defined in: [testRunner.ts:87](https://github.com/SketchingDev/ivr-tester/blob/2
 
 • `Private` `Readonly` **config**: Config
 
-Defined in: [testRunner.ts:85](https://github.com/SketchingDev/ivr-tester/blob/2dd1912/packages/ivr-tester/src/testRunner.ts#L85)
+Defined in: [testRunner.ts:83](https://github.com/SketchingDev/ivr-tester/blob/28834f4/packages/ivr-tester/src/testRunner.ts#L83)
 
 ___
 
@@ -49,7 +49,7 @@ ___
 
 • `Private` `Readonly` **pluginManager**: *PluginManager*
 
-Defined in: [testRunner.ts:86](https://github.com/SketchingDev/ivr-tester/blob/2dd1912/packages/ivr-tester/src/testRunner.ts#L86)
+Defined in: [testRunner.ts:84](https://github.com/SketchingDev/ivr-tester/blob/28834f4/packages/ivr-tester/src/testRunner.ts#L84)
 
 ___
 
@@ -57,7 +57,7 @@ ___
 
 • `Private` **running**: *boolean*= false
 
-Defined in: [testRunner.ts:87](https://github.com/SketchingDev/ivr-tester/blob/2dd1912/packages/ivr-tester/src/testRunner.ts#L87)
+Defined in: [testRunner.ts:85](https://github.com/SketchingDev/ivr-tester/blob/28834f4/packages/ivr-tester/src/testRunner.ts#L85)
 
 ## Methods
 
@@ -67,21 +67,21 @@ Defined in: [testRunner.ts:87](https://github.com/SketchingDev/ivr-tester/blob/2
 
 **Returns:** *Promise*<void\>
 
-Defined in: [testRunner.ts:171](https://github.com/SketchingDev/ivr-tester/blob/2dd1912/packages/ivr-tester/src/testRunner.ts#L171)
+Defined in: [testRunner.ts:171](https://github.com/SketchingDev/ivr-tester/blob/28834f4/packages/ivr-tester/src/testRunner.ts#L171)
 
 ___
 
 ### run
 
-▸ **run**(`call`: [*TestSubject*](../interfaces/testsubject.md) \| *Buffer*, `ivrTest`: CallFlowTestDefinition \| CallFlowTestDefinition[]): *Promise*<void\>
+▸ **run**(`call`: [*TestSubject*](../interfaces/testsubject.md) \| *Buffer*, `scenario`: Scenario \| Scenario[]): *Promise*<void\>
 
 #### Parameters:
 
 Name | Type |
 :------ | :------ |
 `call` | [*TestSubject*](../interfaces/testsubject.md) \| *Buffer* |
-`ivrTest` | CallFlowTestDefinition \| CallFlowTestDefinition[] |
+`scenario` | Scenario \| Scenario[] |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [testRunner.ts:94](https://github.com/SketchingDev/ivr-tester/blob/2dd1912/packages/ivr-tester/src/testRunner.ts#L94)
+Defined in: [testRunner.ts:92](https://github.com/SketchingDev/ivr-tester/blob/28834f4/packages/ivr-tester/src/testRunner.ts#L92)
