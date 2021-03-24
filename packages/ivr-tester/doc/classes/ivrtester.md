@@ -23,33 +23,33 @@
 
 ### constructor
 
-\+ **new IvrTester**(`configuration`: Config): [*IvrTester*](ivrtester.md)
+\+ **new IvrTester**(`configuration`: [*Config*](../interfaces/config.md)): [*IvrTester*](ivrtester.md)
 
 #### Parameters:
 
 Name | Type |
 :------ | :------ |
-`configuration` | Config |
+`configuration` | [*Config*](../interfaces/config.md) |
 
 **Returns:** [*IvrTester*](ivrtester.md)
 
-Defined in: [testRunner.ts:85](https://github.com/SketchingDev/ivr-tester/blob/28834f4/packages/ivr-tester/src/testRunner.ts#L85)
+Defined in: [testRunner.ts:85](https://github.com/SketchingDev/ivr-tester/blob/75f8f29/packages/ivr-tester/src/testRunner.ts#L85)
 
 ## Properties
 
 ### config
 
-• `Private` `Readonly` **config**: Config
+• `Private` `Readonly` **config**: [*Config*](../interfaces/config.md)
 
-Defined in: [testRunner.ts:83](https://github.com/SketchingDev/ivr-tester/blob/28834f4/packages/ivr-tester/src/testRunner.ts#L83)
+Defined in: [testRunner.ts:83](https://github.com/SketchingDev/ivr-tester/blob/75f8f29/packages/ivr-tester/src/testRunner.ts#L83)
 
 ___
 
 ### pluginManager
 
-• `Private` `Readonly` **pluginManager**: *PluginManager*
+• `Private` `Readonly` **pluginManager**: [*PluginManager*](pluginmanager.md)
 
-Defined in: [testRunner.ts:84](https://github.com/SketchingDev/ivr-tester/blob/28834f4/packages/ivr-tester/src/testRunner.ts#L84)
+Defined in: [testRunner.ts:84](https://github.com/SketchingDev/ivr-tester/blob/75f8f29/packages/ivr-tester/src/testRunner.ts#L84)
 
 ___
 
@@ -57,7 +57,7 @@ ___
 
 • `Private` **running**: *boolean*= false
 
-Defined in: [testRunner.ts:85](https://github.com/SketchingDev/ivr-tester/blob/28834f4/packages/ivr-tester/src/testRunner.ts#L85)
+Defined in: [testRunner.ts:85](https://github.com/SketchingDev/ivr-tester/blob/75f8f29/packages/ivr-tester/src/testRunner.ts#L85)
 
 ## Methods
 
@@ -67,21 +67,21 @@ Defined in: [testRunner.ts:85](https://github.com/SketchingDev/ivr-tester/blob/2
 
 **Returns:** *Promise*<void\>
 
-Defined in: [testRunner.ts:171](https://github.com/SketchingDev/ivr-tester/blob/28834f4/packages/ivr-tester/src/testRunner.ts#L171)
+Defined in: [testRunner.ts:171](https://github.com/SketchingDev/ivr-tester/blob/75f8f29/packages/ivr-tester/src/testRunner.ts#L171)
 
 ___
 
 ### run
 
-▸ **run**(`call`: [*TestSubject*](../interfaces/testsubject.md) \| *Buffer*, `scenario`: Scenario \| Scenario[]): *Promise*<void\>
+▸ **run**(`call`: [*TestSubject*](../interfaces/testsubject.md) \| *Buffer*, `scenario`: [*Scenario*](../interfaces/scenario.md) \| [*Scenario*](../interfaces/scenario.md)[]): *Promise*<void\>
 
 #### Parameters:
 
 Name | Type |
 :------ | :------ |
 `call` | [*TestSubject*](../interfaces/testsubject.md) \| *Buffer* |
-`scenario` | Scenario \| Scenario[] |
+`scenario` | [*Scenario*](../interfaces/scenario.md) \| [*Scenario*](../interfaces/scenario.md)[] |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [testRunner.ts:92](https://github.com/SketchingDev/ivr-tester/blob/28834f4/packages/ivr-tester/src/testRunner.ts#L92)
+Defined in: [testRunner.ts:92](https://github.com/SketchingDev/ivr-tester/blob/75f8f29/packages/ivr-tester/src/testRunner.ts#L92)
