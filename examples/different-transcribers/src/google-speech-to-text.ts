@@ -6,7 +6,7 @@ import {
   IvrTester,
   press,
   similarTo,
-  TestScenario,
+  Scenario,
   TestSubject,
 } from "ivr-tester";
 import path from "path";
@@ -23,10 +23,10 @@ const call: TestSubject = {
 
 const timeout = 6000;
 
-const tests: TestScenario[] = [
+const scenarios: Scenario[] = [
   {
     name: "Keys pressed are read back",
-    instructions: [
+    steps: [
       {
         whenPrompt: isAnything(),
         then: press("1"),
@@ -49,7 +49,7 @@ const tests: TestScenario[] = [
   },
   {
     name: "API call with short latency",
-    instructions: [
+    steps: [
       {
         whenPrompt: isAnything(),
         then: press("3"),
@@ -80,7 +80,7 @@ const tests: TestScenario[] = [
   },
   {
     name: "API call with long latency",
-    instructions: [
+    steps: [
       {
         whenPrompt: isAnything(),
         then: press("4"),
@@ -138,7 +138,7 @@ const config: Config = {
 
 ngrok.connect(config.localServerPort).then((url) =>
   new IvrTester({ ...config, publicServerUrl: url })
-    .run(call, tests)
+    .run(call, scenarios)
     .then(() => process.exit())
     .catch(() => process.exit(1))
 );

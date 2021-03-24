@@ -1,7 +1,7 @@
 import { Call } from "../../call/Call";
 import { Emitter } from "../../Emitter";
 import { TranscriptionEvents } from "../../call/transcription/plugin/TranscriberPlugin";
-import { PromptDefinition } from "../scenario/PromptDefinition";
+import { Step } from "../scenario/Step";
 
 export interface SessionProgressEvent {
   transcription: string;
@@ -9,12 +9,12 @@ export interface SessionProgressEvent {
 
 export interface PromptMatchedEvent {
   transcription: string;
-  promptDefinition: PromptDefinition;
+  promptDefinition: Step;
 }
 
 export interface TimeoutWaitingForMatchEvent {
   transcription: string;
-  promptDefinition?: PromptDefinition;
+  promptDefinition?: Step;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

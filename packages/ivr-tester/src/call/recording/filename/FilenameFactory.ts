@@ -1,4 +1,4 @@
-import { TestScenario } from "../../../testing/scenario/TestScenario";
+import { Scenario } from "../../../testing/scenario/Scenario";
 
 export interface StreamDetails {
   sid: string;
@@ -11,6 +11,6 @@ export interface StreamDetails {
  */
 export type FilenameFactory = (
   stream: StreamDetails,
-  callFlowTestDefinition: TestScenario,
+  scenario: Scenario,
   customSuffix?: string
 ) => string;

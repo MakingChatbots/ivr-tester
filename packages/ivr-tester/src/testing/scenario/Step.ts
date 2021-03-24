@@ -4,7 +4,7 @@ import { When } from "../test/conditions/when";
 /**
  * Performs an assertion when a prompt has been transcribed.
  */
-export interface PromptDefinition {
+export interface Step {
   /**
    * Assertion to perform against the transcription of a prompt
    */

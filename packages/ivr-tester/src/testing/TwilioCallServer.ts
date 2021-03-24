@@ -111,7 +111,7 @@ export class TwilioCallServer
 
     const result = this.testAssigner.assign();
     if (result.isAssigned === true) {
-      const testSession = this.testExecutor.startTest(result.test, call);
+      const testSession = this.testExecutor.startTest(result.scenario, call);
       this.emit("testStarted", { testSession });
     } else {
       call.close(TwilioCallServer.TestCouldNotBeAssignedReason);

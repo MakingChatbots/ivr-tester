@@ -1,5 +1,5 @@
 import { setTimeout } from "timers";
-import { PromptDefinition } from "../scenario/PromptDefinition";
+import { Step } from "../scenario/Step";
 import { Call } from "../../call/Call";
 import { PromptTranscriptionBuilder } from "../../call/transcription/PromptTranscriptionBuilder";
 import { MatchedCallback, Prompt, TimeoutCallback } from "./inOrder";
@@ -15,7 +15,7 @@ export class PostSilencePrompt implements Prompt {
   private nextPrompt: Prompt;
 
   constructor(
-    public readonly definition: PromptDefinition,
+    public readonly definition: Step,
     private readonly call: Call,
     private readonly matchedCallback: MatchedCallback,
     private readonly timeoutCallback: TimeoutCallback,

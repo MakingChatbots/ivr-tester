@@ -124,7 +124,7 @@ export class TranscriptRecorder {
           sid: event.streamSid,
           call,
         },
-        this.testSession.callFlowTestDefinition,
+        this.testSession.scenario,
         TranscriptRecorder.FILENAME_SUFFIX
       );
     }

@@ -1,4 +1,4 @@
-import { TestScenario } from "./scenario/TestScenario";
+import { Scenario } from "./scenario/Scenario";
 
 export interface AssignedResult {
   isAssigned: boolean;
@@ -6,7 +6,7 @@ export interface AssignedResult {
 
 export interface TestAssigned extends AssignedResult {
   isAssigned: true;
-  test: TestScenario;
+  scenario: Scenario;
 }
 
 export interface NoneAssigned extends AssignedResult {
@@ -24,17 +24,17 @@ export interface TestAssigner {
 }
 
 export class IteratingTestAssigner implements TestAssigner {
-  private readonly testIterator: IterableIterator<[number, TestScenario]>;
+  private readonly testIterator: IterableIterator<[number, Scenario]>;
 
-  constructor(readonly tests: TestScenario[]) {
-    this.testIterator = tests.entries();
+  constructor(readonly scenarios: Scenario[]) {
+    this.testIterator = scenarios.entries();
   }
 
   public assign(): TestAssigned | NoneAssigned {
     const testEntry = this.testIterator.next();
     if (!testEntry.done) {
-      const [, test]: [number, TestScenario] = testEntry.value;
-      return { isAssigned: true, test };
+      const [, test]: [number, Scenario] = testEntry.value;
+      return { isAssigned: true, scenario: test };
     }
 
     return { isAssigned: false, reason: "All tests already assigned" };

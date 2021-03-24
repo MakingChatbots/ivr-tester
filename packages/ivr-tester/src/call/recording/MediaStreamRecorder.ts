@@ -98,7 +98,7 @@ export class MediaStreamRecorder {
           sid: event.streamSid,
           call,
         },
-        this.testSession.callFlowTestDefinition
+        this.testSession.scenario
       );
     }
 

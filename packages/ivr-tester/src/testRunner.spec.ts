@@ -85,7 +85,7 @@ describe("Test Runner", () => {
     });
 
     try {
-      await ivrTester.run({ from: "", to: "" }, { name: "", instructions: [] });
+      await ivrTester.run({ from: "", to: "" }, { name: "", steps: [] });
     } catch (err) {
       /* Intentionally ignore*/
     }
@@ -107,7 +107,7 @@ describe("Test Runner", () => {
     });
 
     try {
-      await ivrTester.run({ from: "", to: "" }, { name: "", instructions: [] });
+      await ivrTester.run({ from: "", to: "" }, { name: "", steps: [] });
     } catch (err) {
       /* Intentionally ignore*/
     }
@@ -131,7 +131,7 @@ describe("Test Runner", () => {
     try {
       await new IvrTester(commonConfig).run(call, {
         name: "",
-        instructions: [],
+        steps: [],
       });
     } catch (err) {
       /* Intentionally ignore*/
@@ -150,7 +150,7 @@ describe("Test Runner", () => {
     await expect(() =>
       new IvrTester(commonConfig).run(
         { from: "", to: "" },
-        { name: "", instructions: [] }
+        { name: "", steps: [] }
       )
     ).rejects.toThrowError(new Error("Error Occurred"));
   });
@@ -174,7 +174,7 @@ describe("Test Runner", () => {
     const ivrTester = new IvrTester(config);
     const runnerPromise = ivrTester.run(
       { from: "", to: "" },
-      { name: "", instructions: [] }
+      { name: "", steps: [] }
     );
 
     // Wait for calls to be made

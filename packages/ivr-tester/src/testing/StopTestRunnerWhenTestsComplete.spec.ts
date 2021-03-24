@@ -28,7 +28,7 @@ describe("Close server when tests complete", () => {
 
     const callFlowSession = new StubCallFlowSession();
     const testSession: TestSession = {
-      callFlowTestDefinition: undefined,
+      scenario: undefined,
       call: undefined,
       callFlowSession,
     };
@@ -47,12 +47,12 @@ describe("Close server when tests complete", () => {
     stopWhenAllTestsComplete.initialise(pluginEmitter, testRunner);
 
     const testSession1: TestSession = {
-      callFlowTestDefinition: undefined,
+      scenario: undefined,
       call: undefined,
       callFlowSession: new StubCallFlowSession(),
     };
     const testSession2: TestSession = {
-      callFlowTestDefinition: undefined,
+      scenario: undefined,
       call: undefined,
       callFlowSession: new StubCallFlowSession(),
     };
@@ -74,12 +74,12 @@ describe("Close server when tests complete", () => {
     stopWhenAllTestsComplete.initialise(pluginEmitter, testRunner);
 
     const testSession1: TestSession = {
-      callFlowTestDefinition: undefined,
+      scenario: undefined,
       call: undefined,
       callFlowSession: new StubCallFlowSession(),
     };
     const testSession2: TestSession = {
-      callFlowTestDefinition: undefined,
+      scenario: undefined,
       call: undefined,
       callFlowSession: new StubCallFlowSession(),
     };

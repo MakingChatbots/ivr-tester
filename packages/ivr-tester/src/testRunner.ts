@@ -14,7 +14,7 @@ import { CallFlowSession } from "./testing/test/CallFlowInstructions";
 import { callConnectedTimeout } from "./testing/callConnectedTimeout";
 import { Call } from "./call/Call";
 import { transcriptRecorderPlugin } from "./call/recording/TranscriptRecorder";
-import { TestScenario } from "./testing/scenario/TestScenario";
+import { Scenario } from "./testing/scenario/Scenario";
 
 export interface TestSubject {
   from: string;
@@ -22,7 +22,7 @@ export interface TestSubject {
 }
 
 export interface TestSession {
-  readonly callFlowTestDefinition: TestScenario;
+  readonly scenario: Scenario;
   readonly call: Call;
   readonly callFlowSession: CallFlowSession;
 }
@@ -91,20 +91,22 @@ export class IvrTester {
 
   public async run(
     call: TestSubject | Buffer,
-    ivrTest: TestScenario[] | TestScenario
+    scenario: Scenario[] | Scenario
   ): Promise<void> {
     if (this.running) {
-      throw new Error("Instance of IvrTester can only run a single test suite");
+      throw new Error(
+        "Instance of IvrTester can only run a single suite of scenarios"
+      );
     }
     this.running = true;
 
-    const tests = Array.isArray(ivrTest) ? ivrTest : [ivrTest];
+    const scenarios = Array.isArray(scenario) ? scenario : [scenario];
 
     await this.preflightChecks();
 
     const callServer = new TwilioCallServer(
       this.config.dtmfGenerator,
-      new IteratingTestAssigner(tests),
+      new IteratingTestAssigner(scenarios),
       testExecutor(this.config.transcriber)
     );
 
@@ -119,11 +121,11 @@ export class IvrTester {
     this.pluginManager.serverListening(callServer);
 
     const calls = Promise.all(
-      tests.map(() =>
+      scenarios.map(() =>
         caller
           .call(call, this.config.publicServerUrl || serverUrl)
           .then((callRequested) =>
-            this.pluginManager.callRequested(callRequested, tests.length)
+            this.pluginManager.callRequested(callRequested, scenarios.length)
           )
           .catch((error) => {
             this.pluginManager.callRequestErrored(new Error(error));
