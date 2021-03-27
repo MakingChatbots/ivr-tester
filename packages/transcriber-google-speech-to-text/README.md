@@ -27,8 +27,8 @@ Follow GCP's [quick-start guide](https://cloud.google.com/speech-to-text/docs/qu
 1. Setup a Google Cloud project
 2. Enable the Google Speech-to-Text service
 3. Create a service account
-5. Create then download a JSON key-file for the service account
-4. Set the `GOOGLE_APPLICATION_CREDENTIALS` environment variable to the path of the JSON key-file
+4. Create then download a JSON key-file for the service account
+5. Set the `GOOGLE_APPLICATION_CREDENTIALS` environment variable to the path of the JSON key-file
 
 ```shell
 export GOOGLE_APPLICATION_CREDENTIALS=/path/to/key.json
