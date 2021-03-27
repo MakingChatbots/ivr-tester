@@ -40,7 +40,7 @@ Name | Type |
 
 Inherited from: [TypedEmitter](typedemitter.md)
 
-Defined in: [plugins/PluginManager.ts:26](https://github.com/SketchingDev/ivr-tester/blob/4fcf579/packages/ivr-tester/src/plugins/PluginManager.ts#L26)
+Defined in: [plugins/PluginManager.ts:26](https://github.com/SketchingDev/ivr-tester/blob/92d0740/packages/ivr-tester/src/plugins/PluginManager.ts#L26)
 
 ## Methods
 
@@ -56,7 +56,7 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [plugins/PluginManager.ts:56](https://github.com/SketchingDev/ivr-tester/blob/4fcf579/packages/ivr-tester/src/plugins/PluginManager.ts#L56)
+Defined in: [plugins/PluginManager.ts:56](https://github.com/SketchingDev/ivr-tester/blob/92d0740/packages/ivr-tester/src/plugins/PluginManager.ts#L56)
 
 ___
 
@@ -73,7 +73,7 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [plugins/PluginManager.ts:49](https://github.com/SketchingDev/ivr-tester/blob/4fcf579/packages/ivr-tester/src/plugins/PluginManager.ts#L49)
+Defined in: [plugins/PluginManager.ts:49](https://github.com/SketchingDev/ivr-tester/blob/92d0740/packages/ivr-tester/src/plugins/PluginManager.ts#L49)
 
 ___
 
@@ -98,7 +98,7 @@ Name | Type |
 
 Inherited from: [TypedEmitter](typedemitter.md)
 
-Defined in: [Emitter.ts:35](https://github.com/SketchingDev/ivr-tester/blob/4fcf579/packages/ivr-tester/src/Emitter.ts#L35)
+Defined in: [Emitter.ts:35](https://github.com/SketchingDev/ivr-tester/blob/92d0740/packages/ivr-tester/src/Emitter.ts#L35)
 
 ___
 
@@ -114,7 +114,7 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [plugins/PluginManager.ts:31](https://github.com/SketchingDev/ivr-tester/blob/4fcf579/packages/ivr-tester/src/plugins/PluginManager.ts#L31)
+Defined in: [plugins/PluginManager.ts:31](https://github.com/SketchingDev/ivr-tester/blob/92d0740/packages/ivr-tester/src/plugins/PluginManager.ts#L31)
 
 ___
 
@@ -139,7 +139,7 @@ Name | Type |
 
 Inherited from: [TypedEmitter](typedemitter.md)
 
-Defined in: [Emitter.ts:27](https://github.com/SketchingDev/ivr-tester/blob/4fcf579/packages/ivr-tester/src/Emitter.ts#L27)
+Defined in: [Emitter.ts:27](https://github.com/SketchingDev/ivr-tester/blob/92d0740/packages/ivr-tester/src/Emitter.ts#L27)
 
 ___
 
@@ -164,7 +164,7 @@ Name | Type |
 
 Inherited from: [TypedEmitter](typedemitter.md)
 
-Defined in: [Emitter.ts:19](https://github.com/SketchingDev/ivr-tester/blob/4fcf579/packages/ivr-tester/src/Emitter.ts#L19)
+Defined in: [Emitter.ts:19](https://github.com/SketchingDev/ivr-tester/blob/92d0740/packages/ivr-tester/src/Emitter.ts#L19)
 
 ___
 
@@ -180,4 +180,4 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [plugins/PluginManager.ts:37](https://github.com/SketchingDev/ivr-tester/blob/4fcf579/packages/ivr-tester/src/plugins/PluginManager.ts#L37)
+Defined in: [plugins/PluginManager.ts:37](https://github.com/SketchingDev/ivr-tester/blob/92d0740/packages/ivr-tester/src/plugins/PluginManager.ts#L37)
