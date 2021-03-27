@@ -68,7 +68,7 @@ export class TranscriptRecorder {
   private readonly processTwilioMessageRef: (message: string) => void;
   private readonly saveMatchedPromptRef: (event: PromptMatchedEvent) => void;
   private readonly saveTimedOutPromptThenCloseRef: (
-    event: PromptMatchedEvent
+    event: TimeoutWaitingForMatchEvent
   ) => void;
   private readonly closeRef: () => void;
 
@@ -169,13 +169,12 @@ export class TranscriptRecorder {
 
   private close() {
     const callFlowSession = this.testSession.callFlowSession;
+
     callFlowSession.off("promptMatched", this.saveMatchedPromptRef);
-
-    this.testSession.callFlowSession.off("allPromptsMatched", this.closeRef);
-
-    this.testSession.callFlowSession.off(
+    callFlowSession.off("allPromptsMatched", this.closeRef);
+    callFlowSession.off(
       "timeoutWaitingForMatch",
-      this.closeRef
+      this.saveTimedOutPromptThenCloseRef
     );
 
     const connection = this.testSession.call.getStream();

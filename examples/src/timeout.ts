@@ -8,6 +8,7 @@ import {
 } from "ivr-tester";
 import { googleSpeechToText } from "ivr-tester-transcriber-google-speech-to-text";
 import ngrok from "ngrok";
+import path from "path";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require("dotenv").config();
@@ -34,6 +35,12 @@ const scenario: Scenario = {
 const config: Config = {
   localServerPort: 8080,
   transcriber: googleSpeechToText(),
+  recording: {
+    transcript: {
+      outputPath: path.join(__dirname, "../recordings"),
+      includeResponse: true,
+    },
+  },
 };
 
 ngrok.connect(config.localServerPort).then((url) =>
