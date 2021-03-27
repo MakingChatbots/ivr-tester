@@ -39,7 +39,7 @@ const ivrTestFailed = (testSession: TestSession): void =>
         testSession.scenario.name
       )}\n`,
       `Them: "${event.transcription}"\n`,
-      chalk.red("No condition matched this transcript\n")
+      chalk.red("Timed out waiting for prompt to complete\n")
     );
     console.log(chalk.bold.red(`Test Failed`));
   });

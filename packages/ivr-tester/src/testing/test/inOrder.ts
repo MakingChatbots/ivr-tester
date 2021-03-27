@@ -63,7 +63,6 @@ class RunningOrderedCallFlowInstructions
     this.initialise();
   }
 
-  // TODO Stop transcribe on
   // TODO Tidy this
   private initialise(): void {
     const timedOutCallback: TimeoutCallback = (prompt, transcript) => {

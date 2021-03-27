@@ -5,12 +5,13 @@
   "description": "Examples of testing IVR call flow using various transcribers",
   "license": "MIT",
   "scripts": {
-    "test-ivr:google-speech-to-text": "node --require ts-node/register src/google-speech-to-text.ts",
-    "test-ivr:amazon-transcribe": "node --require ts-node/register src/amazon-transcribe.ts",
+    "example:different-transcribers:google-speech-to-text": "node --require ts-node/register src/different-transcribers/google-speech-to-text.ts",
+    "example:different-transcribers:amazon-transcribe": "node --require ts-node/register src/different-transcribers/amazon-transcribe.ts",
+    "example:timeout": "node --require ts-node/register src/timeout.ts",
     "lint:prettier": "prettier --list-different 'src/**/*.ts' --write",
     "lint:eslint": "eslint 'src/**/*.ts'",
     "lint": "yarn lint:prettier && yarn lint:eslint",
-    "record": "terminalizer record --config ../../doc/assets/terminalizer-config.yml --skip-sharing terminal-recording",
+    "record": "terminalizer record --config ../doc/assets/terminalizer-config.yml --skip-sharing terminal-recording",
     "record:play": "terminalizer play terminal-recording",
     "record:render": "rm -f terminal-recording.gif && terminalizer render -o terminal-recording terminal-recording"
   },
