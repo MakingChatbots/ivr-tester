@@ -16,7 +16,7 @@
 
 • `Optional` **plugins**: [*IvrTesterPlugin*](ivrtesterplugin.md)[]
 
-Defined in: [configuration/TestRunnerConfig.ts:18](https://github.com/SketchingDev/ivr-tester/blob/b3f5d81/packages/ivr-tester/src/configuration/TestRunnerConfig.ts#L18)
+Defined in: [configuration/TestRunnerConfig.ts:18](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/configuration/TestRunnerConfig.ts#L18)
 
 ___
 
@@ -29,7 +29,7 @@ server that Twilio connects to when creating the bi-directional
 stream of the call
 This value can be overridden by setting the environment variable PUBLIC_SERVER_URL
 
-Defined in: [configuration/TestRunnerConfig.ts:16](https://github.com/SketchingDev/ivr-tester/blob/b3f5d81/packages/ivr-tester/src/configuration/TestRunnerConfig.ts#L16)
+Defined in: [configuration/TestRunnerConfig.ts:16](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/configuration/TestRunnerConfig.ts#L16)
 
 ___
 
@@ -39,4 +39,4 @@ ___
 
 Twilio client used to initiate the call to the IVR
 
-Defined in: [configuration/TestRunnerConfig.ts:8](https://github.com/SketchingDev/ivr-tester/blob/b3f5d81/packages/ivr-tester/src/configuration/TestRunnerConfig.ts#L8)
+Defined in: [configuration/TestRunnerConfig.ts:8](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/configuration/TestRunnerConfig.ts#L8)

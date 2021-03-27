@@ -33,7 +33,7 @@ Name | Type |
 
 **Returns:** [*IvrTester*](ivrtester.md)
 
-Defined in: [testRunner.ts:85](https://github.com/SketchingDev/ivr-tester/blob/b3f5d81/packages/ivr-tester/src/testRunner.ts#L85)
+Defined in: [testRunner.ts:85](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/testRunner.ts#L85)
 
 ## Properties
 
@@ -41,7 +41,7 @@ Defined in: [testRunner.ts:85](https://github.com/SketchingDev/ivr-tester/blob/b
 
 • `Private` `Readonly` **config**: [*Config*](../interfaces/config.md)
 
-Defined in: [testRunner.ts:83](https://github.com/SketchingDev/ivr-tester/blob/b3f5d81/packages/ivr-tester/src/testRunner.ts#L83)
+Defined in: [testRunner.ts:83](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/testRunner.ts#L83)
 
 ___
 
@@ -49,7 +49,7 @@ ___
 
 • `Private` `Readonly` **pluginManager**: [*PluginManager*](pluginmanager.md)
 
-Defined in: [testRunner.ts:84](https://github.com/SketchingDev/ivr-tester/blob/b3f5d81/packages/ivr-tester/src/testRunner.ts#L84)
+Defined in: [testRunner.ts:84](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/testRunner.ts#L84)
 
 ___
 
@@ -57,7 +57,7 @@ ___
 
 • `Private` **running**: *boolean*= false
 
-Defined in: [testRunner.ts:85](https://github.com/SketchingDev/ivr-tester/blob/b3f5d81/packages/ivr-tester/src/testRunner.ts#L85)
+Defined in: [testRunner.ts:85](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/testRunner.ts#L85)
 
 ## Methods
 
@@ -67,7 +67,7 @@ Defined in: [testRunner.ts:85](https://github.com/SketchingDev/ivr-tester/blob/b
 
 **Returns:** *Promise*<void\>
 
-Defined in: [testRunner.ts:171](https://github.com/SketchingDev/ivr-tester/blob/b3f5d81/packages/ivr-tester/src/testRunner.ts#L171)
+Defined in: [testRunner.ts:171](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/testRunner.ts#L171)
 
 ___
 
@@ -84,4 +84,4 @@ Name | Type |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [testRunner.ts:92](https://github.com/SketchingDev/ivr-tester/blob/b3f5d81/packages/ivr-tester/src/testRunner.ts#L92)
+Defined in: [testRunner.ts:92](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/testRunner.ts#L92)
