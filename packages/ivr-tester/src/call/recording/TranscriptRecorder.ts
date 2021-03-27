@@ -10,7 +10,10 @@ import { ConfigurationError } from "../../configuration/ConfigurationError";
 import { TwilioCaller, TwilioMediaStreamStartEvent } from "../TwilioCaller";
 import { IvrTesterPlugin } from "../../plugins/IvrTesterPlugin";
 import { TestSession } from "../../testRunner";
-import { PromptMatchedEvent } from "../../testing/test/CallFlowInstructions";
+import {
+  PromptMatchedEvent,
+  TimeoutWaitingForMatchEvent,
+} from "../../testing/test/CallFlowInstructions";
 
 export interface RecorderConfig {
   outputPath: string;
@@ -64,6 +67,9 @@ export class TranscriptRecorder {
 
   private readonly processTwilioMessageRef: (message: string) => void;
   private readonly saveMatchedPromptRef: (event: PromptMatchedEvent) => void;
+  private readonly saveTimedOutPromptThenCloseRef: (
+    event: PromptMatchedEvent
+  ) => void;
   private readonly closeRef: () => void;
 
   private writeStream: WriteStream;
@@ -81,9 +87,12 @@ export class TranscriptRecorder {
     this.closeRef = this.close.bind(this);
     this.testSession.callFlowSession.on("allPromptsMatched", this.closeRef);
 
+    this.saveTimedOutPromptThenCloseRef = this.saveTimedOutPromptThenClose.bind(
+      this
+    );
     this.testSession.callFlowSession.on(
       "timeoutWaitingForMatch",
-      this.closeRef
+      this.saveTimedOutPromptThenCloseRef
     );
 
     this.processTwilioMessageRef = this.processTwilioMessage.bind(this);
@@ -98,6 +107,22 @@ export class TranscriptRecorder {
     if (data.event === TwilioConnectionEvents.MediaStreamStart) {
       this.createFile(data as TwilioMediaStreamStartEvent);
     }
+  }
+
+  private saveTimedOutPromptThenClose(event: TimeoutWaitingForMatchEvent) {
+    const prompt = [];
+    if (this.config.includeResponse) {
+      prompt.push(`Them: ${event.transcription}`);
+      prompt.push(
+        "You: Ended test as prompt did not match condition within timeout period"
+      );
+    } else {
+      prompt.push(`${event.transcription}`);
+    }
+
+    this.writeStream.write(`${prompt.join("\n")}\n\n`);
+
+    this.close();
   }
 
   private saveMatchedPrompts(event: PromptMatchedEvent) {
