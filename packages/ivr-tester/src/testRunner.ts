@@ -1,7 +1,6 @@
 import { TwilioCallServer } from "./testing/TwilioCallServer";
 import { Config } from "./configuration/Config";
 import { PluginManager } from "./plugins/PluginManager";
-import { populateDefaults } from "./configuration/populateDefaults";
 import { TwilioCaller } from "./call/TwilioCaller";
 import { IteratingTestAssigner } from "./testing/IteratingTestAssigner";
 import { mediaStreamRecorderPlugin } from "./call/recording/MediaStreamRecorder";
@@ -15,6 +14,7 @@ import { callConnectedTimeout } from "./testing/callConnectedTimeout";
 import { Call } from "./call/Call";
 import { transcriptRecorderPlugin } from "./call/recording/TranscriptRecorder";
 import { Scenario } from "./testing/scenario/Scenario";
+import { validateConfig } from "./configuration/validateConfig";
 
 export interface TestSubject {
   from: string;
@@ -85,7 +85,16 @@ export class IvrTester {
   private running = false;
 
   constructor(configuration: Config) {
-    this.config = populateDefaults(configuration);
+    const result = validateConfig(configuration);
+    if (result.error) {
+      throw result.error;
+    }
+    if (!result.config) {
+      throw new Error("Error loading configuration");
+    }
+
+    this.config = result.config;
+
     this.pluginManager = createPluginManager(this.config);
   }
 

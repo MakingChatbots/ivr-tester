@@ -31,7 +31,6 @@ export interface Config {
 
   /**
    * Port that the server listens on.
-   * This value can be overridden by setting the environment variable LOCAL_SERVER_PORT
    */
   localServerPort?: number | undefined;
 

@@ -18,5 +18,4 @@ export { TestSubject } from "./testRunner";
 export { Scenario } from "./testing/scenario/Scenario";
 export { inOrder } from "./testing/test/inOrder";
 export { PluginManager } from "./plugins/PluginManager";
-export { populateDefaults } from "./configuration/populateDefaults";
 export { TestRunnerConfig } from "./configuration/TestRunnerConfig";
