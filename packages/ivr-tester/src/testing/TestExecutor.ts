@@ -2,7 +2,7 @@ import { Call } from "../call/Call";
 import { TestSession } from "../testRunner";
 import { CallTranscriber } from "../call/transcription/CallTranscriber";
 import { TranscriberFactory } from "../call/transcription/plugin/TranscriberFactory";
-import { Scenario } from "./scenario/Scenario";
+import { Scenario } from "../configuration/scenario/Scenario";
 import { inOrder } from "./test/inOrder";
 
 export interface TestExecutor {

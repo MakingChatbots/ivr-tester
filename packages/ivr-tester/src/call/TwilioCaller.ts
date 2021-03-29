@@ -4,7 +4,7 @@ import { Call, TwilioConnectionEvents } from "./twilio";
 import VoiceResponse from "twilio/lib/twiml/VoiceResponse";
 import { Debugger } from "../Debugger";
 import { Caller, RequestedCall } from "./Caller";
-import { TestSubject } from "../testRunner";
+import { IvrNumber } from "../configuration/call/IvrNumber";
 
 export interface TwilioMediaStreamStartEvent {
   event: TwilioConnectionEvents.MediaStreamStart;
@@ -14,7 +14,7 @@ export interface TwilioMediaStreamStartEvent {
   };
 }
 
-export class TwilioCaller implements Caller<TestSubject> {
+export class TwilioCaller implements Caller<IvrNumber> {
   private static debug = Debugger.getTwilioDebugger();
 
   constructor(private readonly twilioClient: Twilio) {}
@@ -39,7 +39,7 @@ export class TwilioCaller implements Caller<TestSubject> {
   }
 
   public async call(
-    call: TestSubject,
+    call: IvrNumber,
     streamUrl: URL | string
   ): Promise<RequestedCall> {
     const response = new twiml.VoiceResponse();

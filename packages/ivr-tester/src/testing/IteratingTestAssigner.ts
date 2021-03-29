@@ -1,4 +1,4 @@
-import { Scenario } from "./scenario/Scenario";
+import { Scenario } from "../configuration/scenario/Scenario";
 
 export interface AssignedResult {
   isAssigned: boolean;

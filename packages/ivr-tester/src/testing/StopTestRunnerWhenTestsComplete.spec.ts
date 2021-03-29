@@ -1,6 +1,6 @@
 import { StopTestRunnerWhenTestsComplete } from "./StopTestRunnerWhenTestsComplete";
-import { PluginEvents } from "../plugins/PluginManager";
-import { Emitter, TypedEmitter } from "../Emitter";
+import { PluginEvents, PluginHost } from "../plugins/PluginManager";
+import { TypedEmitter } from "../Emitter";
 import { TestRunner, TestSession } from "../testRunner";
 import {
   CallFlowSession,
@@ -11,12 +11,20 @@ class StubCallFlowSession
   extends TypedEmitter<CallFlowSessionEvents>
   implements CallFlowSession {}
 
+class StubPluginManager
+  extends TypedEmitter<PluginEvents>
+  implements PluginHost {
+  abortTests(): void {
+    // Intentionally empty
+  }
+}
+
 describe("Close server when tests complete", () => {
-  let pluginEmitter: Emitter<PluginEvents>;
+  let pluginHost: PluginHost;
   let testRunner: jest.Mocked<TestRunner>;
 
   beforeEach(() => {
-    pluginEmitter = new TypedEmitter<PluginEvents>();
+    pluginHost = new StubPluginManager();
     testRunner = {
       stop: jest.fn(),
     };
@@ -24,7 +32,7 @@ describe("Close server when tests complete", () => {
 
   test("test runner stopped when all test sessions have matched all their prompts", () => {
     const stopWhenAllTestsComplete = new StopTestRunnerWhenTestsComplete();
-    stopWhenAllTestsComplete.initialise(pluginEmitter, testRunner);
+    stopWhenAllTestsComplete.initialise(pluginHost, testRunner);
 
     const callFlowSession = new StubCallFlowSession();
     const testSession: TestSession = {
@@ -44,7 +52,7 @@ describe("Close server when tests complete", () => {
 
   test("test runner stopped with failure if any test sessions have timed-out", () => {
     const stopWhenAllTestsComplete = new StopTestRunnerWhenTestsComplete();
-    stopWhenAllTestsComplete.initialise(pluginEmitter, testRunner);
+    stopWhenAllTestsComplete.initialise(pluginHost, testRunner);
 
     const testSession1: TestSession = {
       scenario: undefined,
@@ -71,7 +79,7 @@ describe("Close server when tests complete", () => {
 
   test("test runner not stopped until all test sessions have matched all their prompts", () => {
     const stopWhenAllTestsComplete = new StopTestRunnerWhenTestsComplete();
-    stopWhenAllTestsComplete.initialise(pluginEmitter, testRunner);
+    stopWhenAllTestsComplete.initialise(pluginHost, testRunner);
 
     const testSession1: TestSession = {
       scenario: undefined,

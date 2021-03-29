@@ -1,5 +1,5 @@
 import { setTimeout } from "timers";
-import { Step } from "../scenario/Step";
+import { Step } from "../../configuration/scenario/Step";
 import { Call } from "../../call/Call";
 import { PromptTranscriptionBuilder } from "../../call/transcription/PromptTranscriptionBuilder";
 import { MatchedCallback, Prompt, TimeoutCallback } from "./inOrder";

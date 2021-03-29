@@ -2,10 +2,10 @@ import {
   Config,
   doNothing,
   isAnything,
+  IvrNumber,
   IvrTester,
   press,
   Scenario,
-  TestSubject,
 } from "ivr-tester";
 import path from "path";
 import { amazonTranscribe } from "ivr-tester-transcriber-amazon-transcribe";
@@ -14,7 +14,7 @@ import ngrok from "ngrok";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require("dotenv").config();
 
-const call: TestSubject = {
+const call: IvrNumber = {
   from: process.env.FROM_PHONE_NUMBER,
   to: process.env.TO_PHONE_NUMBER,
 };
@@ -46,22 +46,30 @@ const scenario: Scenario = {
 };
 
 const config: Config = {
+  localServerPort: 8080,
   transcriber: amazonTranscribe({ region: "us-east-1", languageCode: "en-GB" }),
   recording: {
     audio: {
-      outputPath: path.join(__dirname, "../recordings"),
+      outputPath: path.join(__dirname, "../../recordings"),
     },
     transcript: {
-      outputPath: path.join(__dirname, "../recordings"),
+      outputPath: path.join(__dirname, "../../recordings"),
       includeResponse: false,
-      filename: "transcription-aws",
     },
   },
 };
 
-ngrok.connect(config.localServerPort).then((url) =>
-  new IvrTester({ ...config, publicServerUrl: url })
-    .run(call, scenario)
-    .then(() => process.exit())
-    .catch(() => process.exit(1))
-);
+function catchError(err: Error) {
+  if (err) console.error(err);
+  process.exit(1);
+}
+
+ngrok
+  .connect(config.localServerPort)
+  .then((url) =>
+    new IvrTester({ ...config, publicServerUrl: url })
+      .run(call, scenario)
+      .then(() => process.exit())
+      .catch(catchError)
+  )
+  .catch(catchError);

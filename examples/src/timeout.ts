@@ -2,9 +2,9 @@ import {
   Config,
   contains,
   doNothing,
+  IvrNumber,
   IvrTester,
   Scenario,
-  TestSubject,
 } from "ivr-tester";
 import { googleSpeechToText } from "ivr-tester-transcriber-google-speech-to-text";
 import ngrok from "ngrok";
@@ -13,7 +13,7 @@ import path from "path";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require("dotenv").config();
 
-const call: TestSubject = {
+const call: IvrNumber = {
   from: process.env.FROM_PHONE_NUMBER,
   to: process.env.TO_PHONE_NUMBER,
 };
@@ -43,9 +43,17 @@ const config: Config = {
   },
 };
 
-ngrok.connect(config.localServerPort).then((url) =>
-  new IvrTester({ ...config, publicServerUrl: url })
-    .run(call, scenario)
-    .then(() => process.exit())
-    .catch(() => process.exit(1))
-);
+function catchError(err: Error) {
+  if (err) console.error(err);
+  process.exit(1);
+}
+
+ngrok
+  .connect(config.localServerPort)
+  .then((url) =>
+    new IvrTester({ ...config, publicServerUrl: url })
+      .run(call, scenario)
+      .then(() => process.exit())
+      .catch(catchError)
+  )
+  .catch(catchError);
