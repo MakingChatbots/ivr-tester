@@ -11,7 +11,7 @@ import {
   TestAssigner,
 } from "./IteratingTestAssigner";
 import { TestExecutor } from "./TestExecutor";
-import { Scenario } from "./scenario/Scenario";
+import { Scenario } from "../configuration/scenario/Scenario";
 
 const waitForConnection = async (ws: WebSocket): Promise<void> =>
   new Promise((resolve) => ws.on("open", resolve));

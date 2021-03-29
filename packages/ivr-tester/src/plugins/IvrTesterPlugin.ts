@@ -1,5 +1,4 @@
-import { PluginEvents } from "./PluginManager";
-import { Emitter } from "../Emitter";
+import { PluginHost } from "./PluginManager";
 import { TestRunner, TestSession } from "../testRunner";
 
 /**
@@ -7,6 +6,6 @@ import { TestRunner, TestSession } from "../testRunner";
  * test.
  */
 export interface IvrTesterPlugin {
-  initialise(eventEmitter: Emitter<PluginEvents>, testRunner: TestRunner): void;
+  initialise(pluginManager: PluginHost): void;
   testStarted?: (testSession: TestSession) => void;
 }

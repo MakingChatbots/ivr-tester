@@ -49,19 +49,27 @@ const config: Config = {
   transcriber: amazonTranscribe({ region: "us-east-1", languageCode: "en-GB" }),
   recording: {
     audio: {
-      outputPath: path.join(__dirname, "../recordings"),
+      outputPath: path.join(__dirname, "../../recordings"),
     },
     transcript: {
-      outputPath: path.join(__dirname, "../recordings"),
+      outputPath: path.join(__dirname, "../../recordings"),
       includeResponse: false,
       filename: "transcription-aws",
     },
   },
 };
 
-ngrok.connect(config.localServerPort).then((url) =>
-  new IvrTester({ ...config, publicServerUrl: url })
-    .run(call, scenario)
-    .then(() => process.exit())
-    .catch(() => process.exit(1))
-);
+function catchError(err: Error) {
+  if (err) console.error(err);
+  process.exit(1);
+}
+
+ngrok
+  .connect(config.localServerPort)
+  .then((url) =>
+    new IvrTester({ ...config, publicServerUrl: url })
+      .run(call, scenario)
+      .then(() => process.exit())
+      .catch(catchError)
+  )
+  .catch(catchError);

@@ -1,5 +1,5 @@
 import { Config } from "./configuration/Config";
-import { IvrTester, TestSubject } from "./testRunner";
+import { IvrTester } from "./testRunner";
 import getPort from "get-port";
 import { Twilio } from "twilio";
 import {
@@ -9,6 +9,7 @@ import {
 import { EventEmitter } from "events";
 import WebSocket from "ws";
 import waitForExpect from "wait-for-expect";
+import { IvrNumber } from "./configuration/call/IvrNumber";
 
 const waitForConnection = async (ws: WebSocket): Promise<void> =>
   new Promise((resolve) => ws.on("open", resolve));
@@ -85,7 +86,10 @@ describe("Test Runner", () => {
     });
 
     try {
-      await ivrTester.run({ from: "", to: "" }, { name: "", steps: [] });
+      await ivrTester.run(
+        { from: "1", to: "2" },
+        { name: "test name", steps: [] }
+      );
     } catch (err) {
       /* Intentionally ignore*/
     }
@@ -93,7 +97,7 @@ describe("Test Runner", () => {
     expect(twilioClient.calls.create).toBeCalledWith(
       expect.objectContaining({
         twiml:
-          '<?xml version="1.0" encoding="UTF-8"?><Response><Connect><Stream url="wss://example.test/"><Parameter name="from" value=""/><Parameter name="to" value=""/></Stream></Connect></Response>',
+          '<?xml version="1.0" encoding="UTF-8"?><Response><Connect><Stream url="wss://example.test/"><Parameter name="from" value="1"/><Parameter name="to" value="2"/></Stream></Connect></Response>',
       })
     );
   });
@@ -107,7 +111,10 @@ describe("Test Runner", () => {
     });
 
     try {
-      await ivrTester.run({ from: "", to: "" }, { name: "", steps: [] });
+      await ivrTester.run(
+        { from: "1", to: "2" },
+        { name: "test name", steps: [] }
+      );
     } catch (err) {
       /* Intentionally ignore*/
     }
@@ -115,7 +122,7 @@ describe("Test Runner", () => {
     expect(twilioClient.calls.create).toBeCalledWith(
       expect.objectContaining({
         twiml:
-          '<?xml version="1.0" encoding="UTF-8"?><Response><Connect><Stream url="ws://example.test/"><Parameter name="from" value=""/><Parameter name="to" value=""/></Stream></Connect></Response>',
+          '<?xml version="1.0" encoding="UTF-8"?><Response><Connect><Stream url="ws://example.test/"><Parameter name="from" value="1"/><Parameter name="to" value="2"/></Stream></Connect></Response>',
       })
     );
   });
@@ -123,14 +130,14 @@ describe("Test Runner", () => {
   test("twilio called with phone-numbers and TWIML", async () => {
     twilioClient.calls.create.mockRejectedValue(new Error());
 
-    const call: TestSubject = {
+    const call: IvrNumber = {
       from: "test-from-number",
       to: "test-to-number",
     };
 
     try {
       await new IvrTester(commonConfig).run(call, {
-        name: "",
+        name: "test name",
         steps: [],
       });
     } catch (err) {
@@ -149,8 +156,8 @@ describe("Test Runner", () => {
 
     await expect(() =>
       new IvrTester(commonConfig).run(
-        { from: "", to: "" },
-        { name: "", steps: [] }
+        { from: "1", to: "2" },
+        { name: "test name", steps: [] }
       )
     ).rejects.toThrowError(new Error("Error Occurred"));
   });
@@ -173,8 +180,8 @@ describe("Test Runner", () => {
 
     const ivrTester = new IvrTester(config);
     const runnerPromise = ivrTester.run(
-      { from: "", to: "" },
-      { name: "", steps: [] }
+      { from: "1", to: "2" },
+      { name: "test name", steps: [] }
     );
 
     // Wait for calls to be made

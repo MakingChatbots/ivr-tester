@@ -1,5 +1,5 @@
 import { FilenameFactory, StreamDetails } from "./FilenameFactory";
-import { Scenario } from "../../../testing/scenario/Scenario";
+import { Scenario } from "../../../configuration/scenario/Scenario";
 
 export function sanitise(text: string): string {
   return `${text}`

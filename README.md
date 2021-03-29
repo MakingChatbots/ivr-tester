@@ -14,14 +14,11 @@ on fluent test definitions.
 
 Features:
 * Fully automates testing call flows
-* Fluent test definitions document call flow
-* Flexible conditions for interpreting prompts
-* Record call to audio file for manual inspection on failures
-* Record transcriptions to file
+* Test multiple scenarios in parallel
+* Expressive test definitions help document call flow
+* Record audio of tests
+* Record transcriptions of tests
 * Supports Google Speech-to-Text and AWS Transcript for transcribing calls
-* Plugin architecture
-* Runs on NodeJS
-* TypeScript type definitions
 * Open-source
 
 ---

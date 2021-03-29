@@ -15,10 +15,16 @@ export interface Config {
   transcriber: TranscriberFactory;
 
   recording?: {
+    /**
+     * Configuration for recording the call's audio
+     */
     audio?: {
       outputPath: string;
       filename?: string | FilenameFactory;
     };
+    /**
+     * Configuration for recording the call's transcription
+     */
     transcript?: {
       outputPath: string;
       filename?: string | FilenameFactory;
@@ -47,5 +53,8 @@ export interface Config {
    */
   publicServerUrl?: string | undefined;
 
+  /**
+   * How long to wait for any of the calls to be established (in milliseconds) before timing out.
+   */
   msTimeoutWaitingForCall?: number | undefined;
 }

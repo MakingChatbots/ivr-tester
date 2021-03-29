@@ -13,13 +13,14 @@ import { CallFlowSession } from "./testing/test/CallFlowInstructions";
 import { callConnectedTimeout } from "./testing/callConnectedTimeout";
 import { Call } from "./call/Call";
 import { transcriptRecorderPlugin } from "./call/recording/TranscriptRecorder";
-import { Scenario } from "./testing/scenario/Scenario";
+import { Scenario } from "./configuration/scenario/Scenario";
 import { validateConfig } from "./configuration/validateConfig";
-
-export interface TestSubject {
-  from: string;
-  to: string;
-}
+import { validateAndEnrichScenario } from "./configuration/scenario/validateAndEnrichScenario";
+import { IvrNumber } from "./configuration/call/IvrNumber";
+import {
+  TestSubject,
+  validateTestSubject,
+} from "./configuration/call/validateTestSubject";
 
 export interface TestSession {
   readonly scenario: Scenario;
@@ -99,7 +100,7 @@ export class IvrTester {
   }
 
   public async run(
-    call: TestSubject | Buffer,
+    testSubject: TestSubject,
     scenario: Scenario[] | Scenario
   ): Promise<void> {
     if (this.running) {
@@ -109,7 +110,16 @@ export class IvrTester {
     }
     this.running = true;
 
-    const scenarios = Array.isArray(scenario) ? scenario : [scenario];
+    const testSubjectValidationResult = validateTestSubject(testSubject);
+    if (testSubjectValidationResult.error) {
+      throw testSubjectValidationResult.error;
+    }
+
+    const validationResult = validateAndEnrichScenario(scenario);
+    if (validationResult.error) {
+      throw validationResult.error;
+    }
+    const scenarios = validationResult.scenarios;
 
     await this.preflightChecks();
 
@@ -119,7 +129,7 @@ export class IvrTester {
       testExecutor(this.config.transcriber)
     );
 
-    const caller: Caller<TestSubject | Buffer> = Buffer.isBuffer(call)
+    const caller: Caller<IvrNumber | Buffer> = Buffer.isBuffer(testSubject)
       ? new AudioPlaybackCaller()
       : new TwilioCaller(this.config.twilioClient);
 
@@ -132,7 +142,7 @@ export class IvrTester {
     const calls = Promise.all(
       scenarios.map(() =>
         caller
-          .call(call, this.config.publicServerUrl || serverUrl)
+          .call(testSubject, this.config.publicServerUrl || serverUrl)
           .then((callRequested) =>
             this.pluginManager.callRequested(callRequested, scenarios.length)
           )

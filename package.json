@@ -16,7 +16,7 @@
   },
   "workspaces": [
     "packages/*",
-    "examples/*"
+    "examples"
   ],
   "scripts": {
     "build": "lerna run build",

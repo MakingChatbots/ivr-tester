@@ -1,6 +1,6 @@
 {
   "name": "ivr-tester",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "description": "An automated testing framework for IVR call flows",
   "license": "MIT",
   "repository": {
@@ -22,7 +22,7 @@
     "test": "jest src",
     "clean": "rimraf dist/",
     "build:dtmf-tones": "./generate-dtmf-tones.sh",
-    "build": "yarn clean && tsc --declaration",
+    "build": "yarn clean && tsc -p tsconfig.build.json --declaration",
     "postbuild": "yarn copy:dtmf-tones",
     "lint:prettier": "prettier --list-different 'src/**/*.ts' --write",
     "lint:eslint": "eslint 'src/**/*.ts'",

@@ -17,21 +17,43 @@ export interface CallServerStartedEvent {
   callServer: Emitter<CallServerEvents>;
 }
 
+export interface TestsAbortingEvent {
+  reason: string;
+}
+
 export type PluginEvents = {
   callServerStarted: CallServerStartedEvent;
   callRequested: CallRequestedEvent;
   callRequestErrored: CallRequestErroredEvent;
+  testsAborting: TestsAbortingEvent;
 };
 
-export class PluginManager extends TypedEmitter<PluginEvents> {
+/**
+ * Interface exposed to plugins to allow them to listen to events and abort testing.
+ */
+export interface PluginHost extends Omit<Emitter<PluginEvents>, "emit"> {
+  abortTests(reason: string): void;
+}
+
+export class PluginManager
+  extends TypedEmitter<PluginEvents>
+  implements PluginHost {
+  private testRunner: TestRunner;
+
   constructor(private readonly plugins: IvrTesterPlugin[]) {
     super();
   }
 
   public initialise(testRunner: TestRunner): void {
+    this.testRunner = testRunner;
     for (const plugin of this.plugins) {
-      plugin.initialise(this, testRunner);
+      plugin.initialise(this);
     }
+  }
+
+  public abortTests(reason: string): void {
+    this.emit("testsAborting", { reason });
+    this.testRunner.stop(true);
   }
 
   public serverListening(callServer: CallServer): void {

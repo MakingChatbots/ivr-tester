@@ -1,4 +1,4 @@
-import { Scenario } from "../../../testing/scenario/Scenario";
+import { Scenario } from "../../../configuration/scenario/Scenario";
 
 export interface StreamDetails {
   sid: string;

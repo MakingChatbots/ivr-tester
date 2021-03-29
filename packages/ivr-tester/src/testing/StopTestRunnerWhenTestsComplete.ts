@@ -1,6 +1,5 @@
 import { IvrTesterPlugin } from "../plugins/IvrTesterPlugin";
-import { Emitter } from "../Emitter";
-import { PluginEvents } from "../plugins/PluginManager";
+import { PluginHost } from "../plugins/PluginManager";
 import { TestRunner, TestSession } from "../testRunner";
 
 /** Stops the test run when all the tests complete */
@@ -10,7 +9,7 @@ export class StopTestRunnerWhenTestsComplete implements IvrTesterPlugin {
   private totalSuccessful = 0;
   private totalFailed = 0;
 
-  public initialise(_: Emitter<PluginEvents>, testRunner: TestRunner): void {
+  public initialise(_: PluginHost, testRunner: TestRunner): void {
     this.testRunner = testRunner;
   }
 

@@ -1,4 +1,4 @@
-import { Step } from "../scenario/Step";
+import { Step } from "../../configuration/scenario/Step";
 import {
   CallFlowInstructions,
   CallFlowSession,

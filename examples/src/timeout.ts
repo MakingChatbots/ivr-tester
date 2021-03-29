@@ -43,9 +43,17 @@ const config: Config = {
   },
 };
 
-ngrok.connect(config.localServerPort).then((url) =>
-  new IvrTester({ ...config, publicServerUrl: url })
-    .run(call, scenario)
-    .then(() => process.exit())
-    .catch(() => process.exit(1))
-);
+function catchError(err: Error) {
+  if (err) console.error(err);
+  process.exit(1);
+}
+
+ngrok
+  .connect(config.localServerPort)
+  .then((url) =>
+    new IvrTester({ ...config, publicServerUrl: url })
+      .run(call, scenario)
+      .then(() => process.exit())
+      .catch(catchError)
+  )
+  .catch(catchError);

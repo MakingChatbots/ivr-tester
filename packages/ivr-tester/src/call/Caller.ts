@@ -1,5 +1,5 @@
 import { URL } from "url";
-import { TestSubject } from "../testRunner";
+import { IvrNumber } from "../configuration/call/IvrNumber";
 
 export interface AudioPlaybackCall {
   type: "audio-playback";
@@ -8,7 +8,7 @@ export interface AudioPlaybackCall {
 
 export interface TelephonyCall {
   type: "telephony";
-  call: TestSubject;
+  call: IvrNumber;
 }
 
 export type RequestedCall = AudioPlaybackCall | TelephonyCall;
