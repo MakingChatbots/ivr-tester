@@ -27,9 +27,9 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [testRunner.ts:41](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/testRunner.ts#L41)
+Defined in: [testRunner.ts:42](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/testRunner.ts#L42)
 
-Defined in: [testRunner.ts:41](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/testRunner.ts#L41)
+Defined in: [testRunner.ts:42](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/testRunner.ts#L42)
 
 ___
 
@@ -37,4 +37,4 @@ ___
 
 • **testRunner**: [*TestRunner*](testrunner.md)
 
-Defined in: [testRunner.ts:42](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/testRunner.ts#L42)
+Defined in: [testRunner.ts:43](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/testRunner.ts#L43)

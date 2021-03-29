@@ -24,4 +24,4 @@ Name | Type | Description |
 
 **Returns:** *void*
 
-Defined in: [testRunner.ts:36](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/testRunner.ts#L36)
+Defined in: [testRunner.ts:37](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/testRunner.ts#L37)

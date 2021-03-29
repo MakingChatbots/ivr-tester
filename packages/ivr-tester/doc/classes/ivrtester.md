@@ -33,7 +33,7 @@ Name | Type |
 
 **Returns:** [*IvrTester*](ivrtester.md)
 
-Defined in: [testRunner.ts:85](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/testRunner.ts#L85)
+Defined in: [testRunner.ts:84](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/testRunner.ts#L84)
 
 ## Properties
 
@@ -41,7 +41,7 @@ Defined in: [testRunner.ts:85](https://github.com/SketchingDev/ivr-tester/blob/5
 
 • `Private` `Readonly` **config**: [*Config*](../interfaces/config.md)
 
-Defined in: [testRunner.ts:83](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/testRunner.ts#L83)
+Defined in: [testRunner.ts:82](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/testRunner.ts#L82)
 
 ___
 
@@ -49,7 +49,7 @@ ___
 
 • `Private` `Readonly` **pluginManager**: [*PluginManager*](pluginmanager.md)
 
-Defined in: [testRunner.ts:84](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/testRunner.ts#L84)
+Defined in: [testRunner.ts:83](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/testRunner.ts#L83)
 
 ___
 
@@ -57,7 +57,7 @@ ___
 
 • `Private` **running**: *boolean*= false
 
-Defined in: [testRunner.ts:85](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/testRunner.ts#L85)
+Defined in: [testRunner.ts:84](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/testRunner.ts#L84)
 
 ## Methods
 
@@ -67,21 +67,21 @@ Defined in: [testRunner.ts:85](https://github.com/SketchingDev/ivr-tester/blob/5
 
 **Returns:** *Promise*<void\>
 
-Defined in: [testRunner.ts:171](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/testRunner.ts#L171)
+Defined in: [testRunner.ts:188](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/testRunner.ts#L188)
 
 ___
 
 ### run
 
-▸ **run**(`call`: [*TestSubject*](../interfaces/testsubject.md) \| *Buffer*, `scenario`: [*Scenario*](../interfaces/scenario.md) \| [*Scenario*](../interfaces/scenario.md)[]): *Promise*<void\>
+▸ **run**(`testSubject`: TestSubject, `scenario`: [*Scenario*](../interfaces/scenario.md) \| [*Scenario*](../interfaces/scenario.md)[]): *Promise*<void\>
 
 #### Parameters:
 
 Name | Type |
 :------ | :------ |
-`call` | [*TestSubject*](../interfaces/testsubject.md) \| *Buffer* |
+`testSubject` | TestSubject |
 `scenario` | [*Scenario*](../interfaces/scenario.md) \| [*Scenario*](../interfaces/scenario.md)[] |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [testRunner.ts:92](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/testRunner.ts#L92)
+Defined in: [testRunner.ts:100](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/testRunner.ts#L100)

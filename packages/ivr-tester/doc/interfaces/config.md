@@ -22,7 +22,7 @@
 
 DTMF tone generator
 
-Defined in: [configuration/Config.ts:10](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/configuration/Config.ts#L10)
+Defined in: [configuration/Config.ts:10](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/configuration/Config.ts#L10)
 
 ___
 
@@ -30,10 +30,9 @@ ___
 
 • `Optional` **localServerPort**: *number*
 
-Port that the server listens on.
-This value can be overridden by setting the environment variable LOCAL_SERVER_PORT
+Port that the server listens on. Defaults to 8080
 
-Defined in: [configuration/Config.ts:36](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/configuration/Config.ts#L36)
+Defined in: [configuration/Config.ts:41](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/configuration/Config.ts#L41)
 
 ___
 
@@ -41,7 +40,9 @@ ___
 
 • `Optional` **msTimeoutWaitingForCall**: *number*
 
-Defined in: [configuration/Config.ts:51](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/configuration/Config.ts#L51)
+How long to wait for any of the calls to be established (in milliseconds) before timing out.
+
+Defined in: [configuration/Config.ts:59](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/configuration/Config.ts#L59)
 
 ___
 
@@ -54,7 +55,7 @@ server that Twilio connects to when creating the bi-directional
 stream of the call
 This value can be overridden by setting the environment variable PUBLIC_SERVER_URL
 
-Defined in: [configuration/Config.ts:49](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/configuration/Config.ts#L49)
+Defined in: [configuration/Config.ts:54](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/configuration/Config.ts#L54)
 
 ___
 
@@ -64,17 +65,17 @@ ___
 
 #### Type declaration:
 
-Name | Type |
-:------ | :------ |
-`audio`? | *object* |
-`audio.filename`? | *string* \| FilenameFactory |
-`audio.outputPath` | *string* |
-`transcript`? | *object* |
-`transcript.filename`? | *string* \| FilenameFactory |
-`transcript.includeResponse`? | *boolean* |
-`transcript.outputPath` | *string* |
+Name | Type | Description |
+:------ | :------ | :------ |
+`audio`? | *object* | Configuration for recording the call's audio   |
+`audio.filename`? | *string* \| FilenameFactory | - |
+`audio.outputPath` | *string* | - |
+`transcript`? | *object* | Configuration for recording the call's transcription   |
+`transcript.filename`? | *string* \| FilenameFactory | - |
+`transcript.includeResponse`? | *boolean* | Includes what you responded with to the prompt   |
+`transcript.outputPath` | *string* | - |
 
-Defined in: [configuration/Config.ts:17](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/configuration/Config.ts#L17)
+Defined in: [configuration/Config.ts:17](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/configuration/Config.ts#L17)
 
 ___
 
@@ -84,7 +85,7 @@ ___
 
 Factory to create a instance of a transcriber per test
 
-Defined in: [configuration/Config.ts:15](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/configuration/Config.ts#L15)
+Defined in: [configuration/Config.ts:15](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/configuration/Config.ts#L15)
 
 ___
 
@@ -94,4 +95,4 @@ ___
 
 Twilio client used to initiate the call to the IVR
 
-Defined in: [configuration/Config.ts:41](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/configuration/Config.ts#L41)
+Defined in: [configuration/Config.ts:46](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/configuration/Config.ts#L46)

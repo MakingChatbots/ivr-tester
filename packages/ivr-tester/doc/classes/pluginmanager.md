@@ -8,14 +8,23 @@
 
   ↳ **PluginManager**
 
+## Implements
+
+* *PluginHost*
+
 ## Table of contents
 
 ### Constructors
 
 - [constructor](pluginmanager.md#constructor)
 
+### Properties
+
+- [testRunner](pluginmanager.md#testrunner)
+
 ### Methods
 
+- [abortTests](pluginmanager.md#aborttests)
 - [callRequestErrored](pluginmanager.md#callrequesterrored)
 - [callRequested](pluginmanager.md#callrequested)
 - [emit](pluginmanager.md#emit)
@@ -40,9 +49,33 @@ Name | Type |
 
 Inherited from: [TypedEmitter](typedemitter.md)
 
-Defined in: [plugins/PluginManager.ts:26](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/plugins/PluginManager.ts#L26)
+Defined in: [plugins/PluginManager.ts:41](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/plugins/PluginManager.ts#L41)
+
+## Properties
+
+### testRunner
+
+• `Private` **testRunner**: [*TestRunner*](../interfaces/testrunner.md)
+
+Defined in: [plugins/PluginManager.ts:41](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/plugins/PluginManager.ts#L41)
 
 ## Methods
+
+### abortTests
+
+▸ **abortTests**(`reason`: *string*): *void*
+
+#### Parameters:
+
+Name | Type |
+:------ | :------ |
+`reason` | *string* |
+
+**Returns:** *void*
+
+Defined in: [plugins/PluginManager.ts:54](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/plugins/PluginManager.ts#L54)
+
+___
 
 ### callRequestErrored
 
@@ -56,7 +89,7 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [plugins/PluginManager.ts:56](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/plugins/PluginManager.ts#L56)
+Defined in: [plugins/PluginManager.ts:78](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/plugins/PluginManager.ts#L78)
 
 ___
 
@@ -73,7 +106,7 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [plugins/PluginManager.ts:49](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/plugins/PluginManager.ts#L49)
+Defined in: [plugins/PluginManager.ts:71](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/plugins/PluginManager.ts#L71)
 
 ___
 
@@ -98,7 +131,7 @@ Name | Type |
 
 Inherited from: [TypedEmitter](typedemitter.md)
 
-Defined in: [Emitter.ts:35](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/Emitter.ts#L35)
+Defined in: [Emitter.ts:35](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/Emitter.ts#L35)
 
 ___
 
@@ -114,7 +147,7 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [plugins/PluginManager.ts:31](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/plugins/PluginManager.ts#L31)
+Defined in: [plugins/PluginManager.ts:47](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/plugins/PluginManager.ts#L47)
 
 ___
 
@@ -139,7 +172,7 @@ Name | Type |
 
 Inherited from: [TypedEmitter](typedemitter.md)
 
-Defined in: [Emitter.ts:27](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/Emitter.ts#L27)
+Defined in: [Emitter.ts:27](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/Emitter.ts#L27)
 
 ___
 
@@ -164,7 +197,7 @@ Name | Type |
 
 Inherited from: [TypedEmitter](typedemitter.md)
 
-Defined in: [Emitter.ts:19](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/Emitter.ts#L19)
+Defined in: [Emitter.ts:19](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/Emitter.ts#L19)
 
 ___
 
@@ -180,4 +213,4 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [plugins/PluginManager.ts:37](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/plugins/PluginManager.ts#L37)
+Defined in: [plugins/PluginManager.ts:59](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/plugins/PluginManager.ts#L59)

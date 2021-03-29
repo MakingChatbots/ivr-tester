@@ -16,16 +16,14 @@ IVR Tester
 - [CanRun](interfaces/canrun.md)
 - [CannotRun](interfaces/cannotrun.md)
 - [Config](interfaces/config.md)
-- [ConsoleLoggerPlugin](interfaces/consoleloggerplugin.md)
 - [Emitter](interfaces/emitter.md)
+- [IvrNumber](interfaces/ivrnumber.md)
 - [IvrTesterPlugin](interfaces/ivrtesterplugin.md)
 - [Scenario](interfaces/scenario.md)
 - [Step](interfaces/step.md)
 - [TestRunner](interfaces/testrunner.md)
-- [TestRunnerConfig](interfaces/testrunnerconfig.md)
 - [TestRunnerManager](interfaces/testrunnermanager.md)
 - [TestSession](interfaces/testsession.md)
-- [TestSubject](interfaces/testsubject.md)
 - [Then](interfaces/then.md)
 - [TranscriberFactory](interfaces/transcriberfactory.md)
 - [TranscriberPlugin](interfaces/transcriberplugin.md)
@@ -44,11 +42,9 @@ IVR Tester
 - [doNothing](README.md#donothing)
 - [hangUp](README.md#hangup)
 - [hasPart](README.md#haspart)
-- [inOrder](README.md#inorder)
 - [isAnything](README.md#isanything)
 - [matches](README.md#matches)
 - [or](README.md#or)
-- [populateDefaults](README.md#populatedefaults)
 - [press](README.md#press)
 - [similarTo](README.md#similarto)
 
@@ -58,7 +54,7 @@ IVR Tester
 
 Ƭ **CanRunCheck**: [*CanRun*](interfaces/canrun.md) \| [*CannotRun*](interfaces/cannotrun.md)
 
-Defined in: [call/transcription/plugin/TranscriberFactory.ts:12](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts#L12)
+Defined in: [call/transcription/plugin/TranscriberFactory.ts:12](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts#L12)
 
 ___
 
@@ -72,7 +68,7 @@ Name | Type |
 :------ | :------ |
 `transcription` | [*TranscriptEvent*](interfaces/transcriptevent.md) |
 
-Defined in: [call/transcription/plugin/TranscriberPlugin.ts:11](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts#L11)
+Defined in: [call/transcription/plugin/TranscriberPlugin.ts:11](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/call/transcription/plugin/TranscriberPlugin.ts#L11)
 
 ___
 
@@ -92,17 +88,17 @@ Name | Type |
 
 **Returns:** *boolean*
 
-Defined in: [testing/test/conditions/when/When.ts:1](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/testing/test/conditions/when/When.ts#L1)
+Defined in: [testing/test/conditions/when/When.ts:1](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/testing/test/conditions/when/When.ts#L1)
 
 ## Functions
 
 ### consoleUserInterface
 
-▸ `Const`**consoleUserInterface**(): [*ConsoleLoggerPlugin*](interfaces/consoleloggerplugin.md)
+▸ `Const`**consoleUserInterface**(): [*IvrTesterPlugin*](interfaces/ivrtesterplugin.md)
 
-**Returns:** [*ConsoleLoggerPlugin*](interfaces/consoleloggerplugin.md)
+**Returns:** [*IvrTesterPlugin*](interfaces/ivrtesterplugin.md)
 
-Defined in: [testing/ui/consoleUserInterface.ts:136](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/testing/ui/consoleUserInterface.ts#L136)
+Defined in: [testing/ui/consoleUserInterface.ts:139](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/testing/ui/consoleUserInterface.ts#L139)
 
 ___
 
@@ -137,7 +133,7 @@ Name | Type |
 
 **Returns:** [*When*](README.md#when)
 
-Defined in: [testing/test/conditions/when/contains.ts:36](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/testing/test/conditions/when/contains.ts#L36)
+Defined in: [testing/test/conditions/when/contains.ts:36](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/testing/test/conditions/when/contains.ts#L36)
 
 ___
 
@@ -147,7 +143,7 @@ ___
 
 **Returns:** [*Then*](interfaces/then.md)
 
-Defined in: [testing/test/conditions/then/doNothing.ts:3](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/testing/test/conditions/then/doNothing.ts#L3)
+Defined in: [testing/test/conditions/then/doNothing.ts:3](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/testing/test/conditions/then/doNothing.ts#L3)
 
 ___
 
@@ -157,7 +153,7 @@ ___
 
 **Returns:** [*Then*](interfaces/then.md)
 
-Defined in: [testing/test/conditions/then/hangUp.ts:4](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/testing/test/conditions/then/hangUp.ts#L4)
+Defined in: [testing/test/conditions/then/hangUp.ts:4](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/testing/test/conditions/then/hangUp.ts#L4)
 
 ___
 
@@ -184,26 +180,7 @@ Name | Type | Description |
 
 **Returns:** [*When*](README.md#when)
 
-Defined in: [testing/test/conditions/when/hasPart.ts:19](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/testing/test/conditions/when/hasPart.ts#L19)
-
-___
-
-### inOrder
-
-▸ **inOrder**(`promptDefinitions`: *ReadonlyArray*<[*Step*](interfaces/step.md)\>, `promptFactory?`: PromptFactory): CallFlowInstructions
-
-Creates an ordered prompt collection
-
-#### Parameters:
-
-Name | Type |
-:------ | :------ |
-`promptDefinitions` | *ReadonlyArray*<[*Step*](interfaces/step.md)\> |
-`promptFactory` | PromptFactory |
-
-**Returns:** CallFlowInstructions
-
-Defined in: [testing/test/inOrder.ts:128](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/testing/test/inOrder.ts#L128)
+Defined in: [testing/test/conditions/when/hasPart.ts:19](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/testing/test/conditions/when/hasPart.ts#L19)
 
 ___
 
@@ -215,7 +192,7 @@ Always evaluates as true
 
 **Returns:** [*When*](README.md#when)
 
-Defined in: [testing/test/conditions/when/isAnything.ts:6](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/testing/test/conditions/when/isAnything.ts#L6)
+Defined in: [testing/test/conditions/when/isAnything.ts:6](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/testing/test/conditions/when/isAnything.ts#L6)
 
 ___
 
@@ -231,7 +208,7 @@ Name | Type |
 
 **Returns:** [*When*](README.md#when)
 
-Defined in: [testing/test/conditions/when/matches.ts:3](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/testing/test/conditions/when/matches.ts#L3)
+Defined in: [testing/test/conditions/when/matches.ts:3](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/testing/test/conditions/when/matches.ts#L3)
 
 ___
 
@@ -247,23 +224,7 @@ Name | Type |
 
 **Returns:** [*When*](README.md#when)
 
-Defined in: [testing/test/conditions/when/or.ts:3](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/testing/test/conditions/when/or.ts#L3)
-
-___
-
-### populateDefaults
-
-▸ `Const`**populateDefaults**(`config`: [*Config*](interfaces/config.md)): [*Config*](interfaces/config.md)
-
-#### Parameters:
-
-Name | Type |
-:------ | :------ |
-`config` | [*Config*](interfaces/config.md) |
-
-**Returns:** [*Config*](interfaces/config.md)
-
-Defined in: [configuration/populateDefaults.ts:24](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/configuration/populateDefaults.ts#L24)
+Defined in: [testing/test/conditions/when/or.ts:3](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/testing/test/conditions/when/or.ts#L3)
 
 ___
 
@@ -281,7 +242,7 @@ Name | Type | Description |
 
 **Returns:** [*Then*](interfaces/then.md)
 
-Defined in: [testing/test/conditions/then/press.ts:9](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/testing/test/conditions/then/press.ts#L9)
+Defined in: [testing/test/conditions/then/press.ts:9](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/testing/test/conditions/then/press.ts#L9)
 
 ___
 
@@ -301,4 +262,4 @@ Name | Type | Default value | Description |
 
 **Returns:** [*When*](README.md#when)
 
-Defined in: [testing/test/conditions/when/similarTo.ts:12](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/testing/test/conditions/when/similarTo.ts#L12)
+Defined in: [testing/test/conditions/when/similarTo.ts:12](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/testing/test/conditions/when/similarTo.ts#L12)

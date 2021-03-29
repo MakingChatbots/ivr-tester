@@ -5,12 +5,6 @@
 Interface for developing a plugin that hooks into the life-cycle of a
 test.
 
-## Hierarchy
-
-* **IvrTesterPlugin**
-
-  ↳ [*ConsoleLoggerPlugin*](consoleloggerplugin.md)
-
 ## Implemented by
 
 * [*StopTestRunnerWhenTestsComplete*](../classes/stoptestrunnerwhentestscomplete.md)
@@ -43,23 +37,23 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [plugins/IvrTesterPlugin.ts:11](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/plugins/IvrTesterPlugin.ts#L11)
+Defined in: [plugins/IvrTesterPlugin.ts:10](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/plugins/IvrTesterPlugin.ts#L10)
 
-Defined in: [plugins/IvrTesterPlugin.ts:11](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/plugins/IvrTesterPlugin.ts#L11)
+Defined in: [plugins/IvrTesterPlugin.ts:10](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/plugins/IvrTesterPlugin.ts#L10)
 
 ## Methods
 
 ### initialise
 
-▸ **initialise**(`eventEmitter`: [*Emitter*](emitter.md)<PluginEvents\>, `testRunner`: [*TestRunner*](testrunner.md)): *void*
+▸ **initialise**(`pluginManager`: *PluginHost*, `testRunner`: [*TestRunner*](testrunner.md)): *void*
 
 #### Parameters:
 
 Name | Type |
 :------ | :------ |
-`eventEmitter` | [*Emitter*](emitter.md)<PluginEvents\> |
+`pluginManager` | *PluginHost* |
 `testRunner` | [*TestRunner*](testrunner.md) |
 
 **Returns:** *void*
 
-Defined in: [plugins/IvrTesterPlugin.ts:10](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/plugins/IvrTesterPlugin.ts#L10)
+Defined in: [plugins/IvrTesterPlugin.ts:9](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/plugins/IvrTesterPlugin.ts#L9)

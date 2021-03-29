@@ -15,7 +15,7 @@
 
 • **name**: *string*
 
-Defined in: [testing/scenario/Scenario.ts:5](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/testing/scenario/Scenario.ts#L5)
+Defined in: [configuration/scenario/Scenario.ts:4](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/configuration/scenario/Scenario.ts#L4)
 
 ___
 
@@ -23,4 +23,4 @@ ___
 
 • **steps**: [*Step*](step.md)[]
 
-Defined in: [testing/scenario/Scenario.ts:6](https://github.com/SketchingDev/ivr-tester/blob/5f8f2c2/packages/ivr-tester/src/testing/scenario/Scenario.ts#L6)
+Defined in: [configuration/scenario/Scenario.ts:5](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/configuration/scenario/Scenario.ts#L5)
