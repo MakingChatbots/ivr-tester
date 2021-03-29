@@ -69,12 +69,10 @@ function createTestRunnerManager(): TestRunnerManager {
 }
 
 function createPluginManager(config: Config): PluginManager {
-  const userInterface = consoleUserInterface();
-
   return new PluginManager([
     new StopTestRunnerWhenTestsComplete(),
-    userInterface,
-    callConnectedTimeout(config, userInterface),
+    consoleUserInterface(),
+    callConnectedTimeout(config),
     mediaStreamRecorderPlugin(config),
     transcriptRecorderPlugin(config),
   ]);

@@ -47,7 +47,7 @@ export class PluginManager
   public initialise(testRunner: TestRunner): void {
     this.testRunner = testRunner;
     for (const plugin of this.plugins) {
-      plugin.initialise(this);
+      plugin.initialise(this, testRunner);
     }
   }
 

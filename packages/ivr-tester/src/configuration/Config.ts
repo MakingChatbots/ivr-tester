@@ -36,7 +36,7 @@ export interface Config {
   };
 
   /**
-   * Port that the server listens on.
+   * Port that the server listens on. Defaults to 8080
    */
   localServerPort?: number | undefined;
 

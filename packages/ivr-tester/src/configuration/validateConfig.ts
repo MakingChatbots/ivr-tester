@@ -19,7 +19,7 @@ const schema = Joi.object<Config>({
     .optional()
     .default(() => new UlawDtmfBufferGenerator()),
   transcriber: Joi.object<DtmfBufferGenerator>().required(),
-  localServerPort: Joi.number().port().optional(),
+  localServerPort: Joi.number().port().optional().default(8080),
   publicServerUrl: Joi.string().uri().optional(),
   twilioClient: Joi.object<Twilio>()
     .optional()

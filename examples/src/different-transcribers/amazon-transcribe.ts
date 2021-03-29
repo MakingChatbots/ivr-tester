@@ -2,10 +2,10 @@ import {
   Config,
   doNothing,
   isAnything,
+  IvrNumber,
   IvrTester,
   press,
   Scenario,
-  TestSubject,
 } from "ivr-tester";
 import path from "path";
 import { amazonTranscribe } from "ivr-tester-transcriber-amazon-transcribe";
@@ -14,7 +14,7 @@ import ngrok from "ngrok";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require("dotenv").config();
 
-const call: TestSubject = {
+const call: IvrNumber = {
   from: process.env.FROM_PHONE_NUMBER,
   to: process.env.TO_PHONE_NUMBER,
 };
@@ -46,6 +46,7 @@ const scenario: Scenario = {
 };
 
 const config: Config = {
+  localServerPort: 8080,
   transcriber: amazonTranscribe({ region: "us-east-1", languageCode: "en-GB" }),
   recording: {
     audio: {
@@ -54,7 +55,6 @@ const config: Config = {
     transcript: {
       outputPath: path.join(__dirname, "../../recordings"),
       includeResponse: false,
-      filename: "transcription-aws",
     },
   },
 };

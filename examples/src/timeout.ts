@@ -2,9 +2,9 @@ import {
   Config,
   contains,
   doNothing,
+  IvrNumber,
   IvrTester,
   Scenario,
-  TestSubject,
 } from "ivr-tester";
 import { googleSpeechToText } from "ivr-tester-transcriber-google-speech-to-text";
 import ngrok from "ngrok";
@@ -13,7 +13,7 @@ import path from "path";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require("dotenv").config();
 
-const call: TestSubject = {
+const call: IvrNumber = {
   from: process.env.FROM_PHONE_NUMBER,
   to: process.env.TO_PHONE_NUMBER,
 };

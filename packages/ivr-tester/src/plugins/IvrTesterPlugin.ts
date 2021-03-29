@@ -6,6 +6,6 @@ import { TestRunner, TestSession } from "../testRunner";
  * test.
  */
 export interface IvrTesterPlugin {
-  initialise(pluginManager: PluginHost): void;
+  initialise(pluginManager: PluginHost, testRunner: TestRunner): void;
   testStarted?: (testSession: TestSession) => void;
 }
