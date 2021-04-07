@@ -12,6 +12,10 @@
 IVR Tester automates the testing of IVR flows by calling them, interpreting prompts and replying with DTMF tones based
 on fluent test definitions.
 
+<p align="center">
+  <img src="doc/assets/demo.gif">
+</p>
+
 Features:
 * Fully automates testing call flows
 * Test multiple scenarios in parallel
