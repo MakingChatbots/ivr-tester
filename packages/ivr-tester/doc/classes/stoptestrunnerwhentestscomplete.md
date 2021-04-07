@@ -43,7 +43,7 @@ Stops the test run when all the tests complete
 
 • `Private` **testRunner**: [*TestRunner*](../interfaces/testrunner.md)
 
-Defined in: [testing/StopTestRunnerWhenTestsComplete.ts:7](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/testing/StopTestRunnerWhenTestsComplete.ts#L7)
+Defined in: [testing/StopTestRunnerWhenTestsComplete.ts:7](https://github.com/SketchingDev/ivr-tester/blob/d7fb6a0/packages/ivr-tester/src/testing/StopTestRunnerWhenTestsComplete.ts#L7)
 
 ___
 
@@ -51,7 +51,7 @@ ___
 
 • `Private` **totalFailed**: *number*= 0
 
-Defined in: [testing/StopTestRunnerWhenTestsComplete.ts:10](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/testing/StopTestRunnerWhenTestsComplete.ts#L10)
+Defined in: [testing/StopTestRunnerWhenTestsComplete.ts:10](https://github.com/SketchingDev/ivr-tester/blob/d7fb6a0/packages/ivr-tester/src/testing/StopTestRunnerWhenTestsComplete.ts#L10)
 
 ___
 
@@ -59,7 +59,7 @@ ___
 
 • `Private` **totalRunning**: *number*= 0
 
-Defined in: [testing/StopTestRunnerWhenTestsComplete.ts:8](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/testing/StopTestRunnerWhenTestsComplete.ts#L8)
+Defined in: [testing/StopTestRunnerWhenTestsComplete.ts:8](https://github.com/SketchingDev/ivr-tester/blob/d7fb6a0/packages/ivr-tester/src/testing/StopTestRunnerWhenTestsComplete.ts#L8)
 
 ___
 
@@ -67,7 +67,7 @@ ___
 
 • `Private` **totalSuccessful**: *number*= 0
 
-Defined in: [testing/StopTestRunnerWhenTestsComplete.ts:9](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/testing/StopTestRunnerWhenTestsComplete.ts#L9)
+Defined in: [testing/StopTestRunnerWhenTestsComplete.ts:9](https://github.com/SketchingDev/ivr-tester/blob/d7fb6a0/packages/ivr-tester/src/testing/StopTestRunnerWhenTestsComplete.ts#L9)
 
 ## Methods
 
@@ -86,7 +86,7 @@ Name | Type |
 
 Implementation of: [IvrTesterPlugin](../interfaces/ivrtesterplugin.md)
 
-Defined in: [testing/StopTestRunnerWhenTestsComplete.ts:12](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/testing/StopTestRunnerWhenTestsComplete.ts#L12)
+Defined in: [testing/StopTestRunnerWhenTestsComplete.ts:12](https://github.com/SketchingDev/ivr-tester/blob/d7fb6a0/packages/ivr-tester/src/testing/StopTestRunnerWhenTestsComplete.ts#L12)
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 **Returns:** *void*
 
-Defined in: [testing/StopTestRunnerWhenTestsComplete.ts:38](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/testing/StopTestRunnerWhenTestsComplete.ts#L38)
+Defined in: [testing/StopTestRunnerWhenTestsComplete.ts:38](https://github.com/SketchingDev/ivr-tester/blob/d7fb6a0/packages/ivr-tester/src/testing/StopTestRunnerWhenTestsComplete.ts#L38)
 
 ___
 
@@ -106,7 +106,7 @@ ___
 
 **Returns:** *void*
 
-Defined in: [testing/StopTestRunnerWhenTestsComplete.ts:33](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/testing/StopTestRunnerWhenTestsComplete.ts#L33)
+Defined in: [testing/StopTestRunnerWhenTestsComplete.ts:33](https://github.com/SketchingDev/ivr-tester/blob/d7fb6a0/packages/ivr-tester/src/testing/StopTestRunnerWhenTestsComplete.ts#L33)
 
 ___
 
@@ -122,7 +122,7 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [testing/StopTestRunnerWhenTestsComplete.ts:16](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/testing/StopTestRunnerWhenTestsComplete.ts#L16)
+Defined in: [testing/StopTestRunnerWhenTestsComplete.ts:16](https://github.com/SketchingDev/ivr-tester/blob/d7fb6a0/packages/ivr-tester/src/testing/StopTestRunnerWhenTestsComplete.ts#L16)
 
 ___
 
@@ -132,4 +132,4 @@ ___
 
 **Returns:** *void*
 
-Defined in: [testing/StopTestRunnerWhenTestsComplete.ts:28](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/testing/StopTestRunnerWhenTestsComplete.ts#L28)
+Defined in: [testing/StopTestRunnerWhenTestsComplete.ts:28](https://github.com/SketchingDev/ivr-tester/blob/d7fb6a0/packages/ivr-tester/src/testing/StopTestRunnerWhenTestsComplete.ts#L28)

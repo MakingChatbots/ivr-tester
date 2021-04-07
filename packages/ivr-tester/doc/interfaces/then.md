@@ -24,7 +24,7 @@ description follows the word 'Then' e.g. "Then press the keys 123#".
 
 **Returns:** *string*
 
-Defined in: [testing/test/conditions/then/Then.ts:13](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/testing/test/conditions/then/Then.ts#L13)
+Defined in: [testing/test/conditions/then/Then.ts:13](https://github.com/SketchingDev/ivr-tester/blob/d7fb6a0/packages/ivr-tester/src/testing/test/conditions/then/Then.ts#L13)
 
 ___
 
@@ -42,4 +42,4 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [testing/test/conditions/then/Then.ts:18](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/testing/test/conditions/then/Then.ts#L18)
+Defined in: [testing/test/conditions/then/Then.ts:18](https://github.com/SketchingDev/ivr-tester/blob/d7fb6a0/packages/ivr-tester/src/testing/test/conditions/then/Then.ts#L18)

@@ -17,7 +17,7 @@
 
 Phone number that you've rented in Twilio from which the call will be made
 
-Defined in: [configuration/call/IvrNumber.ts:5](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/configuration/call/IvrNumber.ts#L5)
+Defined in: [configuration/call/IvrNumber.ts:5](https://github.com/SketchingDev/ivr-tester/blob/d7fb6a0/packages/ivr-tester/src/configuration/call/IvrNumber.ts#L5)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 Phone number of the IVR call flow to test
 
-Defined in: [configuration/call/IvrNumber.ts:10](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/ivr-tester/src/configuration/call/IvrNumber.ts#L10)
+Defined in: [configuration/call/IvrNumber.ts:10](https://github.com/SketchingDev/ivr-tester/blob/d7fb6a0/packages/ivr-tester/src/configuration/call/IvrNumber.ts#L10)
