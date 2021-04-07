@@ -25,12 +25,6 @@ Features:
 * Supports Google Speech-to-Text and AWS Transcript for transcribing calls
 * Open-source
 
----
-
-<p align="center">WORK IN PROGRESS</p>
-
----
-
 ```typescript
 const config = { transcriber: googleSpeechToText({ languageCode: "en-GB" }) };
 
