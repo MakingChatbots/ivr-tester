@@ -78,7 +78,11 @@ function createPluginManager(config: Config): PluginManager {
   ]);
 }
 
-export class IvrTester {
+export interface RunnableTester {
+  run(testSubject: TestSubject, scenario: Scenario[] | Scenario): Promise<void>;
+}
+
+export class IvrTester implements RunnableTester {
   private readonly config: Config;
   private readonly pluginManager: PluginManager;
   private running = false;
