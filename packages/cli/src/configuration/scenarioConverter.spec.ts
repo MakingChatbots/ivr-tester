@@ -1,5 +1,6 @@
 import { contains, doNothing, isAnything, press, Scenario } from "ivr-tester";
-import { JsonScenario, scenarioConverter } from "./scenarioConverter";
+import { scenarioConverter } from "./scenarioConverter";
+import { JsonScenario } from "./jsonScenario";
 
 const scenarioBefore: JsonScenario = {
   name: "Keys pressed are read back",
@@ -55,5 +56,11 @@ const scenarioAfter: Scenario = {
 };
 
 test("example", () => {
-  expect(scenarioConverter(scenarioBefore)).toStrictEqual(scenarioAfter);
+  const convertedScenario = scenarioConverter(scenarioBefore);
+
+  // Workaround to error described below when using toMatchObject, possibly because objects contains functions?
+  // https://github.com/facebook/jest/issues/8475
+  expect(JSON.stringify(convertedScenario)).toEqual(
+    JSON.stringify(scenarioAfter)
+  );
 });

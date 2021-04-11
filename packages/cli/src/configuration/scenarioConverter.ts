@@ -1,19 +1,8 @@
 import { contains, doNothing, isAnything, press, Scenario } from "ivr-tester";
+import { validateScenario } from "./validateJsonScenario";
+import { JsonScenario } from "./jsonScenario";
 
-export interface JsonScenario {
-  name: string;
-  steps: {
-    whenPrompt: {
-      type: string;
-      value?: string;
-    };
-    then: { type: string; value?: string };
-    silenceAfterPrompt: number;
-    timeout: number;
-  }[];
-}
-
-export function scenarioConverter(scenario: unknown): Scenario {
+function convert(jsonScenario: JsonScenario): Scenario {
   return {
     name: "Keys pressed are read back",
     steps: [
@@ -37,4 +26,13 @@ export function scenarioConverter(scenario: unknown): Scenario {
       },
     ],
   };
+}
+
+export function scenarioConverter(scenario: unknown): Scenario {
+  const validationResult = validateScenario(scenario);
+  if (validationResult.error) {
+    throw new Error(validationResult.error.message);
+  }
+
+  return convert(validationResult.scenario);
 }

@@ -39,6 +39,7 @@
     "getenv": "^1.0.0",
     "ivr-tester": "^0.2.10",
     "ivr-tester-transcriber-google-speech-to-text": "^0.1.3",
+    "joi": "^17.4.0",
     "ngrok": "^3.4.0"
   },
   "devDependencies": {
