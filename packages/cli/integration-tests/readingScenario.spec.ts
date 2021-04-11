@@ -1,6 +1,7 @@
-import { App, createApp } from "../src/app";
+import { Cli, createCli } from "../src/cli";
 import { accessSync, readFileSync } from "fs";
-import commander, { Command } from "commander";
+import { Command } from "commander";
+import { createProgram, Program } from "../src/createProgram";
 
 describe("app", () => {
   let capturedOutput: {
@@ -8,10 +9,10 @@ describe("app", () => {
     errOut: string[];
   };
 
-  let program: commander.Command;
+  let program: Program;
   let fsReadFileSync: jest.MockedFunction<typeof readFileSync>;
   let fsAccessSync: jest.MockedFunction<typeof accessSync>;
-  let app: App;
+  let cli: Cli;
 
   beforeEach(() => {
     fsReadFileSync = jest.fn();
@@ -22,14 +23,13 @@ describe("app", () => {
       stdOut: [],
     };
 
-    program = new Command();
-    program.exitOverride();
-    program.configureOutput({
+    program = createProgram(new Command(), true);
+    program.command.configureOutput({
       writeOut: (str) => capturedOutput.stdOut.push(str),
       writeErr: (str) => capturedOutput.errOut.push(str),
     });
 
-    app = createApp({
+    cli = createCli({
       program,
       fsReadFileSync,
       fsAccessSync,
@@ -43,7 +43,7 @@ describe("app", () => {
 
     let errorIsThrown = false;
     try {
-      await app([
+      await cli([
         ...["node", "/path/to/cli"],
         ...["--from", "0123456789"],
         ...["--to", "9876543210"],
@@ -66,7 +66,7 @@ describe("app", () => {
 
     let errorIsThrown = false;
     try {
-      await app([
+      await cli([
         ...["node", "/path/to/cli"],
         ...["--from", "0123456789"],
         ...["--to", "9876543210"],
@@ -76,30 +76,29 @@ describe("app", () => {
       errorIsThrown = true;
     }
 
-    // TODO If customer error then I think I have to print output myself (thrown error is ugly and includes stacktrace)
-    // Wonder if I can capture output like with parse errors
     expect(errorIsThrown).toBe(true);
     expect(capturedOutput.errOut).toContain(
-      "error: option '-s, --scenario-path <filePath>' argument '/test/path/scenario.json' is invalid. Failed to read schema file '/test/path/scenario.json'. Reason: Test Error Message\n"
+      "Failed to read schema file '/test/path/scenario.json'. Reason: Test Error Message"
     );
   });
 
   test("User shown error if schema does not contain valid JSON", async () => {
     fsReadFileSync.mockReturnValue(Buffer.from("Malformed JSON"));
 
-    let error: Error;
+    let errorIsThrown = false;
     try {
-      await app([
+      await cli([
         ...["node", "/path/to/cli"],
         ...["--from", "0123456789"],
         ...["--to", "9876543210"],
         ...["--scenario-path", "/test/path/scenario.json"],
       ]);
     } catch (err) {
-      error = err;
+      errorIsThrown = true;
     }
 
-    expect(error.message).toContain(
+    expect(errorIsThrown).toBe(true);
+    expect(capturedOutput.errOut).toContain(
       "Schema file '/test/path/scenario.json' not valid JSON. Reason: Unexpected token M in JSON at position 0"
     );
   });

@@ -1,3 +1,3 @@
-import { createApp } from "./app";
+import { createCli } from "./cli";
 
-createApp()(process.argv);
+createCli()(process.argv);

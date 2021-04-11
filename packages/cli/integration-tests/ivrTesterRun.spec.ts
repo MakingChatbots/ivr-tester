@@ -1,15 +1,14 @@
-import { App, createApp, IvrTesterFactory } from "../src/app";
+import { Cli, createCli, IvrTesterFactory } from "../src/cli";
 import { readFileSync } from "fs";
-import commander, { Command } from "commander";
+import { Command } from "commander";
 import ngrok from "ngrok";
+import { createProgram, Program } from "../src/createProgram";
 
 describe("app", () => {
-  // let capturedOutput: string[];
-
-  let program: commander.Command;
+  let program: Program;
   let fsReadFileSync: jest.MockedFunction<typeof readFileSync>;
 
-  let app: App;
+  let cli: Cli;
 
   let ngrokServer: jest.Mocked<typeof ngrok>;
   let ivrTesterFactory: jest.MockedFunction<IvrTesterFactory>;
@@ -30,14 +29,13 @@ describe("app", () => {
       run: jest.fn().mockResolvedValue(undefined),
     });
 
-    program = new Command();
-    program.exitOverride();
-    program.configureOutput({
+    program = createProgram(new Command(), true);
+    program.command.configureOutput({
       writeOut: () => undefined,
       writeErr: () => undefined,
     });
 
-    app = createApp({
+    cli = createCli({
       program,
       fsReadFileSync,
       fsAccessSync,
@@ -52,7 +50,7 @@ describe("app", () => {
     fsReadFileSync.mockReturnValue(Buffer.from('{"valid": true}', "utf8"));
     ngrokServer.connect.mockResolvedValue(ngrokPublicUrl);
 
-    await app([
+    await cli([
       ...["node", "/path/to/cli"],
       ...["--from", "0123456789"],
       ...["--to", "9876543210"],
@@ -75,7 +73,7 @@ describe("app", () => {
       run: ivrTesterRun,
     });
 
-    await app([
+    await cli([
       ...["node", "/path/to/cli"],
       ...["--from", "0123456789"],
       ...["--to", "9876543210"],

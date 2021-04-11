@@ -13,7 +13,7 @@ export interface JsonScenario {
   }[];
 }
 
-export function scenarioConverter(scenario: JsonScenario): Scenario {
+export function scenarioConverter(scenario: unknown): Scenario {
   return {
     name: "Keys pressed are read back",
     steps: [

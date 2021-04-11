@@ -11,6 +11,7 @@ import {
 } from "ivr-tester";
 import ngrok from "ngrok";
 import { defaultConfig } from "./configuration/defaultConfig";
+import { createProgram, Program } from "./createProgram";
 
 export type IvrTesterFactory = (config: Config) => RunnableTester;
 
@@ -18,12 +19,12 @@ interface Dependencies {
   ivrTesterFactory?: IvrTesterFactory;
   ngrokServer?: typeof ngrok;
   outputConsole?: Console;
-  program?: commander.Command;
+  program?: Program;
   fsReadFileSync?: typeof readFileSync;
   fsAccessSync?: typeof accessSync;
 }
 
-export type App = (args: string[]) => Promise<void>;
+export type Cli = (args: string[]) => Promise<void>;
 
 function fileReadable(fsAccessSync: typeof accessSync) {
   return function (filePath: string): string {
@@ -38,39 +39,39 @@ function fileReadable(fsAccessSync: typeof accessSync) {
   };
 }
 
-export function createApp({
+export function createCli({
   ivrTesterFactory = (config: Config) => new IvrTester(config),
   ngrokServer = ngrok,
   outputConsole = console,
-  program = new Command(),
+  program = createProgram(new Command(), false),
   fsReadFileSync = readFileSync,
   fsAccessSync = accessSync,
-}: Dependencies = {}): App {
-  program.requiredOption(
+}: Dependencies = {}): Cli {
+  program.command.requiredOption(
     "-f, --from <phoneNumber>",
     "Phone number calling from e.g. +441234567890"
   );
-  program.requiredOption(
+  program.command.requiredOption(
     "-t, --to <phoneNumber>",
     "Phone number to be called e.g. +441234567890"
   );
-  program.requiredOption<string>(
+  program.command.requiredOption<string>(
     "-s, --scenario-path <filePath>",
     "path of the scenario file",
     fileReadable(fsAccessSync)
   );
 
   return async function (args: string[]): Promise<void> {
-    program.parse(args);
+    program.command.parse(args);
 
-    const options = program.opts();
+    const options = program.command.opts();
     outputConsole.log(options);
 
     let content: Buffer;
     try {
       content = fsReadFileSync(options.scenarioPath);
     } catch (error) {
-      throw new Error(
+      program.exit(
         `Failed to read schema file '${options.scenarioPath}'. Reason: ${error.message}`
       );
     }
@@ -79,20 +80,20 @@ export function createApp({
     try {
       jsonContent = JSON.parse(content.toString("utf-8"));
     } catch (error) {
-      throw new Error(
+      program.exit(
         `Schema file '${options.scenarioPath}' not valid JSON. Reason: ${error.message}`
       );
     }
 
     let scenario: Scenario;
     try {
-      scenario = scenarioConverter(jsonContent as any);
+      scenario = scenarioConverter(jsonContent);
     } catch (error) {
-      throw new Error(
+      program.exit(
         `Invalid schema '${options.scenarioPath}. Reason: ${error.message}`
       );
     }
-    // CommanderError Don't know if it's better to throw this instead of Error
+
     const call: IvrNumber = {
       from: options.from,
       to: options.to,
