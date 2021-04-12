@@ -1,7 +1,7 @@
 import commander, { Command } from "commander";
 import * as fs from "fs";
 import { accessSync, readFileSync } from "fs";
-import { scenarioConverter } from "./configuration/scenarioConverter";
+import { scenarioConverter } from "./configuration/scenario/scenarioConverter";
 import {
   Config,
   IvrNumber,
