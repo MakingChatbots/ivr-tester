@@ -3,7 +3,7 @@ import { validateScenario } from "./validateJsonScenario";
 
 test("Return JSON schema if no errors", () => {
   const validScenario: JsonScenario = {
-    name: "Keys pressed are read back",
+    name: "Valid JSON schema",
     steps: [
       {
         whenPrompt: {
@@ -25,7 +25,7 @@ test("Return JSON schema if no errors", () => {
 
 test("Return errors if invalid", () => {
   const invalidScenario: JsonScenario = {
-    name: "Keys pressed are read back",
+    name: "Invalid JSON schema",
     steps: [
       {
         whenPrompt: {

@@ -1,4 +1,4 @@
-import { contains, isAnything, Scenario, Step, Then, When } from "ivr-tester";
+import { Scenario, Step, Then, When } from "ivr-tester";
 import { validateScenario } from "./validateJsonScenario";
 import {
   JsonScenario,
@@ -10,25 +10,6 @@ import { jsonWhenPromptIsAnything } from "./whenPrompt/isAnything";
 import { jsonWhenPromptContains } from "./whenPrompt/contains";
 import { jsonThenDoNothing } from "./then/doNothing";
 import { jsonThenPress } from "./then/press";
-
-// {
-//   whenPrompt: isAnything(),
-//       then: press("1"),
-//     silenceAfterPrompt: 2000,
-//     timeout: 4000,
-// },
-// {
-//   whenPrompt: contains("please enter a number"),
-//       then: press("0123456789"),
-//     silenceAfterPrompt: 3000,
-//     timeout: 4000,
-// },
-// {
-//   whenPrompt: contains("you entered the values 0123456789"),
-//       then: doNothing(),
-//     silenceAfterPrompt: 3000,
-//     timeout: 4000,
-// },
 
 function convertWhen(jsonWhen: JsonWhenPrompt): When {
   switch (jsonWhen.type) {
@@ -67,7 +48,7 @@ export function convertStep(jsonStep: JsonStep): Step {
 
 function convert(jsonScenario: JsonScenario): Scenario {
   return {
-    name: "Keys pressed are read back",
+    name: jsonScenario.name,
     steps: jsonScenario.steps.map(convertStep),
   };
 }
