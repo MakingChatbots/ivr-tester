@@ -29,10 +29,10 @@ export function createProgram(
   return {
     command,
     writeOut(message: string) {
-      command.configureOutput().writeOut(message);
+      command.configureOutput().writeOut(`${message.trimRight()}\n`);
     },
     exit(message: string) {
-      command.configureOutput().writeErr(message);
+      command.configureOutput().writeErr(`${message.trimRight()}\n`);
 
       if (suppressProcessExit) {
         throw Error(message);

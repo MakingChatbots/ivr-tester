@@ -1,7 +1,3 @@
 recordings/*
 !recordings/.gitkeep
-.env
-
-# Terminalizer
-*.yml
-*.gif
+.env*

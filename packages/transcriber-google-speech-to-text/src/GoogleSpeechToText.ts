@@ -72,7 +72,9 @@ export class GoogleSpeechToText
       .streamingRecognize(this.config)
       .on("error", (error) => {
         GoogleSpeechToText.debug(error);
-        throw error;
+        this.stream.removeAllListeners();
+        this.stream.destroy();
+        this.stream = null;
       })
       .on("data", (data: { results: Transcript[] }) => {
         GoogleSpeechToText.debug("Data: %O", data);

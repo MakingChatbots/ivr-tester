@@ -100,9 +100,13 @@ export function createCli({
     };
 
     const url = await ngrokServer.connect(defaultConfig.localServerPort);
-    await ivrTesterFactory({ ...defaultConfig, publicServerUrl: url }).run(
-      call,
-      scenario
-    );
+    try {
+      await ivrTesterFactory({ ...defaultConfig, publicServerUrl: url }).run(
+        call,
+        scenario
+      );
+    } catch (error) {
+      throw error;
+    }
   };
 }

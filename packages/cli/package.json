@@ -17,7 +17,9 @@
     "telephony"
   ],
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "bin": {
+    "ivr-tester": "./dist/index.js"
+  },
   "scripts": {
     "execute": "node --require ts-node/register src/index.ts",
     "test": "jest src",

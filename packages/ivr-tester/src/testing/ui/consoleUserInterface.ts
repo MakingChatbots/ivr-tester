@@ -76,8 +76,7 @@ const callRequested = (emitter: PluginHost): void =>
         console.log("Playing back audio to simulate call");
         break;
       case "telephony":
-        console.log(`Calling +440123456789...`);
-        // console.log(`Calling ${event.requestedCall.call.to}...`);
+        console.log(`Calling ${event.requestedCall.call.to}...`);
         break;
     }
   });
