@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "yarn install --force && chmod +x node_modules/.bin/ivr-tester",
-    "execute:keys-read-back": "export env $(cat .env | xargs) && ivr-tester -f $FROM_PHONE_NUMBER -t $TO_PHONE_NUMBER -s scenarios/keys-read-back.json"
+    "execute:keys-read-back": "export env $(cat .env | xargs) && ivr-tester -f $FROM_PHONE_NUMBER -t $TO_PHONE_NUMBER -c config.json -s scenarios/keys-read-back.json"
   },
   "dependencies": {
     "ivr-tester-cli": "^0.0.1"

@@ -1,6 +1,5 @@
 import { convertStep, scenarioConverter } from "./scenarioConverter";
 import { JsonScenario } from "./jsonScenario";
-import Joi from "joi";
 
 test("JSON scenario converted to Scenario", () => {
   const jsonScenario: JsonScenario = {

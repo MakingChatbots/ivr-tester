@@ -1,7 +1,7 @@
 import { JsonScenario } from "./jsonScenario";
 import { validateScenario } from "./validateJsonScenario";
 
-test("Return JSON schema if no errors", () => {
+test("Return JSON scenario if no errors", () => {
   const validScenario: JsonScenario = {
     name: "Valid JSON schema",
     steps: [

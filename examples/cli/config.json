@@ -1,0 +1,8 @@
+{
+  "recording": {
+    "transcript": {
+      "outputPath": "./recordings",
+      "includeResponse": true
+    }
+  }
+}

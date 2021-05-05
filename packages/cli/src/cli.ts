@@ -1,7 +1,6 @@
 import commander, { Command } from "commander";
 import * as fs from "fs";
 import { accessSync, readFileSync } from "fs";
-import { scenarioConverter } from "./configuration/scenario/scenarioConverter";
 import {
   Config,
   IvrNumber,
@@ -10,8 +9,9 @@ import {
   Scenario,
 } from "ivr-tester";
 import ngrok from "ngrok";
-import { defaultConfig } from "./configuration/defaultConfig";
 import { createProgram, Program } from "./createProgram";
+import { loadScenarioOption } from "./loadScenarioOption";
+import { loadConfigOption } from "./loadConfigOption";
 
 export type IvrTesterFactory = (config: Config) => RunnableTester;
 
@@ -26,13 +26,13 @@ interface Dependencies {
 
 export type Cli = (args: string[]) => Promise<void>;
 
-function fileReadable(fsAccessSync: typeof accessSync) {
+export function fileReadable(fsAccessSync: typeof accessSync) {
   return function (filePath: string): string {
     try {
       fsAccessSync(filePath, fs.constants.R_OK);
     } catch (error) {
       throw new commander.InvalidOptionArgumentError(
-        `Schema file '${filePath}' is not readable`
+        `File '${filePath}' is not readable`
       );
     }
     return filePath;
@@ -55,6 +55,11 @@ export function createCli({
     "-t, --to <phoneNumber>",
     "Phone number to be called e.g. +441234567890"
   );
+  program.command.option<string>(
+    "-c, --config-path <filePath>",
+    "path of the config file",
+    fileReadable(fsAccessSync)
+  );
   program.command.requiredOption<string>(
     "-s, --scenario-path <filePath>",
     "path of the scenario file",
@@ -67,31 +72,18 @@ export function createCli({
     const options = program.command.opts();
     outputConsole.log(options);
 
-    let content: Buffer;
-    try {
-      content = fsReadFileSync(options.scenarioPath);
-    } catch (error) {
-      program.exit(
-        `Failed to read schema file '${options.scenarioPath}'. Reason: ${error.message}`
-      );
-    }
-
-    let jsonContent: Record<string, unknown>;
-    try {
-      jsonContent = JSON.parse(content.toString("utf-8"));
-    } catch (error) {
-      program.exit(
-        `Schema file '${options.scenarioPath}' not valid JSON. Reason: ${error.message}`
-      );
-    }
-
     let scenario: Scenario;
     try {
-      scenario = scenarioConverter(jsonContent);
+      scenario = loadScenarioOption(options, fsReadFileSync);
     } catch (error) {
-      program.exit(
-        `Invalid schema '${options.scenarioPath}. Reason: ${error.message}`
-      );
+      program.exit(error.message);
+    }
+
+    let config: Config;
+    try {
+      config = loadConfigOption(options, fsReadFileSync);
+    } catch (error) {
+      program.exit(error.message);
     }
 
     const call: IvrNumber = {
@@ -99,9 +91,9 @@ export function createCli({
       to: options.to,
     };
 
-    const url = await ngrokServer.connect(defaultConfig.localServerPort);
+    const url = await ngrokServer.connect(config.localServerPort);
     try {
-      await ivrTesterFactory({ ...defaultConfig, publicServerUrl: url }).run(
+      await ivrTesterFactory({ ...config, publicServerUrl: url }).run(
         call,
         scenario
       );
