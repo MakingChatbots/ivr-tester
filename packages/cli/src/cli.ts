@@ -1,5 +1,4 @@
-import commander, { Command } from "commander";
-import * as fs from "fs";
+import { Command } from "commander";
 import { accessSync, readFileSync } from "fs";
 import {
   Config,
@@ -10,8 +9,10 @@ import {
 } from "ivr-tester";
 import ngrok from "ngrok";
 import { createProgram, Program } from "./createProgram";
-import { loadScenarioOption } from "./loadScenarioOption";
-import { loadConfigOption } from "./loadConfigOption";
+import { loadScenarioOption } from "./options/scenario/loadScenarioOption";
+import { loadConfigOption } from "./options/config/loadConfigOption";
+import { createJsonFileReader } from "./fileSystem/jsonFileReader";
+import { readableFileValidator } from "./fileSystem/readableFileValidator";
 
 export type IvrTesterFactory = (config: Config) => RunnableTester;
 
@@ -25,19 +26,6 @@ interface Dependencies {
 }
 
 export type Cli = (args: string[]) => Promise<void>;
-
-export function fileReadable(fsAccessSync: typeof accessSync) {
-  return function (filePath: string): string {
-    try {
-      fsAccessSync(filePath, fs.constants.R_OK);
-    } catch (error) {
-      throw new commander.InvalidOptionArgumentError(
-        `File '${filePath}' is not readable`
-      );
-    }
-    return filePath;
-  };
-}
 
 export function createCli({
   ivrTesterFactory = (config: Config) => new IvrTester(config),
@@ -58,30 +46,31 @@ export function createCli({
   program.command.option<string>(
     "-c, --config-path <filePath>",
     "path of the config file",
-    fileReadable(fsAccessSync)
+    readableFileValidator(fsAccessSync)
   );
   program.command.requiredOption<string>(
     "-s, --scenario-path <filePath>",
     "path of the scenario file",
-    fileReadable(fsAccessSync)
+    readableFileValidator(fsAccessSync)
   );
+
+  const jsonFileReader = createJsonFileReader(fsReadFileSync);
 
   return async function (args: string[]): Promise<void> {
     program.command.parse(args);
 
     const options = program.command.opts();
-    outputConsole.log(options);
 
     let scenario: Scenario;
     try {
-      scenario = loadScenarioOption(options, fsReadFileSync);
+      scenario = loadScenarioOption(options, jsonFileReader);
     } catch (error) {
       program.exit(error.message);
     }
 
     let config: Config;
     try {
-      config = loadConfigOption(options, fsReadFileSync);
+      config = loadConfigOption(options, jsonFileReader);
     } catch (error) {
       program.exit(error.message);
     }
@@ -92,13 +81,9 @@ export function createCli({
     };
 
     const url = await ngrokServer.connect(config.localServerPort);
-    try {
-      await ivrTesterFactory({ ...config, publicServerUrl: url }).run(
-        call,
-        scenario
-      );
-    } catch (error) {
-      throw error;
-    }
+    await ivrTesterFactory({ ...config, publicServerUrl: url }).run(
+      call,
+      scenario
+    );
   };
 }

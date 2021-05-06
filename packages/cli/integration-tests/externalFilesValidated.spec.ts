@@ -3,7 +3,7 @@ import { accessSync, readFileSync } from "fs";
 import { Command } from "commander";
 import { createProgram, Program } from "../src/createProgram";
 
-describe("app", () => {
+describe("External files validated", () => {
   let capturedOutput: {
     stdOut: string[];
     errOut: string[];
@@ -55,7 +55,7 @@ describe("app", () => {
 
     expect(errorIsThrown).toBe(true);
     expect(capturedOutput.errOut).toContain(
-      "error: option '-s, --scenario-path <filePath>' argument '/test/path/scenario.json' is invalid. Schema file '/test/path/scenario.json' is not readable\n"
+      "error: option '-s, --scenario-path <filePath>' argument '/test/path/scenario.json' is invalid. File '/test/path/scenario.json' is not readable\n"
     );
   });
 
@@ -78,7 +78,7 @@ describe("app", () => {
 
     expect(errorIsThrown).toBe(true);
     expect(capturedOutput.errOut).toContain(
-      "Failed to read schema file '/test/path/scenario.json'. Reason: Test Error Message"
+      "Failed to read file '/test/path/scenario.json'. Reason: Test Error Message\n"
     );
   });
 
@@ -99,7 +99,7 @@ describe("app", () => {
 
     expect(errorIsThrown).toBe(true);
     expect(capturedOutput.errOut).toContain(
-      "Schema file '/test/path/scenario.json' not valid JSON. Reason: Unexpected token M in JSON at position 0"
+      "File '/test/path/scenario.json' not valid JSON. Reason: Unexpected token M in JSON at position 0\n"
     );
   });
 });

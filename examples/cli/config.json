@@ -1,4 +1,11 @@
 {
+  "transcriber": {
+    "name": "google-speech-to-text",
+    "options": {
+      "languageCode": "en-GB",
+      "useEnhanced": true
+    }
+  },
   "recording": {
     "transcript": {
       "outputPath": "./recordings",

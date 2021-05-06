@@ -22,6 +22,7 @@
     "build": "lerna run build",
     "lint": "lerna run lint",
     "test": "lerna run test",
+    "test:integration": "lerna run test:integration --scope ivr-tester-cli",
     "doc": "lerna run doc",
     "readme:copy": "cp README.md ./packages/ivr-tester/"
   },

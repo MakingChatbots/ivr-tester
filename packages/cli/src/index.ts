@@ -2,4 +2,6 @@
 
 import { createCli } from "./cli";
 
-createCli()(process.argv);
+createCli()(process.argv).catch((error) => {
+  throw error;
+});
