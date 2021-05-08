@@ -20,7 +20,7 @@ for more detailed info](https://cloud.google.com/speech-to-text/docs/reference/r
 
 Language of the supplied audio as a BCP-47 language tag.
 
-Defined in: [index.ts:18](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/transcriber-amazon-transcribe/src/index.ts#L18)
+Defined in: [index.ts:18](https://github.com/SketchingDev/ivr-tester/blob/d7fb6a0/packages/transcriber-amazon-transcribe/src/index.ts#L18)
 
 ___
 
@@ -30,4 +30,4 @@ ___
 
 AWS region of the Amazon Transcribe resource
 
-Defined in: [index.ts:13](https://github.com/SketchingDev/ivr-tester/blob/a21dd89/packages/transcriber-amazon-transcribe/src/index.ts#L13)
+Defined in: [index.ts:13](https://github.com/SketchingDev/ivr-tester/blob/d7fb6a0/packages/transcriber-amazon-transcribe/src/index.ts#L13)
