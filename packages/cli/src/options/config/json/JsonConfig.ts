@@ -18,7 +18,7 @@ export interface JsonConfigTranscriber {
    * 'ivr-tester-transcriber-google-speech-to-text' is used.
    */
   name: string;
-  options: Record<string, unknown>;
+  options?: Record<string, unknown>;
 }
 
 export interface JsonConfig {

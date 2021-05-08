@@ -23,6 +23,7 @@ interface Dependencies {
   program?: Program;
   fsReadFileSync?: typeof readFileSync;
   fsAccessSync?: typeof accessSync;
+  requireModule?: NodeJS.Require;
 }
 
 export type Cli = (args: string[]) => Promise<void>;
@@ -34,6 +35,7 @@ export function createCli({
   program = createProgram(new Command(), false),
   fsReadFileSync = readFileSync,
   fsAccessSync = accessSync,
+  requireModule = require,
 }: Dependencies = {}): Cli {
   program.command.requiredOption(
     "-f, --from <phoneNumber>",
@@ -43,7 +45,7 @@ export function createCli({
     "-t, --to <phoneNumber>",
     "Phone number to be called e.g. +441234567890"
   );
-  program.command.option<string>(
+  program.command.requiredOption<string>(
     "-c, --config-path <filePath>",
     "path of the config file",
     readableFileValidator(fsAccessSync)
@@ -70,7 +72,7 @@ export function createCli({
 
     let config: Config;
     try {
-      config = loadConfigOption(options, jsonFileReader);
+      config = loadConfigOption(options, jsonFileReader, requireModule);
     } catch (error) {
       program.exit(error.message);
     }

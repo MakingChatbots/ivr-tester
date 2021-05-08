@@ -7,6 +7,8 @@ import { when } from "jest-when";
 import { JsonScenario } from "../src/options/scenario/json/jsonScenario";
 import { JsonConfig } from "../src/options/config/json/JsonConfig";
 
+type TranscriberModule = (options: Record<string, unknown>) => any;
+
 describe("Integrated with IVR Tester API", () => {
   let program: Program;
   let fsReadFileSync: jest.MockedFunction<typeof readFileSync>;
@@ -15,6 +17,8 @@ describe("Integrated with IVR Tester API", () => {
 
   let ngrokServer: jest.Mocked<typeof ngrok>;
   let ivrTesterFactory: jest.MockedFunction<IvrTesterFactory>;
+  let transcriberModule: jest.MockedFunction<TranscriberModule>;
+  let requireModule: jest.MockedFunction<NodeJS.Require>;
 
   beforeEach(() => {
     const fsAccessSync = jest.fn().mockReturnValue(undefined);
@@ -32,6 +36,11 @@ describe("Integrated with IVR Tester API", () => {
       run: jest.fn().mockResolvedValue(undefined),
     });
 
+    transcriberModule = jest.fn().mockReturnValue({});
+    requireModule = (jest.fn().mockReturnValue({
+      default: transcriberModule,
+    }) as unknown) as jest.MockedFunction<NodeJS.Require>;
+
     program = createProgram(new Command(), true);
     program.command.configureOutput({
       writeOut: () => undefined,
@@ -44,17 +53,20 @@ describe("Integrated with IVR Tester API", () => {
       fsAccessSync,
       ngrokServer,
       ivrTesterFactory,
+      requireModule,
     });
   });
 
+  const validScenarioFilePath = "/test/path/scenario.json";
   const validScenario: Readonly<JsonScenario> = {
     name: "test-scenario",
     steps: [],
   };
 
+  const validConfigFilePath = "/test/path/config.json";
   const validConfig: Readonly<JsonConfig> = {
     transcriber: {
-      name: "google-speech-to-text",
+      name: "test",
       options: {
         languageCode: "en-GB",
         useEnhanced: true,
@@ -72,16 +84,20 @@ describe("Integrated with IVR Tester API", () => {
   test("ngrok's public URL passed to IVR Tester API", async () => {
     const ngrokPublicUrl = "https://test-url.test";
 
-    fsReadFileSync.mockReturnValue(
-      Buffer.from(JSON.stringify(validScenario), "utf8")
-    );
+    when(fsReadFileSync)
+      .calledWith(validConfigFilePath)
+      .mockReturnValue(Buffer.from(JSON.stringify(validConfig), "utf8"))
+      .calledWith(validScenarioFilePath)
+      .mockReturnValue(Buffer.from(JSON.stringify(validScenario), "utf8"));
+
     ngrokServer.connect.mockResolvedValue(ngrokPublicUrl);
 
     await cli([
       ...["node", "/path/to/cli"],
       ...["--from", "0123456789"],
       ...["--to", "9876543210"],
-      ...["--scenario-path", "/test/path/scenario.json"],
+      ...["--config-path", validConfigFilePath],
+      ...["--scenario-path", validScenarioFilePath],
     ]);
 
     expect(ivrTesterFactory).toHaveBeenCalledWith(
@@ -92,9 +108,12 @@ describe("Integrated with IVR Tester API", () => {
   });
 
   test("JSON Scenario passed to IVR Tester API", async () => {
-    fsReadFileSync.mockReturnValue(
-      Buffer.from(JSON.stringify(validScenario), "utf8")
-    );
+    when(fsReadFileSync)
+      .calledWith(validConfigFilePath)
+      .mockReturnValue(Buffer.from(JSON.stringify(validConfig), "utf8"))
+      .calledWith(validScenarioFilePath)
+      .mockReturnValue(Buffer.from(JSON.stringify(validScenario), "utf8"));
+
     ngrokServer.connect.mockResolvedValue("https://test-url.test");
 
     const ivrTesterRun = jest.fn().mockResolvedValue(undefined);
@@ -106,10 +125,11 @@ describe("Integrated with IVR Tester API", () => {
       ...["node", "/path/to/cli"],
       ...["--from", "0123456789"],
       ...["--to", "9876543210"],
-      ...["--scenario-path", "/test/path/scenario.json"],
+      ...["--config-path", validConfigFilePath],
+      ...["--scenario-path", validScenarioFilePath],
     ]);
 
-    expect(fsReadFileSync).toHaveBeenCalledWith("/test/path/scenario.json");
+    expect(fsReadFileSync).toHaveBeenCalledWith(validScenarioFilePath);
     expect(ivrTesterRun).toHaveBeenCalledWith(
       { from: "0123456789", to: "9876543210" },
       {
@@ -120,14 +140,11 @@ describe("Integrated with IVR Tester API", () => {
   });
 
   test("Config passed to IVR Tester API", async () => {
-    const scenarioFilePath = "/test/path/scenario.json";
-    const configFilePath = "/test/path/config.json";
-
     when(fsReadFileSync)
-      .calledWith(scenarioFilePath)
-      .mockReturnValue(Buffer.from(JSON.stringify(validScenario), "utf8"))
-      .calledWith(configFilePath)
-      .mockReturnValue(Buffer.from(JSON.stringify(validConfig), "utf8"));
+      .calledWith(validConfigFilePath)
+      .mockReturnValue(Buffer.from(JSON.stringify(validConfig), "utf8"))
+      .calledWith(validScenarioFilePath)
+      .mockReturnValue(Buffer.from(JSON.stringify(validScenario), "utf8"));
 
     ngrokServer.connect.mockResolvedValue("https://test-url.test");
 
@@ -137,10 +154,14 @@ describe("Integrated with IVR Tester API", () => {
       ...["node", "/path/to/cli"],
       ...["--from", "0123456789"],
       ...["--to", "9876543210"],
-      ...["--scenario-path", scenarioFilePath],
-      ...["--config-path", configFilePath],
+      ...["--config-path", validConfigFilePath],
+      ...["--scenario-path", validScenarioFilePath],
     ]);
 
+    expect(transcriberModule).toBeCalledWith({
+      languageCode: "en-GB",
+      useEnhanced: true,
+    });
     expect(ivrTesterFactory).toHaveBeenCalledWith({
       localServerPort: 123,
       publicServerUrl: "https://test-url.test",
@@ -150,10 +171,7 @@ describe("Integrated with IVR Tester API", () => {
           outputPath: "/test/path",
         },
       },
-      transcriber: {
-        checkCanRun: expect.any(Function),
-        create: expect.any(Function),
-      },
+      transcriber: expect.any(Object),
     });
   });
 });

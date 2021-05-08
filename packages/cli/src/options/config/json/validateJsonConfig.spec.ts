@@ -1,21 +1,25 @@
 import { JsonConfig } from "./JsonConfig";
 import { validateConfig } from "./validateJsonConfig";
 
-test("Return JSON recording config if no errors", () => {
-  const validConfig: JsonConfig = {
-    recording: {
-      audio: {
-        filename: "/test-filename",
-        outputPath: "/test/path",
-      },
-      transcript: {
-        filename: "/test-filename",
-        outputPath: "/test/path",
-        includeResponse: false,
-      },
+const validConfig: JsonConfig = {
+  transcriber: {
+    name: "test",
+    options: {},
+  },
+  recording: {
+    audio: {
+      filename: "/test-filename",
+      outputPath: "/test/path",
     },
-  };
+    transcript: {
+      filename: "/test-filename",
+      outputPath: "/test/path",
+      includeResponse: false,
+    },
+  },
+};
 
+test("Return JSON recording config if no errors", () => {
   const validationResult = validateConfig(validConfig);
 
   expect(validationResult.error).not.toBeDefined();
@@ -42,8 +46,6 @@ test("Return errors if invalid", () => {
 });
 
 test("Return JSON with default localServerPort", () => {
-  const validConfig: JsonConfig = {};
-
   const validationResult = validateConfig(validConfig);
 
   expect(validationResult.error).not.toBeDefined();
