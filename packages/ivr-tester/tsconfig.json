@@ -7,10 +7,10 @@
     "outDir": "dist"
   },
   "include": [
-    "src",
-    "tools"
+    "src"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "tools"
   ]
 }
