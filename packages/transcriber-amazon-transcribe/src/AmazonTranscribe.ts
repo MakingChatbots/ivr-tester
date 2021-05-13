@@ -13,6 +13,16 @@ import {
 } from "aws-transcribe/dist/types";
 import { Debugger } from "./Debugger";
 
+import {
+  TranscribeClient,
+  CreateLanguageModelCommand,
+  StartTranscriptionJobCommand,
+} from "@aws-sdk/client-transcribe";
+
+// Not sure which version
+// https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/transcribe-examples-section.html
+// https://www.npmjs.com/package/@aws-sdk/client-transcribe-streaming
+
 export class AmazonTranscribe
   extends TypedEmitter<TranscriptionEvents>
   implements TranscriberPlugin {
@@ -22,11 +32,18 @@ export class AmazonTranscribe
 
   private stream: StreamingClient;
 
+  private transcribeClient: TranscribeClient;
+
   constructor(
     private readonly region: AVAILABLE_REGIONS,
     private readonly languageCode: LANGUAGES
   ) {
     super();
+    this.transcribeClient = new TranscribeClient({ region: this.region });
+    const command = new StartTranscriptionJobCommand(input);
+    const response = await client.send(command);
+
+    this.transcribeClient.send();
     this.config = {
       region: this.region,
       sampleRate: 8000,

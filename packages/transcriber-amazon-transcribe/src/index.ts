@@ -1,4 +1,3 @@
-import { AVAILABLE_REGIONS, LANGUAGES } from "aws-transcribe/dist/types";
 import { TranscriberFactory } from "ivr-tester";
 import { AmazonTranscribe } from "./AmazonTranscribe";
 
@@ -10,12 +9,12 @@ export interface AmazonTranscribeOptions {
   /**
    * AWS region of the Amazon Transcribe resource
    */
-  region: AVAILABLE_REGIONS;
+  region: string;
 
   /**
    * Language of the supplied audio as a BCP-47 language tag.
    */
-  languageCode?: LANGUAGES;
+  languageCode?: string;
 }
 
 /**
@@ -28,17 +27,6 @@ export const amazonTranscribe = ({
 }: AmazonTranscribeOptions): TranscriberFactory => ({
   create: () => new AmazonTranscribe(region, languageCode),
   checkCanRun: () => {
-    const credentialsDefined =
-      process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY;
-
-    if (!credentialsDefined) {
-      return {
-        canRun: false,
-        reason: `Cannot find Amazon Transcribe credentials. Please ensure you define the environment variables:
-AWS_ACCESS_KEY_ID & AWS_SECRET_ACCESS_KEY`,
-      };
-    }
-
     return { canRun: true };
   },
 });
