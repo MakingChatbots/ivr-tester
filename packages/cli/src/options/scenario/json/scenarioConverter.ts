@@ -10,12 +10,13 @@ import { jsonWhenPromptIsAnything } from "./whenPrompt/isAnything";
 import { jsonWhenPromptContains } from "./whenPrompt/contains";
 import { jsonThenDoNothing } from "./then/doNothing";
 import { jsonThenPress } from "./then/press";
+import { jsonThenHangUp } from "./then/hangUp";
 
 function convertWhen(jsonWhen: JsonWhenPrompt): When {
   switch (jsonWhen.type) {
-    case "isAnything":
+    case jsonWhenPromptIsAnything.typeValue:
       return jsonWhenPromptIsAnything.converter(jsonWhen);
-    case "contains":
+    case jsonWhenPromptContains.typeValue:
       return jsonWhenPromptContains.converter(jsonWhen);
     default:
       throw new Error(
@@ -26,10 +27,12 @@ function convertWhen(jsonWhen: JsonWhenPrompt): When {
 
 function convertThen(jsonThen: JsonThen): Then {
   switch (jsonThen.type) {
-    case "doNothing":
+    case jsonThenDoNothing.typeValue:
       return jsonThenDoNothing.converter(jsonThen);
-    case "press":
+    case jsonThenPress.typeValue:
       return jsonThenPress.converter(jsonThen);
+    case jsonThenHangUp.typeValue:
+      return jsonThenHangUp.converter(jsonThen);
     default:
       throw new Error(
         `Factory for then '${JSON.stringify(jsonThen)}' does not exist`

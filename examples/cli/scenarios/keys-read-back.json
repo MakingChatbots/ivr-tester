@@ -30,7 +30,7 @@
         "value": "you entered the values 0123456789"
       },
       "then": {
-        "type": "doNothing"
+        "type": "hangUp"
       },
       "silenceAfterPrompt": 3000,
       "timeout": 6000
