@@ -3,8 +3,39 @@ import commander from "commander";
 import { JsonFileReader } from "../../fileSystem/jsonFileReader";
 import { JsonConfigTranscriber } from "./json/JsonConfig";
 import { validateConfig } from "./json/validateJsonConfig";
+import { TwilioClientAuth } from "ivr-tester/dist/call/twilio";
 
 const MODULE_PREFIX = "ivr-tester-transcriber-";
+
+function validateTwilioClientAuth(
+  env: NodeJS.ProcessEnv
+): { error: Error; value: TwilioClientAuth } {
+  const accountSid = env.TWILIO_ACCOUNT_SID;
+  const authToken = env.TWILIO_AUTH_TOKEN;
+
+  let error;
+  if (!accountSid && authToken) {
+    error = new Error("TWILIO_ACCOUNT_SID environment variable must be set");
+  }
+  if (accountSid && !authToken) {
+    error = new Error("TWILIO_AUTH_TOKEN environment variable must be set");
+  }
+  if (!accountSid && !authToken) {
+    error = new Error(
+      "TWILIO_ACCOUNT_SID and TWILIO_AUTH_TOKEN environment variables must be set"
+    );
+  }
+
+  return {
+    error,
+    value: error
+      ? undefined
+      : {
+          accountSid,
+          authToken,
+        },
+  };
+}
 
 export function loadConfigOption(
   options: commander.OptionValues,
@@ -38,15 +69,21 @@ export function loadConfigOption(
   }
 
   function convert(configuration: unknown): Config {
-    const { error, config } = validateConfig(configuration);
-    if (error) {
-      throw new Error(error.message);
+    const configResult = validateConfig(configuration);
+    if (configResult.error) {
+      throw new Error(configResult.error.message);
+    }
+
+    const authResult = validateTwilioClientAuth(process.env);
+    if (authResult.error) {
+      throw new Error(authResult.error.message);
     }
 
     return {
-      transcriber: loadTranscriber(config.transcriber),
-      localServerPort: config.localServerPort,
-      recording: config.recording,
+      transcriber: loadTranscriber(configResult.config.transcriber),
+      localServerPort: configResult.config.localServerPort,
+      recording: configResult.config.recording,
+      twilioAuth: authResult.value,
     };
   }
 

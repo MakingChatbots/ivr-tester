@@ -47,6 +47,10 @@ const scenario: Scenario = {
 
 const config: Config = {
   localServerPort: 8080,
+  twilioAuth: {
+    accountSid: process.env.TWILIO_ACCOUNT_SID,
+    authToken: process.env.TWILIO_AUTH_TOKEN,
+  },
   transcriber: amazonTranscribe({ region: "us-east-1", languageCode: "en-GB" }),
   recording: {
     audio: {

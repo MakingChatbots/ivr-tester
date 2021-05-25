@@ -131,9 +131,12 @@ export class IvrTester implements RunnableTester {
       testExecutor(this.config.transcriber)
     );
 
+    const twilioClient = this.config.twilioClientFactory(
+      this.config.twilioAuth
+    );
     const caller: Caller<IvrNumber | Buffer> = Buffer.isBuffer(testSubject)
       ? new AudioPlaybackCaller()
-      : new TwilioCaller(this.config.twilioClient);
+      : new TwilioCaller(twilioClient);
 
     const testRunnerManager = createTestRunnerManager();
     this.pluginManager.initialise(testRunnerManager.testRunner);
