@@ -21,6 +21,9 @@ describe("Integrated with IVR Tester API", () => {
   let requireModule: jest.MockedFunction<NodeJS.Require>;
 
   beforeEach(() => {
+    process.env.TWILIO_ACCOUNT_SID = "test-1";
+    process.env.TWILIO_AUTH_TOKEN = "test-2";
+
     const fsAccessSync = jest.fn().mockReturnValue(undefined);
     fsReadFileSync = jest.fn();
     ngrokServer = {
@@ -140,9 +143,6 @@ describe("Integrated with IVR Tester API", () => {
   });
 
   test("Config passed to IVR Tester API", async () => {
-    process.env.TWILIO_ACCOUNT_SID = "test-1";
-    process.env.TWILIO_AUTH_TOKEN = "test-2";
-
     when(fsReadFileSync)
       .calledWith(validConfigFilePath)
       .mockReturnValue(Buffer.from(JSON.stringify(validConfig), "utf8"))
