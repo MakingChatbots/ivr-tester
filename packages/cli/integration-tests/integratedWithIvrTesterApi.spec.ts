@@ -140,6 +140,9 @@ describe("Integrated with IVR Tester API", () => {
   });
 
   test("Config passed to IVR Tester API", async () => {
+    process.env.TWILIO_ACCOUNT_SID = "test-1";
+    process.env.TWILIO_AUTH_TOKEN = "test-2";
+
     when(fsReadFileSync)
       .calledWith(validConfigFilePath)
       .mockReturnValue(Buffer.from(JSON.stringify(validConfig), "utf8"))
@@ -164,6 +167,10 @@ describe("Integrated with IVR Tester API", () => {
     });
     expect(ivrTesterFactory).toHaveBeenCalledWith({
       localServerPort: 123,
+      twilioAuth: {
+        accountSid: "test-1",
+        authToken: "test-2",
+      },
       publicServerUrl: "https://test-url.test",
       recording: {
         transcript: {
