@@ -24,6 +24,9 @@ describe("Config file validated", () => {
   let cli: Cli;
 
   beforeEach(() => {
+    process.env.TWILIO_ACCOUNT_SID = "test-1";
+    process.env.TWILIO_AUTH_TOKEN = "test-2";
+
     fsAccessSync = jest.fn();
 
     fsReadFileSync = jest.fn();
