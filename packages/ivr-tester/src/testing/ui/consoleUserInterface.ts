@@ -2,9 +2,8 @@ import { IvrTesterPlugin } from "../../plugins/IvrTesterPlugin";
 import chalk from "chalk";
 import { CallServerEvents } from "../TwilioCallServer";
 import { Emitter } from "../../Emitter";
-import { PluginEvents, PluginHost } from "../../plugins/PluginManager";
+import { PluginHost } from "../../plugins/PluginManager";
 import { TestSession } from "../../testRunner";
-import { eventNames } from "cluster";
 
 const ivrTranscription = (
   callServer: Emitter<CallServerEvents>,

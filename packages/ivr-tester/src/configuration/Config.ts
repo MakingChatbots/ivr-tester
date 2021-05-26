@@ -1,7 +1,6 @@
 import { DtmfBufferGenerator } from "../call/dtmf/DtmfBufferGenerator";
 import { TranscriberFactory } from "../call/transcription/plugin/TranscriberFactory";
 import { FilenameFactory } from "../call/recording/filename/FilenameFactory";
-import { Twilio } from "twilio";
 import { TwilioClientAuth, TwilioClientFactory } from "../call/twilio";
 
 export interface Config {
