@@ -3,7 +3,15 @@
     "name": "google-speech-to-text",
     "options": {
       "languageCode": "en-GB",
-      "useEnhanced": true
+      "useEnhanced": true,
+      "speechPhrases": [
+        "Press 1 for playback flow",
+        "Press 2 for long pauses flow",
+        "Press 3 for short latency flow",
+        "Press 4 for long latency flow",
+        "Please enter a number",
+        "You entered the values 0123456789. Thank you."
+      ]
     }
   },
   "recording": {

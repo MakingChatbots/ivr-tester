@@ -1,7 +1,7 @@
 {
   "name": "ivr-tester-cli",
   "version": "0.0.1",
-  "description": "",
+  "description": "CLI for automated testing of IVR call flows",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -14,7 +14,8 @@
     "call flow",
     "call",
     "test",
-    "telephony"
+    "telephony",
+    "CLI"
   ],
   "main": "dist/index.js",
   "bin": {
@@ -35,31 +36,22 @@
     "/dist"
   ],
   "dependencies": {
-    "chalk": "^4.1.0",
     "commander": "^7.2.0",
-    "debug": "^4.3.1",
     "ivr-tester": "^0.2.10",
-    "ivr-tester-transcriber-google-speech-to-text": "^0.1.3",
     "joi": "^17.4.0",
     "ngrok": "^3.4.0"
   },
   "devDependencies": {
-    "@sinonjs/fake-timers": "^7.0.2",
-    "@types/debug": "^4.1.5",
-    "@types/getenv": "^1.0.0",
     "@types/jest": "^26.0.14",
     "@types/jest-when": "^2.7.2",
     "@types/node": "^14.6.4",
-    "copyfiles": "^2.4.0",
-    "get-port": "^5.1.1",
     "jest": "^26.4.2",
     "jest-when": "^3.3.1",
     "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
     "ts-jest": "^26.4.0",
     "ts-node": "^9.1.1",
-    "typescript": "^4.2.3",
-    "wait-for-expect": "^3.0.2"
+    "typescript": "^4.2.3"
   },
   "jest": {
     "preset": "ts-jest",
