@@ -1,4 +1,3 @@
 recordings/*
 !recordings/.gitkeep
-.env
-
+.env*

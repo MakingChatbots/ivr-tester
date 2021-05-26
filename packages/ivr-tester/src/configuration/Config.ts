@@ -1,7 +1,7 @@
 import { DtmfBufferGenerator } from "../call/dtmf/DtmfBufferGenerator";
 import { TranscriberFactory } from "../call/transcription/plugin/TranscriberFactory";
 import { FilenameFactory } from "../call/recording/filename/FilenameFactory";
-import { Twilio } from "twilio";
+import { TwilioClientAuth, TwilioClientFactory } from "../call/twilio";
 
 export interface Config {
   /**
@@ -41,9 +41,20 @@ export interface Config {
   localServerPort?: number | undefined;
 
   /**
-   * Twilio client used to initiate the call to the IVR
+   * Authentication details for Twilio account. This is passed to the factory.
+   * @see twilioClientFactory
    */
-  twilioClient?: Twilio;
+  twilioAuth: TwilioClientAuth;
+
+  /**
+   * Factory for creating the Twilio client used to initiate the call to the IVR.
+   * The factory is passed the authentication details from the configuration.
+   *
+   * You're unlikely to need to set this unless you want to test or intercept IVR Tester's interaction
+   * with Twilio
+   * @see twilioAuth
+   */
+  twilioClientFactory?: TwilioClientFactory;
 
   /**
    * URL of the server that is publicly accessible. This is the

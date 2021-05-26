@@ -78,7 +78,11 @@ function createPluginManager(config: Config): PluginManager {
   ]);
 }
 
-export class IvrTester {
+export interface RunnableTester {
+  run(testSubject: TestSubject, scenario: Scenario[] | Scenario): Promise<void>;
+}
+
+export class IvrTester implements RunnableTester {
   private readonly config: Config;
   private readonly pluginManager: PluginManager;
   private running = false;
@@ -127,9 +131,12 @@ export class IvrTester {
       testExecutor(this.config.transcriber)
     );
 
+    const twilioClient = this.config.twilioClientFactory(
+      this.config.twilioAuth
+    );
     const caller: Caller<IvrNumber | Buffer> = Buffer.isBuffer(testSubject)
       ? new AudioPlaybackCaller()
-      : new TwilioCaller(this.config.twilioClient);
+      : new TwilioCaller(twilioClient);
 
     const testRunnerManager = createTestRunnerManager();
     this.pluginManager.initialise(testRunnerManager.testRunner);

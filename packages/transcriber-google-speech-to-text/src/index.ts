@@ -61,3 +61,5 @@ export const googleSpeechToText = (
     return { canRun: true };
   },
 });
+
+export default googleSpeechToText;

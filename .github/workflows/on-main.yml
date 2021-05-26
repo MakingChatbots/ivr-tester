@@ -30,6 +30,7 @@ jobs:
       - run: yarn --frozen-lockfile
       - run: yarn build
       - run: yarn test
+      - run: yarn test:integration
 
   update-documentation:
     needs: build-and-test

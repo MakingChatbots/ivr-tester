@@ -62,7 +62,8 @@ describe("Test Runner", () => {
     callServerPort = await getPort();
     commonConfig = {
       localServerPort: callServerPort,
-      twilioClient: (twilioClient as unknown) as Twilio,
+      twilioAuth: { accountSid: "test", authToken: "test" },
+      twilioClientFactory: () => (twilioClient as unknown) as Twilio,
       dtmfGenerator: { generate: jest.fn() },
       transcriber: {
         create: () => new TranscriberTestDouble(),

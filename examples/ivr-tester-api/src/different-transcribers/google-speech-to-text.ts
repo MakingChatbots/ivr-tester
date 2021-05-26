@@ -113,6 +113,10 @@ const scenarios: Scenario[] = [
 
 const config: Config = {
   localServerPort: 8080,
+  twilioAuth: {
+    accountSid: process.env.TWILIO_ACCOUNT_SID,
+    authToken: process.env.TWILIO_AUTH_TOKEN,
+  },
   transcriber: googleSpeechToText({
     languageCode: "en-GB",
     speechPhrases: [

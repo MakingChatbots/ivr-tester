@@ -2,6 +2,7 @@
   "extends": "./tsconfig.json",
   "exclude": [
     "node_modules",
+    "tools",
     "**/*.spec.ts"
   ]
 }

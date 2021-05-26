@@ -1,0 +1,14 @@
+{
+  "name": "@examples/cli",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Example of using IVR Tester's CLI",
+  "license": "MIT",
+  "scripts": {
+    "build": "yarn install --force && chmod +x node_modules/.bin/ivr-tester",
+    "execute:keys-read-back": "export env $(cat .env | xargs) && ivr-tester -f $FROM_PHONE_NUMBER -t $TO_PHONE_NUMBER -c config.json -s scenarios/keys-read-back.json"
+  },
+  "dependencies": {
+    "ivr-tester-cli": "^0.0.1"
+  }
+}

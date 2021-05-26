@@ -1,2 +1,5 @@
 dist/
-README.md
+/README.md
+tools/*
+!tools/*.ts
+!tools/README.md

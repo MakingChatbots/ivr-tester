@@ -35,6 +35,10 @@ const scenario: Scenario = {
 const config: Config = {
   localServerPort: 8080,
   transcriber: googleSpeechToText(),
+  twilioAuth: {
+    accountSid: process.env.TWILIO_ACCOUNT_SID,
+    authToken: process.env.TWILIO_AUTH_TOKEN,
+  },
   recording: {
     transcript: {
       outputPath: path.join(__dirname, "../recordings"),

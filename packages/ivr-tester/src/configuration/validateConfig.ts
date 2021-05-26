@@ -1,16 +1,13 @@
 import Joi, { ValidationError } from "joi";
 import { Config } from "./Config";
-import * as getenv from "getenv";
 import { TwilioCallServer } from "../testing/TwilioCallServer";
 import { Twilio } from "twilio";
 import { DtmfBufferGenerator } from "../call/dtmf/DtmfBufferGenerator";
 import { UlawDtmfBufferGenerator } from "../call/dtmf/UlawDtmfBufferGenerator";
+import { TwilioClientFactory } from "../call/twilio";
 
-const createDefaultClient = () =>
-  new Twilio(
-    getenv.string("TWILIO_ACCOUNT_SID"),
-    getenv.string("TWILIO_AUTH_TOKEN")
-  );
+const defaultTwilioFactory: TwilioClientFactory = (auth) =>
+  new Twilio(auth.accountSid, auth.authToken);
 
 const thirtySeconds = 30 * 1000;
 
@@ -21,9 +18,13 @@ const schema = Joi.object<Config>({
   transcriber: Joi.object<DtmfBufferGenerator>().required(),
   localServerPort: Joi.number().port().optional().default(8080),
   publicServerUrl: Joi.string().uri().optional(),
-  twilioClient: Joi.object<Twilio>()
+  twilioAuth: Joi.object({
+    accountSid: Joi.string().required(),
+    authToken: Joi.string().required(),
+  }).required(),
+  twilioClientFactory: Joi.function()
     .optional()
-    .default(() => createDefaultClient()),
+    .default(() => defaultTwilioFactory),
   msTimeoutWaitingForCall: Joi.number().optional().default(thirtySeconds),
   recording: Joi.object<Config["recording"]>({
     audio: Joi.object<Config["recording"]["audio"]>({
