@@ -4,6 +4,10 @@ Amazon Transcribe Transcriber
 
 ## Table of contents
 
+### References
+
+- [default](README.md#default)
+
 ### Interfaces
 
 - [AmazonTranscribeOptions](interfaces/amazontranscribeoptions.md)
@@ -11,6 +15,12 @@ Amazon Transcribe Transcriber
 ### Functions
 
 - [amazonTranscribe](README.md#amazontranscribe)
+
+## References
+
+### default
+
+Renames and exports: [amazonTranscribe](README.md#amazontranscribe)
 
 ## Functions
 
@@ -29,4 +39,4 @@ Name | Type |
 
 **Returns:** TranscriberFactory
 
-Defined in: [index.ts:25](https://github.com/SketchingDev/ivr-tester/blob/d7fb6a0/packages/transcriber-amazon-transcribe/src/index.ts#L25)
+Defined in: [index.ts:25](https://github.com/SketchingDev/ivr-tester/blob/72204c0/packages/transcriber-amazon-transcribe/src/index.ts#L25)

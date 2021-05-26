@@ -4,6 +4,10 @@ Google Speech-to-Text Transcriber
 
 ## Table of contents
 
+### References
+
+- [default](README.md#default)
+
 ### Interfaces
 
 - [GoogleSpeechToTextOptions](interfaces/googlespeechtotextoptions.md)
@@ -11,6 +15,12 @@ Google Speech-to-Text Transcriber
 ### Functions
 
 - [googleSpeechToText](README.md#googlespeechtotext)
+
+## References
+
+### default
+
+Renames and exports: [googleSpeechToText](README.md#googlespeechtotext)
 
 ## Functions
 
@@ -30,4 +40,4 @@ Name | Type |
 
 **Returns:** TranscriberFactory
 
-Defined in: [index.ts:36](https://github.com/SketchingDev/ivr-tester/blob/d7fb6a0/packages/transcriber-google-speech-to-text/src/index.ts#L36)
+Defined in: [index.ts:36](https://github.com/SketchingDev/ivr-tester/blob/72204c0/packages/transcriber-google-speech-to-text/src/index.ts#L36)
