@@ -37,7 +37,7 @@ Name | Type |
 
 **Returns:** [*IvrTester*](ivrtester.md)
 
-Defined in: [testRunner.ts:88](https://github.com/SketchingDev/ivr-tester/blob/5e7be96/packages/ivr-tester/src/testRunner.ts#L88)
+Defined in: [testRunner.ts:88](https://github.com/SketchingDev/ivr-tester/blob/f921c2e/packages/ivr-tester/src/testRunner.ts#L88)
 
 ## Properties
 
@@ -45,7 +45,7 @@ Defined in: [testRunner.ts:88](https://github.com/SketchingDev/ivr-tester/blob/5
 
 • `Private` `Readonly` **config**: [*Config*](../interfaces/config.md)
 
-Defined in: [testRunner.ts:86](https://github.com/SketchingDev/ivr-tester/blob/5e7be96/packages/ivr-tester/src/testRunner.ts#L86)
+Defined in: [testRunner.ts:86](https://github.com/SketchingDev/ivr-tester/blob/f921c2e/packages/ivr-tester/src/testRunner.ts#L86)
 
 ___
 
@@ -53,7 +53,7 @@ ___
 
 • `Private` `Readonly` **pluginManager**: [*PluginManager*](pluginmanager.md)
 
-Defined in: [testRunner.ts:87](https://github.com/SketchingDev/ivr-tester/blob/5e7be96/packages/ivr-tester/src/testRunner.ts#L87)
+Defined in: [testRunner.ts:87](https://github.com/SketchingDev/ivr-tester/blob/f921c2e/packages/ivr-tester/src/testRunner.ts#L87)
 
 ___
 
@@ -61,7 +61,7 @@ ___
 
 • `Private` **running**: *boolean*= false
 
-Defined in: [testRunner.ts:88](https://github.com/SketchingDev/ivr-tester/blob/5e7be96/packages/ivr-tester/src/testRunner.ts#L88)
+Defined in: [testRunner.ts:88](https://github.com/SketchingDev/ivr-tester/blob/f921c2e/packages/ivr-tester/src/testRunner.ts#L88)
 
 ## Methods
 
@@ -71,7 +71,7 @@ Defined in: [testRunner.ts:88](https://github.com/SketchingDev/ivr-tester/blob/5
 
 **Returns:** *Promise*<void\>
 
-Defined in: [testRunner.ts:195](https://github.com/SketchingDev/ivr-tester/blob/5e7be96/packages/ivr-tester/src/testRunner.ts#L195)
+Defined in: [testRunner.ts:195](https://github.com/SketchingDev/ivr-tester/blob/f921c2e/packages/ivr-tester/src/testRunner.ts#L195)
 
 ___
 
@@ -90,4 +90,4 @@ Name | Type |
 
 Implementation of: [RunnableTester](../interfaces/runnabletester.md)
 
-Defined in: [testRunner.ts:104](https://github.com/SketchingDev/ivr-tester/blob/5e7be96/packages/ivr-tester/src/testRunner.ts#L104)
+Defined in: [testRunner.ts:104](https://github.com/SketchingDev/ivr-tester/blob/f921c2e/packages/ivr-tester/src/testRunner.ts#L104)

@@ -37,9 +37,9 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [plugins/IvrTesterPlugin.ts:10](https://github.com/SketchingDev/ivr-tester/blob/5e7be96/packages/ivr-tester/src/plugins/IvrTesterPlugin.ts#L10)
+Defined in: [plugins/IvrTesterPlugin.ts:10](https://github.com/SketchingDev/ivr-tester/blob/f921c2e/packages/ivr-tester/src/plugins/IvrTesterPlugin.ts#L10)
 
-Defined in: [plugins/IvrTesterPlugin.ts:10](https://github.com/SketchingDev/ivr-tester/blob/5e7be96/packages/ivr-tester/src/plugins/IvrTesterPlugin.ts#L10)
+Defined in: [plugins/IvrTesterPlugin.ts:10](https://github.com/SketchingDev/ivr-tester/blob/f921c2e/packages/ivr-tester/src/plugins/IvrTesterPlugin.ts#L10)
 
 ## Methods
 
@@ -56,4 +56,4 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [plugins/IvrTesterPlugin.ts:9](https://github.com/SketchingDev/ivr-tester/blob/5e7be96/packages/ivr-tester/src/plugins/IvrTesterPlugin.ts#L9)
+Defined in: [plugins/IvrTesterPlugin.ts:9](https://github.com/SketchingDev/ivr-tester/blob/f921c2e/packages/ivr-tester/src/plugins/IvrTesterPlugin.ts#L9)

@@ -27,4 +27,4 @@ Name | Type |
 
 **Returns:** *Promise*<void\>
 
-Defined in: [testRunner.ts:82](https://github.com/SketchingDev/ivr-tester/blob/5e7be96/packages/ivr-tester/src/testRunner.ts#L82)
+Defined in: [testRunner.ts:82](https://github.com/SketchingDev/ivr-tester/blob/f921c2e/packages/ivr-tester/src/testRunner.ts#L82)
