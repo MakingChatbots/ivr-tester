@@ -47,7 +47,7 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [Emitter.ts:13](https://github.com/SketchingDev/ivr-tester/blob/f921c2e/packages/ivr-tester/src/Emitter.ts#L13)
+Defined in: [Emitter.ts:13](https://github.com/SketchingDev/ivr-tester/blob/6c410f7/packages/ivr-tester/src/Emitter.ts#L13)
 
 ___
 
@@ -70,7 +70,7 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [Emitter.ts:12](https://github.com/SketchingDev/ivr-tester/blob/f921c2e/packages/ivr-tester/src/Emitter.ts#L12)
+Defined in: [Emitter.ts:12](https://github.com/SketchingDev/ivr-tester/blob/6c410f7/packages/ivr-tester/src/Emitter.ts#L12)
 
 ___
 
@@ -93,4 +93,4 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [Emitter.ts:11](https://github.com/SketchingDev/ivr-tester/blob/f921c2e/packages/ivr-tester/src/Emitter.ts#L11)
+Defined in: [Emitter.ts:11](https://github.com/SketchingDev/ivr-tester/blob/6c410f7/packages/ivr-tester/src/Emitter.ts#L11)
