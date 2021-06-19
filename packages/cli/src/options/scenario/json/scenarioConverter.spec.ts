@@ -167,6 +167,44 @@ describe("whenPrompt", () => {
     expect(step.whenPrompt("you pentered")).toEqual(true);
     expect(step.whenPrompt("you didn't")).toEqual(false);
   });
+
+  test("or", () => {
+    const step = convertStep({
+      whenPrompt: {
+        type: "or",
+        value: [
+          { type: "contains", value: "1" },
+          { type: "contains", value: "2" },
+        ],
+      },
+      then: { type: "doNothing" },
+      silenceAfterPrompt: 0,
+      timeout: 0,
+    });
+
+    expect(step.whenPrompt("1")).toEqual(true);
+    expect(step.whenPrompt("2")).toEqual(true);
+    expect(step.whenPrompt("3")).toEqual(false);
+  });
+
+  test("nested or", () => {
+    const step = convertStep({
+      whenPrompt: {
+        type: "or",
+        value: [
+          { type: "contains", value: "1" },
+          { type: "or", value: [{ type: "contains", value: "2" }] },
+        ],
+      },
+      then: { type: "doNothing" },
+      silenceAfterPrompt: 0,
+      timeout: 0,
+    });
+
+    expect(step.whenPrompt("1")).toEqual(true);
+    expect(step.whenPrompt("2")).toEqual(true);
+    expect(step.whenPrompt("3")).toEqual(false);
+  });
 });
 
 describe("then", () => {
