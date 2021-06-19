@@ -28,6 +28,24 @@ test("JSON scenario converted to Scenario", () => {
         silenceAfterPrompt: 3000,
         timeout: 4000,
       },
+      {
+        whenPrompt: {
+          type: "containsSimilarTo",
+          value: "you entered the values 0123456789",
+        },
+        then: { type: "doNothing" },
+        silenceAfterPrompt: 3000,
+        timeout: 4000,
+      },
+      {
+        whenPrompt: {
+          type: "similarTo",
+          value: "you entered the values 0123456789",
+        },
+        then: { type: "doNothing" },
+        silenceAfterPrompt: 3000,
+        timeout: 4000,
+      },
     ],
   };
 
@@ -41,6 +59,24 @@ test("JSON scenario converted to Scenario", () => {
           describe: expect.any(Function),
         },
         silenceAfterPrompt: 2000,
+        timeout: 4000,
+      },
+      {
+        whenPrompt: expect.any(Function),
+        then: {
+          do: expect.any(Function),
+          describe: expect.any(Function),
+        },
+        silenceAfterPrompt: 3000,
+        timeout: 4000,
+      },
+      {
+        whenPrompt: expect.any(Function),
+        then: {
+          do: expect.any(Function),
+          describe: expect.any(Function),
+        },
+        silenceAfterPrompt: 3000,
         timeout: 4000,
       },
       {

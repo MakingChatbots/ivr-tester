@@ -5,13 +5,20 @@ import { jsonWhenPromptIsAnything } from "./whenPrompt/isAnything";
 import { jsonThenDoNothing } from "./then/doNothing";
 import { jsonThenPress } from "./then/press";
 import { jsonThenHangUp } from "./then/hangUp";
+import { jsonWhenPromptContainsSimilarTo } from "./whenPrompt/containsSimilarTo";
+import { jsonWhenPromptSimilarTo } from "./whenPrompt/similarTo";
 
 const jsonScenarioSchema = Joi.object<JsonScenario>({
   name: Joi.string().required(),
   steps: Joi.array().items(
     Joi.object<JsonStep>({
       whenPrompt: Joi.alternatives()
-        .try(jsonWhenPromptIsAnything.schema, jsonWhenPromptContains.schema)
+        .try(
+          jsonWhenPromptIsAnything.schema,
+          jsonWhenPromptContains.schema,
+          jsonWhenPromptContainsSimilarTo.schema,
+          jsonWhenPromptSimilarTo.schema
+        )
         .required(),
       then: Joi.alternatives()
         .try(
