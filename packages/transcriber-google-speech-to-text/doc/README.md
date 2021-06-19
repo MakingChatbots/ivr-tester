@@ -40,4 +40,4 @@ Name | Type |
 
 **Returns:** TranscriberFactory
 
-Defined in: [index.ts:36](https://github.com/SketchingDev/ivr-tester/blob/7160b05/packages/transcriber-google-speech-to-text/src/index.ts#L36)
+Defined in: [index.ts:36](https://github.com/SketchingDev/ivr-tester/blob/3f86c34/packages/transcriber-google-speech-to-text/src/index.ts#L36)
