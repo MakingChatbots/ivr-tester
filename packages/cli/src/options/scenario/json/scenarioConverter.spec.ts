@@ -152,7 +152,20 @@ describe("whenPrompt", () => {
     });
 
     expect(step.whenPrompt("please enter 1 or 2")).toEqual(true);
+    expect(step.whenPrompt("2")).toEqual(false);
     expect(step.whenPrompt("will not match")).toEqual(false);
+  });
+
+  test("similarTo", () => {
+    const step = convertStep({
+      whenPrompt: { type: "similarTo", value: "you entered" },
+      then: { type: "doNothing" },
+      silenceAfterPrompt: 0,
+      timeout: 0,
+    });
+
+    expect(step.whenPrompt("you pentered")).toEqual(true);
+    expect(step.whenPrompt("you didn't")).toEqual(false);
   });
 });
 
