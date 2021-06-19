@@ -4864,6 +4864,16 @@ istanbul-reports@^3.0.2:
     html-escaper "^2.0.0"
     istanbul-lib-report "^3.0.0"
 
+ivr-tester-cli@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/ivr-tester-cli/-/ivr-tester-cli-0.0.1.tgz#6f8c62727d0f70609a3589bff6f964a55a68a5a1"
+  integrity sha512-KgrTra+ksFuyug+69F4RUNYFe1q/MuSzL6SP2ImJH/Ey9EHqs3GPaJtIcyoMtElGsMNjMwqGI34+lWlrbv+DHg==
+  dependencies:
+    commander "^7.2.0"
+    ivr-tester "^0.2.10"
+    joi "^17.4.0"
+    ngrok "^3.4.0"
+
 jest-changed-files@^26.6.2:
   version "26.6.2"
   resolved "https://registry.yarnpkg.com/jest-changed-files/-/jest-changed-files-26.6.2.tgz#f6198479e1cc66f22f9ae1e22acaa0b429c042d0"

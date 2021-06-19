@@ -1,10 +1,12 @@
-# Transcriber Accuracy
+# Improving Transcriber Accuracy
 
-Writing instructions in your test definition that reflect your actual IVR flow is useful for describing your flow, and
-assertion that it is asking what you expect. However, being able to do this relies on the accuracy of the transcription
-of the call.
+Writing scenarios that reflect your IVR flows is useful for both documentation and asserting their behaviour. Ideally
+you should be able to refer to your scenarios when you want to understand the behaviour of your IVR flow.
 
-A poor quality transcription can turn the prompts from a call flow:
+However, being able to document your flow accurately in a scenario file relies on the accuracy of the transcription of
+the call.
+
+A poor quality transcription can turn the prompts:
 
 ```
 Welcome to Fictional Enterprise. Please enter your account number followed by hash
@@ -26,15 +28,13 @@ your ballet is 2 pounds and 1 pence
 
 *This example has been exaggerated for illustrative purposes. They're never usually this bad.*
 
-## Coping with poor quality transcriptions
-
 There are two ways to deal with poor quality transcriptions, both can be used in conjunction. The first and preferred
 approach is to train your transcription to be more accurate, and the second is to reduce the strictness of what you
 expect to hear from each prompt.
 
 Let's start with reducing the strictness, as it's the quickest:
 
-### Reducing the strictness of your tests
+## Reducing the strictness of your tests
 
 As we've said, this method is a quick way to reduce the expectations your instructions have on a prompt, but comes
 with downsides:
@@ -79,7 +79,7 @@ const balanceTest = {
 };
 ```
 
-### Improving the accuracy of your transcript
+## Training your transcriber
 
 Improving the accuracy of your transcript service is the ideal starting point as you can then make your instructions
 more descriptive of what customers would hear (forming documentation of your flow) and allows you to catch changes to
@@ -145,12 +145,11 @@ const balanceTest = {
 };
 ```
 
-#### Measuring the accuracy
+# Measuring the accuracy
 
-Let's calculate how much our training has improved the accuracy of the transcription by calculating the
-Word Error Rate (WER) - a metric commonly used for measuring the performance of speech recognition systems.
+Calculating the accuracy of the transcription services before and after training is done using the Word Error Rate (WER).
 
-To determine the WER we'll:
+To calculate the WER:
 
 1. Install the [speech-recognition-evaluation](https://github.com/symblai/speech-recognition-evaluation#installation)
    tool.
@@ -236,5 +235,5 @@ To determine the WER we'll:
    Word Error Rate (WER): 3.225806451612903%
    ```
 
-Albeit highly contrived, the example has shown how training your transcription model has improved the Word Error Rate
+Albeit highly contrived, the example shows how training your transcription model has improved the Word Error Rate
 by 25.80%

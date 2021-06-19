@@ -30,7 +30,7 @@ const containsText = (
  * ```
  *
  * ```ts
- * contains(similarTo('this is a best'))('this is a test transcript') // true
+ * contains(similarTo('this is the test'))('this is the best transcript') // true
  * ```
  */
 export const contains = (

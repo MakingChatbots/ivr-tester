@@ -14,8 +14,8 @@
     },
     {
       "whenPrompt": {
-        "type": "contains",
-        "value": "please enter a number"
+        "type": "containsSimilarTo",
+        "value": "enter a pumber"
       },
       "then": {
         "type": "press",
