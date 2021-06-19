@@ -15,7 +15,7 @@
 
 • **canRun**: *false*
 
-Defined in: [call/transcription/plugin/TranscriberFactory.ts:8](https://github.com/SketchingDev/ivr-tester/blob/791b99b/packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts#L8)
+Defined in: [call/transcription/plugin/TranscriberFactory.ts:8](https://github.com/SketchingDev/ivr-tester/blob/6c410f7/packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts#L8)
 
 ___
 
@@ -23,4 +23,4 @@ ___
 
 • **reason**: *string*
 
-Defined in: [call/transcription/plugin/TranscriberFactory.ts:9](https://github.com/SketchingDev/ivr-tester/blob/791b99b/packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts#L9)
+Defined in: [call/transcription/plugin/TranscriberFactory.ts:9](https://github.com/SketchingDev/ivr-tester/blob/6c410f7/packages/ivr-tester/src/call/transcription/plugin/TranscriberFactory.ts#L9)
