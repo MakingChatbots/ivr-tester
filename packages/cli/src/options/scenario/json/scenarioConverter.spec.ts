@@ -143,19 +143,6 @@ describe("whenPrompt", () => {
     expect(step.whenPrompt("will not match")).toEqual(false);
   });
 
-  test("contains with multiple values", () => {
-    const step = convertStep({
-      whenPrompt: { type: "contains", value: ["enter 1", "2"] },
-      then: { type: "doNothing" },
-      silenceAfterPrompt: 0,
-      timeout: 0,
-    });
-
-    expect(step.whenPrompt("please enter 1 or 2")).toEqual(true);
-    expect(step.whenPrompt("2")).toEqual(false);
-    expect(step.whenPrompt("will not match")).toEqual(false);
-  });
-
   test("similarTo", () => {
     const step = convertStep({
       whenPrompt: { type: "similarTo", value: "you entered" },
@@ -187,13 +174,13 @@ describe("whenPrompt", () => {
     expect(step.whenPrompt("3")).toEqual(false);
   });
 
-  test("nested or", () => {
+  test("and", () => {
     const step = convertStep({
       whenPrompt: {
-        type: "or",
+        type: "and",
         value: [
           { type: "contains", value: "1" },
-          { type: "or", value: [{ type: "contains", value: "2" }] },
+          { type: "contains", value: "2" },
         ],
       },
       then: { type: "doNothing" },
@@ -201,9 +188,8 @@ describe("whenPrompt", () => {
       timeout: 0,
     });
 
-    expect(step.whenPrompt("1")).toEqual(true);
-    expect(step.whenPrompt("2")).toEqual(true);
-    expect(step.whenPrompt("3")).toEqual(false);
+    expect(step.whenPrompt("1 and 2")).toEqual(true);
+    expect(step.whenPrompt("2 and 3")).toEqual(false);
   });
 });
 
