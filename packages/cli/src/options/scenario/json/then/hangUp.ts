@@ -12,7 +12,7 @@ export const jsonThenHangUp = {
   schema: Joi.object<JsonThenHangUp>({
     type: Joi.valid(typeValue).required(),
   }),
-  converter(json: JsonThenHangUp): Then {
+  converter(): Then {
     return hangUp();
   },
 };

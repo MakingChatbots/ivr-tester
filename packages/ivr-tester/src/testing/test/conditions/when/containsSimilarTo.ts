@@ -1,6 +1,5 @@
 import { When } from "./When";
 import { similarTo } from "./similarTo";
-import { contains, ContainsConfig } from "./contains";
 import { hasPart } from "./hasPart";
 
 /**

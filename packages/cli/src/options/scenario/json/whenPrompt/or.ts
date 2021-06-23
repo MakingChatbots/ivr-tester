@@ -5,7 +5,6 @@ import { jsonWhenPromptIsAnything } from "./isAnything";
 import { jsonWhenPromptContains } from "./contains";
 import { jsonWhenPromptContainsSimilarTo } from "./containsSimilarTo";
 import { jsonWhenPromptSimilarTo } from "./similarTo";
-import { jsonWhenPromptAnd } from "./and";
 
 const typeValue = "or" as const;
 
