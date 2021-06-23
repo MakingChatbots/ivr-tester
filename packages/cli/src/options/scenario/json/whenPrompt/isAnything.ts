@@ -12,7 +12,7 @@ export const jsonWhenPromptIsAnything = {
   schema: Joi.object<JsonWhenPromptIsAnything>({
     type: Joi.valid(typeValue).required(),
   }),
-  converter(): When {
+  converter(json: JsonWhenPromptIsAnything): When {
     return isAnything();
   },
 };

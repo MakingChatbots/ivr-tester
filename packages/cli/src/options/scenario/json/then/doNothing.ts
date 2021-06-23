@@ -12,7 +12,7 @@ export const jsonThenDoNothing = {
   schema: Joi.object<JsonThenDoNothing>({
     type: Joi.valid(typeValue).required(),
   }),
-  converter(): Then {
+  converter(json: JsonThenDoNothing): Then {
     return doNothing();
   },
 };
