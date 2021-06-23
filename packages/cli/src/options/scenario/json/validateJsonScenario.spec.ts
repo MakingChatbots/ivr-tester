@@ -32,6 +32,8 @@ test("Return errors if invalid", () => {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           type: "ns",
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           value: "",
         },
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment

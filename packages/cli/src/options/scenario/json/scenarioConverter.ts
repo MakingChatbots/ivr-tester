@@ -13,8 +13,10 @@ import { jsonThenPress } from "./then/press";
 import { jsonThenHangUp } from "./then/hangUp";
 import { jsonWhenPromptContainsSimilarTo } from "./whenPrompt/containsSimilarTo";
 import { jsonWhenPromptSimilarTo } from "./whenPrompt/similarTo";
+import { jsonWhenPromptOr } from "./whenPrompt/or";
+import { jsonWhenPromptAnd } from "./whenPrompt/and";
 
-function convertWhen(jsonWhen: JsonWhenPrompt): When {
+export function convertWhen(jsonWhen: JsonWhenPrompt): When {
   switch (jsonWhen.type) {
     case jsonWhenPromptIsAnything.typeValue:
       return jsonWhenPromptIsAnything.converter(jsonWhen);
@@ -24,6 +26,10 @@ function convertWhen(jsonWhen: JsonWhenPrompt): When {
       return jsonWhenPromptContainsSimilarTo.converter(jsonWhen);
     case jsonWhenPromptSimilarTo.typeValue:
       return jsonWhenPromptSimilarTo.converter(jsonWhen);
+    case jsonWhenPromptOr.typeValue:
+      return jsonWhenPromptOr.converter(convertWhen)(jsonWhen);
+    case jsonWhenPromptAnd.typeValue:
+      return jsonWhenPromptAnd.converter(convertWhen)(jsonWhen);
     default:
       throw new Error(
         `Factory for whenPrompt '${JSON.stringify(jsonWhen)}' does not exist`

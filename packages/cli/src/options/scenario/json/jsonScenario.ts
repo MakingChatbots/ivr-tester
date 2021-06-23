@@ -5,12 +5,17 @@ import { JsonThenPress } from "./then/press";
 import { JsonThenHangUp } from "./then/hangUp";
 import { JsonWhenPromptContainsSimilarTo } from "./whenPrompt/containsSimilarTo";
 import { JsonWhenPromptSimilarTo } from "./whenPrompt/similarTo";
+import { JsonWhenPromptOr } from "./whenPrompt/or";
+import { JsonWhenPromptAnd } from "./whenPrompt/and";
 
 export type JsonWhenPrompt =
   | JsonWhenPromptIsAnything
   | JsonWhenPromptContains
   | JsonWhenPromptContainsSimilarTo
-  | JsonWhenPromptSimilarTo;
+  | JsonWhenPromptSimilarTo
+  | JsonWhenPromptOr
+  | JsonWhenPromptAnd;
+
 export type JsonThen = JsonThenDoNothing | JsonThenPress | JsonThenHangUp;
 
 export interface JsonStep {

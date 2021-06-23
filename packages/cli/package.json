@@ -1,6 +1,6 @@
 {
   "name": "ivr-tester-cli",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "CLI for automated testing of IVR call flows",
   "license": "MIT",
   "repository": {
@@ -37,7 +37,7 @@
   ],
   "dependencies": {
     "commander": "^7.2.0",
-    "ivr-tester": "^0.2.10",
+    "ivr-tester": "^0.2.12",
     "joi": "^17.4.0",
     "ngrok": "^3.4.0"
   },

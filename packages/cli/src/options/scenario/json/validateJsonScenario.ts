@@ -7,6 +7,8 @@ import { jsonThenPress } from "./then/press";
 import { jsonThenHangUp } from "./then/hangUp";
 import { jsonWhenPromptContainsSimilarTo } from "./whenPrompt/containsSimilarTo";
 import { jsonWhenPromptSimilarTo } from "./whenPrompt/similarTo";
+import { jsonWhenPromptOr } from "./whenPrompt/or";
+import { jsonWhenPromptAnd } from "./whenPrompt/and";
 
 const jsonScenarioSchema = Joi.object<JsonScenario>({
   name: Joi.string().required(),
@@ -17,7 +19,9 @@ const jsonScenarioSchema = Joi.object<JsonScenario>({
           jsonWhenPromptIsAnything.schema,
           jsonWhenPromptContains.schema,
           jsonWhenPromptContainsSimilarTo.schema,
-          jsonWhenPromptSimilarTo.schema
+          jsonWhenPromptSimilarTo.schema,
+          jsonWhenPromptOr.schema,
+          jsonWhenPromptAnd.schema
         )
         .required(),
       then: Joi.alternatives()

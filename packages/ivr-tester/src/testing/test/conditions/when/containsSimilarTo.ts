@@ -1,6 +1,6 @@
 import { When } from "./When";
 import { similarTo } from "./similarTo";
-import { contains } from "./contains";
+import { hasPart } from "./hasPart";
 
 /**
  * Determines if there is a section of the transcript that is similar to a piece of text.
@@ -21,4 +21,4 @@ export const containsSimilarTo = (
   similarText: string,
   similarityThreshold = 0.8
 ): When => (transcript: string) =>
-  contains(similarTo(similarText, similarityThreshold))(transcript);
+  hasPart(similarTo(similarText, similarityThreshold))(transcript);
