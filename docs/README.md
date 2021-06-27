@@ -152,6 +152,47 @@ const config: Config = {
 };
 ```
 
+##### Recordings
+
+The call's inbound audio stream (8k mono uLaw) can be saved to a file to allow you to listen to the call after the test
+completes. However, since the audio file is header-less most audio players won't be able to open it directly so you either
+have to use an audio player that allows you to specify the type of audio file, or convert the file to something else...
+
+**Opening the file with [Audacity](https://www.audacityteam.org/)**
+
+1. File > Import > Raw Data...
+2. Provide following in 'Import Raw Data' window
+    * Encoding: U-Law
+    * Byte-order: Little-endian
+    * Channels: 1 Channel (Mono)
+    * Start offset: 0
+    * Amount to import: 100%
+    * Sample Rate: 8000Hz
+3. Import
+
+**Converting to a wave file**
+
+Using [SoX](http://sox.sourceforge.net/) you can convert a recording with the command:
+
+```shell
+sox -r 8000 -t raw -e u-law -c 1 -b 8 input.raw -t wav output.wav
+```
+
+Or convert a directory with:
+
+```shell
+#!/bin/bash
+
+# ./convert-recordings.sh recordings/
+
+FILES="$@/*.raw"
+for f in $FILES
+do
+  echo "Converting $f"
+  sox -r 8000 -t raw -e u-law -c 1 -b 8 "$f" -t wav "$f.wav"
+done
+```
+
 ## Transcribers
 
 ### Supported
