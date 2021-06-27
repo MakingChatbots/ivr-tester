@@ -54,7 +54,7 @@ Name | Type |
 
 • `Private` `Readonly` **emitter**: *EventEmitter*
 
-Defined in: [Emitter.ts:17](https://github.com/SketchingDev/ivr-tester/blob/18b03be/packages/ivr-tester/src/Emitter.ts#L17)
+Defined in: [Emitter.ts:17](https://github.com/SketchingDev/ivr-tester/blob/f78871d/packages/ivr-tester/src/Emitter.ts#L17)
 
 ## Methods
 
@@ -77,7 +77,7 @@ Name | Type |
 
 **Returns:** *boolean*
 
-Defined in: [Emitter.ts:35](https://github.com/SketchingDev/ivr-tester/blob/18b03be/packages/ivr-tester/src/Emitter.ts#L35)
+Defined in: [Emitter.ts:35](https://github.com/SketchingDev/ivr-tester/blob/f78871d/packages/ivr-tester/src/Emitter.ts#L35)
 
 ___
 
@@ -100,7 +100,7 @@ Name | Type |
 
 **Returns:** [*TypedEmitter*](typedemitter.md)<T\>
 
-Defined in: [Emitter.ts:27](https://github.com/SketchingDev/ivr-tester/blob/18b03be/packages/ivr-tester/src/Emitter.ts#L27)
+Defined in: [Emitter.ts:27](https://github.com/SketchingDev/ivr-tester/blob/f78871d/packages/ivr-tester/src/Emitter.ts#L27)
 
 ___
 
@@ -123,4 +123,4 @@ Name | Type |
 
 **Returns:** [*TypedEmitter*](typedemitter.md)<T\>
 
-Defined in: [Emitter.ts:19](https://github.com/SketchingDev/ivr-tester/blob/18b03be/packages/ivr-tester/src/Emitter.ts#L19)
+Defined in: [Emitter.ts:19](https://github.com/SketchingDev/ivr-tester/blob/f78871d/packages/ivr-tester/src/Emitter.ts#L19)
