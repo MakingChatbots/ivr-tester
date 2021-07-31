@@ -3,8 +3,11 @@ import { TestSession } from "../testRunner";
 import { CallTranscriber } from "../call/transcription/CallTranscriber";
 import { TranscriberFactory } from "../call/transcription/plugin/TranscriberFactory";
 import { Scenario } from "../configuration/scenario/Scenario";
-import { inOrder } from "./test/inOrder";
+import { orderedScenarioStepsTest } from "./test/orderedScenarioStepsTest";
 
+/**
+ * Executes a test scenario against a call.
+ */
 export interface TestExecutor {
   startTest(scenario: Scenario, call: Call): TestSession;
 }
@@ -19,7 +22,8 @@ export function testExecutor(
         transcriberFactory.create()
       );
 
-      const callFlowSession = inOrder(scenario.steps).runAgainstCallFlow(
+      const callFlowTest = orderedScenarioStepsTest(scenario.steps);
+      const callFlowTestSession = callFlowTest.runAgainstCallFlow(
         callTranscriber,
         call
       );
@@ -27,7 +31,7 @@ export function testExecutor(
       return {
         call,
         scenario,
-        callFlowSession,
+        callFlowTestSession,
       };
     },
   };

@@ -19,7 +19,7 @@ const ivrTranscription = (
     }
   });
 
-  testSession.callFlowSession.on("progress", (event) => {
+  testSession.callFlowTestSession.on("progress", (event) => {
     const state = chalk.gray.bold("Transcribing: ");
 
     const testName = includeTestName ? `${testSession.scenario.name}: ` : "";
@@ -28,12 +28,12 @@ const ivrTranscription = (
 };
 
 const ivrTestPassed = (testSession: TestSession): void =>
-  testSession.callFlowSession.on("allPromptsMatched", () =>
+  testSession.callFlowTestSession.on("allPromptsMatched", () =>
     console.log(chalk.green(`Test Complete: ${testSession.scenario.name}...`))
   );
 
 const ivrTestFailed = (testSession: TestSession): void =>
-  testSession.callFlowSession.on("timeoutWaitingForMatch", (event) => {
+  testSession.callFlowTestSession.on("timeoutWaitingForMatch", (event) => {
     console.log(
       `${chalk.bold.blue("Test -")} ${chalk.bold.blue(
         testSession.scenario.name
@@ -99,7 +99,7 @@ const ivrTestConditionMet = (
     }
   });
 
-  testSession.callFlowSession.on("promptMatched", (event) => {
+  testSession.callFlowTestSession.on("promptMatched", (event) => {
     const lines: string[] = [];
 
     if (includeTestName) {

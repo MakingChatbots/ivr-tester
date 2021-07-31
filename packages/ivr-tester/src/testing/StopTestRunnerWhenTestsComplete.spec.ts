@@ -3,13 +3,13 @@ import { PluginEvents, PluginHost } from "../plugins/PluginManager";
 import { TypedEmitter } from "../Emitter";
 import { TestRunner, TestSession } from "../testRunner";
 import {
-  CallFlowSession,
+  CallFlowTestSession,
   CallFlowSessionEvents,
-} from "./test/CallFlowInstructions";
+} from "./test/CallFlowTest";
 
 class StubCallFlowSession
   extends TypedEmitter<CallFlowSessionEvents>
-  implements CallFlowSession {}
+  implements CallFlowTestSession {}
 
 class StubPluginManager
   extends TypedEmitter<PluginEvents>
@@ -38,7 +38,7 @@ describe("Close server when tests complete", () => {
     const testSession: TestSession = {
       scenario: undefined,
       call: undefined,
-      callFlowSession,
+      callFlowTestSession: callFlowSession,
     };
 
     stopWhenAllTestsComplete.testStarted(testSession);
@@ -57,19 +57,19 @@ describe("Close server when tests complete", () => {
     const testSession1: TestSession = {
       scenario: undefined,
       call: undefined,
-      callFlowSession: new StubCallFlowSession(),
+      callFlowTestSession: new StubCallFlowSession(),
     };
     const testSession2: TestSession = {
       scenario: undefined,
       call: undefined,
-      callFlowSession: new StubCallFlowSession(),
+      callFlowTestSession: new StubCallFlowSession(),
     };
 
     stopWhenAllTestsComplete.testStarted(testSession1);
     stopWhenAllTestsComplete.testStarted(testSession2);
 
-    testSession1.callFlowSession.emit("allPromptsMatched", {});
-    testSession2.callFlowSession.emit("timeoutWaitingForMatch", {
+    testSession1.callFlowTestSession.emit("allPromptsMatched", {});
+    testSession2.callFlowTestSession.emit("timeoutWaitingForMatch", {
       transcription: "",
     });
 
@@ -84,18 +84,18 @@ describe("Close server when tests complete", () => {
     const testSession1: TestSession = {
       scenario: undefined,
       call: undefined,
-      callFlowSession: new StubCallFlowSession(),
+      callFlowTestSession: new StubCallFlowSession(),
     };
     const testSession2: TestSession = {
       scenario: undefined,
       call: undefined,
-      callFlowSession: new StubCallFlowSession(),
+      callFlowTestSession: new StubCallFlowSession(),
     };
 
     stopWhenAllTestsComplete.testStarted(testSession1);
     stopWhenAllTestsComplete.testStarted(testSession2);
 
-    testSession1.callFlowSession.emit("allPromptsMatched", {});
+    testSession1.callFlowTestSession.emit("allPromptsMatched", {});
 
     expect(testRunner.stop).not.toHaveBeenCalled();
   });

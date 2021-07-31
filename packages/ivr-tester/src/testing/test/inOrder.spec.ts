@@ -1,9 +1,9 @@
 import {
-  inOrder,
+  orderedScenarioStepsTest,
   MatchedCallback,
   PromptFactory,
   TimeoutCallback,
-} from "./inOrder";
+} from "./orderedScenarioStepsTest";
 import { contains } from "./conditions/when";
 import { press } from "./conditions/then";
 import { TranscriberPlugin, TranscriptEvent } from "../../index";
@@ -70,7 +70,7 @@ describe("ordered conditions", () => {
   test("prompt presses 123 when transcript eventually contains Hello", () => {
     const silenceAfterPrompt = 1;
 
-    const promptContainer = inOrder(
+    const callFlowInstructions = orderedScenarioStepsTest(
       [
         {
           whenPrompt: contains("Hello"),
@@ -82,7 +82,7 @@ describe("ordered conditions", () => {
       testPromptFactory
     );
 
-    promptContainer.runAgainstCallFlow(transcriberPlugin, call);
+    callFlowInstructions.runAgainstCallFlow(transcriberPlugin, call);
 
     transcriberPlugin.produceTranscriptionEvent({
       isFinal: false,
@@ -105,7 +105,7 @@ describe("ordered conditions", () => {
   test("prompt does not press 123 when transcript corrected from Hello to Cello", () => {
     const silenceAfterPrompt = 1;
 
-    const promptContainer = inOrder(
+    const callFlowInstructions = orderedScenarioStepsTest(
       [
         {
           whenPrompt: contains("Hello"),
@@ -117,7 +117,7 @@ describe("ordered conditions", () => {
       testPromptFactory
     );
 
-    promptContainer.runAgainstCallFlow(transcriberPlugin, call);
+    callFlowInstructions.runAgainstCallFlow(transcriberPlugin, call);
 
     transcriberPlugin.produceTranscriptionEvent({
       isFinal: false,
@@ -138,7 +138,7 @@ describe("ordered conditions", () => {
 
   test("Silence After Prompt time reached without match doesn't result in call", () => {
     const silenceAfterPrompt = 1;
-    const promptContainer = inOrder(
+    const callFlowInstructions = orderedScenarioStepsTest(
       [
         {
           whenPrompt: contains("Hello"),
@@ -150,7 +150,7 @@ describe("ordered conditions", () => {
       testPromptFactory
     );
 
-    promptContainer.runAgainstCallFlow(transcriberPlugin, call);
+    callFlowInstructions.runAgainstCallFlow(transcriberPlugin, call);
 
     transcriberPlugin.produceTranscriptionEvent({
       isFinal: false,
@@ -173,7 +173,7 @@ describe("ordered conditions", () => {
   test(`prompt presses 123 when transcript only contains Hello,
   then second prompt presses 321 when transcript only contains World`, () => {
     const silenceAfterPrompt = 1;
-    const promptContainer = inOrder(
+    const callFlowInstructions = orderedScenarioStepsTest(
       [
         {
           whenPrompt: contains("Hello"),
@@ -191,7 +191,7 @@ describe("ordered conditions", () => {
       testPromptFactory
     );
 
-    promptContainer.runAgainstCallFlow(transcriberPlugin, call);
+    callFlowInstructions.runAgainstCallFlow(transcriberPlugin, call);
 
     transcriberPlugin.produceTranscriptionEvent({
       isFinal: false,
@@ -219,7 +219,7 @@ describe("ordered conditions", () => {
   test(`prompt presses 234 when transcript contains Hello,
   then second prompt presses 345 when transcript contains World within Hello World`, () => {
     const silenceAfterPrompt = 1;
-    const promptContainer = inOrder(
+    const callFlowInstructions = orderedScenarioStepsTest(
       [
         {
           whenPrompt: contains("Hello"),
@@ -237,7 +237,7 @@ describe("ordered conditions", () => {
       testPromptFactory
     );
 
-    promptContainer.runAgainstCallFlow(transcriberPlugin, call);
+    callFlowInstructions.runAgainstCallFlow(transcriberPlugin, call);
 
     transcriberPlugin.produceTranscriptionEvent({
       isFinal: false,
@@ -265,7 +265,7 @@ describe("ordered conditions", () => {
 
   test("prompt times out if it does not find match within timeout limit", () => {
     const timeout = 2;
-    const promptContainer = inOrder(
+    const callFlowInstructions = orderedScenarioStepsTest(
       [
         {
           whenPrompt: contains("Hello"),
@@ -277,7 +277,7 @@ describe("ordered conditions", () => {
       testPromptFactory
     );
 
-    promptContainer.runAgainstCallFlow(transcriberPlugin, call);
+    callFlowInstructions.runAgainstCallFlow(transcriberPlugin, call);
 
     transcriberPlugin.produceTranscriptionEvent({
       isFinal: false,

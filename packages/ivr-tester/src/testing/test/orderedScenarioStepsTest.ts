@@ -1,9 +1,9 @@
 import { Step } from "../../configuration/scenario/Step";
 import {
-  CallFlowInstructions,
-  CallFlowSession,
+  CallFlowTest,
+  CallFlowTestSession,
   CallFlowSessionEvents,
-} from "./CallFlowInstructions";
+} from "./CallFlowTest";
 import { setTimeout } from "timers";
 import { Call } from "../../call/Call";
 import { PromptTranscriptionBuilder } from "../../call/transcription/PromptTranscriptionBuilder";
@@ -13,6 +13,7 @@ import {
   TranscriptionEvents,
 } from "../../call/transcription/plugin/TranscriberPlugin";
 import { PostSilencePrompt } from "./PostSilencePrompt";
+import { Scenario } from "../../configuration/scenario/Scenario";
 
 export interface Prompt {
   readonly definition: Step;
@@ -35,7 +36,7 @@ export type PromptFactory = (
   timeoutCallback: TimeoutCallback
 ) => Prompt | undefined;
 
-const defaultPromptFactory: PromptFactory = (
+const postSilencePromptFactory: PromptFactory = (
   definition,
   call,
   matchedCallback,
@@ -50,9 +51,9 @@ const defaultPromptFactory: PromptFactory = (
     clearTimeout
   );
 
-class RunningOrderedCallFlowInstructions
+class RunningOrderedScenarioStepsCallFlowTest
   extends TypedEmitter<CallFlowSessionEvents>
-  implements CallFlowSession {
+  implements CallFlowTestSession {
   constructor(
     private readonly promptDefinitions: ReadonlyArray<Step>,
     private readonly promptFactory: PromptFactory,
@@ -87,17 +88,20 @@ class RunningOrderedCallFlowInstructions
     };
 
     const prompts = this.promptDefinitions.map((prompt, index) => {
-      const callback =
-        this.promptDefinitions.length - 1 === index
-          ? lastMatchedCallback
-          : matchedCallback;
+      const isLastPromptDefinition =
+        index === this.promptDefinitions.length - 1;
+
+      const callback = isLastPromptDefinition
+        ? lastMatchedCallback
+        : matchedCallback;
 
       return this.promptFactory(prompt, this.call, callback, timedOutCallback);
     });
 
+    // Chains together the prompts created by the Prompt Factory above
     const firstPrompt: Prompt = prompts.shift();
-    let chain: Prompt = firstPrompt;
 
+    let chain: Prompt = firstPrompt;
     prompts.forEach((item) => {
       chain = chain.setNext(item);
     });
@@ -115,6 +119,7 @@ class RunningOrderedCallFlowInstructions
         transcription: promptTranscriptionBuilder.merge(),
       });
 
+      // FIXME Not immediately obvious what is happening without knowing that firstPrompt is the start of a chain, which passes the transcript on
       firstPrompt.transcriptUpdated(promptTranscriptionBuilder);
     };
 
@@ -123,19 +128,20 @@ class RunningOrderedCallFlowInstructions
 }
 
 /**
- * Creates an ordered prompt collection
+ * Tests a call flow by asserting that the instructions spoken match an ordered set of steps from a scenario. The call
+ * flow is traversed by calling the {@link Step.then} when the prompt from the step is matched.
  */
-export function inOrder(
-  promptDefinitions: ReadonlyArray<Step>,
-  promptFactory: PromptFactory = defaultPromptFactory
-): CallFlowInstructions {
+export function orderedScenarioStepsTest(
+  scenarioSteps: Step[],
+  promptFactory: PromptFactory = postSilencePromptFactory
+): CallFlowTest {
   return {
     runAgainstCallFlow: (
       transcriber: Emitter<TranscriptionEvents>,
       call: Call
-    ): CallFlowSession =>
-      new RunningOrderedCallFlowInstructions(
-        promptDefinitions,
+    ): CallFlowTestSession =>
+      new RunningOrderedScenarioStepsCallFlowTest(
+        scenarioSteps,
         promptFactory,
         transcriber,
         call

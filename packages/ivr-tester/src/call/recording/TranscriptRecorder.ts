@@ -13,7 +13,7 @@ import { TestSession } from "../../testRunner";
 import {
   PromptMatchedEvent,
   TimeoutWaitingForMatchEvent,
-} from "../../testing/test/CallFlowInstructions";
+} from "../../testing/test/CallFlowTest";
 
 export interface RecorderConfig {
   outputPath: string;
@@ -79,18 +79,18 @@ export class TranscriptRecorder {
     private readonly config: RecorderConfig
   ) {
     this.saveMatchedPromptRef = this.saveMatchedPrompts.bind(this);
-    this.testSession.callFlowSession.on(
+    this.testSession.callFlowTestSession.on(
       "promptMatched",
       this.saveMatchedPromptRef
     );
 
     this.closeRef = this.close.bind(this);
-    this.testSession.callFlowSession.on("allPromptsMatched", this.closeRef);
+    this.testSession.callFlowTestSession.on("allPromptsMatched", this.closeRef);
 
     this.saveTimedOutPromptThenCloseRef = this.saveTimedOutPromptThenClose.bind(
       this
     );
-    this.testSession.callFlowSession.on(
+    this.testSession.callFlowTestSession.on(
       "timeoutWaitingForMatch",
       this.saveTimedOutPromptThenCloseRef
     );
@@ -168,7 +168,7 @@ export class TranscriptRecorder {
   }
 
   private close() {
-    const callFlowSession = this.testSession.callFlowSession;
+    const callFlowSession = this.testSession.callFlowTestSession;
 
     callFlowSession.off("promptMatched", this.saveMatchedPromptRef);
     callFlowSession.off("allPromptsMatched", this.closeRef);

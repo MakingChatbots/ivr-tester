@@ -1,5 +1,4 @@
 import { Server } from "ws";
-import { WebSocketEvents } from "../src/call/TwilioCall";
 import ngrok from "ngrok";
 import { createWriteStream } from "fs";
 import * as path from "path";

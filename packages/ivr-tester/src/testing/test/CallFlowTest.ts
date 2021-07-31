@@ -27,11 +27,17 @@ export type CallFlowSessionEvents = {
   timeoutWaitingForMatch: TimeoutWaitingForMatchEvent;
 };
 
-export type CallFlowSession = Emitter<CallFlowSessionEvents>;
+/**
+ * Represents a call flow that is being tested
+ */
+export type CallFlowTestSession = Emitter<CallFlowSessionEvents>;
 
-export interface CallFlowInstructions {
+/**
+ * Instructions on how to interact with a call flow
+ */
+export interface CallFlowTest {
   runAgainstCallFlow(
     transcriber: Emitter<TranscriptionEvents>,
     call: Call
-  ): CallFlowSession;
+  ): CallFlowTestSession;
 }

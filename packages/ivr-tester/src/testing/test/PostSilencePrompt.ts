@@ -2,8 +2,16 @@ import { setTimeout } from "timers";
 import { Step } from "../../configuration/scenario/Step";
 import { Call } from "../../call/Call";
 import { PromptTranscriptionBuilder } from "../../call/transcription/PromptTranscriptionBuilder";
-import { MatchedCallback, Prompt, TimeoutCallback } from "./inOrder";
+import {
+  MatchedCallback,
+  Prompt,
+  TimeoutCallback,
+} from "./orderedScenarioStepsTest";
 
+/**
+ * Prompt that is expected to have a period of silence after the spoken instruction. The length of this silence
+ * is used to determine when the prompt completes.
+ */
 export class PostSilencePrompt implements Prompt {
   private timeoutTimer: ReturnType<typeof setTimeout>;
   private promptTimedOut = false;

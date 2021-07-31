@@ -15,11 +15,11 @@ export class StopTestRunnerWhenTestsComplete implements IvrTesterPlugin {
 
   public testStarted(testSession: TestSession): void {
     this.totalRunning++;
-    testSession.callFlowSession.on(
+    testSession.callFlowTestSession.on(
       "allPromptsMatched",
       this.testSuccessful.bind(this)
     );
-    testSession.callFlowSession.on(
+    testSession.callFlowTestSession.on(
       "timeoutWaitingForMatch",
       this.testFailed.bind(this)
     );

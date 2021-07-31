@@ -9,7 +9,7 @@ import { AudioPlaybackCaller } from "./call/AudioPlaybackCaller";
 import { Caller } from "./call/Caller";
 import { consoleUserInterface } from "./testing/ui/consoleUserInterface";
 import { StopTestRunnerWhenTestsComplete } from "./testing/StopTestRunnerWhenTestsComplete";
-import { CallFlowSession } from "./testing/test/CallFlowInstructions";
+import { CallFlowTestSession } from "./testing/test/CallFlowTest";
 import { callConnectedTimeout } from "./testing/callConnectedTimeout";
 import { Call } from "./call/Call";
 import { transcriptRecorderPlugin } from "./call/recording/TranscriptRecorder";
@@ -25,7 +25,7 @@ import {
 export interface TestSession {
   readonly scenario: Scenario;
   readonly call: Call;
-  readonly callFlowSession: CallFlowSession;
+  readonly callFlowTestSession: CallFlowTestSession;
 }
 
 export interface TestRunner {
