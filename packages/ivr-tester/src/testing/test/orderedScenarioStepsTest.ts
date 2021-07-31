@@ -64,6 +64,17 @@ class RunningOrderedScenarioStepsCallFlowTest
     this.initialise();
   }
 
+  private static chainPrompts(prompts: Prompt[]): Prompt {
+    const firstPrompt: Prompt = prompts.shift();
+
+    let chain: Prompt = firstPrompt;
+    prompts.forEach((item) => {
+      chain = chain.setNext(item);
+    });
+
+    return firstPrompt;
+  }
+
   // TODO Tidy this
   private initialise(): void {
     const timedOutCallback: TimeoutCallback = (prompt, transcript) => {
@@ -98,13 +109,9 @@ class RunningOrderedScenarioStepsCallFlowTest
       return this.promptFactory(prompt, this.call, callback, timedOutCallback);
     });
 
-    // Chains together the prompts created by the Prompt Factory above
-    const firstPrompt: Prompt = prompts.shift();
-
-    let chain: Prompt = firstPrompt;
-    prompts.forEach((item) => {
-      chain = chain.setNext(item);
-    });
+    const promptChain = RunningOrderedScenarioStepsCallFlowTest.chainPrompts(
+      prompts
+    );
 
     const promptTranscriptionBuilder = new PromptTranscriptionBuilder();
 
@@ -119,8 +126,7 @@ class RunningOrderedScenarioStepsCallFlowTest
         transcription: promptTranscriptionBuilder.merge(),
       });
 
-      // FIXME Not immediately obvious what is happening without knowing that firstPrompt is the start of a chain, which passes the transcript on
-      firstPrompt.transcriptUpdated(promptTranscriptionBuilder);
+      promptChain.transcriptUpdated(promptTranscriptionBuilder);
     };
 
     this.transcriber.on("transcription", onTranscription);
