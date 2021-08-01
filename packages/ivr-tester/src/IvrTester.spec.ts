@@ -1,5 +1,5 @@
 import { Config } from "./configuration/Config";
-import { IvrTester } from "./testRunner";
+import { IvrTester } from "./IvrTester";
 import getPort from "get-port";
 import { Twilio } from "twilio";
 import {

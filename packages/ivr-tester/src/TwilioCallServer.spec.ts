@@ -1,17 +1,17 @@
 import WebSocket from "ws";
 import { CallServer, TwilioCallServer } from "./TwilioCallServer";
-import { DtmfBufferGenerator } from "../call/dtmf/DtmfBufferGenerator";
+import { DtmfBufferGenerator } from "./call/dtmf/DtmfBufferGenerator";
 import getPort from "get-port";
 import { URL } from "url";
 import waitForExpect from "wait-for-expect";
-import { TwilioCall } from "../call/TwilioCall";
+import { TwilioCall } from "./call/TwilioCall";
 import {
   NoneAssigned,
-  TestAssigned,
-  TestAssigner,
-} from "./IteratingTestAssigner";
-import { TestExecutor } from "./TestExecutor";
-import { Scenario } from "../configuration/scenario/Scenario";
+  ScenarioAssigned,
+  ScenarioAssigner,
+} from "./interactions/scenarioTest/testing/IteratingScenarioAssigner";
+import { TestExecutor } from "./interactions/scenarioTest/testing/TestExecutor";
+import { Scenario } from "./configuration/scenario/Scenario";
 
 const waitForConnection = async (ws: WebSocket): Promise<void> =>
   new Promise((resolve) => ws.on("open", resolve));
@@ -23,13 +23,13 @@ describe("Call Server", () => {
   let callServer: CallServer;
   let callConnection: WebSocket;
 
-  let testAssigner: jest.Mocked<TestAssigner>;
+  let testAssigner: jest.Mocked<ScenarioAssigner>;
   let testExecutor: jest.Mocked<TestExecutor>;
   let dtmfGenerator: jest.Mocked<DtmfBufferGenerator>;
 
   beforeEach(() => {
     testAssigner = {
-      assign: jest.fn<NoneAssigned | TestAssigned, undefined>(),
+      assign: jest.fn<NoneAssigned | ScenarioAssigned, undefined>(),
     };
     testExecutor = { startTest: jest.fn() };
     dtmfGenerator = { generate: jest.fn() };

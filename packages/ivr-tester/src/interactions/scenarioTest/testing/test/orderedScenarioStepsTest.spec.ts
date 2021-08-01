@@ -6,8 +6,8 @@ import {
 } from "./orderedScenarioStepsTest";
 import { contains } from "./conditions/when";
 import { press } from "./conditions/then";
-import { TranscriberPlugin, TranscriptEvent } from "../../index";
-import { Call } from "../../call/Call";
+import { TranscriberPlugin, TranscriptEvent } from "../../../../index";
+import { Call } from "../../../../call/Call";
 import { EventEmitter } from "events";
 import { PostSilencePrompt } from "./PostSilencePrompt";
 // eslint-disable-next-line @typescript-eslint/no-var-requires

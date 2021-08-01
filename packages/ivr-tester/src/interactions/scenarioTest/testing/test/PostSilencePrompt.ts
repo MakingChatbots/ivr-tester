@@ -1,7 +1,7 @@
 import { setTimeout } from "timers";
-import { Step } from "../../configuration/scenario/Step";
-import { Call } from "../../call/Call";
-import { PromptTranscriptionBuilder } from "../../call/transcription/PromptTranscriptionBuilder";
+import { Step } from "../../../../configuration/scenario/Step";
+import { Call } from "../../../../call/Call";
+import { PromptTranscriptionBuilder } from "../../../../call/transcription/PromptTranscriptionBuilder";
 import {
   MatchedCallback,
   Prompt,

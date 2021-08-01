@@ -1,9 +1,9 @@
-import { IvrTesterPlugin } from "../../plugins/IvrTesterPlugin";
+import { IvrTesterPlugin } from "../../../../plugins/IvrTesterPlugin";
 import chalk from "chalk";
-import { CallServerEvents } from "../TwilioCallServer";
-import { Emitter } from "../../Emitter";
-import { PluginHost } from "../../plugins/PluginManager";
-import { TestSession } from "../../testRunner";
+import { CallServerEvents } from "../../../../TwilioCallServer";
+import { Emitter } from "../../../../Emitter";
+import { IvrTesterLifecycle } from "../../../../plugins/PluginManager";
+import { TestSession } from "../../../../IvrTester";
 
 const ivrTranscription = (
   callServer: Emitter<CallServerEvents>,
@@ -68,7 +68,7 @@ const callServerErrored = (callServer: Emitter<CallServerEvents>): void => {
   );
 };
 
-const callRequested = (emitter: PluginHost): void =>
+const callRequested = (emitter: IvrTesterLifecycle): void =>
   emitter.on("callRequested", (event) => {
     switch (event.requestedCall.type) {
       case "audio-playback":
@@ -80,7 +80,7 @@ const callRequested = (emitter: PluginHost): void =>
     }
   });
 
-const callRequestErrored = (emitter: PluginHost): void =>
+const callRequestErrored = (emitter: IvrTesterLifecycle): void =>
   emitter.on("callRequestErrored", (event) =>
     console.error(`Call failed`, event.error.message)
   );
@@ -112,7 +112,7 @@ const ivrTestConditionMet = (
   });
 };
 
-const callServerStarted = (eventEmitter: PluginHost) => {
+const callServerStarted = (eventEmitter: IvrTesterLifecycle) => {
   eventEmitter.on("callServerStarted", ({ callServer }) => {
     callConnected(callServer);
     callServerListening(callServer);
@@ -129,14 +129,14 @@ const callServerStarted = (eventEmitter: PluginHost) => {
   });
 };
 
-const testAborting = (eventEmitter: PluginHost) => {
+const testAborting = (eventEmitter: IvrTesterLifecycle) => {
   eventEmitter.on("testsAborting", ({ reason }) => {
     console.log(chalk.bold.red(`Timed out: ${reason}`));
   });
 };
 
 export const consoleUserInterface = (): IvrTesterPlugin => ({
-  initialise(eventEmitter: PluginHost): void {
+  initialise(eventEmitter: IvrTesterLifecycle): void {
     callServerStarted(eventEmitter);
     callRequested(eventEmitter);
     callRequestErrored(eventEmitter);

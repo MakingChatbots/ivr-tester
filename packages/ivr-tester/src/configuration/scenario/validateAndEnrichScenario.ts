@@ -1,7 +1,7 @@
 import Joi, { ValidationError } from "joi";
 import { Scenario } from "./Scenario";
 import { Step } from "./Step";
-import { Then } from "../../testing/test/conditions/then";
+import { Then } from "../../interactions/scenarioTest/testing/test/conditions/then";
 
 const scenarioSchema = Joi.object<Scenario>({
   name: Joi.string().required(),

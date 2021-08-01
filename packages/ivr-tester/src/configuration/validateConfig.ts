@@ -1,6 +1,6 @@
 import Joi, { ValidationError } from "joi";
 import { Config } from "./Config";
-import { TwilioCallServer } from "../testing/TwilioCallServer";
+import { TwilioCallServer } from "../TwilioCallServer";
 import { Twilio } from "twilio";
 import { DtmfBufferGenerator } from "../call/dtmf/DtmfBufferGenerator";
 import { UlawDtmfBufferGenerator } from "../call/dtmf/UlawDtmfBufferGenerator";

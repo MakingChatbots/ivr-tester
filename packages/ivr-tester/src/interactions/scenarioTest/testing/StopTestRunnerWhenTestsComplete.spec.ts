@@ -1,7 +1,10 @@
 import { StopTestRunnerWhenTestsComplete } from "./StopTestRunnerWhenTestsComplete";
-import { PluginEvents, PluginHost } from "../plugins/PluginManager";
-import { TypedEmitter } from "../Emitter";
-import { TestRunner, TestSession } from "../testRunner";
+import {
+  IvrTesterLifecycle,
+  IvrTesterLifecycle,
+} from "../../../plugins/PluginManager";
+import { TypedEmitter } from "../../../Emitter";
+import { IvrTester, TestSession } from "../../../IvrTester";
 import {
   CallFlowTestSession,
   CallFlowSessionEvents,
@@ -12,16 +15,16 @@ class StubCallFlowSession
   implements CallFlowTestSession {}
 
 class StubPluginManager
-  extends TypedEmitter<PluginEvents>
-  implements PluginHost {
+  extends TypedEmitter<IvrTesterLifecycle>
+  implements IvrTesterLifecycle {
   abortTests(): void {
     // Intentionally empty
   }
 }
 
 describe("Close server when tests complete", () => {
-  let pluginHost: PluginHost;
-  let testRunner: jest.Mocked<TestRunner>;
+  let pluginHost: IvrTesterLifecycle;
+  let testRunner: jest.Mocked<IvrTester>;
 
   beforeEach(() => {
     pluginHost = new StubPluginManager();

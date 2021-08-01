@@ -9,57 +9,17 @@ import { Config } from "../../configuration/Config";
 import { ConfigurationError } from "../../configuration/ConfigurationError";
 import { TwilioCaller, TwilioMediaStreamStartEvent } from "../TwilioCaller";
 import { IvrTesterPlugin } from "../../plugins/IvrTesterPlugin";
-import { TestSession } from "../../testRunner";
+import { TestSession } from "../../IvrTester";
 import {
   PromptMatchedEvent,
   TimeoutWaitingForMatchEvent,
-} from "../../testing/test/CallFlowTest";
+} from "../../interactions/scenarioTest/testing/test/CallFlowTest";
 
 export interface RecorderConfig {
   outputPath: string;
   filename?: string | FilenameFactory;
   includeResponse: boolean;
 }
-
-export const transcriptRecorderPlugin = (config: Config): IvrTesterPlugin => {
-  if (!config.recording?.transcript) {
-    return {
-      initialise(): void {
-        // Intentionally empty
-      },
-    };
-  }
-
-  const recorderConfig: RecorderConfig = {
-    outputPath: config.recording?.transcript?.outputPath,
-    filename:
-      config.recording?.transcript?.filename || ivrNumberAndTestNameFilename,
-    includeResponse: config.recording?.transcript?.includeResponse ?? false,
-  };
-
-  if (!recorderConfig.outputPath) {
-    throw new ConfigurationError(
-      "recording.transcript.outputPath",
-      "Path must be defined"
-    );
-  }
-
-  if (!fs.existsSync(recorderConfig.outputPath)) {
-    throw new ConfigurationError(
-      "recording.transcript.outputPath",
-      "Path does not exist"
-    );
-  }
-
-  return {
-    initialise(): void {
-      // Intentionally empty
-    },
-    testStarted(testSession): void {
-      new TranscriptRecorder(testSession, recorderConfig);
-    },
-  };
-};
 
 export class TranscriptRecorder {
   private static readonly FILE_EXT = "txt";
@@ -184,3 +144,43 @@ export class TranscriptRecorder {
     this.writeStream = null;
   }
 }
+
+export const transcriptRecorderPlugin = (config: Config): IvrTesterPlugin => {
+  if (!config.recording?.transcript) {
+    return {
+      initialise(): void {
+        // Intentionally empty
+      },
+    };
+  }
+
+  const recorderConfig: RecorderConfig = {
+    outputPath: config.recording?.transcript?.outputPath,
+    filename:
+      config.recording?.transcript?.filename || ivrNumberAndTestNameFilename,
+    includeResponse: config.recording?.transcript?.includeResponse ?? false,
+  };
+
+  if (!recorderConfig.outputPath) {
+    throw new ConfigurationError(
+      "recording.transcript.outputPath",
+      "Path must be defined"
+    );
+  }
+
+  if (!fs.existsSync(recorderConfig.outputPath)) {
+    throw new ConfigurationError(
+      "recording.transcript.outputPath",
+      "Path does not exist"
+    );
+  }
+
+  return {
+    initialise(): void {
+      // Intentionally empty
+    },
+    testStarted(testSession): void {
+      new TranscriptRecorder(testSession, recorderConfig);
+    },
+  };
+};

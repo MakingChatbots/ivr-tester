@@ -1,19 +1,19 @@
-import { Step } from "../../configuration/scenario/Step";
+import { Step } from "../../../../configuration/scenario/Step";
 import {
   CallFlowTest,
   CallFlowTestSession,
   CallFlowSessionEvents,
 } from "./CallFlowTest";
 import { setTimeout } from "timers";
-import { Call } from "../../call/Call";
-import { PromptTranscriptionBuilder } from "../../call/transcription/PromptTranscriptionBuilder";
-import { Emitter, TypedEmitter } from "../../Emitter";
+import { Call } from "../../../../call/Call";
+import { PromptTranscriptionBuilder } from "../../../../call/transcription/PromptTranscriptionBuilder";
+import { Emitter, TypedEmitter } from "../../../../Emitter";
 import {
   TranscriptEvent,
   TranscriptionEvents,
-} from "../../call/transcription/plugin/TranscriberPlugin";
+} from "../../../../call/transcription/plugin/TranscriberPlugin";
 import { PostSilencePrompt } from "./PostSilencePrompt";
-import { Scenario } from "../../configuration/scenario/Scenario";
+import { Scenario } from "../../../../configuration/scenario/Scenario";
 
 export interface Prompt {
   readonly definition: Step;

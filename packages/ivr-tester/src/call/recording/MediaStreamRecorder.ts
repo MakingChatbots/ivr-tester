@@ -9,7 +9,7 @@ import { Config } from "../../configuration/Config";
 import { ConfigurationError } from "../../configuration/ConfigurationError";
 import { TwilioCaller, TwilioMediaStreamStartEvent } from "../TwilioCaller";
 import { IvrTesterPlugin } from "../../plugins/IvrTesterPlugin";
-import { TestSession } from "../../testRunner";
+import { TestSession } from "../../IvrTester";
 
 export interface RecorderConfig {
   outputPath: string;

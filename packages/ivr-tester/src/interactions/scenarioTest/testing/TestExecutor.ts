@@ -1,8 +1,8 @@
-import { Call } from "../call/Call";
-import { TestSession } from "../testRunner";
-import { CallTranscriber } from "../call/transcription/CallTranscriber";
-import { TranscriberFactory } from "../call/transcription/plugin/TranscriberFactory";
-import { Scenario } from "../configuration/scenario/Scenario";
+import { Call } from "../../../call/Call";
+import { TestSession } from "../../../IvrTester";
+import { CallTranscriber } from "../../../call/transcription/CallTranscriber";
+import { TranscriberFactory } from "../../../call/transcription/plugin/TranscriberFactory";
+import { Scenario } from "../../../configuration/scenario/Scenario";
 import { orderedScenarioStepsTest } from "./test/orderedScenarioStepsTest";
 
 /**

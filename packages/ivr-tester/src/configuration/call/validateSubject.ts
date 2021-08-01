@@ -6,16 +6,16 @@ const schema = Joi.object<IvrNumber>({
   to: Joi.string().required(),
 });
 
-export type TestSubject = IvrNumber | Buffer;
+export type Subject = IvrNumber | Buffer;
 
-export const validateTestSubject = (
-  testSubject: TestSubject
+export const validateSubject = (
+  subject: Subject
 ): { error?: ValidationError } => {
-  if (Buffer.isBuffer(testSubject)) {
+  if (Buffer.isBuffer(subject)) {
     return {};
   }
 
-  const { error } = schema.validate(testSubject, {
+  const { error } = schema.validate(subject, {
     presence: "required",
   });
 

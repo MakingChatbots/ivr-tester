@@ -1,59 +1,35 @@
 import { IvrTesterPlugin } from "./IvrTesterPlugin";
-import { CallServer, CallServerEvents } from "../testing/TwilioCallServer";
+import { CallServer, CallServerEvents } from "../TwilioCallServer";
 import { Emitter, TypedEmitter } from "../Emitter";
 import { RequestedCall } from "../call/Caller";
-import { TestRunner } from "../testRunner";
+import { IvrTester } from "../IvrTester";
+import { IvrTesterController } from "../interactions/scenarioTest/TestRunnerManager";
 
-export interface CallRequestedEvent {
-  requestedCall: RequestedCall;
-  total: number;
-}
+// /**
+//  * Interface exposed to plugins to allow them to listen to events and abort testing.
+//  */
+// export type ReadonlyIvrTesterLifecycle = Omit<
+//   Emitter<IvrTesterLifecycleEvents>,
+//   "emit"
+// >;
 
-export interface CallRequestErroredEvent {
-  error: Error;
-}
-
-export interface CallServerStartedEvent {
-  callServer: Emitter<CallServerEvents>;
-}
-
-export interface TestsAbortingEvent {
-  reason: string;
-}
-
-export type PluginEvents = {
-  callServerStarted: CallServerStartedEvent;
-  callRequested: CallRequestedEvent;
-  callRequestErrored: CallRequestErroredEvent;
-  testsAborting: TestsAbortingEvent;
-};
-
-/**
- * Interface exposed to plugins to allow them to listen to events and abort testing.
- */
-export interface PluginHost extends Omit<Emitter<PluginEvents>, "emit"> {
-  abortTests(reason: string): void;
-}
-
-export class PluginManager
-  extends TypedEmitter<PluginEvents>
-  implements PluginHost {
-  private testRunner: TestRunner;
+export class PluginManager {
+  private readonly ivrTesterLifecycle: Emitter<IvrTesterLifecycleEvents>;
+  private ivrTesterController: IvrTesterController;
 
   constructor(private readonly plugins: IvrTesterPlugin[]) {
-    super();
+    this.ivrTesterLifecycle = new TypedEmitter<IvrTesterLifecycleEvents>();
   }
 
-  public initialise(testRunner: TestRunner): void {
-    this.testRunner = testRunner;
+  public initialise(ivrTesterController: IvrTesterController): void {
+    this.ivrTesterController = ivrTesterController;
     for (const plugin of this.plugins) {
-      plugin.initialise(this, testRunner);
+      plugin.initialise(this, ivrTesterController);
     }
   }
 
   public abortTests(reason: string): void {
-    this.emit("testsAborting", { reason });
-    this.testRunner.stop(true);
+    this.ivrTesterController.stop(true, reason);
   }
 
   public serverListening(callServer: CallServer): void {

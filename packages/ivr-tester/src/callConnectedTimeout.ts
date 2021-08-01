@@ -1,17 +1,18 @@
-import { IvrTesterPlugin } from "../plugins/IvrTesterPlugin";
-import { PluginHost } from "../plugins/PluginManager";
-import { Config } from "../configuration/Config";
+import { IvrTesterPlugin } from "./plugins/IvrTesterPlugin";
+import { IvrTesterLifecycle } from "./plugins/PluginManager";
+import { Config } from "./configuration/Config";
 
 export const callConnectedTimeout = ({
   msTimeoutWaitingForCall,
 }: Config): IvrTesterPlugin => ({
-  initialise(pluginHost: PluginHost) {
+  initialise(pluginHost: IvrTesterLifecycle, controller) {
     pluginHost.on("callServerStarted", ({ callServer }) => {
       let timeoutCallbackId: NodeJS.Timeout;
 
       pluginHost.on("callRequested", () => {
         clearTimeout(timeoutCallbackId);
         timeoutCallbackId = setTimeout(() => {
+          controller.stop();
           pluginHost.abortTests(
             `call did not connect after ${msTimeoutWaitingForCall / 1000}s`
           );

@@ -1,38 +1,42 @@
 import ws, { AddressInfo, Server } from "ws";
-import { TwilioCall } from "../call/TwilioCall";
+import { TwilioCall } from "./call/TwilioCall";
 import { URL } from "url";
-import { DtmfBufferGenerator } from "../call/dtmf/DtmfBufferGenerator";
-import { Emitter, TypedEmitter } from "../Emitter";
-import { Call } from "../call/Call";
-import { TestAssigner } from "./IteratingTestAssigner";
-import { TestExecutor } from "./TestExecutor";
-import { TestSession } from "../testRunner";
+import { DtmfBufferGenerator } from "./call/dtmf/DtmfBufferGenerator";
+import { Emitter, TypedEmitter } from "./Emitter";
+import { Call } from "./call/Call";
+import {
+  IvrCallFlowInteraction,
+  IvrTesterLifecycleEvents,
+  TestSession,
+} from "./IvrTester";
+import { CallTranscriber } from "./call/transcription/CallTranscriber";
+import { TranscriberFactory } from "./call/transcription/plugin/TranscriberFactory";
 
 export type CallServerEvents = {
   callConnected: { call: Call };
-  testStarted: { testSession: TestSession };
+  // testStarted: { testSession: TestSession };
 
   listening: { localUrl: URL };
   stopped: undefined;
   error: { error: Error };
 };
 
-export interface CallServer extends Emitter<CallServerEvents> {
+export interface CallServer {
   listen(port: number): Promise<URL>;
   stop(): void;
 }
 
 export class TwilioCallServer
-  extends TypedEmitter<CallServerEvents>
+  // extends TypedEmitter<CallServerEvents>
   implements CallServer {
-  private static TestCouldNotBeAssignedReason = "TestCouldNotBeAssigned";
-
   private wss: Server;
 
   constructor(
     private readonly dtmfBufferGenerator: DtmfBufferGenerator,
-    private readonly testAssigner: TestAssigner,
-    private readonly testExecutor: TestExecutor
+    private readonly ivrTesterLifecycle: Emitter<IvrTesterLifecycleEvents>,
+
+    // TODO This doesn't feel like the responsibility of this class
+    private readonly transcriberFactory: TranscriberFactory
   ) {
     super();
   }
@@ -106,16 +110,14 @@ export class TwilioCallServer
 
   private callConnected(callWebSocket: ws): void {
     const call = new TwilioCall(callWebSocket, this.dtmfBufferGenerator);
+    const callTranscriber = new CallTranscriber(
+      call,
+      this.transcriberFactory.create()
+    );
 
     this.emit("callConnected", { call });
 
-    const result = this.testAssigner.assign();
-    if (result.isAssigned === true) {
-      const testSession = this.testExecutor.startTest(result.scenario, call);
-      this.emit("testStarted", { testSession });
-    } else {
-      call.close(TwilioCallServer.TestCouldNotBeAssignedReason);
-    }
+    this.ivrCallFlowInteraction.callConnected(call, callTranscriber);
   }
 
   private closed(): void {

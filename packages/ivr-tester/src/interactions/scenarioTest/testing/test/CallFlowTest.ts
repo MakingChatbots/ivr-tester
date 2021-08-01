@@ -1,7 +1,7 @@
-import { Call } from "../../call/Call";
-import { Emitter } from "../../Emitter";
-import { TranscriptionEvents } from "../../call/transcription/plugin/TranscriberPlugin";
-import { Step } from "../../configuration/scenario/Step";
+import { Call } from "../../../../call/Call";
+import { Emitter } from "../../../../Emitter";
+import { TranscriptionEvents } from "../../../../call/transcription/plugin/TranscriberPlugin";
+import { Step } from "../../../../configuration/scenario/Step";
 
 export interface SessionProgressEvent {
   transcription: string;

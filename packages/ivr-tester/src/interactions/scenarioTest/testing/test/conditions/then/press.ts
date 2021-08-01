@@ -1,6 +1,6 @@
 import { Then } from "./Then";
-import { Call } from "../../../../call/Call";
-import { dtmfSequenceValidator } from "../../../../call/dtmf/dtmfSequenceUtils";
+import { Call } from "../../../../../../call/Call";
+import { dtmfSequenceValidator } from "../../../../../../call/dtmf/dtmfSequenceUtils";
 
 /**
  * Sends DTMF tones to the call
