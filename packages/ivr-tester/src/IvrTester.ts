@@ -1,4 +1,4 @@
-import { CallServerEvents, TwilioCallServer } from "./TwilioCallServer";
+import { TwilioCallServer } from "./TwilioCallServer";
 import { Config } from "./configuration/Config";
 import { PluginManager } from "./plugins/PluginManager";
 import { TwilioCaller } from "./call/TwilioCaller";
@@ -15,9 +15,9 @@ import { Scenario } from "./configuration/scenario/Scenario";
 import { validateConfig } from "./configuration/validateConfig";
 import { IvrNumber } from "./configuration/call/IvrNumber";
 import { Subject, validateSubject } from "./configuration/call/validateSubject";
-import { CallTranscriber } from "./call/transcription/CallTranscriber";
 import { Emitter, TypedEmitter } from "./Emitter";
 import { IvrTesterPlugin } from "./plugins/IvrTesterPlugin";
+import { URL } from "url";
 
 export interface TestSession {
   readonly scenario: Scenario;
@@ -44,7 +44,7 @@ export interface RunnableTester {
 }
 
 export interface IvrCallFlowInteraction {
-  callConnected(call: Call, callTranscriber: CallTranscriber): void;
+  initialise(ivrTesterExecution: IvrTesterExecution): void;
   getNumberOfCallsToMake(): number;
 
   /**
@@ -63,21 +63,30 @@ export interface CallRequestErroredEvent {
   error: Error;
 }
 
-export interface CallServerStartedEvent {
-  callServer: Emitter<CallServerEvents>;
-}
-
 export interface IvrTesterAborted {
   dueToFailure: boolean;
   reason: string;
 }
 
+/**
+ * TODO Rewrite to remove my design decision
+ *
+ * The events for IVR  including the setup and call server.
+ *
+ * I decided to have them all in one place to make it easier to discuss the
+ * lifecycle of the tool. To make this possible I've coupled IVR Tester to the
+ * Twilio Call Server.
+ */
 export type IvrTesterLifecycleEvents = {
-  callServerStarted: CallServerStartedEvent;
+  callServerListening: { localUrl: URL };
+
   callRequested: CallRequestedEvent;
   callRequestErrored: CallRequestErroredEvent;
+  callConnected: { call: Call };
+
   ivrTesterAborted: IvrTesterAborted;
-  // testsAborting: TestsAbortingEvent;
+  callServerStopped: Record<string, never>;
+  callServerErrored: { error: Error };
 };
 
 /**
@@ -87,6 +96,26 @@ export type ReadonlyIvrTesterLifecycle = Omit<
   Emitter<IvrTesterLifecycleEvents>,
   "emit"
 >;
+
+type StopParams = {
+  /**
+   * If true this will cause IVR Tester to signify it failed to a failure e.g. exiting with error code 1
+   */
+  dueToFailure?: boolean;
+  /**
+   * Reason for stopping IVR Tester, this is emitted as part of the life-cycle event
+   */
+  reason?: string;
+};
+
+export interface IvrTesterExecution {
+  lifecycleEvents: ReadonlyIvrTesterLifecycle;
+
+  /**
+   * Calling this will stop IVR Tester.
+   */
+  stop(params: StopParams): void;
+}
 
 /**
  * Despite the name this manages the interaction with an IVR call flow
@@ -105,6 +134,9 @@ export class IvrTester implements RunnableTester {
    */
   private readonly ivrTesterLifecycle: Emitter<IvrTesterLifecycleEvents>;
 
+  private stopExecutionParams: StopParams | undefined;
+  private stopExecutionCallback: (params: StopParams) => void;
+
   constructor(
     readonly configuration: Config,
     private readonly ivrCallFlowInteraction: IvrCallFlowInteraction
@@ -120,11 +152,18 @@ export class IvrTester implements RunnableTester {
     this.config = result.config;
     this.ivrTesterLifecycle = new TypedEmitter<IvrTesterLifecycleEvents>();
 
-    this.pluginManager = createPluginManager(this.config);
-  }
+    const plugins = [
+      callConnectedTimeout(),
+      mediaStreamRecorderPlugin(),
+      // transcriptRecorderPlugin(config),
+      // new StopTestRunnerWhenTestsComplete(),
+      // consoleUserInterface(),
 
-  public getLifecycleEventEmitter(): ReadonlyIvrTesterLifecycle {
-    return this.ivrTesterLifecycle;
+
+
+      ...ivrCallFlowInteraction.getPlugins(),
+    ];
+    // this.pluginManager = createPluginManager(this.config);
   }
 
   public async run(subject: Subject): Promise<void> {
@@ -144,7 +183,7 @@ export class IvrTester implements RunnableTester {
 
     const callServer = new TwilioCallServer(
       this.config.dtmfGenerator,
-      this.ivrCallFlowInteraction,
+      this.ivrTesterLifecycle,
       this.config.transcriber
     );
 
@@ -155,9 +194,20 @@ export class IvrTester implements RunnableTester {
       ? new AudioPlaybackCaller()
       : new TwilioCaller(twilioClient);
 
+    const execution: IvrTesterExecution = {
+      lifecycleEvents: this.ivrTesterLifecycle,
+      stop: (params) => {
+        if (this.stopExecutionCallback) {
+          this.stopExecutionCallback(params);
+        } else {
+          this.stopExecutionParams = params;
+        }
+      },
+    };
+
+    this.ivrCallFlowInteraction.initialise(execution);
+
     const serverUrl = await callServer.listen(this.config.localServerPort);
-    this.ivrTesterLifecycle.emit("callServerStarted", { callServer });
-    // this.pluginManager.serverListening(callServer);
 
     const totalCallsToMake = this.ivrCallFlowInteraction.getNumberOfCallsToMake();
     const calls = Promise.all(
@@ -172,37 +222,44 @@ export class IvrTester implements RunnableTester {
             // this.pluginManager.callRequested(callRequested, totalCallsToMake)
           })
           .catch((error) => {
-            this.pluginManager.callRequestErrored(new Error(error));
+            this.ivrTesterLifecycle.emit("callRequestErrored", {
+              error: new Error(error),
+            });
             throw error;
           })
       )
     );
 
     return new Promise((resolve, reject) => {
-      callServer.on("stopped", reject);
-      callServer.on("error", reject);
+      this.ivrTesterLifecycle.on("callServerStopped", reject);
+      this.ivrTesterLifecycle.on("callServerErrored", reject);
 
       calls
         .then(() => {
-          testRunnerManager.setOnStopCallback((failure) => {
-            callServer.off("stopped", reject);
-            callServer.off("error", reject);
+          this.stopExecutionCallback = (params) => {
+            this.ivrTesterLifecycle.off("callServerStopped", reject);
+            this.ivrTesterLifecycle.off("callServerErrored", reject);
 
             callServer
               .stop()
               .catch((err) => err && console.error(err))
               .finally(() => {
-                if (failure) {
+                if (params.dueToFailure) {
                   reject();
                 } else {
                   resolve();
                 }
               });
-          });
+          };
+
+          // Interaction tried to stop the execution before the callback was set
+          if (this.stopExecutionParams) {
+            this.stopExecutionCallback(this.stopExecutionParams);
+          }
         })
         .catch((error) => {
-          callServer.off("stopped", reject);
-          callServer.off("error", reject);
+          this.ivrTesterLifecycle.off("callServerStopped", reject);
+          this.ivrTesterLifecycle.off("callServerErrored", reject);
 
           callServer
             .stop()

@@ -4,7 +4,7 @@ import * as path from "path";
 import { WebSocketEvents } from "../TwilioCall";
 import { TwilioConnectionEvents } from "../twilio";
 import { FilenameFactory } from "./filename/FilenameFactory";
-import { ivrNumberAndTestNameFilename } from "./filename/ivrNumberAndTestNameFilename";
+import { dateAndPhoneNumberFilename } from "./filename/dateAndPhoneNumberFilename";
 import { Config } from "../../configuration/Config";
 import { ConfigurationError } from "../../configuration/ConfigurationError";
 import { TwilioCaller, TwilioMediaStreamStartEvent } from "../TwilioCaller";
@@ -157,7 +157,7 @@ export const transcriptRecorderPlugin = (config: Config): IvrTesterPlugin => {
   const recorderConfig: RecorderConfig = {
     outputPath: config.recording?.transcript?.outputPath,
     filename:
-      config.recording?.transcript?.filename || ivrNumberAndTestNameFilename,
+      config.recording?.transcript?.filename || dateAndPhoneNumberFilename,
     includeResponse: config.recording?.transcript?.includeResponse ?? false,
   };
 

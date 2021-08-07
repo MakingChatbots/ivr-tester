@@ -2,33 +2,25 @@ import ws, { AddressInfo, Server } from "ws";
 import { TwilioCall } from "./call/TwilioCall";
 import { URL } from "url";
 import { DtmfBufferGenerator } from "./call/dtmf/DtmfBufferGenerator";
-import { Emitter, TypedEmitter } from "./Emitter";
-import { Call } from "./call/Call";
-import {
-  IvrCallFlowInteraction,
-  IvrTesterLifecycleEvents,
-  TestSession,
-} from "./IvrTester";
-import { CallTranscriber } from "./call/transcription/CallTranscriber";
+import { Emitter } from "./Emitter";
+import { IvrTesterLifecycleEvents } from "./IvrTester";
 import { TranscriberFactory } from "./call/transcription/plugin/TranscriberFactory";
 
-export type CallServerEvents = {
-  callConnected: { call: Call };
-  // testStarted: { testSession: TestSession };
+// export type CallServerEvents = {
+//   callConnected: { call: Call };
+// testStarted: { testSession: TestSession };
 
-  listening: { localUrl: URL };
-  stopped: undefined;
-  error: { error: Error };
-};
+// listening: { localUrl: URL };
+// stopped: undefined;
+// error: { error: Error };
+// };
 
 export interface CallServer {
   listen(port: number): Promise<URL>;
   stop(): void;
 }
 
-export class TwilioCallServer
-  // extends TypedEmitter<CallServerEvents>
-  implements CallServer {
+export class TwilioCallServer implements CallServer {
   private wss: Server;
 
   constructor(
@@ -37,9 +29,7 @@ export class TwilioCallServer
 
     // TODO This doesn't feel like the responsibility of this class
     private readonly transcriberFactory: TranscriberFactory
-  ) {
-    super();
-  }
+  ) {}
 
   private static formatServerUrl(server: Server): URL {
     const address = server.address() as AddressInfo;
@@ -79,7 +69,7 @@ export class TwilioCallServer
         const localUrl = TwilioCallServer.convertToWebSocketUrl(
           TwilioCallServer.formatServerUrl(this.wss)
         );
-        this.emit("listening", { localUrl });
+        this.ivrTesterLifecycle.emit("callServerListening", { localUrl });
 
         this.wss.on("connection", (ws) => this.callConnected(ws));
         this.wss.on("close", () => this.closed());
@@ -109,23 +99,23 @@ export class TwilioCallServer
   }
 
   private callConnected(callWebSocket: ws): void {
-    const call = new TwilioCall(callWebSocket, this.dtmfBufferGenerator);
-    const callTranscriber = new CallTranscriber(
-      call,
-      this.transcriberFactory.create()
+    const call = new TwilioCall(
+      callWebSocket,
+      this.dtmfBufferGenerator,
+      this.transcriberFactory
     );
 
-    this.emit("callConnected", { call });
+    this.ivrTesterLifecycle.emit("callConnected", { call });
 
-    this.ivrCallFlowInteraction.callConnected(call, callTranscriber);
+    // this.ivrCallFlowInteraction.callConnected(call, callTranscriber);
   }
 
   private closed(): void {
-    this.emit("stopped", undefined);
+    this.ivrTesterLifecycle.emit("callServerStopped", undefined);
     this.wss = undefined;
   }
 
   private serverError(error: Error): void {
-    this.emit("error", { error });
+    this.ivrTesterLifecycle.emit("callServerErrored", { error });
   }
 }

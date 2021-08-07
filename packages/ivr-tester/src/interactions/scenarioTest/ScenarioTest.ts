@@ -1,11 +1,30 @@
 import { Scenario } from "../../configuration/scenario/Scenario";
 import { validateAndEnrichScenario } from "../../configuration/scenario/validateAndEnrichScenario";
-import { IvrCallFlowInteraction } from "../../IvrTester";
+import { IvrCallFlowInteraction, IvrTesterExecution } from "../../IvrTester";
 import { IteratingScenarioAssigner } from "./testing/IteratingScenarioAssigner";
 import { Call } from "../../call/Call";
 import { CallTranscriber } from "../../call/transcription/CallTranscriber";
 import { orderedScenarioStepsTest } from "./testing/test/orderedScenarioStepsTest";
-import { createTestRunnerManager } from "./TestRunnerManager";
+import { StopTestRunnerWhenTestsComplete } from "./testing/StopTestRunnerWhenTestsComplete";
+import { consoleUserInterface } from "./testing/ui/consoleUserInterface";
+import { callConnectedTimeout } from "../../callConnectedTimeout";
+import { mediaStreamRecorderPlugin } from "../../call/recording/MediaStreamRecorder";
+import { transcriptRecorderPlugin } from "../../call/recording/TranscriptRecorder";
+import { IvrTesterPlugin } from "../../plugins/IvrTesterPlugin";
+//
+// function createPluginManager(
+//   config: Config,
+//   interaction: IvrCallFlowInteraction
+// ): PluginManager {
+//   return new PluginManager([
+//     new StopTestRunnerWhenTestsComplete(),
+//     consoleUserInterface(),
+//     callConnectedTimeout(config),
+//     mediaStreamRecorderPlugin(config),
+//     transcriptRecorderPlugin(config),
+//     ...interaction.getPlugins(),
+//   ]);
+// }
 
 export class ScenarioTest implements IvrCallFlowInteraction {
   private static TestCouldNotBeAssignedReason = "TestCouldNotBeAssigned";
@@ -29,8 +48,10 @@ export class ScenarioTest implements IvrCallFlowInteraction {
    * Called by IVR Tester when the server has started and is about to issue the
    * request for the calls to be made
    */
-  public onReady() {
-    const testRunnerManager = createTestRunnerManager();
+  public initialise(ivrTesterLifecycle: IvrTesterExecution): void {
+    const callConnectedRef = this.callConnected.bind(this);
+    ivrTesterLifecycle.lifecycleEvents.on("callConnected", callConnectedRef);
+
     this.pluginManager.initialise(testRunnerManager.testRunner);
   }
 
@@ -55,5 +76,15 @@ export class ScenarioTest implements IvrCallFlowInteraction {
 
   getNumberOfCallsToMake(): number {
     return this.totalScenarios;
+  }
+
+  public getPlugins(): IvrTesterPlugin[] {
+    return [
+      new StopTestRunnerWhenTestsComplete(),
+      consoleUserInterface(),
+      callConnectedTimeout(config),
+      mediaStreamRecorderPlugin(config),
+      transcriptRecorderPlugin(config),
+    ];
   }
 }

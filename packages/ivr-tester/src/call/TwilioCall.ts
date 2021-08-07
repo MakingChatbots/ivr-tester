@@ -4,6 +4,9 @@ import { TwilioConnectionEvents } from "./twilio";
 import { Call, CallEvents } from "./Call";
 import { Debugger } from "../Debugger";
 import { TypedEmitter } from "../Emitter";
+import { TranscriberFactory } from "./transcription/plugin/TranscriberFactory";
+import { CallTranscriber } from "./transcription/CallTranscriber";
+import { TranscriptionEvents } from "./transcription/plugin/TranscriberPlugin";
 
 export enum WebSocketEvents {
   Message = "message",
@@ -21,9 +24,12 @@ export class TwilioCall extends TypedEmitter<CallEvents> implements Call {
 
   private streamSid: string | undefined;
 
+  private transcriber: CallTranscriber | undefined;
+
   constructor(
     private readonly connection: ws,
-    private readonly dtmfGenerator: DtmfBufferGenerator
+    private readonly dtmfGenerator: DtmfBufferGenerator,
+    private readonly transcriberFactory: TranscriberFactory
   ) {
     super();
     this.processMessageReference = this.processMessage.bind(this);
@@ -131,5 +137,16 @@ export class TwilioCall extends TypedEmitter<CallEvents> implements Call {
 
   public getStream(): ws {
     return this.connection;
+  }
+
+  public getTranscriber(): TypedEmitter<TranscriptionEvents> {
+    if (!this.transcriber) {
+      this.transcriber = new CallTranscriber(
+        this,
+        this.transcriberFactory.create()
+      );
+    }
+
+    return this.transcriber;
   }
 }

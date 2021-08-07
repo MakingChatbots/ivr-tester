@@ -1,26 +1,31 @@
 import { IvrTesterPlugin } from "./plugins/IvrTesterPlugin";
-import { IvrTesterLifecycle } from "./plugins/PluginManager";
 import { Config } from "./configuration/Config";
+import { IvrTesterExecution } from "./IvrTester";
 
-export const callConnectedTimeout = ({
-  msTimeoutWaitingForCall,
-}: Config): IvrTesterPlugin => ({
-  initialise(pluginHost: IvrTesterLifecycle, controller) {
-    pluginHost.on("callServerStarted", ({ callServer }) => {
-      let timeoutCallbackId: NodeJS.Timeout;
+export const callConnectedTimeout = (): IvrTesterPlugin => ({
+  initialise(
+    { msTimeoutWaitingForCall }: Config,
+    ivrTesterExecution: IvrTesterExecution
+  ) {
+    const { lifecycleEvents } = ivrTesterExecution;
 
-      pluginHost.on("callRequested", () => {
-        clearTimeout(timeoutCallbackId);
-        timeoutCallbackId = setTimeout(() => {
-          controller.stop();
-          pluginHost.abortTests(
-            `call did not connect after ${msTimeoutWaitingForCall / 1000}s`
-          );
-        }, msTimeoutWaitingForCall);
-      });
+    let timeoutCallbackId: NodeJS.Timeout;
 
-      callServer.on("stopped", () => clearTimeout(timeoutCallbackId));
-      callServer.on("callConnected", () => clearTimeout(timeoutCallbackId));
+    lifecycleEvents.on("callRequested", () => {
+      clearTimeout(timeoutCallbackId);
+      timeoutCallbackId = setTimeout(() => {
+        ivrTesterExecution.stop({
+          dueToFailure: true,
+          reason: `call did not connect after ${
+            msTimeoutWaitingForCall / 1000
+          }s`,
+        });
+      }, msTimeoutWaitingForCall);
     });
+
+    lifecycleEvents.on("callServerStopped", () =>
+      clearTimeout(timeoutCallbackId)
+    );
+    lifecycleEvents.on("callConnected", () => clearTimeout(timeoutCallbackId));
   },
 });

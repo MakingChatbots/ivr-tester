@@ -1,5 +1,3 @@
-import { Scenario } from "../../../configuration/scenario/Scenario";
-
 export interface StreamDetails {
   sid: string;
   call: { from: string; to: string };
@@ -11,6 +9,5 @@ export interface StreamDetails {
  */
 export type FilenameFactory = (
   stream: StreamDetails,
-  scenario: Scenario,
   customSuffix?: string
 ) => string;

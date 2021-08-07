@@ -1,5 +1,6 @@
 import ws from "ws";
-import { Emitter } from "../Emitter";
+import { Emitter, TypedEmitter } from "../Emitter";
+import { TranscriptionEvents } from "./transcription/plugin/TranscriberPlugin";
 
 export interface CallClosedEvent {
   by: "caller" | "ivr-tester" | "unknown";
@@ -25,6 +26,8 @@ export interface Call extends Emitter<CallEvents> {
   sendMedia(buffer: Buffer): void;
 
   getStream(): ws;
+
+  getTranscriber(): TypedEmitter<TranscriptionEvents>;
 
   close(reason: string): void;
 
