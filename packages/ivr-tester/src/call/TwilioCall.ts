@@ -8,6 +8,7 @@ import { TranscriberFactory } from "./transcription/plugin/TranscriberFactory";
 import { CallTranscriber } from "./transcription/CallTranscriber";
 import { TranscriptionEvents } from "./transcription/plugin/TranscriberPlugin";
 import { TwilioCaller } from "./TwilioCaller";
+import { ArgumentUndefinedError } from "../ArgumentUndefinedError";
 
 export enum WebSocketEvents {
   Message = "message",
@@ -35,6 +36,13 @@ export class TwilioCall extends TypedEmitter<CallEvents> implements Call {
     private readonly transcriberFactory: TranscriberFactory
   ) {
     super();
+    if (!dtmfGenerator) {
+      throw new ArgumentUndefinedError("dtmfGenerator");
+    }
+    if (!transcriberFactory) {
+      throw new ArgumentUndefinedError("transcriberFactory");
+    }
+
     this.processMessageReference = this.processMessage.bind(this);
     connection.on(WebSocketEvents.Message, this.processMessageReference);
 

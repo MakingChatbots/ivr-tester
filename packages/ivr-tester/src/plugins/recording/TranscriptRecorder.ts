@@ -13,6 +13,7 @@ import {
 } from "../../IvrTester";
 import { Emitter } from "../../Emitter";
 import { Call, CallMediaStreamStarted } from "../../call/Call";
+import { ArgumentUndefinedError } from "../../ArgumentUndefinedError";
 
 export interface RecorderConfig {
   outputPath: string;
@@ -37,6 +38,9 @@ export class TranscriptRecorder {
     private readonly ivrCallFlowInteractionEvents: Emitter<IvrCallFlowInteractionEvents>,
     private readonly config: RecorderConfig
   ) {
+    if (!config) {
+      throw new ArgumentUndefinedError("config");
+    }
     this.createFileRef = this.createFile.bind(this);
     call.on("callMediaStreamStarted", this.createFileRef);
 

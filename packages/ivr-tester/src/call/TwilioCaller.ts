@@ -5,6 +5,7 @@ import VoiceResponse from "twilio/lib/twiml/VoiceResponse";
 import { Debugger } from "../Debugger";
 import { Caller, RequestedCall } from "./Caller";
 import { IvrNumber } from "../configuration/call/IvrNumber";
+import { ArgumentUndefinedError } from "../ArgumentUndefinedError";
 
 export interface TwilioMediaStreamStartEvent {
   event: TwilioConnectionEvents.MediaStreamStart;
@@ -17,7 +18,11 @@ export interface TwilioMediaStreamStartEvent {
 export class TwilioCaller implements Caller<IvrNumber> {
   private static debug = Debugger.getTwilioDebugger();
 
-  constructor(private readonly twilioClient: Twilio) {}
+  constructor(private readonly twilioClient: Twilio) {
+    if (!twilioClient) {
+      throw new ArgumentUndefinedError("twilioClient");
+    }
+  }
 
   private static addParameters(stream: VoiceResponse.Stream, call: Call): void {
     // TODO Adding parameters throws a warning, but is even done here https://www.twilio.com/blog/media-streams-public-beta
