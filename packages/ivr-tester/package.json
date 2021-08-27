@@ -20,6 +20,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest src",
+    "test:integration": "jest integration-tests",
     "clean": "rimraf dist/",
     "build:dtmf-tones": "./generate-dtmf-tones.sh",
     "build": "yarn clean && tsc -p tsconfig.build.json --declaration",

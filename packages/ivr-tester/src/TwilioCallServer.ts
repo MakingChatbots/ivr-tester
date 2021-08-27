@@ -5,6 +5,7 @@ import { DtmfBufferGenerator } from "./call/dtmf/DtmfBufferGenerator";
 import { Emitter } from "./Emitter";
 import { IvrTesterLifecycleEvents } from "./IvrTester";
 import { TranscriberFactory } from "./call/transcription/plugin/TranscriberFactory";
+import { ArgumentUndefinedError } from "./ArgumentUndefinedError";
 
 // export type CallServerEvents = {
 //   callConnected: { call: Call };
@@ -29,7 +30,17 @@ export class TwilioCallServer implements CallServer {
 
     // TODO This doesn't feel like the responsibility of this class
     private readonly transcriberFactory: TranscriberFactory
-  ) {}
+  ) {
+    if (!dtmfBufferGenerator) {
+      throw new ArgumentUndefinedError("dtmfBufferGenerator");
+    }
+    if (!ivrTesterLifecycle) {
+      throw new ArgumentUndefinedError("ivrTesterLifecycle");
+    }
+    if (!transcriberFactory) {
+      throw new ArgumentUndefinedError("transcriberFactory");
+    }
+  }
 
   private static formatServerUrl(server: Server): URL {
     const address = server.address() as AddressInfo;
@@ -106,8 +117,6 @@ export class TwilioCallServer implements CallServer {
     );
 
     this.ivrTesterLifecycle.emit("callConnected", { call });
-
-    // this.ivrCallFlowInteraction.callConnected(call, callTranscriber);
   }
 
   private closed(): void {

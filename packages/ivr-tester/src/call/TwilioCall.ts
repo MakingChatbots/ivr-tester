@@ -7,6 +7,7 @@ import { TypedEmitter } from "../Emitter";
 import { TranscriberFactory } from "./transcription/plugin/TranscriberFactory";
 import { CallTranscriber } from "./transcription/CallTranscriber";
 import { TranscriptionEvents } from "./transcription/plugin/TranscriberPlugin";
+import { TwilioCaller } from "./TwilioCaller";
 
 export enum WebSocketEvents {
   Message = "message",
@@ -25,6 +26,8 @@ export class TwilioCall extends TypedEmitter<CallEvents> implements Call {
   private streamSid: string | undefined;
 
   private transcriber: CallTranscriber | undefined;
+
+  public description: string;
 
   constructor(
     private readonly connection: ws,
@@ -75,13 +78,25 @@ export class TwilioCall extends TypedEmitter<CallEvents> implements Call {
 
     switch (data.event) {
       case TwilioConnectionEvents.MediaStreamStart:
-        TwilioCall.debug("Media stream started %O", data);
+        try {
+          TwilioCall.debug("Media stream started %O", data);
 
-        this.streamSid = data.streamSid;
-        this.connection.off(
-          WebSocketEvents.Message,
-          this.processMessageReference
-        );
+          const streamParameters = TwilioCaller.extractParameters(data);
+
+          this.streamSid = data.streamSid;
+          this.emit("callMediaStreamStarted", {
+            streamSid: this.streamSid,
+            fromNumber: streamParameters.from,
+            toNumber: streamParameters.to,
+          });
+        } catch (err) {
+          this.closeConnection();
+          this.emit("callClosed", {
+            by: "ivr-tester",
+            reason: "Failed to extract stream parameters",
+          });
+          throw err;
+        }
         break;
       case TwilioConnectionEvents.Mark:
         TwilioCall.debug("Mark event %O", data);

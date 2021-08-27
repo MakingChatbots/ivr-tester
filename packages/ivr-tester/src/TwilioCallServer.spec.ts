@@ -4,14 +4,9 @@ import { DtmfBufferGenerator } from "./call/dtmf/DtmfBufferGenerator";
 import getPort from "get-port";
 import { URL } from "url";
 import waitForExpect from "wait-for-expect";
-import { TwilioCall } from "./call/TwilioCall";
-import {
-  NoneAssigned,
-  ScenarioAssigned,
-  ScenarioAssigner,
-} from "./interactions/scenarioTest/testing/IteratingScenarioAssigner";
-import { TestExecutor } from "./interactions/scenarioTest/testing/TestExecutor";
-import { Scenario } from "./configuration/scenario/Scenario";
+import { IvrTesterLifecycleEvents } from "./IvrTester";
+import { Emitter } from "./Emitter";
+import { TranscriberFactory } from "./call/transcription/plugin/TranscriberFactory";
 
 const waitForConnection = async (ws: WebSocket): Promise<void> =>
   new Promise((resolve) => ws.on("open", resolve));
@@ -23,15 +18,20 @@ describe("Call Server", () => {
   let callServer: CallServer;
   let callConnection: WebSocket;
 
-  let testAssigner: jest.Mocked<ScenarioAssigner>;
-  let testExecutor: jest.Mocked<TestExecutor>;
+  let ivrTesterLifecycle: jest.Mocked<Emitter<IvrTesterLifecycleEvents>>;
+  let transcriberFactory: TranscriberFactory;
   let dtmfGenerator: jest.Mocked<DtmfBufferGenerator>;
 
   beforeEach(() => {
-    testAssigner = {
-      assign: jest.fn<NoneAssigned | ScenarioAssigned, undefined>(),
+    ivrTesterLifecycle = {
+      emit: jest.fn(),
+      off: jest.fn(),
+      on: jest.fn(),
     };
-    testExecutor = { startTest: jest.fn() };
+    transcriberFactory = {
+      create: () => jest.fn() as any,
+      checkCanRun: () => ({ canRun: true }),
+    };
     dtmfGenerator = { generate: jest.fn() };
   });
 
@@ -52,11 +52,11 @@ describe("Call Server", () => {
     console.groupEnd();
   });
 
-  test("server's local websocket URL", async () => {
+  test("local websocket URL returned from listen method", async () => {
     callServer = new TwilioCallServer(
       dtmfGenerator,
-      testAssigner,
-      testExecutor
+      ivrTesterLifecycle,
+      transcriberFactory
     );
 
     const port = await getPort();
@@ -65,52 +65,26 @@ describe("Call Server", () => {
     expect(serverUrl).toEqual(new URL(`ws://[::]:${port}/`));
   });
 
-  test("call closed when call connected and no test assigned", async () => {
-    testAssigner.assign.mockReturnValue({
-      isAssigned: false,
-      reason: "test reason",
-    });
-
+  test("call closed when stop called against Call instance emitted", async () => {
     callServer = new TwilioCallServer(
       dtmfGenerator,
-      testAssigner,
-      testExecutor
+      ivrTesterLifecycle,
+      transcriberFactory
     );
 
     const serverUrl = await callServer.listen(await getPort());
 
     callConnection = new WebSocket(serverUrl);
     await waitForConnection(callConnection);
+
+    const callConnectedEvent = ivrTesterLifecycle.emit.mock.calls[1];
+    expect(callConnectedEvent[0]).toBe("callConnected");
+
+    const payload = callConnectedEvent[1] as IvrTesterLifecycleEvents["callConnected"];
+    payload.call.close("test");
 
     await waitForExpect(() =>
       expect(callConnection.readyState).toBe(callConnection.CLOSED)
-    );
-  });
-
-  test("test assigned started when call connected", async () => {
-    const scenario: Scenario = {
-      name: "example-test",
-      steps: undefined,
-    };
-
-    testAssigner.assign.mockReturnValue({ isAssigned: true, scenario });
-
-    callServer = new TwilioCallServer(
-      dtmfGenerator,
-      testAssigner,
-      testExecutor
-    );
-
-    const serverUrl = await callServer.listen(await getPort());
-
-    callConnection = new WebSocket(serverUrl);
-    await waitForConnection(callConnection);
-
-    await waitForExpect(() =>
-      expect(testExecutor.startTest).toBeCalledWith(
-        scenario,
-        expect.any(TwilioCall)
-      )
     );
   });
 });

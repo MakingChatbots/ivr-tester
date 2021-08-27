@@ -7,7 +7,8 @@
     "lib": ["es2018"],
     "noImplicitAny": true,
     "moduleResolution": "node",
-    "sourceMap": false,
+    "sourceMap": true,
+    "inlineSourceMap": true,
     "outDir": "dist"
   }
 }

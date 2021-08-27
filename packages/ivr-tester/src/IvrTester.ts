@@ -1,17 +1,12 @@
 import { TwilioCallServer } from "./TwilioCallServer";
 import { Config } from "./configuration/Config";
-import { PluginManager } from "./plugins/PluginManager";
 import { TwilioCaller } from "./call/TwilioCaller";
-import { mediaStreamRecorderPlugin } from "./call/recording/MediaStreamRecorder";
+import { mediaStreamRecorderPlugin } from "./plugins/recording/MediaStreamRecorder";
 import { AudioPlaybackCaller } from "./call/AudioPlaybackCaller";
 import { Caller, RequestedCall } from "./call/Caller";
-import { consoleUserInterface } from "./interactions/scenarioTest/testing/ui/consoleUserInterface";
-import { StopTestRunnerWhenTestsComplete } from "./interactions/scenarioTest/testing/StopTestRunnerWhenTestsComplete";
-import { CallFlowTestSession } from "./interactions/scenarioTest/testing/test/CallFlowTest";
 import { callConnectedTimeout } from "./callConnectedTimeout";
 import { Call } from "./call/Call";
-import { transcriptRecorderPlugin } from "./call/recording/TranscriptRecorder";
-import { Scenario } from "./configuration/scenario/Scenario";
+import { transcriptRecorderPlugin } from "./plugins/recording/TranscriptRecorder";
 import { validateConfig } from "./configuration/validateConfig";
 import { IvrNumber } from "./configuration/call/IvrNumber";
 import { Subject, validateSubject } from "./configuration/call/validateSubject";
@@ -19,31 +14,57 @@ import { Emitter, TypedEmitter } from "./Emitter";
 import { IvrTesterPlugin } from "./plugins/IvrTesterPlugin";
 import { URL } from "url";
 
-export interface TestSession {
-  readonly scenario: Scenario;
-  readonly call: Call;
-  readonly callFlowTestSession: CallFlowTestSession;
-}
+// export interface TestSession {
+//   readonly scenario: Scenario;
+//   readonly call: Call;
+//   readonly callFlowTestSession: CallFlowTestSession;
+// }
 
-function createPluginManager(
-  config: Config,
-  interaction: IvrCallFlowInteraction
-): PluginManager {
-  return new PluginManager([
-    new StopTestRunnerWhenTestsComplete(),
-    consoleUserInterface(),
-    callConnectedTimeout(config),
-    mediaStreamRecorderPlugin(config),
-    transcriptRecorderPlugin(config),
-    ...interaction.getPlugins(),
-  ]);
-}
+// function createPluginManager(
+//   config: Config,
+//   interaction: IvrCallFlowInteraction
+// ): PluginManager {
+//   return new PluginManager([
+//     new StopTestRunnerWhenTestsComplete(),
+//     consoleUserInterface(),
+//     callConnectedTimeout(config),
+//     mediaStreamRecorderPlugin(config),
+//     transcriptRecorderPlugin(config),
+//     ...interaction.getPlugins(),
+//   ]);
+// }
 
 export interface RunnableTester {
   run(subject: Subject): Promise<void>;
 }
 
-export interface IvrCallFlowInteraction {
+export interface IvrCallFlowInteractionPromptEvent {
+  /**
+   * Call this prompt came from
+   */
+  call: Call;
+
+  /**
+   * Transcription of the prompt
+   */
+  transcription: string;
+
+  /**
+   * Description of how the interaction responded to the prompt
+   */
+  responseDescription: string;
+}
+
+export type IvrCallFlowInteractionEvents = {
+  /**
+   * Each interaction may have it's own strategy for determining when a prompt has finished
+   * and certainly how it was respond to the prompt
+   */
+  prompt: IvrCallFlowInteractionPromptEvent;
+};
+
+export interface IvrCallFlowInteraction
+  extends Emitter<IvrCallFlowInteractionEvents> {
   initialise(ivrTesterExecution: IvrTesterExecution): void;
   getNumberOfCallsToMake(): number;
 
@@ -64,8 +85,8 @@ export interface CallRequestErroredEvent {
 }
 
 export interface IvrTesterAborted {
-  dueToFailure: boolean;
-  reason: string;
+  dueToFailure?: boolean;
+  reason?: string;
 }
 
 /**
@@ -97,7 +118,7 @@ export type ReadonlyIvrTesterLifecycle = Omit<
   "emit"
 >;
 
-type StopParams = {
+export type StopParams = {
   /**
    * If true this will cause IVR Tester to signify it failed to a failure e.g. exiting with error code 1
    */
@@ -126,7 +147,6 @@ export interface IvrTesterExecution {
  */
 export class IvrTester implements RunnableTester {
   private readonly config: Config;
-  private readonly pluginManager: PluginManager;
   private running = false;
 
   /**
@@ -155,15 +175,19 @@ export class IvrTester implements RunnableTester {
     const plugins = [
       callConnectedTimeout(),
       mediaStreamRecorderPlugin(),
-      // transcriptRecorderPlugin(config),
+      transcriptRecorderPlugin(ivrCallFlowInteraction),
       // new StopTestRunnerWhenTestsComplete(),
       // consoleUserInterface(),
 
-
-
       ...ivrCallFlowInteraction.getPlugins(),
     ];
+
+    // TODO Do something with the plugins
     // this.pluginManager = createPluginManager(this.config);
+  }
+
+  private static iterateTimes(times: number): undefined[] {
+    return Array(times).fill(undefined);
   }
 
   public async run(subject: Subject): Promise<void> {
@@ -197,6 +221,7 @@ export class IvrTester implements RunnableTester {
     const execution: IvrTesterExecution = {
       lifecycleEvents: this.ivrTesterLifecycle,
       stop: (params) => {
+        this.ivrTesterLifecycle.emit("ivrTesterAborted", params);
         if (this.stopExecutionCallback) {
           this.stopExecutionCallback(params);
         } else {
@@ -211,8 +236,9 @@ export class IvrTester implements RunnableTester {
 
     const totalCallsToMake = this.ivrCallFlowInteraction.getNumberOfCallsToMake();
     const calls = Promise.all(
-      Array(totalCallsToMake).map(() =>
-        caller
+      IvrTester.iterateTimes(totalCallsToMake).map(() => {
+        console.log("About to make calls");
+        return caller
           .call(subject, this.config.publicServerUrl || serverUrl)
           .then((callRequested) => {
             this.ivrTesterLifecycle.emit("callRequested", {
@@ -226,8 +252,8 @@ export class IvrTester implements RunnableTester {
               error: new Error(error),
             });
             throw error;
-          })
-      )
+          });
+      })
     );
 
     return new Promise((resolve, reject) => {
@@ -245,7 +271,7 @@ export class IvrTester implements RunnableTester {
               .catch((err) => err && console.error(err))
               .finally(() => {
                 if (params.dueToFailure) {
-                  reject();
+                  reject(params.reason && new Error(params.reason));
                 } else {
                   resolve();
                 }

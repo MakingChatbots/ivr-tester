@@ -50,7 +50,6 @@ export class CallTranscriber extends TypedEmitter<TranscriptionEvents> {
 
   private collects(event: TranscriptEvent) {
     CallTranscriber.debug("Transcript: %s", event.transcription);
-
     this.emit("transcription", event);
   }
 }
