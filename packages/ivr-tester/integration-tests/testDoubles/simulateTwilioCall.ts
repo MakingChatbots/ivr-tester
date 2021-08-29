@@ -12,7 +12,6 @@ export async function simulateTwilioCall(
   const waitForConnection = async (ws: WebSocket): Promise<void> =>
     new Promise((resolve) => {
       ws.on("open", resolve);
-      // ws.on("error", (err) => reject(err));
     });
 
   const ws = new WebSocket(serverUrl);

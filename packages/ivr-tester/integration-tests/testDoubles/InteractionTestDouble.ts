@@ -40,10 +40,6 @@ export class InteractionTestDouble
     }
   }
 
-  // public getLifecycleEvents(): ReadonlyIvrTesterLifecycle {
-  //   return this.ivrTesterExecution.lifecycleEvents;
-  // }
-
   public getNumberOfCallsToMake(): number {
     return this.numberOfCallsToMake;
   }

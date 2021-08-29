@@ -6,9 +6,8 @@ import { TranscriberTestDouble } from "./testDoubles/TranscriberTestDouble";
 import { InteractionTestDouble } from "./testDoubles/InteractionTestDouble";
 
 describe("IVR Tester creates calls using Twilio", () => {
-  let callServerPort: number;
   let twilioClient: { calls: { create: jest.Mock } };
-  let commonConfig: Config;
+  let config: Config;
 
   let ws: WebSocket;
 
@@ -19,9 +18,8 @@ describe("IVR Tester creates calls using Twilio", () => {
       },
     };
 
-    callServerPort = await getPort();
-    commonConfig = {
-      localServerPort: callServerPort,
+    config = {
+      localServerPort: await getPort(),
       twilioAuth: { accountSid: "test", authToken: "test" },
       twilioClientFactory: () => (twilioClient as unknown) as Twilio,
       dtmfGenerator: { generate: jest.fn() },
@@ -43,7 +41,7 @@ describe("IVR Tester creates calls using Twilio", () => {
 
     const ivrTester = new IvrTester(
       {
-        ...commonConfig,
+        ...config,
         publicServerUrl: "https://example.test/",
       },
       new InteractionTestDouble()
@@ -68,7 +66,7 @@ describe("IVR Tester creates calls using Twilio", () => {
 
     const ivrTester = new IvrTester(
       {
-        ...commonConfig,
+        ...config,
         publicServerUrl: "http://example.test/",
       },
       new InteractionTestDouble()
@@ -97,7 +95,7 @@ describe("IVR Tester creates calls using Twilio", () => {
     };
 
     try {
-      await new IvrTester(commonConfig, new InteractionTestDouble()).run(call);
+      await new IvrTester(config, new InteractionTestDouble()).run(call);
     } catch (err) {
       /* Intentionally ignore*/
     }
@@ -105,7 +103,7 @@ describe("IVR Tester creates calls using Twilio", () => {
     expect(twilioClient.calls.create).toBeCalledWith({
       from: "test-from-number",
       to: "test-to-number",
-      twiml: `<?xml version="1.0" encoding="UTF-8"?><Response><Connect><Stream url="ws://[::]:${callServerPort}/"><Parameter name="from" value="test-from-number"/><Parameter name="to" value="test-to-number"/></Stream></Connect></Response>`,
+      twiml: `<?xml version="1.0" encoding="UTF-8"?><Response><Connect><Stream url="ws://[::]:${config.localServerPort}/"><Parameter name="from" value="test-from-number"/><Parameter name="to" value="test-to-number"/></Stream></Connect></Response>`,
     });
   });
 });

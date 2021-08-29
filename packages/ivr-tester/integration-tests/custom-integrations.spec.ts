@@ -7,20 +7,17 @@ import { InteractionTestDouble } from "./testDoubles/InteractionTestDouble";
 import { URL } from "url";
 
 describe("Custom integrations", () => {
-  let callServerPort: number;
-  let twilioClient: { calls: { create: jest.Mock } };
   let config: Config;
 
   beforeEach(async () => {
-    twilioClient = {
+    const twilioClient = {
       calls: {
         create: jest.fn().mockResolvedValue(undefined),
       },
     };
 
-    callServerPort = await getPort();
     config = {
-      localServerPort: callServerPort,
+      localServerPort: await getPort(),
       twilioAuth: { accountSid: "test", authToken: "test" },
       twilioClientFactory: () => (twilioClient as unknown) as Twilio,
       dtmfGenerator: { generate: jest.fn() },
