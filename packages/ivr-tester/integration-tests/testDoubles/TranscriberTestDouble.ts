@@ -1,5 +1,9 @@
-import { TranscriberPlugin, TranscriptEvent } from "../../src";
-import { TranscriptionEvents, TypedEmitter } from "ivr-tester";
+import {
+  TranscriberPlugin,
+  TranscriptEvent,
+  TranscriptionEvents,
+  TypedEmitter,
+} from "../../src";
 
 /**
  * Produces transcription events containing the JSON of the payload it is
