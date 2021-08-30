@@ -5,8 +5,6 @@ import {
   TypedEmitter,
 } from "../../src";
 
-// it.skip("should sum two numbers", () => {});
-
 /**
  * Produces transcription events containing the JSON of the payload it is
  * meant to transcribe

@@ -65,9 +65,8 @@ describe("Custom integrations", () => {
     await expect(runnerPromise).rejects.toEqual(new Error("test error"));
   });
 
-  test.todo("IVR Tester stops once all calls disconnected", () => {
-    // TODO Implement this in logic then write test
-  });
+  // TODO Implement this in logic then write test
+  test.todo("IVR Tester stops once all calls disconnected");
 
   test("Lifecycle events produced in order for aborted instance", async () => {
     const events: { event: string; payload: unknown }[] = [];
