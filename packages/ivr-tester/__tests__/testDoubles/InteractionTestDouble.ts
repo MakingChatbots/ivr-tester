@@ -1,4 +1,5 @@
 import {
+  Call,
   IvrCallFlowInteraction,
   IvrCallFlowInteractionEvents,
   IvrTesterExecution,
@@ -6,7 +7,6 @@ import {
   StopParams,
   TypedEmitter,
 } from "../../src";
-import { Call } from "../../src/call/Call";
 
 export class InteractionTestDouble
   extends TypedEmitter<IvrCallFlowInteractionEvents>

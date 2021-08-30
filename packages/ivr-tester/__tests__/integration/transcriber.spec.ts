@@ -1,13 +1,6 @@
 import getPort from "get-port";
 import { Twilio } from "twilio";
-import {
-  Config,
-  IvrTester,
-  TranscriberPlugin,
-  TranscriptEvent,
-  TranscriptionEvents,
-  TypedEmitter,
-} from "../../src";
+import { Config, IvrTester, TranscriptEvent, TypedEmitter } from "../../src";
 // import { TranscriberTestDouble } from "../testDoubles/TranscriberTestDouble";
 // import { InteractionTestDouble } from "../testDoubles/InteractionTestDouble";
 import waitForExpect from "wait-for-expect";
@@ -16,13 +9,15 @@ import waitForExpect from "wait-for-expect";
 //   TwilioCallStream,
 // } from "../testDoubles/simulateTwilioCall";
 import WebSocket from "ws";
+import { TranscriberPlugin, TranscriptionEvents } from "ivr-tester";
+import { TwilioCallStream } from "../testDoubles/simulateTwilioCall";
 import { InteractionTestDouble } from "../testDoubles/InteractionTestDouble";
 
-export interface TwilioCallStream {
-  sendMediaPayload(data: Buffer): void;
-  isClosed(): boolean;
-  close(): void;
-}
+// export interface TwilioCallStream {
+//   sendMediaPayload(data: Buffer): void;
+//   isClosed(): boolean;
+//   close(): void;
+// }
 
 export async function simulateTwilioCall(
   serverUrl: string
@@ -69,6 +64,7 @@ export async function simulateTwilioCall(
   };
 }
 
+// WORKS
 // export class InteractionTestDouble
 //   extends TypedEmitter<IvrCallFlowInteractionEvents>
 //   implements IvrCallFlowInteraction {

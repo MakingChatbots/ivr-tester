@@ -22,3 +22,5 @@ export { IvrNumber } from "./configuration/call/IvrNumber";
 export { CallFuzzerInteraction } from "./interactions/CallFuzzerInteraction";
 
 export { TwilioClientAuth } from "./call/twilio";
+
+export { Call } from "./call/Call";
