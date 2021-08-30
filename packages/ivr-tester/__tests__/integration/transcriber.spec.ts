@@ -1,6 +1,6 @@
 import getPort from "get-port";
 import { Twilio } from "twilio";
-import { Config, IvrTester, TranscriptEvent, TypedEmitter } from "../../src";
+import { Config, IvrTester, TranscriptEvent } from "../../src";
 // import { TranscriberTestDouble } from "../testDoubles/TranscriberTestDouble";
 // import { InteractionTestDouble } from "../testDoubles/InteractionTestDouble";
 import waitForExpect from "wait-for-expect";
@@ -9,9 +9,14 @@ import waitForExpect from "wait-for-expect";
 //   TwilioCallStream,
 // } from "../testDoubles/simulateTwilioCall";
 import WebSocket from "ws";
-import { TranscriberPlugin, TranscriptionEvents } from "ivr-tester";
 import { TwilioCallStream } from "../testDoubles/simulateTwilioCall";
 import { InteractionTestDouble } from "../testDoubles/InteractionTestDouble";
+import {
+  TranscriberPlugin,
+  TranscriptionEvents,
+  TypedEmitter,
+} from "ivr-tester";
+// import { TranscriberTestDouble } from "../testDoubles/TranscriberTestDouble";
 
 // export interface TwilioCallStream {
 //   sendMediaPayload(data: Buffer): void;
@@ -113,7 +118,7 @@ export async function simulateTwilioCall(
 //     return [];
 //   }
 // }
-
+//
 export class TranscriberTestDouble
   extends TypedEmitter<TranscriptionEvents>
   implements TranscriberPlugin {
