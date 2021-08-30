@@ -1,10 +1,10 @@
 import getPort from "get-port";
 import { Twilio } from "twilio";
-import { IvrTester, Config } from "../src";
-import { TranscriberTestDouble } from "./testDoubles/TranscriberTestDouble";
 import waitForExpect from "wait-for-expect";
-import { InteractionTestDouble } from "./testDoubles/InteractionTestDouble";
 import { URL } from "url";
+import { Config, IvrTester } from "ivr-tester";
+import { TranscriberTestDouble } from "../testDoubles/TranscriberTestDouble";
+import { InteractionTestDouble } from "../testDoubles/InteractionTestDouble";
 
 describe("Custom integrations", () => {
   let config: Config;
@@ -65,7 +65,7 @@ describe("Custom integrations", () => {
     await expect(runnerPromise).rejects.toEqual(new Error("test error"));
   });
 
-  test("IVR Tester stops once all calls disconnected", () => {
+  test.todo("IVR Tester stops once all calls disconnected", () => {
     // TODO Implement this in logic then write test
   });
 

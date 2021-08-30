@@ -2,16 +2,16 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "resolveJsonModule": true,
-    "rootDirs": ["src", "integration-tests"],
+    "rootDir": "src",
     "declaration": true,
     "outDir": "dist",
   },
   "include": [
     "src",
-    "integration-tests"
   ],
   "exclude": [
     "node_modules",
+    "__tests__",
     "tools"
   ]
 }

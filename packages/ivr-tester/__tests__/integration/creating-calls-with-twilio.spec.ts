@@ -1,9 +1,9 @@
 import getPort from "get-port";
 import { Twilio } from "twilio";
 import WebSocket from "ws";
-import { Config, IvrNumber, IvrTester } from "../src";
-import { TranscriberTestDouble } from "./testDoubles/TranscriberTestDouble";
-import { InteractionTestDouble } from "./testDoubles/InteractionTestDouble";
+import { Config, IvrNumber, IvrTester } from "../../src";
+import { TranscriberTestDouble } from "../testDoubles/TranscriberTestDouble";
+import { InteractionTestDouble } from "../testDoubles/InteractionTestDouble";
 
 describe("IVR Tester creates calls using Twilio", () => {
   let twilioClient: { calls: { create: jest.Mock } };
