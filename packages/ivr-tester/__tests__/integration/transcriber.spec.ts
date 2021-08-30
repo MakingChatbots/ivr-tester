@@ -2,13 +2,9 @@ import getPort from "get-port";
 import { Twilio } from "twilio";
 import {
   Config,
-  IvrCallFlowInteraction,
-  IvrCallFlowInteractionEvents,
   IvrTester,
-  IvrTesterExecution,
-  IvrTesterPlugin,
-  StopParams,
   TranscriberPlugin,
+  TranscriptEvent,
   TranscriptionEvents,
   TypedEmitter,
 } from "../../src";
@@ -19,9 +15,8 @@ import waitForExpect from "wait-for-expect";
 //   simulateTwilioCall,
 //   TwilioCallStream,
 // } from "../testDoubles/simulateTwilioCall";
-import { TranscriptEvent } from "ivr-tester";
-import { Call } from "../../src/call/Call";
 import WebSocket from "ws";
+import { InteractionTestDouble } from "../testDoubles/InteractionTestDouble";
 
 export interface TwilioCallStream {
   sendMediaPayload(data: Buffer): void;
@@ -74,54 +69,54 @@ export async function simulateTwilioCall(
   };
 }
 
-export class InteractionTestDouble
-  extends TypedEmitter<IvrCallFlowInteractionEvents>
-  implements IvrCallFlowInteraction {
-  private _hasInitialisedBeenCalled = false;
-  private ivrTesterExecution: IvrTesterExecution;
-  public call: Call;
-
-  constructor(
-    private readonly numberOfCallsToMake: number = 1,
-    private readonly callbackOnInitialise?: (
-      ivrTesterExecution: IvrTesterExecution
-    ) => void
-  ) {
-    super();
-  }
-
-  public get hasInitialisedBeenCalled(): boolean {
-    return this._hasInitialisedBeenCalled;
-  }
-
-  public initialise(ivrTesterExecution: IvrTesterExecution): void {
-    this._hasInitialisedBeenCalled = true;
-    this.ivrTesterExecution = ivrTesterExecution;
-    this.ivrTesterExecution.lifecycleEvents.on("callConnected", ({ call }) => {
-      this.call = call;
-    });
-
-    if (this.callbackOnInitialise) {
-      this.callbackOnInitialise(ivrTesterExecution);
-    }
-  }
-
-  public getNumberOfCallsToMake(): number {
-    return this.numberOfCallsToMake;
-  }
-
-  public stopIvrTesterExecution(stopParams: StopParams): void {
-    if (!this._hasInitialisedBeenCalled) {
-      throw new Error("initialise not called by IvrTester");
-    }
-
-    return this.ivrTesterExecution.stop(stopParams);
-  }
-
-  public getPlugins(): IvrTesterPlugin[] {
-    return [];
-  }
-}
+// export class InteractionTestDouble
+//   extends TypedEmitter<IvrCallFlowInteractionEvents>
+//   implements IvrCallFlowInteraction {
+//   private _hasInitialisedBeenCalled = false;
+//   private ivrTesterExecution: IvrTesterExecution;
+//   public call: Call;
+//
+//   constructor(
+//     private readonly numberOfCallsToMake: number = 1,
+//     private readonly callbackOnInitialise?: (
+//       ivrTesterExecution: IvrTesterExecution
+//     ) => void
+//   ) {
+//     super();
+//   }
+//
+//   public get hasInitialisedBeenCalled(): boolean {
+//     return this._hasInitialisedBeenCalled;
+//   }
+//
+//   public initialise(ivrTesterExecution: IvrTesterExecution): void {
+//     this._hasInitialisedBeenCalled = true;
+//     this.ivrTesterExecution = ivrTesterExecution;
+//     this.ivrTesterExecution.lifecycleEvents.on("callConnected", ({ call }) => {
+//       this.call = call;
+//     });
+//
+//     if (this.callbackOnInitialise) {
+//       this.callbackOnInitialise(ivrTesterExecution);
+//     }
+//   }
+//
+//   public getNumberOfCallsToMake(): number {
+//     return this.numberOfCallsToMake;
+//   }
+//
+//   public stopIvrTesterExecution(stopParams: StopParams): void {
+//     if (!this._hasInitialisedBeenCalled) {
+//       throw new Error("initialise not called by IvrTester");
+//     }
+//
+//     return this.ivrTesterExecution.stop(stopParams);
+//   }
+//
+//   public getPlugins(): IvrTesterPlugin[] {
+//     return [];
+//   }
+// }
 
 export class TranscriberTestDouble
   extends TypedEmitter<TranscriptionEvents>

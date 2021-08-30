@@ -2,7 +2,7 @@ import getPort from "get-port";
 import { Twilio } from "twilio";
 import waitForExpect from "wait-for-expect";
 import { URL } from "url";
-import { Config, IvrTester } from "ivr-tester";
+import { Config, IvrTester } from "../../src";
 import { TranscriberTestDouble } from "../testDoubles/TranscriberTestDouble";
 import { InteractionTestDouble } from "../testDoubles/InteractionTestDouble";
 
