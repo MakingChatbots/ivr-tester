@@ -5,9 +5,14 @@ import { URL } from "url";
 import { Config, IvrTester } from "../../src";
 import { TranscriberTestDouble } from "../testDoubles/TranscriberTestDouble";
 import { InteractionTestDouble } from "../testDoubles/InteractionTestDouble";
+import {
+  simulateTwilioCall,
+  TwilioCallStream,
+} from "../testDoubles/simulateTwilioCall";
 
 describe("Custom integrations", () => {
   let config: Config;
+  let simulatedCallFromTwilio: TwilioCallStream;
 
   beforeEach(async () => {
     const twilioClient = {
@@ -26,6 +31,13 @@ describe("Custom integrations", () => {
         checkCanRun: () => ({ canRun: true }),
       },
     };
+  });
+
+  afterEach(() => {
+    if (simulatedCallFromTwilio) {
+      simulatedCallFromTwilio.close();
+      simulatedCallFromTwilio = undefined;
+    }
   });
 
   test("IVR Tester stops when interaction calls stop on IVR Tester's execution", async () => {
@@ -65,8 +77,30 @@ describe("Custom integrations", () => {
     await expect(runnerPromise).rejects.toEqual(new Error("test error"));
   });
 
-  // TODO Implement this in logic then write test
-  test.todo("IVR Tester stops once all calls disconnected");
+  test("IVR Tester calls shutdown when all calls disconnect", async () => {
+    const interaction = new InteractionTestDouble(1);
+    jest.spyOn(interaction, "shutdown");
+
+    const runnerPromise = new IvrTester(config, interaction).run({
+      from: "123",
+      to: "456",
+    });
+
+    // Simulate Twilio connecting a call's stream
+    simulatedCallFromTwilio = await simulateTwilioCall(
+      `ws://[::]:${config.localServerPort}/`
+    );
+
+    expect(interaction.shutdown).not.toHaveBeenCalled();
+
+    simulatedCallFromTwilio.close();
+
+    await waitForExpect(() => {
+      expect(interaction.shutdown).toHaveBeenCalled();
+    });
+
+    await runnerPromise;
+  });
 
   test("Lifecycle events produced in order for aborted instance", async () => {
     const events: { event: string; payload: unknown }[] = [];

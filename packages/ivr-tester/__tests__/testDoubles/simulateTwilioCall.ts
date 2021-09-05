@@ -37,16 +37,13 @@ export async function simulateTwilioCall(
       });
     },
     close(): void {
-      if (
-        this.ws &&
-        ![this.ws.CLOSED, this.ws.CLOSING].includes(this.ws.readyState)
-      ) {
-        this.ws.close();
+      if (ws && ![ws.CLOSED, ws.CLOSING].includes(ws.readyState)) {
+        ws.close();
       }
     },
 
     isClosed(): boolean {
-      return this.ws.readyState === this.ws.CLOSED;
+      return ws.readyState === ws.CLOSED;
     },
   };
 }

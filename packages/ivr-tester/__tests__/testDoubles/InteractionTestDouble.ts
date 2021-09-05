@@ -55,4 +55,8 @@ export class InteractionTestDouble
   public getPlugins(): IvrTesterPlugin[] {
     return [];
   }
+
+  public shutdown(): void {
+    // Intentionally empty
+  }
 }

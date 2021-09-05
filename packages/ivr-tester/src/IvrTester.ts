@@ -66,6 +66,16 @@ export type IvrCallFlowInteractionEvents = {
 export interface IvrCallFlowInteraction
   extends Emitter<IvrCallFlowInteractionEvents> {
   initialise(ivrTesterExecution: IvrTesterExecution): void;
+
+  /**
+   * Called when IVR Tester is about to close. This is where you need to prepare the integration
+   * to be shutdown.
+   */
+  shutdown(): void;
+
+  /**
+   * Returns the times you want IVR Tester to phone the number
+   */
   getNumberOfCallsToMake(): number;
 
   /**
@@ -90,7 +100,7 @@ export interface IvrTesterAborted {
 }
 
 /**
- * TODO Rewrite to remove my design decision
+ * TODO Rewrite to remove my design decision below
  *
  * The events for IVR  including the setup and call server.
  *
@@ -104,6 +114,7 @@ export type IvrTesterLifecycleEvents = {
   callRequested: CallRequestedEvent;
   callRequestErrored: CallRequestErroredEvent;
   callConnected: { call: Call };
+  callDisconnected: { call: Call };
 
   ivrTesterAborted: IvrTesterAborted;
   callServerStopped: Record<string, never>;
@@ -148,6 +159,8 @@ export interface IvrTesterExecution {
 export class IvrTester implements RunnableTester {
   private readonly config: Config;
   private running = false;
+
+  private totalCallsOpen = 0;
 
   /**
    * Used to emit lifecycle events of IVR Tester
@@ -245,7 +258,7 @@ export class IvrTester implements RunnableTester {
               requestedCall: callRequested,
               total: totalCallsToMake,
             });
-            // this.pluginManager.callRequested(callRequested, totalCallsToMake)
+            this.totalCallsOpen++;
           })
           .catch((error) => {
             this.ivrTesterLifecycle.emit("callRequestErrored", {
@@ -266,6 +279,8 @@ export class IvrTester implements RunnableTester {
             this.ivrTesterLifecycle.off("callServerStopped", reject);
             this.ivrTesterLifecycle.off("callServerErrored", reject);
 
+            this.ivrCallFlowInteraction.shutdown();
+
             callServer
               .stop()
               .catch((err) => err && console.error(err))
@@ -282,6 +297,17 @@ export class IvrTester implements RunnableTester {
           if (this.stopExecutionParams) {
             this.stopExecutionCallback(this.stopExecutionParams);
           }
+
+          // TODO Will this event be emitted even if the call terminates due to an error?
+          this.ivrTesterLifecycle.on("callDisconnected", () => {
+            this.totalCallsOpen--;
+            if (this.totalCallsOpen <= 0) {
+              this.stopExecutionCallback({
+                dueToFailure: false,
+                reason: "All calls disconnected",
+              });
+            }
+          });
         })
         .catch((error) => {
           this.ivrTesterLifecycle.off("callServerStopped", reject);

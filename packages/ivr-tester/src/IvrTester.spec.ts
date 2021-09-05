@@ -4,54 +4,18 @@ import {
   IvrCallFlowInteractionEvents,
   IvrTester,
   IvrTesterExecution,
-  StopParams,
 } from "./IvrTester";
 import getPort from "get-port";
 import { Twilio } from "twilio";
-import {
-  TranscriberPlugin,
-  TranscriptEvent,
-} from "./call/transcription/plugin/TranscriberPlugin";
-import { EventEmitter } from "events";
 import WebSocket from "ws";
-import waitForExpect from "wait-for-expect";
 import { IvrNumber } from "./configuration/call/IvrNumber";
 import { TypedEmitter } from "./Emitter";
 import { IvrTesterPlugin } from "./plugins/IvrTesterPlugin";
+import waitForExpect from "wait-for-expect";
+import { TranscriberPlugin } from "./call/transcription/plugin/TranscriberPlugin";
 
 const waitForConnection = async (ws: WebSocket): Promise<void> =>
   new Promise((resolve) => ws.on("open", resolve));
-
-const TwilioPacketGenerator = {
-  sendMedia: (ws: WebSocket, data: Buffer) => {
-    const payload = {
-      event: "media",
-      media: {
-        payload: data.toString("base64"),
-      },
-    };
-
-    ws.send(JSON.stringify(payload));
-  },
-};
-
-class TranscriberTestDouble extends EventEmitter implements TranscriberPlugin {
-  public close(): void {
-    //Intentionally empty
-  }
-  public transcribe(): void {
-    //Intentionally empty
-  }
-
-  public produceTranscriptionEvent(transcription: string) {
-    const event: TranscriptEvent = { transcription, isFinal: true };
-    this.emit("transcription", event);
-  }
-
-  public transcriptionComplete(): void {
-    //Intentionally empty
-  }
-}
 
 class InteractionTestDouble
   extends TypedEmitter<IvrCallFlowInteractionEvents>
@@ -72,16 +36,20 @@ class InteractionTestDouble
     return this.numberOfCallsToMake;
   }
 
-  public abortIvrTester(stopParams: StopParams): void {
-    if (!this.hasInitialisedBeenCalled) {
-      throw new Error("initialise not called by IvrTester");
-    }
-
-    return this.ivrTesterExecution.stop(stopParams);
-  }
+  // public abortIvrTester(stopParams: StopParams): void {
+  //   if (!this.hasInitialisedBeenCalled) {
+  //     throw new Error("initialise not called by IvrTester");
+  //   }
+  //
+  //   return this.ivrTesterExecution.stop(stopParams);
+  // }
 
   public getPlugins(): IvrTesterPlugin[] {
     return [];
+  }
+
+  public shutdown(): void {
+    // Intentionally empty
   }
 }
 
@@ -106,7 +74,7 @@ describe("Test Runner", () => {
       twilioClientFactory: () => (twilioClient as unknown) as Twilio,
       dtmfGenerator: { generate: jest.fn() },
       transcriber: {
-        create: () => new TranscriberTestDouble(),
+        create: () => jest.fn() as any,
         checkCanRun: () => ({ canRun: true }),
       },
     };
@@ -221,49 +189,34 @@ describe("Test Runner", () => {
     ).rejects.toThrowError(new Error("Error Occurred"));
   });
 
-  // test("Call Server closed when interaction calls stop method", async () => {
-  //   twilioClient.calls.create.mockResolvedValue(undefined);
-  //
-  //   const transcriber = new TranscriberTestDouble();
-  //   jest.spyOn(transcriber, "transcribe").mockImplementation(() => {
-  //     transcriber.produceTranscriptionEvent("hello world");
-  //   });
-  //
-  //   const config: Config = {
-  //     ...commonConfig,
-  //     transcriber: {
-  //       create: () => transcriber,
-  //       checkCanRun: () => ({ canRun: true }),
-  //     },
-  //   };
-  //
-  //   const interaction = new InteractionTestDouble(1);
-  //   const ivrTester = new IvrTester(config, interaction);
-  //   const runnerPromise = ivrTester.run({ from: "1", to: "2" });
-  //
-  //   // Wait for calls to be made
-  //   await waitForExpect(() => {
-  //     expect(twilioClient.calls.create).toBeCalled();
-  //   });
-  //
-  //   // Simulate Twilio connecting a call's stream
-  //   ws = new WebSocket(`ws://[::]:${callServerPort}/`);
-  //   await waitForConnection(ws);
-  //
-  //   interaction.abortIvrTester({
-  //     dueToFailure: false,
-  //   });
-  //
-  //   await runnerPromise;
-  //   await waitForExpect(() => expect(ws.readyState).toBe(ws.CLOSED));
-  // });
+  test("IVR Tester stops once all calls disconnected", async () => {
+    twilioClient.calls.create.mockResolvedValue(undefined);
 
-  test("IVR Tester stops once all calls disconnected", () => {
-    // TODO Implement this
+    const config: Config = {
+      ...commonConfig,
+      transcriber: {
+        create: () => jest.fn() as any,
+        checkCanRun: () => ({ canRun: true }),
+      },
+    };
+
+    const ivrTester = new IvrTester(config, new InteractionTestDouble(1));
+    const runnerPromise = ivrTester.run({ from: "1", to: "2" });
+
+    // Wait for calls to be made
+    await waitForExpect(() => {
+      expect(twilioClient.calls.create).toBeCalled();
+    });
+
+    // Simulate Twilio connecting a call's stream
+    ws = new WebSocket(`ws://[::]:${callServerPort}/`);
+    await waitForConnection(ws);
+
+    ws.close();
+
+    await runnerPromise;
+    await waitForExpect(() => expect(ws.readyState).toBe(ws.CLOSED));
   });
-
-  // TODO Test media packets received by transcriber
-  // TODO Test lifecycle events
 
   // test("individual call times out if call not connected after predefined time", () => {
   // No audio is received from the call

@@ -94,11 +94,15 @@ export class CallFuzzerInteraction
     );
   }
 
-  getNumberOfCallsToMake(): number {
+  public getNumberOfCallsToMake(): number {
     return 1;
   }
 
   public getPlugins(): IvrTesterPlugin[] {
     return [];
+  }
+
+  public shutdown(): void {
+    // Intentionally empty
   }
 }

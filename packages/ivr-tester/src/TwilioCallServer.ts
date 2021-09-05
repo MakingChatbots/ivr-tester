@@ -117,6 +117,12 @@ export class TwilioCallServer implements CallServer {
     );
 
     this.ivrTesterLifecycle.emit("callConnected", { call });
+    callWebSocket.on("error", (err) => {
+      console.error(err);
+    });
+    callWebSocket.on("close", () => {
+      this.ivrTesterLifecycle.emit("callDisconnected", { call });
+    });
   }
 
   private closed(): void {
