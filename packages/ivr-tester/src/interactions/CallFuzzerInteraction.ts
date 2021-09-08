@@ -62,12 +62,15 @@ export class CallFuzzerInteraction
     });
 
     call.on("callClosed", () => {
-      clearInterval(this.timeoutRef);
-      this.ivrTesterExecution.stop({
-        dueToFailure: false,
-        reason: "Call disconnected",
-      });
+      this.clearTimeout();
     });
+  }
+
+  private clearTimeout(): void {
+    if (this.timeoutRef) {
+      clearInterval(this.timeoutRef);
+      this.timeoutRef = undefined;
+    }
   }
 
   private setupDebugLogs(lifecycleEvents: ReadonlyIvrTesterLifecycle): void {
@@ -103,6 +106,6 @@ export class CallFuzzerInteraction
   }
 
   public shutdown(): void {
-    // Intentionally empty
+    this.clearTimeout();
   }
 }
