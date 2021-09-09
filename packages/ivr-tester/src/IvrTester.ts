@@ -1,12 +1,10 @@
 import { TwilioCallServer } from "./TwilioCallServer";
 import { Config } from "./configuration/Config";
 import { TwilioCaller } from "./call/TwilioCaller";
-import { mediaStreamRecorderPlugin } from "./plugins/recording/MediaStreamRecorder";
 import { AudioPlaybackCaller } from "./call/AudioPlaybackCaller";
 import { Caller, RequestedCall } from "./call/Caller";
 import { callConnectedTimeout } from "./callConnectedTimeout";
 import { Call } from "./call/Call";
-import { transcriptRecorderPlugin } from "./plugins/recording/TranscriptRecorder";
 import { validateConfig } from "./configuration/validateConfig";
 import { IvrNumber } from "./configuration/call/IvrNumber";
 import { Subject, validateSubject } from "./configuration/call/validateSubject";
@@ -166,6 +164,7 @@ export class IvrTester implements RunnableTester {
    * Used to emit lifecycle events of IVR Tester
    */
   private readonly ivrTesterLifecycle: Emitter<IvrTesterLifecycleEvents>;
+  private readonly plugins: IvrTesterPlugin[];
 
   private stopExecutionParams: StopParams | undefined;
   private stopExecutionCallback: (params: StopParams) => void;
@@ -185,14 +184,14 @@ export class IvrTester implements RunnableTester {
     this.config = result.config;
     this.ivrTesterLifecycle = new TypedEmitter<IvrTesterLifecycleEvents>();
 
-    const plugins = [
+    this.plugins = [
       callConnectedTimeout(),
-      mediaStreamRecorderPlugin(),
-      transcriptRecorderPlugin(ivrCallFlowInteraction),
+      // mediaStreamRecorderPlugin(),
+      // transcriptRecorderPlugin(ivrCallFlowInteraction),
       // new StopTestRunnerWhenTestsComplete(),
       // consoleUserInterface(),
 
-      ...ivrCallFlowInteraction.getPlugins(),
+      // ...ivrCallFlowInteraction.getPlugins(),
     ];
 
     // TODO Do something with the plugins
@@ -242,6 +241,8 @@ export class IvrTester implements RunnableTester {
         }
       },
     };
+
+    this.plugins.forEach((p) => p.initialise(this.config, execution));
 
     this.ivrCallFlowInteraction.initialise(execution);
 

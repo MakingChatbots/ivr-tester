@@ -1,6 +1,5 @@
 import getPort from "get-port";
 import { Twilio } from "twilio";
-import WebSocket from "ws";
 import { Config, IvrNumber, IvrTester } from "../../src";
 import { TranscriberTestDouble } from "../testDoubles/TranscriberTestDouble";
 import { InteractionTestDouble } from "../testDoubles/InteractionTestDouble";
@@ -8,8 +7,6 @@ import { InteractionTestDouble } from "../testDoubles/InteractionTestDouble";
 describe("IVR Tester creates calls using Twilio", () => {
   let twilioClient: { calls: { create: jest.Mock } };
   let config: Config;
-
-  let ws: WebSocket;
 
   beforeEach(async () => {
     twilioClient = {
@@ -30,61 +27,33 @@ describe("IVR Tester creates calls using Twilio", () => {
     };
   });
 
-  afterEach(() => {
-    if (ws && ![ws.CLOSED, ws.CLOSING].includes(ws.readyState)) {
-      ws.close();
-    }
-  });
+  test.each([
+    ["https://example.test/", "wss://example.test/"],
+    ["http://example.test/", "ws://example.test/"],
+  ])(
+    "HTTP(S) public server URL %s converted to WS(S) URL in TWIML %s",
+    async (publicServerUrl, webSocketUrl) => {
+      twilioClient.calls.create.mockRejectedValue(new Error());
 
-  test("HTTPS public server URL converted to WSS URL in TWIML", async () => {
-    twilioClient.calls.create.mockRejectedValue(new Error());
-
-    const ivrTester = new IvrTester(
-      {
+      const testConfig = {
         ...config,
-        publicServerUrl: "https://example.test/",
-      },
-      new InteractionTestDouble()
-    );
+        publicServerUrl,
+      };
 
-    try {
-      await ivrTester.run({ from: "1", to: "2" });
-    } catch (err) {
-      /* Intentionally ignore*/
+      await expect(
+        new IvrTester(testConfig, new InteractionTestDouble()).run({
+          from: "1",
+          to: "2",
+        })
+      ).rejects.toThrowError();
+
+      expect(twilioClient.calls.create).toBeCalledWith(
+        expect.objectContaining({
+          twiml: `<?xml version="1.0" encoding="UTF-8"?><Response><Connect><Stream url="${webSocketUrl}"><Parameter name="from" value="1"/><Parameter name="to" value="2"/></Stream></Connect></Response>`,
+        })
+      );
     }
-
-    expect(twilioClient.calls.create).toBeCalledWith(
-      expect.objectContaining({
-        twiml:
-          '<?xml version="1.0" encoding="UTF-8"?><Response><Connect><Stream url="wss://example.test/"><Parameter name="from" value="1"/><Parameter name="to" value="2"/></Stream></Connect></Response>',
-      })
-    );
-  });
-
-  test("HTTP public server URL converted to WS URL in TWIML", async () => {
-    twilioClient.calls.create.mockRejectedValue(new Error());
-
-    const ivrTester = new IvrTester(
-      {
-        ...config,
-        publicServerUrl: "http://example.test/",
-      },
-      new InteractionTestDouble()
-    );
-
-    try {
-      await ivrTester.run({ from: "1", to: "2" });
-    } catch (err) {
-      /* Intentionally ignore*/
-    }
-
-    expect(twilioClient.calls.create).toBeCalledWith(
-      expect.objectContaining({
-        twiml:
-          '<?xml version="1.0" encoding="UTF-8"?><Response><Connect><Stream url="ws://example.test/"><Parameter name="from" value="1"/><Parameter name="to" value="2"/></Stream></Connect></Response>',
-      })
-    );
-  });
+  );
 
   test("twilio called with phone-numbers and TWIML", async () => {
     twilioClient.calls.create.mockRejectedValue(new Error());
@@ -94,11 +63,9 @@ describe("IVR Tester creates calls using Twilio", () => {
       to: "test-to-number",
     };
 
-    try {
-      await new IvrTester(config, new InteractionTestDouble()).run(call);
-    } catch (err) {
-      /* Intentionally ignore*/
-    }
+    await expect(
+      new IvrTester(config, new InteractionTestDouble()).run(call)
+    ).rejects.toThrowError();
 
     expect(twilioClient.calls.create).toBeCalledWith({
       from: "test-from-number",
@@ -106,4 +73,18 @@ describe("IVR Tester creates calls using Twilio", () => {
       twiml: `<?xml version="1.0" encoding="UTF-8"?><Response><Connect><Stream url="ws://[::]:${config.localServerPort}/"><Parameter name="from" value="test-from-number"/><Parameter name="to" value="test-to-number"/></Stream></Connect></Response>`,
     });
   });
+
+  test("IVR Tester times out if a call takes too long to connect", async () => {
+    const newConfig = {
+      ...config,
+      msTimeoutWaitingForCall: 1000,
+    };
+
+    await expect(
+      new IvrTester(newConfig, new InteractionTestDouble()).run({
+        from: "1",
+        to: "2",
+      })
+    ).rejects.toThrowError("call did not connect after 1s");
+  }, 2000);
 });
