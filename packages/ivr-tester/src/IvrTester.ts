@@ -109,16 +109,19 @@ export interface IvrTesterAborted {
  * Twilio Call Server.
  */
 export type IvrTesterLifecycleEvents = {
+  // Call Server lifecycle
   callServerListening: { localUrl: URL };
+  callServerStopped: Record<string, never>;
+  callServerErrored: { error: Error };
 
+  // Call lifecycle
   callRequested: CallRequestedEvent;
   callRequestErrored: CallRequestErroredEvent;
   callConnected: { call: Call };
   callDisconnected: { call: Call };
 
+  // IVR Tester lifecycle
   ivrTesterAborted: IvrTesterAborted;
-  callServerStopped: Record<string, never>;
-  callServerErrored: { error: Error };
 };
 
 /**
@@ -193,7 +196,7 @@ export class IvrTester implements RunnableTester {
       // new StopTestRunnerWhenTestsComplete(),
       // consoleUserInterface(),
 
-      // ...ivrCallFlowInteraction.getPlugins(),
+      ...ivrCallFlowInteraction.getPlugins(),
     ];
   }
 
