@@ -27,7 +27,7 @@ const config: Config = {
   }),
   recording: {
     audio: {
-      outputPath: path.join(__dirname, "../../recordings"),
+      outputPath: path.join(__dirname, "../recordings"),
     },
   },
 };

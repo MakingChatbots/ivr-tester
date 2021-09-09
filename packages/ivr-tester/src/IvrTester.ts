@@ -11,6 +11,8 @@ import { Subject, validateSubject } from "./configuration/call/validateSubject";
 import { Emitter, TypedEmitter } from "./Emitter";
 import { IvrTesterPlugin } from "./plugins/IvrTesterPlugin";
 import { URL } from "url";
+import { transcriptRecorderPlugin } from "./plugins/recording/TranscriptRecorder";
+import { mediaStreamRecorderPlugin } from "./plugins/recording/MediaStreamRecorder";
 
 // export interface TestSession {
 //   readonly scenario: Scenario;
@@ -186,16 +188,13 @@ export class IvrTester implements RunnableTester {
 
     this.plugins = [
       callConnectedTimeout(),
-      // mediaStreamRecorderPlugin(),
-      // transcriptRecorderPlugin(ivrCallFlowInteraction),
+      mediaStreamRecorderPlugin(),
+      transcriptRecorderPlugin(ivrCallFlowInteraction),
       // new StopTestRunnerWhenTestsComplete(),
       // consoleUserInterface(),
 
       // ...ivrCallFlowInteraction.getPlugins(),
     ];
-
-    // TODO Do something with the plugins
-    // this.pluginManager = createPluginManager(this.config);
   }
 
   private static iterateTimes(times: number): undefined[] {
