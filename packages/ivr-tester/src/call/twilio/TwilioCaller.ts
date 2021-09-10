@@ -1,5 +1,5 @@
 import { URL } from "url";
-import { Twilio, twiml } from "src/call/twilio/twilio";
+import { Twilio, twiml } from "twilio";
 import { Call, TwilioConnectionEvents } from "./twilio";
 import VoiceResponse from "twilio/lib/twiml/VoiceResponse";
 import { Debugger } from "../../Debugger";

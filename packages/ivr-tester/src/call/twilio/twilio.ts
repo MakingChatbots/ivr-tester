@@ -1,4 +1,4 @@
-import { Twilio } from "src/call/twilio/twilio";
+import { Twilio } from "twilio";
 
 export enum TwilioConnectionEvents {
   MediaStreamStart = "start",
