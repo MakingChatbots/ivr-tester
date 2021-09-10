@@ -1,11 +1,11 @@
 import { URL } from "url";
-import { Twilio, twiml } from "twilio";
+import { Twilio, twiml } from "src/call/twilio/twilio";
 import { Call, TwilioConnectionEvents } from "./twilio";
 import VoiceResponse from "twilio/lib/twiml/VoiceResponse";
-import { Debugger } from "../Debugger";
-import { Caller, RequestedCall } from "./Caller";
-import { IvrNumber } from "../configuration/call/IvrNumber";
-import { ArgumentUndefinedError } from "../ArgumentUndefinedError";
+import { Debugger } from "../../Debugger";
+import { Caller, RequestedCall } from "../Caller";
+import { IvrNumber } from "../../configuration/call/IvrNumber";
+import { ArgumentUndefinedError } from "../../ArgumentUndefinedError";
 
 export interface TwilioMediaStreamStartEvent {
   event: TwilioConnectionEvents.MediaStreamStart;

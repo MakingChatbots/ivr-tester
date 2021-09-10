@@ -4,6 +4,7 @@ import {
   IvrCallFlowInteractionEvents,
   IvrTesterExecution,
   IvrTesterPlugin,
+  ReadonlyIvrTesterLifecycle,
   StopParams,
   TypedEmitter,
 } from "../../src";
@@ -22,6 +23,7 @@ export class InteractionTestDouble
     ) => void
   ) {
     super();
+    this.setupDebugLogs(this.ivrTesterExecution.lifecycleEvents);
   }
 
   public get hasInitialisedBeenCalled(): boolean {
@@ -58,5 +60,29 @@ export class InteractionTestDouble
 
   public shutdown(): void {
     // Intentionally empty
+  }
+
+  private setupDebugLogs(lifecycleEvents: ReadonlyIvrTesterLifecycle): void {
+    lifecycleEvents.on("callServerListening", (event) =>
+      console.log("callServerListening", event)
+    );
+    lifecycleEvents.on("callRequested", (event) =>
+      console.log("callRequested", event)
+    );
+    lifecycleEvents.on("callRequestErrored", (event) =>
+      console.log("callRequestedErrored", event)
+    );
+    lifecycleEvents.on("callConnected", (event) =>
+      console.log("callConnected", event)
+    );
+    lifecycleEvents.on("ivrTesterAborted", (event) =>
+      console.log("ivrTesterAborted", event)
+    );
+    lifecycleEvents.on("callServerStopped", (event) =>
+      console.log("callServerStopped", event)
+    );
+    lifecycleEvents.on("callServerErrored", (event) =>
+      console.log("callServerErrored", event)
+    );
   }
 }

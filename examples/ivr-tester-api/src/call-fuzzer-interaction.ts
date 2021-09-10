@@ -40,7 +40,6 @@ function catchError(err: Error) {
 ngrok
   .connect(config.localServerPort)
   .then((url) => {
-    console.log(`Listening on ${url}`);
     return new IvrTester(
       { ...config, publicServerUrl: url },
       new CallFuzzerInteraction()

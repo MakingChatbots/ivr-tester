@@ -1,5 +1,5 @@
-import { WebSocketEvents } from "../TwilioCall";
-import { TwilioConnectionEvents } from "../twilio";
+import { WebSocketEvents } from "../twilio/TwilioCall";
+import { TwilioConnectionEvents } from "../twilio/twilio";
 import {
   TranscriberPlugin,
   TranscriptEvent,

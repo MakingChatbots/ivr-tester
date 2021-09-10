@@ -1,8 +1,11 @@
-import { IvrTesterPlugin } from "./plugins/IvrTesterPlugin";
-import { Config } from "./configuration/Config";
-import { IvrTesterExecution } from "./IvrTester";
+import { IvrTesterPlugin } from "./IvrTesterPlugin";
+import { Config } from "../configuration/Config";
+import { IvrTesterExecution, IvrTesterLifecycleEvents } from "../IvrTester";
+import { Emitter } from "../Emitter";
 
-export const callConnectedTimeout = (): IvrTesterPlugin => ({
+export const callConnectedTimeout = (
+  emitter: Emitter<IvrTesterLifecycleEvents>
+): IvrTesterPlugin => ({
   initialise(
     { msTimeoutWaitingForCall }: Config,
     ivrTesterExecution: IvrTesterExecution
@@ -14,6 +17,10 @@ export const callConnectedTimeout = (): IvrTesterPlugin => ({
     lifecycleEvents.on("callRequested", () => {
       clearTimeout(timeoutCallbackId);
       timeoutCallbackId = setTimeout(() => {
+        emitter.emit("callConnectingTimeout", {
+          msWaitingForCall: msTimeoutWaitingForCall,
+        });
+
         ivrTesterExecution.stop({
           dueToFailure: true,
           reason: `call did not connect after ${

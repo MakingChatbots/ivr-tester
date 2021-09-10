@@ -1,16 +1,17 @@
 import * as fs from "fs";
 import { createWriteStream, mkdirSync, WriteStream } from "fs";
 import * as path from "path";
-import { WebSocketEvents } from "../../call/TwilioCall";
-import { TwilioConnectionEvents } from "../../call/twilio";
+import { WebSocketEvents } from "../../call/twilio/TwilioCall";
+import { TwilioConnectionEvents } from "../../call/twilio/twilio";
 import { FilenameFactory } from "./filename/FilenameFactory";
 import { dateAndPhoneNumberFilename } from "./filename/dateAndPhoneNumberFilename";
 import { Config } from "../../configuration/Config";
 import { ConfigurationError } from "../../configuration/ConfigurationError";
 import { IvrTesterPlugin } from "../IvrTesterPlugin";
-import { IvrTesterExecution } from "../../IvrTester";
+import { IvrTesterExecution, IvrTesterLifecycleEvents } from "../../IvrTester";
 import { Call, CallMediaStreamStarted } from "../../call/Call";
 import { ArgumentUndefinedError } from "../../ArgumentUndefinedError";
+import { Emitter } from "../../Emitter";
 
 export interface RecorderConfig {
   outputPath: string;
@@ -28,7 +29,9 @@ export interface RecorderConfig {
  * * Exploratory Interaction - The description of the route taken is only possible after the test
  * *
  */
-export const mediaStreamRecorderPlugin = (): IvrTesterPlugin => ({
+export const mediaStreamRecorderPlugin = (
+  emitter: Emitter<IvrTesterLifecycleEvents>
+): IvrTesterPlugin => ({
   initialise(config: Config, { lifecycleEvents }: IvrTesterExecution) {
     if (!config.recording?.audio) {
       return; // Nothing to do
@@ -54,7 +57,7 @@ export const mediaStreamRecorderPlugin = (): IvrTesterPlugin => ({
     }
 
     lifecycleEvents.on("callConnected", ({ call }) => {
-      new MediaStreamRecorder(call, recorderConfig);
+      new MediaStreamRecorder(call, recorderConfig, emitter);
     });
   },
 });
@@ -69,7 +72,8 @@ export class MediaStreamRecorder {
 
   constructor(
     private readonly call: Call,
-    private readonly config: RecorderConfig
+    private readonly config: RecorderConfig,
+    private readonly emitter: Emitter<IvrTesterLifecycleEvents>
   ) {
     if (!config) {
       throw new ArgumentUndefinedError("config");
@@ -115,7 +119,8 @@ export class MediaStreamRecorder {
     const filename = this.createFilename(event);
     const filepath = path.join(this.config.outputPath, filename);
 
-    console.log(`Recording inbound audio to '${filepath}'`);
+    this.emitter.emit("inboundAudioRecordingStarted", { outputPath: filepath });
+
     mkdirSync(this.config.outputPath, { recursive: true });
     // FIXME What if recordings for multiple calls created in quick succession? Chance of filename being the same?
     this.writeStream = createWriteStream(filepath);

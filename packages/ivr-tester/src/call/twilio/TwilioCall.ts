@@ -1,14 +1,14 @@
 import ws from "ws";
-import { DtmfBufferGenerator } from "./dtmf/DtmfBufferGenerator";
+import { DtmfBufferGenerator } from "../dtmf/DtmfBufferGenerator";
 import { TwilioConnectionEvents } from "./twilio";
-import { Call, CallEvents } from "./Call";
-import { Debugger } from "../Debugger";
-import { TypedEmitter } from "../Emitter";
-import { TranscriberFactory } from "./transcription/plugin/TranscriberFactory";
-import { CallTranscriber } from "./transcription/CallTranscriber";
-import { TranscriptionEvents } from "./transcription/plugin/TranscriberPlugin";
+import { Call, CallEvents } from "../Call";
+import { Debugger } from "../../Debugger";
+import { TypedEmitter } from "../../Emitter";
+import { TranscriberFactory } from "../transcription/plugin/TranscriberFactory";
+import { CallTranscriber } from "../transcription/CallTranscriber";
+import { TranscriptionEvents } from "../transcription/plugin/TranscriberPlugin";
 import { TwilioCaller } from "./TwilioCaller";
-import { ArgumentUndefinedError } from "../ArgumentUndefinedError";
+import { ArgumentUndefinedError } from "../../ArgumentUndefinedError";
 
 export enum WebSocketEvents {
   Message = "message",

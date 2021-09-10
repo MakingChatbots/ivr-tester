@@ -12,7 +12,6 @@ import { IvrNumber } from "./configuration/call/IvrNumber";
 import { TypedEmitter } from "./Emitter";
 import { IvrTesterPlugin } from "./plugins/IvrTesterPlugin";
 import waitForExpect from "wait-for-expect";
-import { TranscriberPlugin } from "./call/transcription/plugin/TranscriberPlugin";
 
 const waitForConnection = async (ws: WebSocket): Promise<void> =>
   new Promise((resolve) => ws.on("open", resolve));
@@ -35,14 +34,6 @@ class InteractionTestDouble
   public getNumberOfCallsToMake(): number {
     return this.numberOfCallsToMake;
   }
-
-  // public abortIvrTester(stopParams: StopParams): void {
-  //   if (!this.hasInitialisedBeenCalled) {
-  //     throw new Error("initialise not called by IvrTester");
-  //   }
-  //
-  //   return this.ivrTesterExecution.stop(stopParams);
-  // }
 
   public getPlugins(): IvrTesterPlugin[] {
     return [];

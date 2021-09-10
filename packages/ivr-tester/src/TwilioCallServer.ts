@@ -1,5 +1,5 @@
 import ws, { AddressInfo, Server } from "ws";
-import { TwilioCall } from "./call/TwilioCall";
+import { TwilioCall } from "./call/twilio/TwilioCall";
 import { URL } from "url";
 import { DtmfBufferGenerator } from "./call/dtmf/DtmfBufferGenerator";
 import { Emitter } from "./Emitter";
@@ -117,8 +117,8 @@ export class TwilioCallServer implements CallServer {
     );
 
     this.ivrTesterLifecycle.emit("callConnected", { call });
-    callWebSocket.on("error", (err) => {
-      console.error(err);
+    callWebSocket.on("error", (error) => {
+      this.ivrTesterLifecycle.emit("callErrored", { error });
     });
     callWebSocket.on("close", () => {
       this.ivrTesterLifecycle.emit("callDisconnected", { call });

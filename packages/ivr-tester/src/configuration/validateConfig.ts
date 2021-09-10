@@ -4,7 +4,7 @@ import { TwilioCallServer } from "../TwilioCallServer";
 import { Twilio } from "twilio";
 import { DtmfBufferGenerator } from "../call/dtmf/DtmfBufferGenerator";
 import { UlawDtmfBufferGenerator } from "../call/dtmf/UlawDtmfBufferGenerator";
-import { TwilioClientFactory } from "../call/twilio";
+import { TwilioClientFactory } from "../call/twilio/twilio";
 
 const defaultTwilioFactory: TwilioClientFactory = (auth) =>
   new Twilio(auth.accountSid, auth.authToken);

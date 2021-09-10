@@ -1,9 +1,9 @@
 import { TwilioCallServer } from "./TwilioCallServer";
 import { Config } from "./configuration/Config";
-import { TwilioCaller } from "./call/TwilioCaller";
+import { TwilioCaller } from "./call/twilio/TwilioCaller";
 import { AudioPlaybackCaller } from "./call/AudioPlaybackCaller";
 import { Caller, RequestedCall } from "./call/Caller";
-import { callConnectedTimeout } from "./callConnectedTimeout";
+import { callConnectedTimeout } from "./plugins/callConnectedTimeout";
 import { Call } from "./call/Call";
 import { validateConfig } from "./configuration/validateConfig";
 import { IvrNumber } from "./configuration/call/IvrNumber";
@@ -13,26 +13,8 @@ import { IvrTesterPlugin } from "./plugins/IvrTesterPlugin";
 import { URL } from "url";
 import { transcriptRecorderPlugin } from "./plugins/recording/TranscriptRecorder";
 import { mediaStreamRecorderPlugin } from "./plugins/recording/MediaStreamRecorder";
-
-// export interface TestSession {
-//   readonly scenario: Scenario;
-//   readonly call: Call;
-//   readonly callFlowTestSession: CallFlowTestSession;
-// }
-
-// function createPluginManager(
-//   config: Config,
-//   interaction: IvrCallFlowInteraction
-// ): PluginManager {
-//   return new PluginManager([
-//     new StopTestRunnerWhenTestsComplete(),
-//     consoleUserInterface(),
-//     callConnectedTimeout(config),
-//     mediaStreamRecorderPlugin(config),
-//     transcriptRecorderPlugin(config),
-//     ...interaction.getPlugins(),
-//   ]);
-// }
+import { consoleUserInterface } from "./plugins/consoleUserInterface";
+import { Ui } from "./interactions/Ui";
 
 export interface RunnableTester {
   run(subject: Subject): Promise<void>;
@@ -65,7 +47,7 @@ export type IvrCallFlowInteractionEvents = {
 
 export interface IvrCallFlowInteraction
   extends Emitter<IvrCallFlowInteractionEvents> {
-  initialise(ivrTesterExecution: IvrTesterExecution): void;
+  initialise(ivrTesterExecution: IvrTesterExecution, ui: Ui): void;
 
   /**
    * Called when IVR Tester is about to close. This is where you need to prepare the integration
@@ -117,11 +99,17 @@ export type IvrTesterLifecycleEvents = {
   // Call lifecycle
   callRequested: CallRequestedEvent;
   callRequestErrored: CallRequestErroredEvent;
+  callErrored: { error: Error };
   callConnected: { call: Call };
   callDisconnected: { call: Call };
+  callConnectingTimeout: { msWaitingForCall: number };
 
   // IVR Tester lifecycle
   ivrTesterAborted: IvrTesterAborted;
+
+  // Media Recorders
+  inboundAudioRecordingStarted: { outputPath: string };
+  transcriptRecordingStarted: { outputPath: string };
 };
 
 /**
@@ -169,6 +157,8 @@ export class IvrTester implements RunnableTester {
    * Used to emit lifecycle events of IVR Tester
    */
   private readonly ivrTesterLifecycle: Emitter<IvrTesterLifecycleEvents>;
+
+  private readonly ui: Ui;
   private readonly plugins: IvrTesterPlugin[];
 
   private stopExecutionParams: StopParams | undefined;
@@ -189,15 +179,16 @@ export class IvrTester implements RunnableTester {
     this.config = result.config;
     this.ivrTesterLifecycle = new TypedEmitter<IvrTesterLifecycleEvents>();
 
+    const ui = consoleUserInterface();
     this.plugins = [
-      callConnectedTimeout(),
-      mediaStreamRecorderPlugin(),
-      transcriptRecorderPlugin(ivrCallFlowInteraction),
-      // new StopTestRunnerWhenTestsComplete(),
-      // consoleUserInterface(),
-
+      callConnectedTimeout(this.ivrTesterLifecycle),
+      mediaStreamRecorderPlugin(this.ivrTesterLifecycle),
+      transcriptRecorderPlugin(this.ivrTesterLifecycle, ivrCallFlowInteraction),
+      ui,
       ...ivrCallFlowInteraction.getPlugins(),
     ];
+
+    this.ui = ui;
   }
 
   private static iterateTimes(times: number): undefined[] {
@@ -246,14 +237,13 @@ export class IvrTester implements RunnableTester {
 
     this.plugins.forEach((p) => p.initialise(this.config, execution));
 
-    this.ivrCallFlowInteraction.initialise(execution);
+    this.ivrCallFlowInteraction.initialise(execution, this.ui);
 
     const serverUrl = await callServer.listen(this.config.localServerPort);
 
     const totalCallsToMake = this.ivrCallFlowInteraction.getNumberOfCallsToMake();
     const calls = Promise.all(
       IvrTester.iterateTimes(totalCallsToMake).map(() => {
-        console.log("About to make calls");
         return caller
           .call(subject, this.config.publicServerUrl || serverUrl)
           .then((callRequested) => {

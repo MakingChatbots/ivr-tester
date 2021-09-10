@@ -10,6 +10,7 @@ import {
   IvrCallFlowInteractionEvents,
   IvrCallFlowInteractionPromptEvent,
   IvrTesterExecution,
+  IvrTesterLifecycleEvents,
 } from "../../IvrTester";
 import { Emitter } from "../../Emitter";
 import { Call, CallMediaStreamStarted } from "../../call/Call";
@@ -36,7 +37,8 @@ export class TranscriptRecorder {
   constructor(
     private readonly call: Call,
     private readonly ivrCallFlowInteractionEvents: Emitter<IvrCallFlowInteractionEvents>,
-    private readonly config: RecorderConfig
+    private readonly config: RecorderConfig,
+    private readonly emitter: Emitter<IvrTesterLifecycleEvents>
   ) {
     if (!config) {
       throw new ArgumentUndefinedError("config");
@@ -106,7 +108,9 @@ export class TranscriptRecorder {
     const filename = this.createFilename(event);
     const filepath = path.join(this.config.outputPath, filename);
 
-    console.log(`Recording transcript to '${filepath}'`);
+    this.emitter.emit("transcriptRecordingStarted", {
+      outputPath: filepath,
+    });
     mkdirSync(this.config.outputPath, { recursive: true });
 
     this.writeStream = createWriteStream(filepath);
@@ -124,6 +128,7 @@ export class TranscriptRecorder {
 }
 
 export const transcriptRecorderPlugin = (
+  emitter: Emitter<IvrTesterLifecycleEvents>,
   ivrCallFlowInteractionEvents: Emitter<IvrCallFlowInteractionEvents>
 ): IvrTesterPlugin => ({
   initialise(config: Config, ivrTesterExecution: IvrTesterExecution) {
@@ -156,7 +161,8 @@ export const transcriptRecorderPlugin = (
       new TranscriptRecorder(
         call,
         ivrCallFlowInteractionEvents,
-        recorderConfig
+        recorderConfig,
+        emitter
       );
     });
   },
