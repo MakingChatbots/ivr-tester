@@ -16,7 +16,7 @@
     "readme:copy": "cp README.md ./packages/ivr-tester/"
   },
   "devDependencies": {
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.5"
   },
   "engines": {
     "node": "~16.10.0"
