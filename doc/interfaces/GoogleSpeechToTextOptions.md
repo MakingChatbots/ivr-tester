@@ -26,7 +26,7 @@ currently supported language codes.
 
 #### Defined in
 
-index.ts:16
+[index.ts:16](https://github.com/SketchingDev/ivr-tester/blob/437666c/packages/transcriber-google-speech-to-text/src/index.ts#L16)
 
 ___
 
@@ -39,7 +39,7 @@ them. This can be used to improve the accuracy for specific words and phrases.
 
 #### Defined in
 
-index.ts:22
+[index.ts:22](https://github.com/SketchingDev/ivr-tester/blob/437666c/packages/transcriber-google-speech-to-text/src/index.ts#L22)
 
 ___
 
@@ -53,4 +53,4 @@ Be aware that [enhanced models cost more](https://cloud.google.com/speech-to-tex
 
 #### Defined in
 
-index.ts:29
+[index.ts:29](https://github.com/SketchingDev/ivr-tester/blob/437666c/packages/transcriber-google-speech-to-text/src/index.ts#L29)

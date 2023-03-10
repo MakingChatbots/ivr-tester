@@ -44,4 +44,4 @@ phone-calls - specifically 8-bit PCM mono uLaw with a sampling rate of 8Khz.
 
 #### Defined in
 
-index.ts:36
+[index.ts:36](https://github.com/SketchingDev/ivr-tester/blob/437666c/packages/transcriber-google-speech-to-text/src/index.ts#L36)
