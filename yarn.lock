@@ -2320,13 +2320,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv@npm:^16.0.3":
-  version: 16.0.3
-  resolution: "dotenv@npm:16.0.3"
-  checksum: afcf03f373d7a6d62c7e9afea6328e62851d627a4e73f2e12d0a8deae1cd375892004f3021883f8aec85932cd2834b091f568ced92b4774625b321db83b827f8
-  languageName: node
-  linkType: hard
-
 "duplexify@npm:^4.0.0, duplexify@npm:^4.1.1":
   version: 4.1.1
   resolution: "duplexify@npm:4.1.1"
@@ -3536,7 +3529,6 @@ __metadata:
     "@typescript-eslint/parser": ^5.54.0
     copyfiles: ^2.4.1
     debug: ^4.3.4
-    dotenv: ^16.0.3
     eslint: ^8.35.0
     eslint-config-prettier: ^8.6.0
     eslint-plugin-jest: ^27.2.1
