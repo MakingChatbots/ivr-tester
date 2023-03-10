@@ -1,0 +1,28 @@
+{
+  "name": "root",
+  "private": true,
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": "Lucas Woodward",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "yarn workspaces foreach --verbose run build",
+    "lint": "yarn workspaces foreach --verbose run lint",
+    "test": "yarn workspaces foreach --verbose run test",
+    "test:integration": "yarn workspaces foreach --verbose run test:integration",
+    "doc": "yarn workspaces foreach --verbose run doc",
+    "readme:copy": "cp README.md ./packages/ivr-tester/"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.4"
+  },
+  "engines": {
+    "node": "~16.10.0"
+  },
+  "packageManager": "yarn@3.1.1",
+  "jest": {
+    "preset": "./jest.json"
+  }
+}

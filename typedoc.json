@@ -1,0 +1,11 @@
+{
+  "readme": "none",
+  "out": "doc",
+  "plugin": [
+    "typedoc-plugin-markdown"
+  ],
+  "excludeInternal": true,
+  "exclude": [
+    "**/*+(.spec|.test).ts"
+  ]
+}
