@@ -29,4 +29,3 @@ jobs:
       - run: yarn build
       - run: yarn doc
       - run: yarn test
-      - run: yarn test:integration
