@@ -38,7 +38,7 @@
   "dependencies": {
     "debug": "^4.3.4",
     "joi": "^17.8.3",
-    "ws": "^8.12.0"
+    "ws": "^8.13.0"
   },
   "peerDependencies": {
     "twilio": "3.84.1"
