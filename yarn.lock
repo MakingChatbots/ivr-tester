@@ -556,9 +556,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@google-cloud/speech@npm:^5.1.1":
-  version: 5.1.1
-  resolution: "@google-cloud/speech@npm:5.1.1"
+"@google-cloud/speech@npm:^5.4.0":
+  version: 5.4.0
+  resolution: "@google-cloud/speech@npm:5.4.0"
   dependencies:
     "@google-cloud/common": ^4.0.0
     "@types/pumpify": ^1.4.1
@@ -566,7 +566,7 @@ __metadata:
     pumpify: ^2.0.0
     stream-events: ^1.0.4
     uuid: ^9.0.0
-  checksum: 89c0185b93cc48857f842d582949e6845d84d5007bb0dc44cffa82ada144ca81718ddb2371d1a8978f1054424689276c3d110895f76a328a206e46d6935586e2
+  checksum: 7dd0fb5a66e5f24a4e3aec66346581da6aabf62bd25983d4fa80e9c54cce76cf743d68a2e3cfb8c915658e883690326baf8a0765a3c715d67691cae5c3330d59
   languageName: node
   linkType: hard
 
@@ -3482,7 +3482,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "ivr-tester-transcriber-google-speech-to-text@workspace:packages/transcriber-google-speech-to-text"
   dependencies:
-    "@google-cloud/speech": ^5.1.1
+    "@google-cloud/speech": ^5.4.0
     "@types/debug": ^4.1.7
     "@types/jest": ^29.2.6
     "@types/node": ^16.10.0
