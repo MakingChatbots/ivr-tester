@@ -1,5 +1,0 @@
-dist/
-/README.md
-tools/*
-!tools/*.ts
-!tools/README.md

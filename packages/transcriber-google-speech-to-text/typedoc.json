@@ -1,8 +1,0 @@
-{
-  "extends": "../../typedoc.json",
-  "name": "Google Speech-to-Text Transcriber",
-  "entryPoints": ["./src/index.ts"],
-  "exclude": [
-    "**/*+(.spec|.test).ts"
-  ]
-}
