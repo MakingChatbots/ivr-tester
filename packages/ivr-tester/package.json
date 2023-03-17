@@ -38,6 +38,7 @@
   "dependencies": {
     "debug": "^4.3.4",
     "joi": "^17.8.3",
+    "string-similarity": "^4.0.4",
     "ws": "^8.13.0"
   },
   "peerDependencies": {
@@ -47,6 +48,7 @@
     "@types/debug": "^4.1.7",
     "@types/jest": "^29.2.6",
     "@types/node": "^16.10.0",
+    "@types/string-similarity": "^4.0.0",
     "@types/ws": "^8.5.4",
     "@typescript-eslint/eslint-plugin": "^5.54.1",
     "@typescript-eslint/parser": "^5.54.1",

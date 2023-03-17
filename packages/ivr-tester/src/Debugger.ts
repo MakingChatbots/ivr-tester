@@ -11,6 +11,10 @@ export class Debugger {
     return debug(Debugger.packageName);
   }
 
+  public static getInteractorDebugger(): debug.Debugger {
+    return Debugger.getDebugger('interactor');
+  }
+
   public static getTwilioDebugger(): debug.Debugger {
     return Debugger.getDebugger('twilio');
   }

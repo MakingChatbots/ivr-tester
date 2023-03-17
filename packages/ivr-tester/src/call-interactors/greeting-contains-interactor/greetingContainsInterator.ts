@@ -1,7 +1,6 @@
 import { CallInteractor } from '../CallInteractor';
-import { TranscriberPlugin } from '../../call-interactor-utilities/transcription/plugin/TranscriberPlugin';
-import { CallTranscriber } from '../../call-interactor-utilities/transcription/CallTranscriber';
-import { TranscriberFactory } from '../../call-interactor-utilities/transcription/plugin/TranscriberFactory';
+import { CallTranscriber, TranscriberPlugin } from '../../call-interactor-utilities/transcription';
+import { TranscriberFactory } from '../../call-interactor-utilities/transcription';
 import { ArgumentUndefinedError } from '../../ArgumentUndefinedError';
 
 export interface GreetingMsgInteractorResult {

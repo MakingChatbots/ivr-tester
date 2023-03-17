@@ -42,7 +42,9 @@ export class GoogleSpeechToText
     if (!languageCode) {
       throw new TypeError("'languageCode' argument must be defined");
     }
-
+    if (speechPhrases.some((phrase) => phrase.length > 100)) {
+      throw new Error('A speech phrase was longer than 100 characters');
+    }
     this.config = GoogleSpeechToText.createConfig(languageCode, speechPhrases, useEnhanced);
 
     GoogleSpeechToText.debug('Configuration: %O', this.config);

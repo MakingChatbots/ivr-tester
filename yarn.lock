@@ -1396,6 +1396,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/string-similarity@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "@types/string-similarity@npm:4.0.0"
+  checksum: e530b8c1254ae3318662baaa71e5d42938c900dd6d3486a358f188dfe0d6f14c2342ad48f363db9851230ab51e17460de7a6569038c022815ade6d4bbe78f46f
+  languageName: node
+  linkType: hard
+
 "@types/ws@npm:^8.5.4":
   version: 8.5.4
   resolution: "@types/ws@npm:8.5.4"
@@ -3606,6 +3613,7 @@ __metadata:
     "@types/debug": ^4.1.7
     "@types/jest": ^29.2.6
     "@types/node": ^16.10.0
+    "@types/string-similarity": ^4.0.0
     "@types/ws": ^8.5.4
     "@typescript-eslint/eslint-plugin": ^5.54.1
     "@typescript-eslint/parser": ^5.54.1
@@ -3619,6 +3627,7 @@ __metadata:
     joi: ^17.8.3
     prettier: ^2.8.4
     rimraf: ^4.4.0
+    string-similarity: ^4.0.4
     ts-jest: ^29.0.5
     ts-node: ^10.9.1
     twilio: 3.84.1
@@ -5760,6 +5769,13 @@ __metadata:
     char-regex: ^1.0.2
     strip-ansi: ^6.0.0
   checksum: 7bd3191668ddafa6f574a8b17a1bd1b085737d64ceefa51f72cdd19c45a730422cd70d984eee7584d6e5b5c84b6318633c6d6a720a4bfd7c58769985fa77573e
+  languageName: node
+  linkType: hard
+
+"string-similarity@npm:^4.0.4":
+  version: 4.0.4
+  resolution: "string-similarity@npm:4.0.4"
+  checksum: 797b41b24e1eb6b3b0ab896950b58c295a19a82933479c75f7b5279ffb63e0b456a8c8d10329c02f607ca1a50370e961e83d552aa468ff3b0fa15809abc9eff7
   languageName: node
   linkType: hard
 
