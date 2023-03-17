@@ -1,6 +1,5 @@
 import { CallInteractor } from '../CallInteractor';
 import { CallTranscriber, TranscriberFactory } from '../../call-interactor-utilities/transcription';
-import { DtmfBufferGenerator } from '../../call-interactor-utilities/dtmf';
 import { validateScenario } from './validateScenario';
 import { Scenario } from './scenario-definition/Scenario';
 import { defaultPromptFactory, RunningOrderedCallFlowInstructions } from './inOrder';
@@ -8,10 +7,10 @@ import { Debugger } from '../../Debugger';
 
 export interface ScenarioTestInteractorConfig {
   readonly scenario: Scenario;
-  readonly dtmfGenerator: DtmfBufferGenerator;
+  // readonly dtmfGenerator: DtmfBufferGenerator;
   readonly transcriberFactory: TranscriberFactory;
-  readonly intervalSet?: typeof setInterval;
-  readonly intervalClear?: typeof clearInterval;
+  // readonly intervalSet?: typeof setInterval;
+  // readonly intervalClear?: typeof clearInterval;
 }
 
 /**
@@ -19,11 +18,11 @@ export interface ScenarioTestInteractorConfig {
  */
 export const scenarioTestInteractor = ({
   scenario,
-  dtmfGenerator,
+  // dtmfGenerator,
   transcriberFactory,
-  intervalSet = setInterval,
-  intervalClear = clearInterval,
-}: ScenarioTestInteractorConfig): CallInteractor<void> => {
+}: // intervalSet = setInterval,
+// intervalClear = clearInterval,
+ScenarioTestInteractorConfig): CallInteractor<void> => {
   const debug = Debugger.getInteractorDebugger();
 
   const validationResult = validateScenario(scenario);

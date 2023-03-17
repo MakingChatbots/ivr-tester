@@ -1,4 +1,4 @@
-import { matches } from "./matches";
+import { matches } from './matches';
 
 test.each([
   [
@@ -6,7 +6,7 @@ test.each([
     /1|one/,
     true,
   ],
-  ["press to try again", /test/, false],
+  ['press to try again', /test/, false],
 ])("matches ('%s')", (transcript, actual, expected) =>
-  expect(matches(actual)(transcript)).toBe(expected)
+  expect(matches(actual)(transcript)).toBe(expected),
 );

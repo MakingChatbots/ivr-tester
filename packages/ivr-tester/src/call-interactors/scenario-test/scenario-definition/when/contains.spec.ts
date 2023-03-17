@@ -1,8 +1,8 @@
-import { contains } from "./contains";
+import { contains } from './contains';
 
-test("can be configured to be case sensitive", () => {
-  const transcript = "Hello World";
+test('can be configured to be case sensitive', () => {
+  const transcript = 'Hello World';
 
-  expect(contains("hello", { ignoreCasing: false })(transcript)).toBe(false);
-  expect(contains("Hello", { ignoreCasing: false })(transcript)).toBe(true);
+  expect(contains('hello', { ignoreCasing: false })(transcript)).toBe(false);
+  expect(contains('Hello', { ignoreCasing: false })(transcript)).toBe(true);
 });

@@ -1,7 +1,5 @@
-import { Call } from '../../call/Call';
 import { Emitter } from '../../Emitter';
 import { Step } from './scenario-definition/Step';
-import { TranscriptionEvents } from '../../call-interactor-utilities/transcription';
 
 export interface SessionProgressEvent {
   transcription: string;

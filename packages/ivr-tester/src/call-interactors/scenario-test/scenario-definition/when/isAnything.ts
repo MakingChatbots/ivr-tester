@@ -1,4 +1,4 @@
-import { When } from "./When";
+import { When } from './When';
 
 /**
  * Always evaluates as true

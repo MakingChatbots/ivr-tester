@@ -1,4 +1,4 @@
-import { similarTo } from "./similarTo";
+import { similarTo } from './similarTo';
 
 test.each([
   [
@@ -7,15 +7,15 @@ test.each([
     true,
   ],
   [
-    "you entered one two three please press one if this is correct or press to try again",
-    "You entered one two three. Please press one if this is correct, or press two to try again",
+    'you entered one two three please press one if this is correct or press to try again',
+    'You entered one two three. Please press one if this is correct, or press two to try again',
     true,
   ],
   [
-    "you entered one two three please press one if this is correct or press to try again",
-    "You entered five six seven. Please press one if this is correct, or press two to try again",
+    'you entered one two three please press one if this is correct or press to try again',
+    'You entered five six seven. Please press one if this is correct, or press two to try again',
     false,
   ],
 ])("similarTo ('%s')", (transcript, actual, expected) =>
-  expect(similarTo(actual)(transcript)).toBe(expected)
+  expect(similarTo(actual)(transcript)).toBe(expected),
 );

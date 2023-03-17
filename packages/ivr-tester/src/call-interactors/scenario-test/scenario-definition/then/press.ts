@@ -1,11 +1,8 @@
 import { Then } from './Then';
 import { dtmfSequenceValidator } from '../../../../call-interactor-utilities/dtmf/dtmfSequenceUtils';
 import { Call } from '../../../../call/Call';
-import {
-  DtmfBufferGenerator,
-  SupportedTone,
-} from '../../../../call-interactor-utilities/dtmf/DtmfBufferGenerator';
-import { UlawDtmfBufferGenerator } from '../../../../call-interactor-utilities/dtmf/UlawDtmfBufferGenerator';
+import { DtmfBufferGenerator, SupportedTone } from '../../../../call-interactor-utilities/dtmf';
+import { UlawDtmfBufferGenerator } from '../../../../call-interactor-utilities/dtmf';
 
 /**
  * Sends DTMF tones to the call
@@ -23,7 +20,9 @@ export const press = (
   return {
     do: (call: Call) => call.sendMedia(dtmfGenerator.generate(dtmfSequence)),
     describe: () => {
-      return dtmfSequence.length === 1 ? `press key ${dtmfSequence}` : `press keys ${dtmfSequence}`;
+      return dtmfSequence.length === 1
+        ? `press key ${dtmfSequence.join()}`
+        : `press keys ${dtmfSequence.join()}`;
     },
   };
 };

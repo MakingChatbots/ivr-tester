@@ -1,6 +1,6 @@
-import { When } from "./When";
+import { When } from './When';
 
-const space = " ";
+const space = ' ';
 
 /**
  * Splits the transcript into parts which are then passed to the argument When.
@@ -16,18 +16,20 @@ const space = " ";
  *
  * @param when - Called with each of part of the transcript
  */
-export const hasPart = (when: When): When => (transcript: string): boolean => {
-  const words = transcript.split(space);
-  const totalWords = words.length;
+export const hasPart =
+  (when: When): When =>
+  (transcript: string): boolean => {
+    const words = transcript.split(space);
+    const totalWords = words.length;
 
-  for (let start = 0; start <= totalWords; start++) {
-    for (let end = start + 1; end <= totalWords; end++) {
-      const sliceOfSentence = words.slice(start, end).join(space);
-      if (when(sliceOfSentence)) {
-        return true;
+    for (let start = 0; start <= totalWords; start++) {
+      for (let end = start + 1; end <= totalWords; end++) {
+        const sliceOfSentence = words.slice(start, end).join(space);
+        if (when(sliceOfSentence)) {
+          return true;
+        }
       }
     }
-  }
 
-  return false;
-};
+    return false;
+  };

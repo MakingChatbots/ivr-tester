@@ -1,5 +1,5 @@
-import { compareTwoStrings } from "string-similarity";
-import { When } from "./When";
+import { compareTwoStrings } from 'string-similarity';
+import { When } from './When';
 
 /**
  * Compares two strings to determine if they're similar.
@@ -9,8 +9,7 @@ import { When } from "./When";
  * @param similarityThreshold - The degree of similarity is measured in a fraction between 0 and 1.
  * 0 indicates completely different strings, 1 indicates identical strings. The comparison is case-sensitive.
  */
-export const similarTo = (
-  similarText: string,
-  similarityThreshold = 0.8
-): When => (transcript: string) =>
-  compareTwoStrings(similarText, transcript) >= similarityThreshold;
+export const similarTo =
+  (similarText: string, similarityThreshold = 0.8): When =>
+  (transcript: string) =>
+    compareTwoStrings(similarText, transcript) >= similarityThreshold;
