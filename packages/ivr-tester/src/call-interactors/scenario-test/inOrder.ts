@@ -25,6 +25,8 @@ export type PromptFactory = (
   call: Call,
   matchedCallback: MatchedCallback,
   timeoutCallback: TimeoutCallback,
+  timeoutSet: typeof setTimeout,
+  timeoutClear: typeof clearTimeout,
 ) => Prompt | undefined;
 
 export const defaultPromptFactory: PromptFactory = (
@@ -32,14 +34,16 @@ export const defaultPromptFactory: PromptFactory = (
   call,
   matchedCallback,
   timeoutCallback,
+  timeoutSet,
+  timeoutClear,
 ) =>
   new PostSilencePrompt(
     definition,
     call,
     matchedCallback,
     timeoutCallback,
-    setTimeout,
-    clearTimeout,
+    timeoutSet,
+    timeoutClear,
   );
 
 export class RunningOrderedCallFlowInstructions
@@ -51,6 +55,8 @@ export class RunningOrderedCallFlowInstructions
     private readonly promptFactory: PromptFactory,
     private readonly transcriber: Emitter<TranscriptionEvents>,
     private readonly call: Call,
+    private readonly timeoutSet: typeof setTimeout,
+    private readonly timeoutClear: typeof clearTimeout,
   ) {
     super();
     this.initialise();
@@ -80,7 +86,14 @@ export class RunningOrderedCallFlowInstructions
       const callback =
         this.promptDefinitions.length - 1 === index ? lastMatchedCallback : matchedCallback;
 
-      return this.promptFactory(prompt, this.call, callback, timedOutCallback);
+      return this.promptFactory(
+        prompt,
+        this.call,
+        callback,
+        timedOutCallback,
+        this.timeoutSet,
+        this.timeoutClear,
+      );
     });
 
     const firstPrompt: Prompt = prompts.shift();

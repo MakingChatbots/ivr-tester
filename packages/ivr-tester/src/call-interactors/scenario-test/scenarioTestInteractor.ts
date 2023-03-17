@@ -9,8 +9,8 @@ export interface ScenarioTestInteractorConfig {
   readonly scenario: Scenario;
   // readonly dtmfGenerator: DtmfBufferGenerator;
   readonly transcriberFactory: TranscriberFactory;
-  // readonly intervalSet?: typeof setInterval;
-  // readonly intervalClear?: typeof clearInterval;
+  readonly timeoutSet: typeof setTimeout;
+  readonly timeoutClear: typeof clearTimeout;
 }
 
 /**
@@ -20,9 +20,9 @@ export const scenarioTestInteractor = ({
   scenario,
   // dtmfGenerator,
   transcriberFactory,
-}: // intervalSet = setInterval,
-// intervalClear = clearInterval,
-ScenarioTestInteractorConfig): CallInteractor<void> => {
+  timeoutSet = setTimeout,
+  timeoutClear = clearTimeout,
+}: ScenarioTestInteractorConfig): CallInteractor<void> => {
   const debug = Debugger.getInteractorDebugger();
 
   const validationResult = validateScenario(scenario);
@@ -41,6 +41,8 @@ ScenarioTestInteractorConfig): CallInteractor<void> => {
         defaultPromptFactory,
         callTranscriber,
         call,
+        timeoutSet,
+        timeoutClear,
       );
 
       callFlowSession.on('progress', (e) => debug('event:progress, payload: %O', e));
