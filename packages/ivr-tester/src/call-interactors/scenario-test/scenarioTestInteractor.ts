@@ -5,12 +5,27 @@ import { Scenario } from './scenario-definition/Scenario';
 import { defaultPromptFactory, RunningOrderedCallFlowInstructions } from './inOrder';
 import { Debugger } from '../../Debugger';
 
+export interface ScenarioTestInteractorSuccessResult {
+  scenario: Scenario;
+  scenarioPassed: true;
+}
+
+export interface ScenarioTestInteractorFailedResult {
+  scenario: Scenario;
+  scenarioPassed: false;
+  reasonForFailure: 'timeout' | 'scenario-failed' | 'call-closed-unexpectedly' | 'unknown';
+}
+
+export type ScenarioTestInteractorResult =
+  | ScenarioTestInteractorSuccessResult
+  | ScenarioTestInteractorFailedResult;
+
 export interface ScenarioTestInteractorConfig {
   readonly scenario: Scenario;
   // readonly dtmfGenerator: DtmfBufferGenerator;
   readonly transcriberFactory: TranscriberFactory;
-  readonly timeoutSet: typeof setTimeout;
-  readonly timeoutClear: typeof clearTimeout;
+  readonly timeoutSet?: typeof setTimeout;
+  readonly timeoutClear?: typeof clearTimeout;
 }
 
 /**
@@ -22,7 +37,7 @@ export const scenarioTestInteractor = ({
   transcriberFactory,
   timeoutSet = setTimeout,
   timeoutClear = clearTimeout,
-}: ScenarioTestInteractorConfig): CallInteractor<void> => {
+}: ScenarioTestInteractorConfig): CallInteractor<ScenarioTestInteractorResult> => {
   const debug = Debugger.getInteractorDebugger();
 
   const validationResult = validateScenario(scenario);
@@ -33,7 +48,7 @@ export const scenarioTestInteractor = ({
 
   return (call) =>
     new Promise((resolve) => {
-      let transcriberPlugin = transcriberFactory.create();
+      const transcriberPlugin = transcriberFactory.create();
       const callTranscriber = new CallTranscriber(call, transcriberPlugin);
 
       const callFlowSession = new RunningOrderedCallFlowInstructions(
@@ -45,28 +60,35 @@ export const scenarioTestInteractor = ({
         timeoutClear,
       );
 
+      let result: ScenarioTestInteractorResult = {
+        scenario,
+        scenarioPassed: false,
+        reasonForFailure: 'unknown',
+      };
+
       callFlowSession.on('progress', (e) => debug('event:progress, payload: %O', e));
       callFlowSession.on('promptMatched', (e) => debug('event:promptMatched, payload: %O', e));
       callFlowSession.on('allPromptsMatched', (e) => {
         debug('event:allPromptsMatched, payload: %O', e);
+        result = {
+          scenario,
+          scenarioPassed: true,
+        };
         call.close('all prompts matched');
       });
       callFlowSession.on('timeoutWaitingForMatch', (e) => {
         debug('event:timeoutWaitingForMatch, payload: %O', e);
+        result = {
+          scenario,
+          scenarioPassed: false,
+          reasonForFailure: 'timeout',
+        };
         call.close('timed out waiting for prompt match');
       });
 
-      function clearTranscriber(): void {
-        if (transcriberPlugin) {
-          transcriberPlugin.close();
-          transcriberPlugin = undefined;
-        }
-      }
-
-      call.on('callClosed', (e) => {
+      callTranscriber.on('callAndTranscriberFinished', (e) => {
         debug('callClosed: %O', e);
-        clearTranscriber();
-        resolve();
+        resolve(result);
       });
     });
 };

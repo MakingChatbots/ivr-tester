@@ -1,17 +1,14 @@
 # IVR Tester
 
+IVR Tester is an open-source and extensible library for automating IVR testing
+
+---
 [![npm](https://img.shields.io/npm/v/ivr-tester)](https://www.npmjs.com/package/ivr-tester)
-[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/SketchingDev/ivr-tester.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/SketchingDev/ivr-tester/context:javascript)
 ![](https://github.com/SketchingDev/ivr-tester/workflows/On%20Push/badge.svg)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSketchingDev%2Fivr-tester.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FSketchingDev%2Fivr-tester?ref=badge_shield)
+---
 
-<p align="center">
-  Automate the testing of your IVR call flows!
-</p>
-
-IVR Tester automates the testing of IVR flows by calling them, interpreting prompts and replying with DTMF tones based
-on fluent test definitions.
-
+Here's it phoning an IVR phone line and interacting as if it were a customer: 
 <p align="center">
   <img src="doc/assets/demo.gif">
 </p>
@@ -25,31 +22,74 @@ Features:
 * Supports Google Speech-to-Text and AWS Transcript for transcribing calls
 * Open-source
 
-```typescript
-const config = { transcriber: googleSpeechToText({ languageCode: "en-GB" }) };
+## What can it do
 
-new IvrTester(config).run(
+IVR Tester comes with built-in extensible components called 'Interactors' which allows you to decide how it will
+interact with a phone number:
+
+### Pretend to be a customer
+
+The [Scenario Test Interactor](./packages/ivr-tester/src/call-interactors/scenario-test/README.md) allows you to define
+scenarios that you want tested.
+
+Below is an example the scenario of a customer who is asked to confirm their account number. When executed by IVR
+Tester it will:
+1. Phone your IVR line
+2. Listen for the prompt in the first step
+3. Then press `123#`
+4. It then moves on to the second step etc
+
+If there is a variation to this scenario then it reports the deviation and stops.
+
+```typescript
+const result = await ivrTester.run(
   { from: "0123 456 789", to: "0123 123 123" },
-  {
-    name: "Customer is provided a menu after their account number confirmed",
-    steps: [
-      {
-        whenPrompt: similarTo("Please enter your account number"),
-        then: press("184748"),
-        silenceAfterPrompt: 3000,
-        timeout: 6000,
-      },
-      {
-        whenPrompt: similarTo(
-          "press 1 for booking a repair or 2 for changing your address"
-        ),
-        then: hangUp(),
-        silenceAfterPrompt: 3000,
-        timeout: 6000,
+  scenarioTestInteractor({
+    scenario: {
+      name: 'Scenario times out waiting for prompt',
+      steps: [
+        {
+          whenPrompt: containsSimilarTo('Please enter a number followed by hash'),
+          then: press(['1', '2', '3', '#']),
+          silenceAfterPrompt: 2000,
+          timeout: 5000,
         },
-     ],
-  }
+        {
+          whenPrompt: containsSimilarTo('you pressed one two three'),
+          then: hangUp(),
+          silenceAfterPrompt: 1000,
+          timeout: 5000,
+        },
+      ],
+    },
+    transcriber: googleSpeechToText({ languageCode: "en-GB" })
+  })
+)
+```
+
+### Check the greeting message
+
+The [Greeting Contains Interactor](./packages/ivr-tester/src/call-interactors/greeting-contains/README.md) will listen
+for a phrase in the greeting message of an IVR line and hangup as soon as it hears it, otherwise it will hangup after
+a predefined amount of time.
+
+This is useful if you want to check a greeting contains a regulatory requirement, or that a phone line greeting is
+informing customers that the line is open/closed, as the example below does:
+
+```typescript
+const result = await ivrTester.run(
+  { from: "0123 456 789", to: "0123 123 123" },
+  greetingContainsInteractor({
+    maxTimeToListenMs: 5000,
+    wordsToListenFor: [
+      'recorded', // Open lines say '... all calls are recorded ...'
+      'closed' // Closed lines say '... phone line is currently closed ...'
+    ],
+    transcriber: googleSpeechToText({ languageCode: "en-GB" })
+  })
 );
+
+expect(result.foundInGreeting).toContain('recorded');
 ```
 
 ## Quick Start
@@ -60,13 +100,13 @@ new IvrTester(config).run(
    export TWILIO_ACCOUNT_SID=ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
    export TWILIO_AUTH_TOKEN=your_auth_token
    ```
-1. Configure your environment for either [Google](packages/transcriber-google-speech-to-text) or [Amazon's](packages/transcriber-amazon-transcribe) transcription service
-1. Install and start ngrok
+2. Configure your environment for either [Google](packages/transcriber-google-speech-to-text) or [Amazon's](packages/transcriber-amazon-transcribe) transcription service
+3. Install and start ngrok
    ```shell
    npm install ngrok -g
    ngrok http 8080
    ```
-1. Run the tests
+4. Run the tests
    ```shell
    # Local port that IVR Tester will listen on
    export LOCAL_SERVER_PORT=8080
@@ -84,32 +124,8 @@ new IvrTester(config).run(
 
 Under the hood this orchestrates:
  1. Establishing a bi-directional audio stream of the call to the IVR flow - using [Twilio](https://www.twilio.com/)
- 1. Transcribing the voice responses from the flow - using [Google Speech-to-Text](https://cloud.google.com/speech-to-text)
- 1. Using the test to conditionally respond with DTMF tones to transcripts
-
-## Writing tests
-
-| When         | Overview                             |
-| -------------|--------------------------------------|
-| [contains]   | Prompt contains a piece of text      |
-| [matches]    | Prompt matches regular expression    |
-| [similarTo]  | Prompt is similar to a piece of text |
-| [isAnything] | Prompt can be anything               |
-
-[contains]: ./packages/ivr-tester/doc#contains
-[matches]: ./packages/ivr-tester/doc#matches
-[similarTo]:  ./packages/ivr-tester/doc#similarto
-[isAnything]: ./packages/ivr-tester/doc#isanything
-
-| Then        | Overview            |
-| ------------|---------------------|
-| [press]     | Produces DTMF tones |
-| [hangUp]    | Terminates the call |
-| [doNothing] | Doesn't do anything |
-
-[press]: ./packages/ivr-tester/doc#press
-[hangUp]: ./packages/ivr-tester/doc#hangup
-[doNothing]: ./packages/ivr-tester/doc#donothing
+ 2. Transcribing the voice responses from the flow - using [Google Speech-to-Text](https://cloud.google.com/speech-to-text)
+ 3. Using the test to conditionally respond with DTMF tones to transcripts
 
 ## Development
 
@@ -123,7 +139,6 @@ yarn docs
 ```
 
 The documentation is automatically generated and committed as part of the CI pipeline when merged to the main branch.
-
 The official website can be previewed locally by running:
 
 ```shell

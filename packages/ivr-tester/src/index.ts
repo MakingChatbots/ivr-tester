@@ -8,8 +8,9 @@ export { Call } from './call/Call';
 // Call Interactors
 export { CallInteractor } from './call-interactors/CallInteractor';
 export * from './call-interactors/call-fuzzer';
-export * from './call-interactors/greeting-contains-interactor';
+export * from './call-interactors/greeting-contains';
 export * from './call-interactors/scenario-test';
+export * from './call-interactors/manual';
 
 // Call Interactor Utilities
 export * from './call-interactor-utilities/transcription';

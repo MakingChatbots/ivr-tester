@@ -1,10 +1,11 @@
 import { CallInteractor } from '../CallInteractor';
-import { CallTranscriber, TranscriberPlugin } from '../../call-interactor-utilities/transcription';
-import { TranscriberFactory } from '../../call-interactor-utilities/transcription';
+import { CallTranscriber, TranscriberFactory } from '../../call-interactor-utilities/transcription';
 import { ArgumentUndefinedError } from '../../ArgumentUndefinedError';
+import { PromptTranscriptionBuilder } from '../scenario-test/prompts/PromptTranscriptionBuilder';
 
 export interface GreetingMsgInteractorResult {
   foundInGreeting: string[];
+  transcription: string;
 }
 
 export interface GreetingContainsInteractorConfig {
@@ -42,7 +43,6 @@ export const greetingContainsInteractor = ({
     new Promise((resolve) => {
       const foundInGreeting: string[] = [];
       let timeoutRef: NodeJS.Timeout | undefined = undefined;
-      let transcriberPlugin: TranscriberPlugin | undefined = undefined;
 
       function clearTimeout(): void {
         if (timeoutRef) {
@@ -51,20 +51,21 @@ export const greetingContainsInteractor = ({
         }
       }
 
-      function clearTranscriber(): void {
-        if (transcriberPlugin) {
-          transcriberPlugin.close();
-          transcriberPlugin = undefined;
-        }
-      }
-
       // Start timer for closing the call
       timeoutRef = intervalSet(() => {
         call.close('Reached maximum listening time without matching a word');
       }, maxTimeToListenMs);
 
-      const callTranscriber = new CallTranscriber(call, transcriberFactory.create());
+      const promptTranscriptionBuilder = new PromptTranscriptionBuilder();
+      const callTranscriber = new CallTranscriber(
+        call,
+        transcriberFactory.create(),
+        intervalSet,
+        intervalClear,
+      );
       callTranscriber.on('transcription', (t) => {
+        promptTranscriptionBuilder.add(t);
+
         for (const word of wordsToListenFor) {
           if (t.transcription.toUpperCase().includes(word.toUpperCase())) {
             foundInGreeting.push(word);
@@ -74,10 +75,9 @@ export const greetingContainsInteractor = ({
         }
       });
 
-      call.on('callClosed', () => {
+      callTranscriber.on('callAndTranscriberFinished', () => {
         clearTimeout();
-        clearTranscriber();
-        resolve({ foundInGreeting });
+        resolve({ foundInGreeting, transcription: promptTranscriptionBuilder.merge() });
       });
     });
 };

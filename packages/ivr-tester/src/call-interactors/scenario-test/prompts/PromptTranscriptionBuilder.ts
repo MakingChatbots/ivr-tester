@@ -1,4 +1,4 @@
-import { TranscriptEvent } from '../../../call-interactor-utilities/transcription/plugin/TranscriberPlugin';
+import { TranscriptEvent } from '../../../call-interactor-utilities/transcription';
 
 export class PromptTranscriptionBuilder {
   private static readonly EMPTY_TRANSCRIPTION = '';

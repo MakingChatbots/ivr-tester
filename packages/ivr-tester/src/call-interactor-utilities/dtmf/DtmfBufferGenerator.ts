@@ -11,6 +11,7 @@ export type SupportedTone =
   | '9'
   | '*'
   | '#'
+  /* w represents a pause of 0.5s */
   | 'w';
 
 /**

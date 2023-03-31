@@ -1,5 +1,9 @@
 import { CallInteractor } from '../CallInteractor';
-import { DtmfBufferGenerator, SupportedTone } from '../../call-interactor-utilities/dtmf';
+import {
+  DtmfBufferGenerator,
+  SupportedTone,
+  UlawDtmfBufferGenerator,
+} from '../../call-interactor-utilities/dtmf';
 import { clearTimeout } from 'timers';
 
 function getRandomTone(tones: SupportedTone[]): SupportedTone {
@@ -7,7 +11,7 @@ function getRandomTone(tones: SupportedTone[]): SupportedTone {
 }
 
 export interface CallFuzzerInteractorConfig {
-  readonly dtmfGenerator: DtmfBufferGenerator;
+  readonly dtmfGenerator?: DtmfBufferGenerator;
   readonly msIntervalBetweenDtmfTones?: number;
   readonly msDuration?: number;
   readonly timeoutSet?: typeof setTimeout;
@@ -21,7 +25,7 @@ export interface CallFuzzerInteractorConfig {
  */
 export const callFuzzerInteractor =
   ({
-    dtmfGenerator,
+    dtmfGenerator = new UlawDtmfBufferGenerator(),
     msIntervalBetweenDtmfTones = 1000,
     msDuration = 5000,
     timeoutSet = setTimeout,
