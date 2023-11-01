@@ -27,6 +27,13 @@ export class AmazonTranscribe
     private readonly languageCode: LANGUAGES
   ) {
     super();
+    if (!region) {
+      throw new TypeError("'region' argument must be defined");
+    }
+    if (!languageCode) {
+      throw new TypeError("'languageCode' argument must be defined");
+    }
+
     this.config = {
       region: this.region,
       sampleRate: 8000,

@@ -44,6 +44,10 @@ export class GoogleSpeechToText
     private readonly speechClient = new SpeechClient()
   ) {
     super();
+    if (!languageCode) {
+      throw new TypeError("'languageCode' argument must be defined");
+    }
+
     this.config = GoogleSpeechToText.createConfig(
       languageCode,
       speechPhrases,

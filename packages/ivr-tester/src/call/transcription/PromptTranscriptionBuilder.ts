@@ -25,13 +25,14 @@ export class PromptTranscriptionBuilder {
       return lastPartial.transcription;
     }
 
-    // Return finals
+    // If all transcripts 'final' then return all joined
     const areAllFinals = this.transcriptions.every((t) => t.isFinal);
     if (areAllFinals) {
       return this.transcriptions.map((t) => t.transcription).join(" ");
     }
 
-    // Return Merged finals and last partial
+    // Getting here means we have a combination of partial and final transcripts
+    // Return joined finals and last partial
     const lastTranscription = this.transcriptions[
       this.transcriptions.length - 1
     ];

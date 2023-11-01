@@ -1,7 +1,7 @@
 import { URL } from "url";
 import { Caller, RequestedCall } from "./Caller";
 import WebSocket from "ws";
-import { TwilioConnectionEvents } from "./twilio";
+import { TwilioConnectionEvents } from "./twilio/twilio";
 
 export class AudioPlaybackCaller implements Caller<Buffer> {
   private static msBetweenSendingBuffer = 250;

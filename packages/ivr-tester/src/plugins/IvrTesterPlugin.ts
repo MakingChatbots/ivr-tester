@@ -1,11 +1,9 @@
-import { PluginHost } from "./PluginManager";
-import { TestRunner, TestSession } from "../testRunner";
+import { IvrTesterExecution } from "../IvrTester";
+import { Config } from "../configuration/Config";
 
 /**
- * Interface for developing a plugin that hooks into the life-cycle of a
- * test.
+ * Interface for developing a plugin that hooks into the life-cycle of IVR Tester.
  */
 export interface IvrTesterPlugin {
-  initialise(pluginManager: PluginHost, testRunner: TestRunner): void;
-  testStarted?: (testSession: TestSession) => void;
+  initialise(config: Config, ivrTesterExecution: IvrTesterExecution): void;
 }
