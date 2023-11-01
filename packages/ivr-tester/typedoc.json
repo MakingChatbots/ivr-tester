@@ -1,9 +1,8 @@
 {
-  "extends": "../../typedoc.json",
+  "extends": ["../../typedoc.json"],
   "name": "IVR Tester",
   "entryPoints": ["./src/index.ts"],
   "exclude": [
-    "**/*+(.spec|.test).ts",
-    "tools/*.ts"
+    "**/*+(.spec|.test).ts"
   ]
 }

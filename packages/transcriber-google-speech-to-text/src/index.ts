@@ -1,6 +1,6 @@
-import { SpeechClient } from "@google-cloud/speech";
-import { TranscriberFactory } from "ivr-tester";
-import { GoogleSpeechToText } from "./GoogleSpeechToText";
+import { SpeechClient } from '@google-cloud/speech';
+import { TranscriberFactory } from 'ivr-tester';
+import { GoogleSpeechToText } from './GoogleSpeechToText';
 
 /**
  * Options used when starting a transcription stream to Google's Speech-to-Text service. See [Google's documentation
@@ -35,26 +35,21 @@ export interface GoogleSpeechToTextOptions {
  */
 export const googleSpeechToText = (
   {
-    languageCode = "en-US",
+    languageCode = 'en-US',
     speechPhrases = [],
     useEnhanced = false,
   }: GoogleSpeechToTextOptions = {},
-  speechClient = new SpeechClient()
+  speechClient = new SpeechClient(),
 ): TranscriberFactory => ({
-  create: () =>
-    new GoogleSpeechToText(
-      languageCode,
-      speechPhrases,
-      useEnhanced,
-      speechClient
-    ),
+  create: () => new GoogleSpeechToText(languageCode, speechPhrases, useEnhanced, speechClient),
   checkCanRun: async () => {
     try {
       await speechClient.auth.getCredentials();
-    } catch (error) {
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : (error as string);
       return {
         canRun: false,
-        reason: `Cannot find Google Speech-to-Text credentials:\n${error.message}`,
+        reason: `Cannot find Google Speech-to-Text credentials:\n${message}`,
       };
     }
 

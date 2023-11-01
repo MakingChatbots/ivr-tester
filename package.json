@@ -3,30 +3,26 @@
   "private": true,
   "version": "1.0.0",
   "license": "MIT",
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.17.0",
-    "@typescript-eslint/parser": "^4.17.0",
-    "eslint": "^7.22.0",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-jest": "^24.2.1",
-    "eslint-plugin-tsdoc": "^0.2.11",
-    "lerna": "^4.0.0",
-    "typedoc": "^0.20.30",
-    "typedoc-plugin-markdown": "^3.6.0"
-  },
+  "author": "Lucas Woodward",
   "workspaces": [
-    "packages/*",
-    "examples/*"
+    "packages/*"
   ],
   "scripts": {
-    "build": "lerna run build",
-    "lint": "lerna run lint",
-    "test": "lerna run test",
-    "test:integration": "lerna run test:integration --scope ivr-tester-cli",
-    "doc": "lerna run doc",
+    "build": "yarn workspaces foreach --verbose run build",
+    "lint": "yarn workspaces foreach --verbose run lint",
+    "test": "yarn workspaces foreach --verbose run test",
+    "test:integration": "yarn workspaces foreach --verbose run test:integration",
+    "doc": "yarn workspaces foreach --verbose run doc",
     "readme:copy": "cp README.md ./packages/ivr-tester/"
   },
+  "devDependencies": {
+    "typescript": "^4.9.5"
+  },
   "engines": {
-    "node": ">= 10.14.2"
+    "node": "~16.10.0"
+  },
+  "packageManager": "yarn@3.1.1",
+  "jest": {
+    "preset": "./jest.json"
   }
 }

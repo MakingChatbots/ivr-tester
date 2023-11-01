@@ -1,31 +1,26 @@
-import { protos, SpeechClient } from "@google-cloud/speech";
-import {
-  TranscriberPlugin,
-  TranscriptEvent,
-  TranscriptionEvents,
-  TypedEmitter,
-} from "ivr-tester";
-import { Transcript } from "./Transcript";
-import internal from "stream";
-import { Debugger } from "./Debugger";
+import { protos, SpeechClient } from '@google-cloud/speech';
+import { TranscriberPlugin, TranscriptEvent, TranscriptionEvents, TypedEmitter } from 'ivr-tester';
+import { Transcript } from './Transcript';
+import internal from 'stream';
+import { Debugger } from './Debugger';
 
 export class GoogleSpeechToText
   extends TypedEmitter<TranscriptionEvents>
-  implements TranscriberPlugin {
+  implements TranscriberPlugin
+{
   private static readonly debug = Debugger.getPackageDebugger();
 
   private static createConfig(
     languageCode: string,
     speechPhrases: string[],
-    useEnhanced: boolean
+    useEnhanced: boolean,
   ): Readonly<protos.google.cloud.speech.v1.IStreamingRecognitionConfig> {
     return {
       config: {
-        encoding:
-          protos.google.cloud.speech.v1.RecognitionConfig.AudioEncoding.MULAW,
+        encoding: protos.google.cloud.speech.v1.RecognitionConfig.AudioEncoding.MULAW,
         sampleRateHertz: 8000,
         languageCode,
-        model: "phone_call",
+        model: 'phone_call',
         speechContexts: [{ phrases: speechPhrases }],
         useEnhanced,
       },
@@ -41,20 +36,22 @@ export class GoogleSpeechToText
     languageCode: string,
     speechPhrases: string[] = [],
     useEnhanced = false,
-    private readonly speechClient = new SpeechClient()
+    private readonly speechClient = new SpeechClient(),
   ) {
     super();
-    this.config = GoogleSpeechToText.createConfig(
-      languageCode,
-      speechPhrases,
-      useEnhanced
-    );
+    if (!languageCode) {
+      throw new TypeError("'languageCode' argument must be defined");
+    }
+    if (speechPhrases.some((phrase) => phrase.length > 100)) {
+      throw new Error('A speech phrase was longer than 100 characters');
+    }
+    this.config = GoogleSpeechToText.createConfig(languageCode, speechPhrases, useEnhanced);
 
-    GoogleSpeechToText.debug("Configuration: %O", this.config);
+    GoogleSpeechToText.debug('Configuration: %O', this.config);
   }
 
   public transcribe(payload: Buffer): void {
-    this.getStream().write(payload.toString("base64"));
+    this.getStream().write(payload.toString('base64'));
   }
 
   public close(): void {
@@ -63,21 +60,21 @@ export class GoogleSpeechToText
       this.stream.write(Buffer.from([]));
       this.stream.destroy();
       this.stream = null;
-      GoogleSpeechToText.debug("Stream destroyed");
+      GoogleSpeechToText.debug('Stream destroyed');
     }
   }
 
   private createStream(): internal.Writable {
     return (this.stream = this.speechClient
       .streamingRecognize(this.config)
-      .on("error", (error) => {
+      .on('error', (error) => {
         GoogleSpeechToText.debug(error);
         this.stream.removeAllListeners();
         this.stream.destroy();
         this.stream = null;
       })
-      .on("data", (data: { results: Transcript[] }) => {
-        GoogleSpeechToText.debug("Data: %O", data);
+      .on('data', (data: { results: Transcript[] }) => {
+        GoogleSpeechToText.debug('Data: %O', data);
 
         const result = data.results[0];
         if (result?.alternatives[0] !== undefined) {
@@ -85,8 +82,8 @@ export class GoogleSpeechToText
             transcription: result.alternatives[0].transcript.trim(),
             isFinal: result.isFinal,
           };
-          GoogleSpeechToText.debug("Emitted: %O", event);
-          this.emit("transcription", event);
+          GoogleSpeechToText.debug('Emitted: %O', event);
+          this.emit('transcription', event);
         }
       }));
   }

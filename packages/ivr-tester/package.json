@@ -1,8 +1,9 @@
 {
   "name": "ivr-tester",
-  "version": "0.2.12",
+  "version": "1.0.0-beta.0",
   "description": "An automated testing framework for IVR call flows",
   "license": "MIT",
+  "author": "Lucas Woodward",
   "repository": {
     "type": "git",
     "url": "https://github.com/SketchingDev/ivr-tester.git"
@@ -20,56 +21,60 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest src",
+    "test:integration": "jest __tests__/integration",
     "clean": "rimraf dist/",
     "build:dtmf-tones": "./generate-dtmf-tones.sh",
-    "build": "yarn clean && tsc -p tsconfig.build.json --declaration",
-    "postbuild": "yarn copy:dtmf-tones",
+    "build": "yarn clean && tsc -p tsconfig.build.json --declaration && yarn copy:dtmf-tones",
     "lint:prettier": "prettier --list-different 'src/**/*.ts' --write",
     "lint:eslint": "eslint 'src/**/*.ts'",
     "lint": "yarn lint:prettier && yarn lint:eslint",
     "copy:dtmf-tones": "copyfiles -u 1 src/**/dtmf/**/*.raw dist",
     "doc": "yarn typedoc",
-    "prepare": "yarn build",
-    "tool:audio-server": "node --require ts-node/register tools/audio-server.ts"
+    "prepare": "yarn build"
   },
   "files": [
     "/dist"
   ],
   "dependencies": {
-    "chalk": "^4.1.0",
-    "debug": "^4.3.1",
-    "joi": "^17.4.0",
+    "debug": "^4.3.4",
+    "joi": "^17.8.3",
     "string-similarity": "^4.0.4",
-    "twilio": "^3.57.0",
-    "ws": "^7.4.4"
+    "ws": "^8.13.0"
+  },
+  "peerDependencies": {
+    "twilio": "3.84.1"
   },
   "devDependencies": {
-    "@sinonjs/fake-timers": "^7.0.2",
-    "@types/debug": "^4.1.5",
-    "@types/express": "^4.17.11",
-    "@types/jest": "^26.0.14",
-    "@types/node": "^14.6.4",
+    "@types/debug": "^4.1.7",
+    "@types/jest": "^29.2.6",
+    "@types/node": "^16.10.0",
     "@types/string-similarity": "^4.0.0",
-    "@types/ws": "^7.4.0",
-    "copyfiles": "^2.4.0",
-    "get-port": "^5.1.1",
-    "jest": "^26.4.2",
-    "ngrok": "^3.4.0",
-    "prettier": "^2.2.1",
-    "rimraf": "^3.0.2",
-    "ts-jest": "^26.4.0",
-    "ts-node": "^9.1.1",
-    "typescript": "^4.2.3",
-    "wait-for-expect": "^3.0.2"
+    "@types/ws": "^8.5.4",
+    "@typescript-eslint/eslint-plugin": "^5.54.1",
+    "@typescript-eslint/parser": "^5.54.1",
+    "copyfiles": "^2.4.1",
+    "eslint": "^8.36.0",
+    "eslint-config-prettier": "^8.7.0",
+    "eslint-plugin-jest": "^27.2.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "jest": "^29.3.1",
+    "prettier": "^2.8.4",
+    "rimraf": "^4.4.0",
+    "ts-jest": "^29.0.5",
+    "ts-node": "^10.9.1",
+    "twilio": "3.84.1",
+    "typedoc": "^0.23.26",
+    "typedoc-plugin-markdown": "^3.14.0",
+    "typescript": "^4.9.5"
   },
   "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "node"
-  },
-  "engines": {
-    "node": ">= 10.14.2"
+    "preset": "../../jest.json"
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "engines": {
+    "node": "~16.10.0"
+  },
+  "packageManager": "yarn@3.1.1"
 }

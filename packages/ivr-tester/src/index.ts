@@ -1,19 +1,17 @@
-export * from "./testing/test/conditions/when";
-export * from "./testing/test/conditions/then";
-export * from "./configuration/scenario/Step";
+export { IvrTester, RunnableTester } from './IvrTester';
+export { Config } from './configuration/Config';
+export { Emitter, TypedEmitter } from './Emitter';
+export { IvrNumber } from './configuration/call/IvrNumber';
+export { TwilioClientAuth } from './call/twilio/twilio';
+export { Call } from './call/Call';
 
-export * from "./testing/ui/consoleUserInterface";
-export * from "./plugins/IvrTesterPlugin";
-export * from "./testing/StopTestRunnerWhenTestsComplete";
-export * from "./Emitter";
+// Call Interactors
+export { CallInteractor } from './call-interactors/CallInteractor';
+export * from './call-interactors/call-fuzzer';
+export * from './call-interactors/greeting-contains';
+export * from './call-interactors/scenario-test';
+export * from './call-interactors/manual';
 
-export * from "./testRunner";
-
-export * from "./configuration/Config";
-
-export * from "./call/transcription/plugin/TranscriberPlugin";
-export * from "./call/transcription/plugin/TranscriberFactory";
-
-export { Scenario } from "./configuration/scenario/Scenario";
-export { PluginManager } from "./plugins/PluginManager";
-export { IvrNumber } from "./configuration/call/IvrNumber";
+// Call Interactor Utilities
+export * from './call-interactor-utilities/transcription';
+export * from './call-interactor-utilities/dtmf';
