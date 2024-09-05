@@ -2,7 +2,9 @@
 
 [![npm](https://img.shields.io/npm/v/ivr-tester)](https://www.npmjs.com/package/ivr-tester)
 ![](https://github.com/SketchingDev/ivr-tester/workflows/On%20Push/badge.svg)
-[![Follow me on LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/lucas-woodward-the-dev/)
+[![Follow me on LinkedIn for updates](https://img.shields.io/badge/Follow%20for%20updates-LinkedIn-blue)](https://www.linkedin.com/in/lucas-woodward-the-dev/)
+
+
 
 <p align="center">
   Automate the testing of your IVR call flows!
