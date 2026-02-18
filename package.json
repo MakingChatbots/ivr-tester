@@ -9,22 +9,19 @@
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-jest": "^24.2.1",
-    "eslint-plugin-tsdoc": "^0.2.11",
-    "lerna": "^4.0.0",
-    "typedoc": "^0.20.30",
-    "typedoc-plugin-markdown": "^3.6.0"
+    "eslint-plugin-tsdoc": "^0.2.11"
   },
   "workspaces": [
     "packages/*",
     "examples/*"
   ],
   "scripts": {
-    "build": "lerna run build",
-    "lint": "lerna run lint",
-    "test": "lerna run test",
-    "test:integration": "lerna run test:integration --scope ivr-tester-cli",
-    "doc": "lerna run doc",
-    "readme:copy": "cp README.md ./packages/ivr-tester/"
+    "build": "npm run build --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "test:integration": "npm run test:integration -w packages/cli",
+    "readme:copy": "cp README.md ./packages/ivr-tester/",
+    "publish:all": "npm publish --workspaces --access public"
   },
   "engines": {
     "node": ">= 10.14.2"

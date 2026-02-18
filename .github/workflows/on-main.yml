@@ -14,8 +14,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
-      - run: yarn
-      - run: yarn lint
+      - run: npm ci
+      - run: npm run lint
         env:
           CI: true
 
@@ -27,10 +27,10 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-      - run: yarn --frozen-lockfile
-      - run: yarn build
-      - run: yarn test
-      - run: yarn test:integration
+      - run: npm ci
+      - run: npm run build
+      - run: npm test
+      - run: npm run test:integration
 
   update-documentation:
     needs: build-and-test
@@ -41,10 +41,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
-      - run: yarn
-      - run: yarn build
+      - run: npm ci
+      - run: npm run build
       - name: Generate documentation
-        run: yarn doc
+        run: npm run doc
       - name: Commit updated documentation
         uses: EndBug/add-and-commit@v5
         with:
@@ -62,11 +62,9 @@ jobs:
         with:
           node-version: '12'
           registry-url: 'https://registry.npmjs.org'
-      - run: yarn --frozen-lockfile
-      - run: yarn readme:copy
-      - run: yarn build
-        # Flag --no-verify-access is necessary to skip user and access validation due to third-party registry
-        # Alternatively set command.publish.registry in root lerna.json
-      - run: yarn lerna publish from-package --yes --no-verify-access
+      - run: npm ci
+      - run: npm run readme:copy
+      - run: npm run build
+      - run: npm run publish:all
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

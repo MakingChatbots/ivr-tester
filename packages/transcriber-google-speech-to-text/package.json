@@ -22,12 +22,11 @@
   "scripts": {
     "test:integration": "jest __tests__",
     "clean": "rimraf dist/",
-    "build": "yarn clean && tsc --declaration",
+    "build": "npm run clean && tsc --declaration",
     "lint:prettier": "prettier --list-different '{src,__tests__}/**/*.ts' --write",
     "lint:eslint": "eslint 'src/**/*.ts'",
-    "lint": "yarn lint:prettier && yarn lint:eslint",
-    "prepare": "yarn build",
-    "doc": "yarn typedoc"
+    "lint": "npm run lint:prettier && npm run lint:eslint",
+    "prepare": "npm run build"
   },
   "files": [
     "/dist"

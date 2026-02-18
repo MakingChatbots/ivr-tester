@@ -22,14 +22,13 @@
     "test": "jest src",
     "clean": "rimraf dist/",
     "build:dtmf-tones": "./generate-dtmf-tones.sh",
-    "build": "yarn clean && tsc -p tsconfig.build.json --declaration",
-    "postbuild": "yarn copy:dtmf-tones",
+    "build": "npm run clean && tsc -p tsconfig.build.json --declaration",
+    "postbuild": "npm run copy:dtmf-tones",
     "lint:prettier": "prettier --list-different 'src/**/*.ts' --write",
     "lint:eslint": "eslint 'src/**/*.ts'",
-    "lint": "yarn lint:prettier && yarn lint:eslint",
+    "lint": "npm run lint:prettier && npm run lint:eslint",
     "copy:dtmf-tones": "copyfiles -u 1 src/**/dtmf/**/*.raw dist",
-    "doc": "yarn typedoc",
-    "prepare": "yarn build",
+    "prepare": "npm run build",
     "tool:audio-server": "node --require ts-node/register tools/audio-server.ts"
   },
   "files": [

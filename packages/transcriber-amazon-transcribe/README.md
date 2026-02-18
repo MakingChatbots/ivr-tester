@@ -7,13 +7,7 @@ A plugin for [IVR Tester](https://github.com/SketchingDev/ivr-tester) to transcr
 
 ## Installation
 
-Install using yarn:
-
-```shell
-yarn add ivr-tester-transcriber-amazon-transcribe
-```
-
-Or npm:
+Install using npm:
 
 ```shell
 npm install ivr-tester-transcriber-amazon-transcribe
@@ -59,7 +53,7 @@ To run locally:
 export AWS_ACCESS_KEY_ID=<Your access key ID>
 export AWS_SECRET_ACCESS_KEY=<Your secret access key>
 
-yarn test:integration
+npm run test:integration
 ```
 
 ## Useful links

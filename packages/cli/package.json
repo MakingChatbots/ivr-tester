@@ -26,11 +26,11 @@
     "test": "jest src",
     "test:integration": "jest '/integration-tests'",
     "clean": "rimraf dist/",
-    "build": "yarn clean && tsc -p tsconfig.build.json --declaration",
+    "build": "npm run clean && tsc -p tsconfig.build.json --declaration",
     "lint:prettier": "prettier --list-different 'src/**/*.ts' --write",
     "lint:eslint": "eslint 'src/**/*.ts'",
-    "lint": "yarn lint:prettier && yarn lint:eslint",
-    "prepare": "yarn build"
+    "lint": "npm run lint:prettier && npm run lint:eslint",
+    "prepare": "npm run build"
   },
   "files": [
     "/dist"

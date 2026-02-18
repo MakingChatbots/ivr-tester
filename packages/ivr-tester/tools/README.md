@@ -5,7 +5,7 @@ This directory contains scripts designed to aid in the development of IVR Tester
 ## Audio Server
 
 ```shell
-yarn tool:audio-server
+npm run tool:audio-server
 ```
 
 WebSocket server designed to capture audio streams from Twilio Studio's
