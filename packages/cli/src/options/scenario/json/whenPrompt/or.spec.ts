@@ -1,3 +1,4 @@
+import { test, expect } from "vitest";
 import { jsonWhenPromptOr } from "./or";
 
 test("valid schema", () => {

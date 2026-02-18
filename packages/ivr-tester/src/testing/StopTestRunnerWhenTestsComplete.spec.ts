@@ -1,3 +1,4 @@
+import { describe, test, expect, beforeEach, vi, type Mocked } from "vitest";
 import { StopTestRunnerWhenTestsComplete } from "./StopTestRunnerWhenTestsComplete";
 import { PluginEvents, PluginHost } from "../plugins/PluginManager";
 import { TypedEmitter } from "../Emitter";
@@ -21,12 +22,12 @@ class StubPluginManager
 
 describe("Close server when tests complete", () => {
   let pluginHost: PluginHost;
-  let testRunner: jest.Mocked<TestRunner>;
+  let testRunner: Mocked<TestRunner>;
 
   beforeEach(() => {
     pluginHost = new StubPluginManager();
     testRunner = {
-      stop: jest.fn(),
+      stop: vi.fn(),
     };
   });
 

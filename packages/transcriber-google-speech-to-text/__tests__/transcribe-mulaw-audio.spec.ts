@@ -1,3 +1,4 @@
+import { describe, test, expect, beforeAll, beforeEach, afterEach, vi } from "vitest";
 import { googleSpeechToText } from "../src";
 import * as fs from "fs";
 import path from "path";
@@ -26,7 +27,7 @@ const sendAudioChunksToTranscriber = async (
   }
 };
 
-jest.setTimeout(60 * 1000);
+vi.setConfig({ testTimeout: 60 * 1000 });
 describe("Google Speech-to-Text", () => {
   const audioFilePath = path.join(__dirname, "test-data/mulaw-01.wav");
   let audioFile: Buffer;

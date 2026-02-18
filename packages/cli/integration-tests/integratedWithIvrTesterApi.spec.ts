@@ -1,9 +1,9 @@
+import { describe, test, expect, beforeEach, vi, type Mocked, type MockedFunction } from "vitest";
 import { Cli, createCli, IvrTesterFactory } from "../src/cli";
 import { readFileSync } from "fs";
 import { Command } from "commander";
 import ngrok from "ngrok";
 import { createProgram, Program } from "../src/createProgram";
-import { when } from "jest-when";
 import { JsonScenario } from "../src/options/scenario/json/jsonScenario";
 import { JsonConfig } from "../src/options/config/json/JsonConfig";
 
@@ -11,54 +11,14 @@ type TranscriberModule = (options: Record<string, unknown>) => any;
 
 describe("Integrated with IVR Tester API", () => {
   let program: Program;
-  let fsReadFileSync: jest.MockedFunction<typeof readFileSync>;
+  let fsReadFileSync: MockedFunction<typeof readFileSync>;
 
   let cli: Cli;
 
-  let ngrokServer: jest.Mocked<typeof ngrok>;
-  let ivrTesterFactory: jest.MockedFunction<IvrTesterFactory>;
-  let transcriberModule: jest.MockedFunction<TranscriberModule>;
-  let requireModule: jest.MockedFunction<NodeJS.Require>;
-
-  beforeEach(() => {
-    process.env.TWILIO_ACCOUNT_SID = "test-1";
-    process.env.TWILIO_AUTH_TOKEN = "test-2";
-
-    const fsAccessSync = jest.fn().mockReturnValue(undefined);
-    fsReadFileSync = jest.fn();
-    ngrokServer = {
-      connect: jest.fn(),
-      disconnect: jest.fn(),
-      kill: jest.fn(),
-      getUrl: jest.fn(),
-      getApi: jest.fn(),
-      authtoken: jest.fn(),
-      getVersion: jest.fn(),
-    };
-    ivrTesterFactory = jest.fn().mockReturnValue({
-      run: jest.fn().mockResolvedValue(undefined),
-    });
-
-    transcriberModule = jest.fn().mockReturnValue({});
-    requireModule = (jest.fn().mockReturnValue({
-      default: transcriberModule,
-    }) as unknown) as jest.MockedFunction<NodeJS.Require>;
-
-    program = createProgram(new Command(), true);
-    program.command.configureOutput({
-      writeOut: () => undefined,
-      writeErr: () => undefined,
-    });
-
-    cli = createCli({
-      program,
-      fsReadFileSync,
-      fsAccessSync,
-      ngrokServer,
-      ivrTesterFactory,
-      requireModule,
-    });
-  });
+  let ngrokServer: Mocked<typeof ngrok>;
+  let ivrTesterFactory: MockedFunction<IvrTesterFactory>;
+  let transcriberModule: MockedFunction<TranscriberModule>;
+  let requireModule: MockedFunction<NodeJS.Require>;
 
   const validScenarioFilePath = "/test/path/scenario.json";
   const validScenario: Readonly<JsonScenario> = {
@@ -84,14 +44,56 @@ describe("Integrated with IVR Tester API", () => {
     },
   };
 
+  beforeEach(() => {
+    process.env.TWILIO_ACCOUNT_SID = "test-1";
+    process.env.TWILIO_AUTH_TOKEN = "test-2";
+
+    const fsAccessSync = vi.fn().mockReturnValue(undefined);
+    fsReadFileSync = vi.fn();
+    ngrokServer = {
+      connect: vi.fn(),
+      disconnect: vi.fn(),
+      kill: vi.fn(),
+      getUrl: vi.fn(),
+      getApi: vi.fn(),
+      authtoken: vi.fn(),
+      getVersion: vi.fn(),
+    };
+    ivrTesterFactory = vi.fn().mockReturnValue({
+      run: vi.fn().mockResolvedValue(undefined),
+    });
+
+    transcriberModule = vi.fn().mockReturnValue({});
+    requireModule = (vi.fn().mockReturnValue({
+      default: transcriberModule,
+    }) as unknown) as MockedFunction<NodeJS.Require>;
+
+    program = createProgram(new Command(), true);
+    program.command.configureOutput({
+      writeOut: () => undefined,
+      writeErr: () => undefined,
+    });
+
+    cli = createCli({
+      program,
+      fsReadFileSync,
+      fsAccessSync,
+      ngrokServer,
+      ivrTesterFactory,
+      requireModule,
+    });
+  });
+
   test("ngrok's public URL passed to IVR Tester API", async () => {
     const ngrokPublicUrl = "https://test-url.test";
 
-    when(fsReadFileSync)
-      .calledWith(validConfigFilePath)
-      .mockReturnValue(Buffer.from(JSON.stringify(validConfig), "utf8"))
-      .calledWith(validScenarioFilePath)
-      .mockReturnValue(Buffer.from(JSON.stringify(validScenario), "utf8"));
+    fsReadFileSync.mockImplementation(((path: string) => {
+      if (path === validConfigFilePath)
+        return Buffer.from(JSON.stringify(validConfig), "utf8");
+      if (path === validScenarioFilePath)
+        return Buffer.from(JSON.stringify(validScenario), "utf8");
+      throw new Error(`Unexpected path: ${path}`);
+    }) as typeof readFileSync);
 
     ngrokServer.connect.mockResolvedValue(ngrokPublicUrl);
 
@@ -111,15 +113,17 @@ describe("Integrated with IVR Tester API", () => {
   });
 
   test("JSON Scenario passed to IVR Tester API", async () => {
-    when(fsReadFileSync)
-      .calledWith(validConfigFilePath)
-      .mockReturnValue(Buffer.from(JSON.stringify(validConfig), "utf8"))
-      .calledWith(validScenarioFilePath)
-      .mockReturnValue(Buffer.from(JSON.stringify(validScenario), "utf8"));
+    fsReadFileSync.mockImplementation(((path: string) => {
+      if (path === validConfigFilePath)
+        return Buffer.from(JSON.stringify(validConfig), "utf8");
+      if (path === validScenarioFilePath)
+        return Buffer.from(JSON.stringify(validScenario), "utf8");
+      throw new Error(`Unexpected path: ${path}`);
+    }) as typeof readFileSync);
 
     ngrokServer.connect.mockResolvedValue("https://test-url.test");
 
-    const ivrTesterRun = jest.fn().mockResolvedValue(undefined);
+    const ivrTesterRun = vi.fn().mockResolvedValue(undefined);
     ivrTesterFactory.mockReturnValue({
       run: ivrTesterRun,
     });
@@ -143,15 +147,17 @@ describe("Integrated with IVR Tester API", () => {
   });
 
   test("Config passed to IVR Tester API", async () => {
-    when(fsReadFileSync)
-      .calledWith(validConfigFilePath)
-      .mockReturnValue(Buffer.from(JSON.stringify(validConfig), "utf8"))
-      .calledWith(validScenarioFilePath)
-      .mockReturnValue(Buffer.from(JSON.stringify(validScenario), "utf8"));
+    fsReadFileSync.mockImplementation(((path: string) => {
+      if (path === validConfigFilePath)
+        return Buffer.from(JSON.stringify(validConfig), "utf8");
+      if (path === validScenarioFilePath)
+        return Buffer.from(JSON.stringify(validScenario), "utf8");
+      throw new Error(`Unexpected path: ${path}`);
+    }) as typeof readFileSync);
 
     ngrokServer.connect.mockResolvedValue("https://test-url.test");
 
-    ivrTesterFactory.mockReturnValue({ run: jest.fn() });
+    ivrTesterFactory.mockReturnValue({ run: vi.fn() });
 
     await cli([
       ...["node", "/path/to/cli"],

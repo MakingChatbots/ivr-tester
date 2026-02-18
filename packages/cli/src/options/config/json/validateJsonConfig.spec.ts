@@ -1,3 +1,4 @@
+import { test, expect } from "vitest";
 import { JsonConfig } from "./JsonConfig";
 import { validateConfig } from "./validateJsonConfig";
 

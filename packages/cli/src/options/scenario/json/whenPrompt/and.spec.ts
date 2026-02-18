@@ -1,3 +1,4 @@
+import { test, expect } from "vitest";
 import { jsonWhenPromptAnd } from "./and";
 
 test("valid schema", () => {

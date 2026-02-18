@@ -1,3 +1,4 @@
+import { describe, test, expect, beforeEach, afterEach, vi, type Mock } from "vitest";
 import { Config } from "./configuration/Config";
 import { IvrTester } from "./testRunner";
 import getPort from "get-port";
@@ -47,7 +48,7 @@ class TranscriberTestDouble extends EventEmitter implements TranscriberPlugin {
 
 describe("Test Runner", () => {
   let callServerPort: number;
-  let twilioClient: { calls: { create: jest.Mock } };
+  let twilioClient: { calls: { create: Mock } };
   let commonConfig: Config;
 
   let ws: WebSocket;
@@ -55,7 +56,7 @@ describe("Test Runner", () => {
   beforeEach(async () => {
     twilioClient = {
       calls: {
-        create: jest.fn(),
+        create: vi.fn(),
       },
     };
 
@@ -64,7 +65,7 @@ describe("Test Runner", () => {
       localServerPort: callServerPort,
       twilioAuth: { accountSid: "test", authToken: "test" },
       twilioClientFactory: () => (twilioClient as unknown) as Twilio,
-      dtmfGenerator: { generate: jest.fn() },
+      dtmfGenerator: { generate: vi.fn() },
       transcriber: {
         create: () => new TranscriberTestDouble(),
         checkCanRun: () => ({ canRun: true }),
@@ -167,7 +168,7 @@ describe("Test Runner", () => {
     twilioClient.calls.create.mockResolvedValue(undefined);
 
     const transcriber = new TranscriberTestDouble();
-    jest.spyOn(transcriber, "transcribe").mockImplementation(() => {
+    vi.spyOn(transcriber, "transcribe").mockImplementation(() => {
       transcriber.produceTranscriptionEvent("hello world");
     });
 

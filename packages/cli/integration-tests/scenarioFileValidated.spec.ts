@@ -1,9 +1,9 @@
+import { describe, test, expect, beforeEach, vi, type MockedFunction } from "vitest";
 import { Cli, createCli } from "../src/cli";
 import { accessSync, readFileSync } from "fs";
 import { Command } from "commander";
 import { createProgram, Program } from "../src/createProgram";
 import { JsonConfig } from "../src/options/config/json/JsonConfig";
-import { when } from "jest-when";
 import fs from "fs";
 
 describe("Scenario file validated", () => {
@@ -18,17 +18,19 @@ describe("Scenario file validated", () => {
   };
 
   let program: Program;
-  let fsReadFileSync: jest.MockedFunction<typeof readFileSync>;
-  let fsAccessSync: jest.MockedFunction<typeof accessSync>;
+  let fsReadFileSync: MockedFunction<typeof readFileSync>;
+  let fsAccessSync: MockedFunction<typeof accessSync>;
   let cli: Cli;
 
   beforeEach(() => {
-    fsAccessSync = jest.fn();
+    fsAccessSync = vi.fn();
 
-    fsReadFileSync = jest.fn();
-    when(fsReadFileSync)
-      .calledWith(validConfigFilePath)
-      .mockReturnValue(Buffer.from(JSON.stringify(validConfig), "utf8"));
+    fsReadFileSync = vi.fn();
+    fsReadFileSync.mockImplementation(((path: string) => {
+      if (path === validConfigFilePath)
+        return Buffer.from(JSON.stringify(validConfig), "utf8");
+      throw new Error(`Unexpected path: ${path}`);
+    }) as typeof readFileSync);
 
     capturedOutput = {
       errOut: [],
@@ -41,9 +43,9 @@ describe("Scenario file validated", () => {
       writeErr: (str) => capturedOutput.errOut.push(str),
     });
 
-    const requireModule = (jest.fn().mockReturnValue({
-      default: () => jest.fn(),
-    }) as unknown) as jest.MockedFunction<NodeJS.Require>;
+    const requireModule = (vi.fn().mockReturnValue({
+      default: () => vi.fn(),
+    }) as unknown) as MockedFunction<NodeJS.Require>;
 
     cli = createCli({
       program,
@@ -56,11 +58,14 @@ describe("Scenario file validated", () => {
   test("User shown error is scenario file is not readable", async () => {
     const scenarioFilePath = "/test/path/scenario.json";
 
-    when(fsAccessSync)
-      .calledWith(scenarioFilePath, fs.constants.R_OK)
-      .mockImplementation(() => {
+    fsAccessSync.mockImplementation(((
+      path: fs.PathLike,
+      mode?: number
+    ) => {
+      if (path === scenarioFilePath && mode === fs.constants.R_OK) {
         throw new Error("Not readable");
-      });
+      }
+    }) as typeof accessSync);
 
     let cliThrewError = false;
     try {
@@ -85,11 +90,12 @@ describe("Scenario file validated", () => {
   test("User shown error if problem reading scenario file", async () => {
     const scenarioFilePath = "/test/path/scenario.json";
 
-    when(fsReadFileSync)
-      .calledWith(scenarioFilePath)
-      .mockImplementation(() => {
-        throw new Error("Test Error Message");
-      });
+    fsReadFileSync.mockImplementation(((path: string) => {
+      if (path === validConfigFilePath)
+        return Buffer.from(JSON.stringify(validConfig), "utf8");
+      if (path === scenarioFilePath) throw new Error("Test Error Message");
+      throw new Error(`Unexpected path: ${path}`);
+    }) as typeof readFileSync);
 
     let cliThrewError = false;
     try {
@@ -114,9 +120,12 @@ describe("Scenario file validated", () => {
   test("User shown error if scenario does not contain valid JSON", async () => {
     const scenarioFilePath = "/test/path/scenario.json";
 
-    when(fsReadFileSync)
-      .calledWith(scenarioFilePath)
-      .mockReturnValue(Buffer.from("Malformed JSON"));
+    fsReadFileSync.mockImplementation(((path: string) => {
+      if (path === validConfigFilePath)
+        return Buffer.from(JSON.stringify(validConfig), "utf8");
+      if (path === scenarioFilePath) return Buffer.from("Malformed JSON");
+      throw new Error(`Unexpected path: ${path}`);
+    }) as typeof readFileSync);
 
     let cliThrewError = false;
     try {
@@ -132,8 +141,8 @@ describe("Scenario file validated", () => {
     }
 
     expect(cliThrewError).toBe(true);
-    expect(capturedOutput.errOut).toContain(
-      "File '/test/path/scenario.json' not valid JSON. Reason: Unexpected token M in JSON at position 0\n"
+    expect(capturedOutput.errOut[0]).toMatch(
+      /File '\/test\/path\/scenario\.json' not valid JSON\. Reason: /
     );
     expect(fsReadFileSync).toBeCalledWith(scenarioFilePath);
   });

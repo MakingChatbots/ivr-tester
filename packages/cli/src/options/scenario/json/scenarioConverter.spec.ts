@@ -1,3 +1,4 @@
+import { test, expect, describe } from "vitest";
 import { convertStep, scenarioConverter } from "./scenarioConverter";
 import { JsonScenario } from "./jsonScenario";
 

@@ -1,3 +1,4 @@
+import { test, expect } from "vitest";
 import { JsonScenario } from "./jsonScenario";
 import { validateScenario } from "./validateJsonScenario";
 

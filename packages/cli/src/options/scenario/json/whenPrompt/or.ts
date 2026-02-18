@@ -28,10 +28,10 @@ export const jsonWhenPromptOr = {
       )
       .required(),
   }),
-  converter: (converter: (jsonWhen: JsonWhenPrompt) => When) => (
-    json: JsonWhenPromptOr
-  ): When => {
-    const whenPrompts = json.value.map((w) => converter(w));
-    return or(...whenPrompts);
-  },
+  converter:
+    (converter: (jsonWhen: JsonWhenPrompt) => When) =>
+    (json: JsonWhenPromptOr): When => {
+      const whenPrompts = json.value.map((w) => converter(w));
+      return or(...whenPrompts);
+    },
 };

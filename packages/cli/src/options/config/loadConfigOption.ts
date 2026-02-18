@@ -7,9 +7,10 @@ import { TwilioClientAuth } from "ivr-tester/dist/call/twilio";
 
 const MODULE_PREFIX = "ivr-tester-transcriber-";
 
-function validateTwilioClientAuth(
-  env: NodeJS.ProcessEnv
-): { error: Error; value: TwilioClientAuth } {
+function validateTwilioClientAuth(env: NodeJS.ProcessEnv): {
+  error: Error;
+  value: TwilioClientAuth;
+} {
   const accountSid = env.TWILIO_ACCOUNT_SID;
   const authToken = env.TWILIO_AUTH_TOKEN;
 

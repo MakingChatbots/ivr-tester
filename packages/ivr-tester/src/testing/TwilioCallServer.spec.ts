@@ -1,3 +1,4 @@
+import { describe, test, expect, beforeEach, afterEach, vi, type Mocked } from "vitest";
 import WebSocket from "ws";
 import { CallServer, TwilioCallServer } from "./TwilioCallServer";
 import { DtmfBufferGenerator } from "../call/dtmf/DtmfBufferGenerator";
@@ -17,22 +18,22 @@ const waitForConnection = async (ws: WebSocket): Promise<void> =>
   new Promise((resolve) => ws.on("open", resolve));
 
 const fiveSeconds = 10 * 1000;
-jest.setTimeout(fiveSeconds);
+vi.setConfig({ testTimeout: fiveSeconds });
 
 describe("Call Server", () => {
   let callServer: CallServer;
   let callConnection: WebSocket;
 
-  let testAssigner: jest.Mocked<TestAssigner>;
-  let testExecutor: jest.Mocked<TestExecutor>;
-  let dtmfGenerator: jest.Mocked<DtmfBufferGenerator>;
+  let testAssigner: Mocked<TestAssigner>;
+  let testExecutor: Mocked<TestExecutor>;
+  let dtmfGenerator: Mocked<DtmfBufferGenerator>;
 
   beforeEach(() => {
     testAssigner = {
-      assign: jest.fn<NoneAssigned | TestAssigned, undefined>(),
+      assign: vi.fn<() => NoneAssigned | TestAssigned>(),
     };
-    testExecutor = { startTest: jest.fn() };
-    dtmfGenerator = { generate: jest.fn() };
+    testExecutor = { startTest: vi.fn() };
+    dtmfGenerator = { generate: vi.fn() };
   });
 
   afterEach(async () => {

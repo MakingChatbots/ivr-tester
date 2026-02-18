@@ -1,3 +1,4 @@
+import { describe, test, expect, beforeEach, vi, type Mocked } from "vitest";
 import {
   inOrder,
   MatchedCallback,
@@ -10,8 +11,7 @@ import { TranscriberPlugin, TranscriptEvent } from "../../index";
 import { Call } from "../../call/Call";
 import { EventEmitter } from "events";
 import { PostSilencePrompt } from "./PostSilencePrompt";
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const FakeTimers = require("@sinonjs/fake-timers");
+import FakeTimers from "@sinonjs/fake-timers";
 
 class TranscriberTestDouble extends EventEmitter implements TranscriberPlugin {
   public close(): void {
@@ -31,30 +31,30 @@ class TranscriberTestDouble extends EventEmitter implements TranscriberPlugin {
 }
 
 describe("ordered conditions", () => {
-  let call: jest.Mocked<Call>;
+  let call: Mocked<Call>;
   let transcriberPlugin: TranscriberTestDouble;
 
   let clock: any;
   let testPromptFactory: PromptFactory;
-  let matchedCallback: jest.Mocked<MatchedCallback>;
-  let timeoutCallback: jest.Mocked<TimeoutCallback>;
+  let matchedCallback: Mocked<MatchedCallback>;
+  let timeoutCallback: Mocked<TimeoutCallback>;
 
   beforeEach(() => {
     call = {
-      sendDtmfTone: jest.fn(),
-      sendMedia: jest.fn(),
-      getStream: jest.fn(),
-      close: jest.fn(),
-      isOpen: jest.fn(),
-      on: jest.fn(),
-      off: jest.fn(),
-      emit: jest.fn(),
+      sendDtmfTone: vi.fn(),
+      sendMedia: vi.fn(),
+      getStream: vi.fn(),
+      close: vi.fn(),
+      isOpen: vi.fn(),
+      on: vi.fn(),
+      off: vi.fn(),
+      emit: vi.fn(),
     };
     transcriberPlugin = new TranscriberTestDouble();
 
     clock = FakeTimers.createClock();
-    matchedCallback = jest.fn();
-    timeoutCallback = jest.fn();
+    matchedCallback = vi.fn();
+    timeoutCallback = vi.fn();
 
     testPromptFactory = (definition, call) =>
       new PostSilencePrompt(

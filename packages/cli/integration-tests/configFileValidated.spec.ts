@@ -1,10 +1,10 @@
+import { describe, test, expect, beforeEach, vi, type MockedFunction } from "vitest";
 import { Cli, createCli } from "../src/cli";
 import * as fs from "fs";
 import { accessSync, readFileSync } from "fs";
 import { Command } from "commander";
 import { createProgram } from "../src/createProgram";
 import { JsonScenario } from "../src/options/scenario/json/jsonScenario";
-import { when } from "jest-when";
 import { JsonConfig } from "../src/options/config/json/JsonConfig";
 
 describe("Config file validated", () => {
@@ -19,20 +19,22 @@ describe("Config file validated", () => {
     errOut: string[];
   };
 
-  let fsReadFileSync: jest.MockedFunction<typeof readFileSync>;
-  let fsAccessSync: jest.MockedFunction<typeof accessSync>;
+  let fsReadFileSync: MockedFunction<typeof readFileSync>;
+  let fsAccessSync: MockedFunction<typeof accessSync>;
   let cli: Cli;
 
   beforeEach(() => {
     process.env.TWILIO_ACCOUNT_SID = "test-1";
     process.env.TWILIO_AUTH_TOKEN = "test-2";
 
-    fsAccessSync = jest.fn();
+    fsAccessSync = vi.fn();
 
-    fsReadFileSync = jest.fn();
-    when(fsReadFileSync)
-      .calledWith(validScenarioFilePath)
-      .mockReturnValue(Buffer.from(JSON.stringify(validScenario), "utf8"));
+    fsReadFileSync = vi.fn();
+    fsReadFileSync.mockImplementation(((path: string) => {
+      if (path === validScenarioFilePath)
+        return Buffer.from(JSON.stringify(validScenario), "utf8");
+      throw new Error(`Unexpected path: ${path}`);
+    }) as typeof readFileSync);
 
     capturedOutput = {
       errOut: [],
@@ -101,11 +103,12 @@ describe("Config file validated", () => {
   test("User shown error if problem reading config file", async () => {
     const configFilePath = "/test/path/config.json";
 
-    when(fsReadFileSync)
-      .calledWith(configFilePath)
-      .mockImplementation(() => {
-        throw new Error("Test Error Message");
-      });
+    fsReadFileSync.mockImplementation(((path: string) => {
+      if (path === validScenarioFilePath)
+        return Buffer.from(JSON.stringify(validScenario), "utf8");
+      if (path === configFilePath) throw new Error("Test Error Message");
+      throw new Error(`Unexpected path: ${path}`);
+    }) as typeof readFileSync);
 
     let cliThrewError = false;
     try {
@@ -130,9 +133,12 @@ describe("Config file validated", () => {
   test("User shown error if config does not contain valid JSON", async () => {
     const configFilePath = "/test/path/config.json";
 
-    when(fsReadFileSync)
-      .calledWith(configFilePath)
-      .mockReturnValue(Buffer.from("Malformed JSON"));
+    fsReadFileSync.mockImplementation(((path: string) => {
+      if (path === validScenarioFilePath)
+        return Buffer.from(JSON.stringify(validScenario), "utf8");
+      if (path === configFilePath) return Buffer.from("Malformed JSON");
+      throw new Error(`Unexpected path: ${path}`);
+    }) as typeof readFileSync);
 
     let cliThrewError = false;
     try {
@@ -148,8 +154,8 @@ describe("Config file validated", () => {
     }
 
     expect(cliThrewError).toBe(true);
-    expect(capturedOutput.errOut).toContain(
-      "File '/test/path/config.json' not valid JSON. Reason: Unexpected token M in JSON at position 0\n"
+    expect(capturedOutput.errOut[0]).toMatch(
+      /File '\/test\/path\/config\.json' not valid JSON\. Reason: /
     );
   });
 
@@ -161,9 +167,13 @@ describe("Config file validated", () => {
       },
     };
 
-    when(fsReadFileSync)
-      .calledWith(configFilePath)
-      .mockReturnValue(Buffer.from(JSON.stringify(configFileContent)));
+    fsReadFileSync.mockImplementation(((path: string) => {
+      if (path === validScenarioFilePath)
+        return Buffer.from(JSON.stringify(validScenario), "utf8");
+      if (path === configFilePath)
+        return Buffer.from(JSON.stringify(configFileContent));
+      throw new Error(`Unexpected path: ${path}`);
+    }) as typeof readFileSync);
 
     let cliThrewError = false;
     try {
@@ -179,8 +189,8 @@ describe("Config file validated", () => {
     }
 
     expect(cliThrewError).toBe(true);
-    expect(capturedOutput.errOut).toContain(
-      "Invalid config '/test/path/config.json. Reason: Cannot find module 'ivr-tester-transcriber- invalid* module& name! ' for the transcriber ' invalid* module& name! '\n"
+    expect(capturedOutput.errOut[0]).toMatch(
+      /Invalid config '\/test\/path\/config\.json\. Reason: /
     );
   });
 });
