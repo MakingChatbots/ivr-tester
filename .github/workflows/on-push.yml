@@ -27,5 +27,4 @@ jobs:
           node-version: 16.x
       - run: npm ci
       - run: npm run build
-      - run: npm run doc
       - run: npm test

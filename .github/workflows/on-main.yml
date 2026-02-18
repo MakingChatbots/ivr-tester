@@ -42,8 +42,6 @@ jobs:
           node-version: 16.x
       - run: npm ci
       - run: npm run build
-      - name: Generate documentation
-        run: npm run doc
       - name: Commit updated documentation
         uses: EndBug/add-and-commit@v5
         with:

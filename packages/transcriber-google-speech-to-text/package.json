@@ -24,8 +24,7 @@
     "test:integration": "vitest run __tests__",
     "clean": "rimraf dist/",
     "build": "npm run clean && tsc --declaration",
-    "lint": "biome check --write src/ __tests__/",
-    "doc": "npx typedoc"
+    "lint": "biome check --write src/ __tests__/"
   },
   "files": [
     "/dist"

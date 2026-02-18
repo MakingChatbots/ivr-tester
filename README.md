@@ -127,24 +127,6 @@ Under the hood this orchestrates:
  2. Transcribing the voice responses from the flow - using [Google Speech-to-Text](https://cloud.google.com/speech-to-text)
  3. Using the test to conditionally respond with DTMF tones to transcripts
 
-## Development
-
-### Documentation
-
-Where possible the documentation is generated from the code using the following script in the root directory or
-individual packages:
-
-```shell
-npm run docs
-```
-
-The documentation is automatically generated and committed as part of the CI pipeline when merged to the main branch.
-The official website can be previewed locally by running:
-
-```shell
-docsify serve docs
-```
-
 ## License
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSketchingDev%2Fivr-tester.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FSketchingDev%2Fivr-tester?ref=badge_large)

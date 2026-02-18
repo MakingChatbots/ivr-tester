@@ -27,7 +27,6 @@
     "build": "npm run clean && tsc -p tsconfig.build.json --declaration && npm run copy:dtmf-tones",
     "lint": "biome check --write src/",
     "copy:dtmf-tones": "copyfiles -u 1 src/**/dtmf/**/*.raw dist",
-    "doc": "npx typedoc"
   },
   "files": [
     "/dist"
@@ -39,7 +38,7 @@
     "ws": "^8.19.0"
   },
   "peerDependencies": {
-    "twilio": ">=3.84.1"
+    "twilio": ">=3"
   },
   "devDependencies": {
     "@types/debug": "^4.1.12",
