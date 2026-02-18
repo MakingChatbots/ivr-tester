@@ -1,3 +1,4 @@
+import { test, expect } from 'vitest';
 import { and } from './and';
 import { contains } from './contains';
 

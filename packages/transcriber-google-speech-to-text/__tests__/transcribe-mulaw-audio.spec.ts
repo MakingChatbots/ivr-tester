@@ -1,3 +1,4 @@
+import { describe, test, expect, vi, beforeAll, beforeEach, afterEach } from 'vitest';
 import * as fs from 'node:fs';
 import { join } from 'node:path';
 import type { TranscriberPlugin, TranscriptEvent } from 'ivr-tester';
@@ -21,7 +22,7 @@ const sendAudioChunksToTranscriber = async (audioFile: Buffer, transcriber: Tran
   }
 };
 
-jest.setTimeout(60 * 1000);
+vi.setConfig({ testTimeout: 60 * 1000 });
 describe('Google Speech-to-Text', () => {
   const audioFilePath = join(__dirname, 'test-data/mulaw-01.wav');
   let audioFile: Buffer;

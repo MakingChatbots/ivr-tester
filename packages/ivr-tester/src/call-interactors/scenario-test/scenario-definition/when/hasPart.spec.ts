@@ -1,8 +1,9 @@
+import { test, expect, vi, type Mock } from 'vitest';
 import { hasPart } from './hasPart';
 import type { When } from './When';
 
 test('part calls matcher with every part of a sentence', () => {
-  const mockWhen: jest.Mocked<When> = jest.fn();
+  const mockWhen: Mock<When> = vi.fn();
 
   hasPart(mockWhen)('this is. a test');
 
@@ -20,7 +21,7 @@ test('part calls matcher with every part of a sentence', () => {
 });
 
 test('part calls matcher with empty string', () => {
-  const mockWhen: jest.Mocked<When> = jest.fn();
+  const mockWhen: Mock<When> = vi.fn();
 
   hasPart(mockWhen)('');
 
