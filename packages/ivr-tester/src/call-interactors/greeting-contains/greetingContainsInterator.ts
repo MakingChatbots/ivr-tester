@@ -1,6 +1,9 @@
-import { CallInteractor } from '../CallInteractor';
-import { CallTranscriber, TranscriberFactory } from '../../call-interactor-utilities/transcription';
 import { ArgumentUndefinedError } from '../../ArgumentUndefinedError';
+import {
+  CallTranscriber,
+  type TranscriberFactory,
+} from '../../call-interactor-utilities/transcription';
+import type { CallInteractor } from '../CallInteractor';
 import { PromptTranscriptionBuilder } from '../scenario-test/prompts/PromptTranscriptionBuilder';
 
 export interface GreetingMsgInteractorResult {
@@ -42,7 +45,7 @@ export const greetingContainsInteractor = ({
   return (call) =>
     new Promise((resolve) => {
       const foundInGreeting: string[] = [];
-      let timeoutRef: NodeJS.Timeout | undefined = undefined;
+      let timeoutRef: NodeJS.Timeout | undefined;
 
       function clearTimeout(): void {
         if (timeoutRef) {

@@ -1,10 +1,10 @@
-import { CallInteractor } from '../CallInteractor';
+import { clearTimeout } from 'node:timers';
 import {
-  DtmfBufferGenerator,
-  SupportedTone,
+  type DtmfBufferGenerator,
+  type SupportedTone,
   UlawDtmfBufferGenerator,
 } from '../../call-interactor-utilities/dtmf';
-import { clearTimeout } from 'timers';
+import type { CallInteractor } from '../CallInteractor';
 
 function getRandomTone(tones: SupportedTone[]): SupportedTone {
   return tones[Math.floor(Math.random() * tones.length)];

@@ -1,6 +1,6 @@
-import path from 'path';
-import { readFileSync } from 'fs';
-import { DtmfBufferGenerator, SupportedTone } from './DtmfBufferGenerator';
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
+import type { DtmfBufferGenerator, SupportedTone } from './DtmfBufferGenerator';
 import { dtmfSequenceValidator } from './dtmfSequenceUtils';
 
 export class UlawDtmfBufferGenerator implements DtmfBufferGenerator {

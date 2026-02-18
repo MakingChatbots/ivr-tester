@@ -1,21 +1,21 @@
+import { clearInterval } from 'node:timers';
+import type { Call } from '../../call/Call';
 import { WebSocketEvents } from '../../call/twilio/TwilioCall';
 import {
+  TwilioServerMessageEventTypes,
+  type TwilioServerMessages,
+} from '../../call/twilio/TwilioServerMessages';
+import { Debugger } from '../../Debugger';
+import { TypedEmitter } from '../../Emitter';
+import { type DtmfBufferGenerator, UlawDtmfBufferGenerator } from '../dtmf';
+import type {
   TranscriberPlugin,
   TranscriptEvent,
   TranscriptionEvents,
 } from './plugin/TranscriberPlugin';
-import { Debugger } from '../../Debugger';
-import { TypedEmitter } from '../../Emitter';
-import { Call } from '../../call/Call';
-import {
-  TwilioServerMessageEventTypes,
-  TwilioServerMessages,
-} from '../../call/twilio/TwilioServerMessages';
-import { DtmfBufferGenerator, UlawDtmfBufferGenerator } from '../dtmf';
-import { clearInterval } from 'timers';
 
 export type CallTranscriberEvents = {
-  callAndTranscriberFinished: void;
+  callAndTranscriberFinished: undefined;
 };
 
 export class CallTranscriber extends TypedEmitter<TranscriptionEvents & CallTranscriberEvents> {

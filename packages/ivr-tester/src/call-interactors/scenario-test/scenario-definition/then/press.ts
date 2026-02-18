@@ -1,8 +1,11 @@
-import { Then } from './Then';
+import type { Call } from '../../../../call/Call';
+import {
+  type DtmfBufferGenerator,
+  type SupportedTone,
+  UlawDtmfBufferGenerator,
+} from '../../../../call-interactor-utilities/dtmf';
 import { dtmfSequenceValidator } from '../../../../call-interactor-utilities/dtmf/dtmfSequenceUtils';
-import { Call } from '../../../../call/Call';
-import { DtmfBufferGenerator, SupportedTone } from '../../../../call-interactor-utilities/dtmf';
-import { UlawDtmfBufferGenerator } from '../../../../call-interactor-utilities/dtmf';
+import type { Then } from './Then';
 
 /**
  * Sends DTMF tones to the call

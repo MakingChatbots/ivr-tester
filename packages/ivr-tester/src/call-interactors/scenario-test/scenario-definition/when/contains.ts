@@ -1,4 +1,4 @@
-import { When } from './When';
+import type { When } from './When';
 
 export interface ContainsConfig {
   ignoreCasing?: boolean;

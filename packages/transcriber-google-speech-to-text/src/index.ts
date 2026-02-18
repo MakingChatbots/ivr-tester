@@ -1,5 +1,5 @@
 import { SpeechClient } from '@google-cloud/speech';
-import { TranscriberFactory } from 'ivr-tester';
+import type { TranscriberFactory } from 'ivr-tester';
 import { GoogleSpeechToText } from './GoogleSpeechToText';
 
 /**

@@ -1,9 +1,15 @@
-import { CallInteractor } from '../CallInteractor';
-import { DtmfBufferGenerator, UlawDtmfBufferGenerator } from '../../call-interactor-utilities/dtmf';
-import { CallTranscriber, TranscriberFactory } from '../../call-interactor-utilities/transcription';
-import { PromptTranscriptionBuilder } from '../scenario-test/prompts/PromptTranscriptionBuilder';
+import { clearInterval } from 'node:timers';
+import {
+  type DtmfBufferGenerator,
+  UlawDtmfBufferGenerator,
+} from '../../call-interactor-utilities/dtmf';
+import {
+  CallTranscriber,
+  type TranscriberFactory,
+} from '../../call-interactor-utilities/transcription';
 import { Debugger } from '../../Debugger';
-import { clearInterval } from 'timers';
+import type { CallInteractor } from '../CallInteractor';
+import { PromptTranscriptionBuilder } from '../scenario-test/prompts/PromptTranscriptionBuilder';
 
 export interface ManualInteractorConfig {
   readonly transcriberFactory: TranscriberFactory;

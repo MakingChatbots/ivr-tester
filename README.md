@@ -135,7 +135,7 @@ Where possible the documentation is generated from the code using the following 
 individual packages:
 
 ```shell
-yarn docs
+npm run docs
 ```
 
 The documentation is automatically generated and committed as part of the CI pipeline when merged to the main branch.

@@ -1,5 +1,5 @@
 export {
-  greetingContainsInteractor,
   GreetingContainsInteractorConfig,
   GreetingMsgInteractorResult,
+  greetingContainsInteractor,
 } from './greetingContainsInterator';

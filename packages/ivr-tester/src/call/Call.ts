@@ -1,5 +1,5 @@
-import ws from 'ws';
-import { TypedEmitter } from '../Emitter';
+import type ws from 'ws';
+import type { TypedEmitter } from '../Emitter';
 
 /**
  * Event indicating when the call's media stream starts. It is only

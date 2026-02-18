@@ -17,5 +17,4 @@ test.each([
     false,
   ],
 ])("similarTo ('%s')", (transcript, actual, expected) =>
-  expect(similarTo(actual)(transcript)).toBe(expected),
-);
+  expect(similarTo(actual)(transcript)).toBe(expected));

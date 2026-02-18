@@ -1,5 +1,5 @@
-import { Emitter } from '../../Emitter';
-import { Step } from './scenario-definition/Step';
+import type { Emitter } from '../../Emitter';
+import type { Step } from './scenario-definition/Step';
 
 export interface SessionProgressEvent {
   transcription: string;
@@ -16,7 +16,7 @@ export interface TimeoutWaitingForMatchEvent {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface AllPromptsMatchedEvent {}
+export type AllPromptsMatchedEvent = {};
 
 export type CallFlowSessionEvents = {
   progress: SessionProgressEvent;

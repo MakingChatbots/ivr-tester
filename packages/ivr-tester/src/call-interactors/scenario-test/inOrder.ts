@@ -1,13 +1,13 @@
-import { Step } from './scenario-definition/Step';
-import { PromptTranscriptionBuilder } from './prompts/PromptTranscriptionBuilder';
-import { Call } from '../../call/Call';
-import { PostSilencePrompt } from './prompts/PostSilencePrompt';
-import { Emitter, TypedEmitter } from '../../Emitter';
-import {
+import type { Call } from '../../call/Call';
+import type {
   TranscriptEvent,
   TranscriptionEvents,
 } from '../../call-interactor-utilities/transcription';
-import { CallFlowSession, CallFlowSessionEvents } from './CallFlowInstructions';
+import { type Emitter, TypedEmitter } from '../../Emitter';
+import type { CallFlowSession, CallFlowSessionEvents } from './CallFlowInstructions';
+import { PostSilencePrompt } from './prompts/PostSilencePrompt';
+import { PromptTranscriptionBuilder } from './prompts/PromptTranscriptionBuilder';
+import type { Step } from './scenario-definition/Step';
 
 export interface Prompt {
   readonly definition: Step;

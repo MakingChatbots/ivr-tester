@@ -1,8 +1,8 @@
-import Joi, { ValidationError } from 'joi';
-import { Config } from './Config';
-import { Twilio } from 'twilio';
-import { TwilioClientAuth } from '../call/twilio/twilio';
+import Joi, { type ValidationError } from 'joi';
+import type { Twilio } from 'twilio';
+import type { TwilioClientAuth } from '../call/twilio/twilio';
 import { IvrTester } from '../IvrTester';
+import type { Config } from './Config';
 
 const schema = Joi.object<Config>({
   localServerPort: Joi.number().port().optional().default(8080),

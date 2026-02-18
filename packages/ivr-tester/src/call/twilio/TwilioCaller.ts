@@ -1,11 +1,11 @@
-import { URL } from 'url';
-import { Twilio, twiml } from 'twilio';
-import VoiceResponse from 'twilio/lib/twiml/VoiceResponse';
-import { Debugger } from '../../Debugger';
-import { Caller, RequestedCall } from '../Caller';
-import { IvrNumber } from '../../configuration/call/IvrNumber';
+import type { URL } from 'node:url';
+import { type Twilio, twiml } from 'twilio';
+import type VoiceResponse from 'twilio/lib/twiml/VoiceResponse';
 import { ArgumentUndefinedError } from '../../ArgumentUndefinedError';
-import { ServerStartMessage } from './TwilioServerMessages';
+import type { IvrNumber } from '../../configuration/call/IvrNumber';
+import { Debugger } from '../../Debugger';
+import type { Caller, RequestedCall } from '../Caller';
+import type { ServerStartMessage } from './TwilioServerMessages';
 
 export class TwilioCaller implements Caller<IvrNumber> {
   private static debug = Debugger.getTwilioDebugger();

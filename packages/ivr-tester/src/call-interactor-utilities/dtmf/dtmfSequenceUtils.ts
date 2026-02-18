@@ -1,4 +1,4 @@
-import { SupportedTone } from './DtmfBufferGenerator';
+import type { SupportedTone } from './DtmfBufferGenerator';
 
 const validDtmfDigits: ReadonlyArray<SupportedTone> = [
   '0',
@@ -36,7 +36,7 @@ export function dtmfSequenceValidator(
 
   const invalidDigits = possibleDtmfSequence.filter(
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+    // @ts-expect-error
     (c) => !validDtmfDigits.includes(c.toLocaleLowerCase()),
   );
   if (invalidDigits.length > 0) {

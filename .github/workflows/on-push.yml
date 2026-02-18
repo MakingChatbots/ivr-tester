@@ -11,8 +11,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-      - run: yarn
-      - run: yarn lint
+      - run: npm ci
+      - run: npm run lint
         env:
           CI: true
 
@@ -25,7 +25,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-      - run: yarn
-      - run: yarn build
-      - run: yarn doc
-      - run: yarn test
+      - run: npm ci
+      - run: npm run build
+      - run: npm run doc
+      - run: npm test

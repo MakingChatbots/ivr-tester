@@ -1,9 +1,9 @@
+export { and } from './and';
 export { contains } from './contains';
+export { containsSimilarTo } from './containsSimilarTo';
+export { hasPart } from './hasPart';
+export { isAnything } from './isAnything';
 export { matches } from './matches';
 export { or } from './or';
-export { and } from './and';
-export { hasPart } from './hasPart';
 export { similarTo } from './similarTo';
-export { containsSimilarTo } from './containsSimilarTo';
-export { isAnything } from './isAnything';
 export { When } from './When';

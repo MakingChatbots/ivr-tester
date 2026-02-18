@@ -1,7 +1,7 @@
-import { Scenario } from './scenario-definition/Scenario';
-import Joi, { ValidationError } from 'joi';
-import { Step } from './scenario-definition/Step';
-import { Then } from './scenario-definition/then';
+import Joi, { type ValidationError } from 'joi';
+import type { Scenario } from './scenario-definition/Scenario';
+import type { Step } from './scenario-definition/Step';
+import type { Then } from './scenario-definition/then';
 
 const schema = Joi.object<Scenario>({
   name: Joi.string().required(),

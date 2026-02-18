@@ -1,5 +1,5 @@
-import { URL } from 'url';
-import { IvrNumber } from '../configuration/call/IvrNumber';
+import type { URL } from 'node:url';
+import type { IvrNumber } from '../configuration/call/IvrNumber';
 
 export interface AudioPlaybackCall {
   type: 'audio-playback';

@@ -34,6 +34,5 @@ test.each([
   ],
 ])("dtmfSequenceValidator ('%s') = '%s'", (dtmfSequence, expected) =>
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  expect(dtmfSequenceValidator(dtmfSequence)).toStrictEqual(expected),
-);
+  // @ts-expect-error
+  expect(dtmfSequenceValidator(dtmfSequence)).toStrictEqual(expected));

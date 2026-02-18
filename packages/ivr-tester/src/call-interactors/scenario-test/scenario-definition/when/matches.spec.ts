@@ -8,5 +8,4 @@ test.each([
   ],
   ['press to try again', /test/, false],
 ])("matches ('%s')", (transcript, actual, expected) =>
-  expect(matches(actual)(transcript)).toBe(expected),
-);
+  expect(matches(actual)(transcript)).toBe(expected));

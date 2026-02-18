@@ -1,7 +1,7 @@
-import { MatchedCallback, Prompt, TimeoutCallback } from '../inOrder';
-import { Step } from '../scenario-definition/Step';
-import { Call } from '../../../call/Call';
-import { PromptTranscriptionBuilder } from './PromptTranscriptionBuilder';
+import type { Call } from '../../../call/Call';
+import type { MatchedCallback, Prompt, TimeoutCallback } from '../inOrder';
+import type { Step } from '../scenario-definition/Step';
+import type { PromptTranscriptionBuilder } from './PromptTranscriptionBuilder';
 
 export class PostSilencePrompt implements Prompt {
   private timeoutTimer: ReturnType<typeof setTimeout>;

@@ -1,9 +1,12 @@
-import { CallInteractor } from '../CallInteractor';
-import { CallTranscriber, TranscriberFactory } from '../../call-interactor-utilities/transcription';
-import { validateScenario } from './validateScenario';
-import { Scenario } from './scenario-definition/Scenario';
-import { defaultPromptFactory, RunningOrderedCallFlowInstructions } from './inOrder';
+import {
+  CallTranscriber,
+  type TranscriberFactory,
+} from '../../call-interactor-utilities/transcription';
 import { Debugger } from '../../Debugger';
+import type { CallInteractor } from '../CallInteractor';
+import { defaultPromptFactory, RunningOrderedCallFlowInstructions } from './inOrder';
+import type { Scenario } from './scenario-definition/Scenario';
+import { validateScenario } from './validateScenario';
 
 export interface ScenarioTestInteractorSuccessResult {
   scenario: Scenario;

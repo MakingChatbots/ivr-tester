@@ -9,13 +9,7 @@ A plugin for [IVR Tester](https://github.com/SketchingDev/ivr-tester) to transcr
 
 ### 1. Install the package
 
-Install using yarn:
-
-```shell
-yarn global add ivr-tester-transcriber-google-speech-to-text
-```
-
-Or npm:
+Install using npm:
 
 ```shell
 npm install -g ivr-tester-transcriber-google-speech-to-text

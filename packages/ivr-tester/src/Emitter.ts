@@ -1,4 +1,4 @@
-import { EventEmitter } from 'events';
+import { EventEmitter } from 'node:events';
 
 // https://rjzaworski.com/2019/10/event-emitters-in-typescript
 

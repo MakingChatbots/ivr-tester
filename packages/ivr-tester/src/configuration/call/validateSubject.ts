@@ -1,5 +1,5 @@
-import Joi, { ValidationError } from 'joi';
-import { IvrNumber } from './IvrNumber';
+import Joi, { type ValidationError } from 'joi';
+import type { IvrNumber } from './IvrNumber';
 
 const schema = Joi.object<IvrNumber>({
   from: Joi.string().required(),

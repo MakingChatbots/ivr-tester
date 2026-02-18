@@ -1,7 +1,7 @@
+import * as fs from 'node:fs';
+import { join } from 'node:path';
+import type { TranscriberPlugin, TranscriptEvent } from 'ivr-tester';
 import { googleSpeechToText } from '../src';
-import * as fs from 'fs';
-import { join } from 'path';
-import { TranscriberPlugin, TranscriptEvent } from 'ivr-tester';
 import { Debugger } from '../src/Debugger';
 
 const sendAudioChunksToTranscriber = async (audioFile: Buffer, transcriber: TranscriberPlugin) => {

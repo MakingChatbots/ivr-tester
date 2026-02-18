@@ -1,14 +1,14 @@
-import ws from 'ws';
-import { Call, CallEvents } from '../Call';
+import type ws from 'ws';
 import { Debugger } from '../../Debugger';
 import { TypedEmitter } from '../../Emitter';
+import type { Call, CallEvents } from '../Call';
 import { TwilioCaller } from './TwilioCaller';
-import { TwilioServerMessageEventTypes, TwilioServerMessages } from './TwilioServerMessages';
 import {
-  ClientMarkMessage,
-  ClientMediaMessage,
+  type ClientMarkMessage,
+  type ClientMediaMessage,
   TwilioClientMessageEventTypes,
 } from './TwilioClientMessages';
+import { TwilioServerMessageEventTypes, type TwilioServerMessages } from './TwilioServerMessages';
 
 export enum WebSocketEvents {
   Message = 'message',

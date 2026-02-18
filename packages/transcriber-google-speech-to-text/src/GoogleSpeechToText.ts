@@ -1,8 +1,13 @@
+import type internal from 'node:stream';
 import { protos, SpeechClient } from '@google-cloud/speech';
-import { TranscriberPlugin, TranscriptEvent, TranscriptionEvents, TypedEmitter } from 'ivr-tester';
-import { Transcript } from './Transcript';
-import internal from 'stream';
+import {
+  type TranscriberPlugin,
+  type TranscriptEvent,
+  type TranscriptionEvents,
+  TypedEmitter,
+} from 'ivr-tester';
 import { Debugger } from './Debugger';
+import type { Transcript } from './Transcript';
 
 export class GoogleSpeechToText
   extends TypedEmitter<TranscriptionEvents>

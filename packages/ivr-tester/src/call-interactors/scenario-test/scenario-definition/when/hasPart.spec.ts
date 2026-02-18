@@ -1,5 +1,5 @@
 import { hasPart } from './hasPart';
-import { When } from './When';
+import type { When } from './When';
 
 test('part calls matcher with every part of a sentence', () => {
   const mockWhen: jest.Mocked<When> = jest.fn();

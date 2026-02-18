@@ -1,5 +1,5 @@
-import { Twilio } from 'twilio';
-import { TwilioClientAuth } from '../call/twilio/twilio';
+import type { Twilio } from 'twilio';
+import type { TwilioClientAuth } from '../call/twilio/twilio';
 
 export interface Config {
   /**
