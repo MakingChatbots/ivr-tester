@@ -1,5 +1,5 @@
-import ws from "ws";
-import { Emitter } from "../Emitter";
+import type ws from "ws";
+import type { Emitter } from "../Emitter";
 
 export interface CallClosedEvent {
   by: "caller" | "ivr-tester" | "unknown";

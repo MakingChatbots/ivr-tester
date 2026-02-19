@@ -1,15 +1,15 @@
+import path from "node:path";
 import {
-  Config,
+  type Config,
   contains,
   doNothing,
-  isAnything,
-  IvrNumber,
+  type IvrNumber,
   IvrTester,
+  isAnything,
   press,
-  Scenario,
+  type Scenario,
   similarTo,
 } from "ivr-tester";
-import path from "path";
 import { googleSpeechToText } from "ivr-tester-transcriber-google-speech-to-text";
 import ngrok from "ngrok";
 
@@ -58,7 +58,7 @@ const scenarios: Scenario[] = [
       },
       {
         whenPrompt: similarTo(
-          "please wait while we search for your phone number on our system"
+          "please wait while we search for your phone number on our system",
         ),
         then: doNothing(),
         silenceAfterPrompt: 1500,
@@ -89,7 +89,7 @@ const scenarios: Scenario[] = [
       },
       {
         whenPrompt: similarTo(
-          "please wait while we search for your phone number on our system"
+          "please wait while we search for your phone number on our system",
         ),
         then: doNothing(),
         silenceAfterPrompt: 3000,
@@ -151,6 +151,6 @@ ngrok
     new IvrTester({ ...config, publicServerUrl: url })
       .run(call, scenarios)
       .then(() => process.exit())
-      .catch(catchError)
+      .catch(catchError),
   )
   .catch(catchError);

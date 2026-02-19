@@ -1,4 +1,4 @@
-import { test, expect } from "vitest";
+import { expect, test } from "vitest";
 import { matches } from "./matches";
 
 test.each([
@@ -9,5 +9,4 @@ test.each([
   ],
   ["press to try again", /test/, false],
 ])("matches ('%s')", (transcript, actual, expected) =>
-  expect(matches(actual)(transcript)).toBe(expected)
-);
+  expect(matches(actual)(transcript)).toBe(expected));

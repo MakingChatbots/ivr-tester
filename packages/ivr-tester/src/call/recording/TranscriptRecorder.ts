@@ -1,19 +1,22 @@
-import * as fs from "fs";
-import { createWriteStream, mkdirSync, WriteStream } from "fs";
-import * as path from "path";
-import { WebSocketEvents } from "../TwilioCall";
-import { TwilioConnectionEvents } from "../twilio";
-import { FilenameFactory } from "./filename/FilenameFactory";
-import { ivrNumberAndTestNameFilename } from "./filename/ivrNumberAndTestNameFilename";
-import { Config } from "../../configuration/Config";
+import * as fs from "node:fs";
+import { createWriteStream, mkdirSync, type WriteStream } from "node:fs";
+import * as path from "node:path";
+import type { Config } from "../../configuration/Config";
 import { ConfigurationError } from "../../configuration/ConfigurationError";
-import { TwilioCaller, TwilioMediaStreamStartEvent } from "../TwilioCaller";
-import { IvrTesterPlugin } from "../../plugins/IvrTesterPlugin";
-import { TestSession } from "../../testRunner";
-import {
+import type { IvrTesterPlugin } from "../../plugins/IvrTesterPlugin";
+import type {
   PromptMatchedEvent,
   TimeoutWaitingForMatchEvent,
 } from "../../testing/test/CallFlowInstructions";
+import type { TestSession } from "../../testRunner";
+import { WebSocketEvents } from "../TwilioCall";
+import {
+  TwilioCaller,
+  type TwilioMediaStreamStartEvent,
+} from "../TwilioCaller";
+import { TwilioConnectionEvents } from "../twilio";
+import type { FilenameFactory } from "./filename/FilenameFactory";
+import { ivrNumberAndTestNameFilename } from "./filename/ivrNumberAndTestNameFilename";
 
 export interface RecorderConfig {
   outputPath: string;
@@ -40,14 +43,14 @@ export const transcriptRecorderPlugin = (config: Config): IvrTesterPlugin => {
   if (!recorderConfig.outputPath) {
     throw new ConfigurationError(
       "recording.transcript.outputPath",
-      "Path must be defined"
+      "Path must be defined",
     );
   }
 
   if (!fs.existsSync(recorderConfig.outputPath)) {
     throw new ConfigurationError(
       "recording.transcript.outputPath",
-      "Path does not exist"
+      "Path does not exist",
     );
   }
 
@@ -68,7 +71,7 @@ export class TranscriptRecorder {
   private readonly processTwilioMessageRef: (message: string) => void;
   private readonly saveMatchedPromptRef: (event: PromptMatchedEvent) => void;
   private readonly saveTimedOutPromptThenCloseRef: (
-    event: TimeoutWaitingForMatchEvent
+    event: TimeoutWaitingForMatchEvent,
   ) => void;
   private readonly closeRef: () => void;
 
@@ -76,23 +79,22 @@ export class TranscriptRecorder {
 
   constructor(
     private readonly testSession: TestSession,
-    private readonly config: RecorderConfig
+    private readonly config: RecorderConfig,
   ) {
     this.saveMatchedPromptRef = this.saveMatchedPrompts.bind(this);
     this.testSession.callFlowSession.on(
       "promptMatched",
-      this.saveMatchedPromptRef
+      this.saveMatchedPromptRef,
     );
 
     this.closeRef = this.close.bind(this);
     this.testSession.callFlowSession.on("allPromptsMatched", this.closeRef);
 
-    this.saveTimedOutPromptThenCloseRef = this.saveTimedOutPromptThenClose.bind(
-      this
-    );
+    this.saveTimedOutPromptThenCloseRef =
+      this.saveTimedOutPromptThenClose.bind(this);
     this.testSession.callFlowSession.on(
       "timeoutWaitingForMatch",
-      this.saveTimedOutPromptThenCloseRef
+      this.saveTimedOutPromptThenCloseRef,
     );
 
     this.processTwilioMessageRef = this.processTwilioMessage.bind(this);
@@ -114,7 +116,7 @@ export class TranscriptRecorder {
     if (this.config.includeResponse) {
       prompt.push(`Them: ${event.transcription}`);
       prompt.push(
-        "You: Ended test as prompt did not match condition within timeout period"
+        "You: Ended test as prompt did not match condition within timeout period",
       );
     } else {
       prompt.push(`${event.transcription}`);
@@ -150,7 +152,7 @@ export class TranscriptRecorder {
           call,
         },
         this.testSession.scenario,
-        TranscriptRecorder.FILENAME_SUFFIX
+        TranscriptRecorder.FILENAME_SUFFIX,
       );
     }
 
@@ -174,7 +176,7 @@ export class TranscriptRecorder {
     callFlowSession.off("allPromptsMatched", this.closeRef);
     callFlowSession.off(
       "timeoutWaitingForMatch",
-      this.saveTimedOutPromptThenCloseRef
+      this.saveTimedOutPromptThenCloseRef,
     );
 
     const connection = this.testSession.call.getStream();

@@ -1,5 +1,5 @@
-import Joi, { ValidationError } from "joi";
-import { IvrNumber } from "./IvrNumber";
+import Joi, { type ValidationError } from "joi";
+import type { IvrNumber } from "./IvrNumber";
 
 const schema = Joi.object<IvrNumber>({
   from: Joi.string().required(),
@@ -9,7 +9,7 @@ const schema = Joi.object<IvrNumber>({
 export type TestSubject = IvrNumber | Buffer;
 
 export const validateTestSubject = (
-  testSubject: TestSubject
+  testSubject: TestSubject,
 ): { error?: ValidationError } => {
   if (Buffer.isBuffer(testSubject)) {
     return {};

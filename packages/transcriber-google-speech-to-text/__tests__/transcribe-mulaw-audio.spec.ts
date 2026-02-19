@@ -1,13 +1,21 @@
-import { describe, test, expect, beforeAll, beforeEach, afterEach, vi } from "vitest";
+import * as fs from "node:fs";
+import path from "node:path";
+import type { TranscriberPlugin, TranscriptEvent } from "ivr-tester";
+import {
+  afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  test,
+  vi,
+} from "vitest";
 import { googleSpeechToText } from "../src";
-import * as fs from "fs";
-import path from "path";
-import { TranscriberPlugin, TranscriptEvent } from "ivr-tester";
 import { Debugger } from "../src/Debugger";
 
 const sendAudioChunksToTranscriber = async (
   audioFile: Buffer,
-  transcriber: TranscriberPlugin
+  transcriber: TranscriberPlugin,
 ) => {
   const msBetweenSendingBuffer = 250;
   const bufferSize = 5000;
@@ -21,7 +29,7 @@ const sendAudioChunksToTranscriber = async (
 
       buffer = [];
       await new Promise((resolve) =>
-        setTimeout(resolve, msBetweenSendingBuffer)
+        setTimeout(resolve, msBetweenSendingBuffer),
       );
     }
   }
@@ -56,7 +64,7 @@ describe("Google Speech-to-Text", () => {
     await sendAudioChunksToTranscriber(audioFile, transcriber);
 
     expect(transcriptions.join(" ").toLowerCase()).toContain(
-      "adjust call recording behavior"
+      "adjust call recording behavior",
     );
   });
 });

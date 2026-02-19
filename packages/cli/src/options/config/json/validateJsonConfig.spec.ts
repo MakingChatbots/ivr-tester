@@ -1,5 +1,5 @@
-import { test, expect } from "vitest";
-import { JsonConfig } from "./JsonConfig";
+import { expect, test } from "vitest";
+import type { JsonConfig } from "./JsonConfig";
 import { validateConfig } from "./validateJsonConfig";
 
 const validConfig: JsonConfig = {

@@ -1,11 +1,19 @@
-import { describe, test, expect, beforeEach, vi, type Mocked, type MockedFunction } from "vitest";
-import { Cli, createCli, IvrTesterFactory } from "../src/cli";
-import { readFileSync } from "fs";
+import type { readFileSync } from "node:fs";
 import { Command } from "commander";
-import ngrok from "ngrok";
-import { createProgram, Program } from "../src/createProgram";
-import { JsonScenario } from "../src/options/scenario/json/jsonScenario";
-import { JsonConfig } from "../src/options/config/json/JsonConfig";
+import type ngrok from "ngrok";
+import {
+  beforeEach,
+  describe,
+  expect,
+  type Mocked,
+  type MockedFunction,
+  test,
+  vi,
+} from "vitest";
+import { type Cli, createCli, type IvrTesterFactory } from "../src/cli";
+import { createProgram, type Program } from "../src/createProgram";
+import type { JsonConfig } from "../src/options/config/json/JsonConfig";
+import type { JsonScenario } from "../src/options/scenario/json/jsonScenario";
 
 type TranscriberModule = (options: Record<string, unknown>) => any;
 
@@ -64,9 +72,9 @@ describe("Integrated with IVR Tester API", () => {
     });
 
     transcriberModule = vi.fn().mockReturnValue({});
-    requireModule = (vi.fn().mockReturnValue({
+    requireModule = vi.fn().mockReturnValue({
       default: transcriberModule,
-    }) as unknown) as MockedFunction<NodeJS.Require>;
+    }) as unknown as MockedFunction<NodeJS.Require>;
 
     program = createProgram(new Command(), true);
     program.command.configureOutput({
@@ -108,7 +116,7 @@ describe("Integrated with IVR Tester API", () => {
     expect(ivrTesterFactory).toHaveBeenCalledWith(
       expect.objectContaining({
         publicServerUrl: ngrokPublicUrl,
-      })
+      }),
     );
   });
 
@@ -142,7 +150,7 @@ describe("Integrated with IVR Tester API", () => {
       {
         name: "test-scenario",
         steps: [],
-      }
+      },
     );
   });
 

@@ -1,13 +1,13 @@
+import path from "node:path";
 import {
-  Config,
+  type Config,
   doNothing,
-  isAnything,
-  IvrNumber,
+  type IvrNumber,
   IvrTester,
+  isAnything,
   press,
-  Scenario,
+  type Scenario,
 } from "ivr-tester";
-import path from "path";
 import { amazonTranscribe } from "ivr-tester-transcriber-amazon-transcribe";
 import ngrok from "ngrok";
 
@@ -74,6 +74,6 @@ ngrok
     new IvrTester({ ...config, publicServerUrl: url })
       .run(call, scenario)
       .then(() => process.exit())
-      .catch(catchError)
+      .catch(catchError),
   )
   .catch(catchError);

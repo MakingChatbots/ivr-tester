@@ -1,5 +1,5 @@
+import { containsSimilarTo, type When } from "ivr-tester";
 import Joi from "joi";
-import { containsSimilarTo, When } from "ivr-tester";
 
 const typeValue = "containsSimilarTo" as const;
 

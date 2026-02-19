@@ -1,13 +1,13 @@
-import { IvrTesterPlugin } from "../../plugins/IvrTesterPlugin";
 import chalk from "chalk";
-import { CallServerEvents } from "../TwilioCallServer";
-import { Emitter } from "../../Emitter";
-import { PluginHost } from "../../plugins/PluginManager";
-import { TestSession } from "../../testRunner";
+import type { Emitter } from "../../Emitter";
+import type { IvrTesterPlugin } from "../../plugins/IvrTesterPlugin";
+import type { PluginHost } from "../../plugins/PluginManager";
+import type { TestSession } from "../../testRunner";
+import type { CallServerEvents } from "../TwilioCallServer";
 
 const ivrTranscription = (
   callServer: Emitter<CallServerEvents>,
-  testSession: TestSession
+  testSession: TestSession,
 ): void => {
   let includeTestName = false;
 
@@ -29,17 +29,17 @@ const ivrTranscription = (
 
 const ivrTestPassed = (testSession: TestSession): void =>
   testSession.callFlowSession.on("allPromptsMatched", () =>
-    console.log(chalk.green(`Test Complete: ${testSession.scenario.name}...`))
+    console.log(chalk.green(`Test Complete: ${testSession.scenario.name}...`)),
   );
 
 const ivrTestFailed = (testSession: TestSession): void =>
   testSession.callFlowSession.on("timeoutWaitingForMatch", (event) => {
     console.log(
       `${chalk.bold.blue("Test -")} ${chalk.bold.blue(
-        testSession.scenario.name
+        testSession.scenario.name,
       )}\n`,
       `Them: "${event.transcription}"\n`,
-      chalk.red("Timed out waiting for prompt to complete\n")
+      chalk.red("Timed out waiting for prompt to complete\n"),
     );
     console.log(chalk.bold.red(`Test Failed`));
   });
@@ -53,7 +53,7 @@ const callConnected = (callServer: Emitter<CallServerEvents>): void => {
 const callServerListening = (callServer: Emitter<CallServerEvents>): void => {
   callServer.on("listening", ({ localUrl }) => {
     console.log(
-      `Server is listening on ${localUrl.port} for the stream for the call`
+      `Server is listening on ${localUrl.port} for the stream for the call`,
     );
   });
 };
@@ -64,7 +64,7 @@ const callServerStopped = (callServer: Emitter<CallServerEvents>): void => {
 
 const callServerErrored = (callServer: Emitter<CallServerEvents>): void => {
   callServer.on("error", (event) =>
-    console.error("Server experienced an error", event.error.message)
+    console.error("Server experienced an error", event.error.message),
   );
 };
 
@@ -82,12 +82,12 @@ const callRequested = (emitter: PluginHost): void =>
 
 const callRequestErrored = (emitter: PluginHost): void =>
   emitter.on("callRequestErrored", (event) =>
-    console.error(`Call failed`, event.error.message)
+    console.error(`Call failed`, event.error.message),
   );
 
 const ivrTestConditionMet = (
   callServer: Emitter<CallServerEvents>,
-  testSession: TestSession
+  testSession: TestSession,
 ): void => {
   let includeTestName = false;
 

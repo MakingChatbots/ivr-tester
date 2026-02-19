@@ -1,4 +1,4 @@
-import { Emitter } from "../../../Emitter";
+import type { Emitter } from "../../../Emitter";
 
 export interface TranscriptEvent {
   /**

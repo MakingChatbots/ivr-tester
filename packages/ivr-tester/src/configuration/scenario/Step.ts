@@ -1,5 +1,5 @@
-import { Then } from "../../testing/test/conditions/then";
-import { When } from "../../testing/test/conditions/when";
+import type { Then } from "../../testing/test/conditions/then";
+import type { When } from "../../testing/test/conditions/when";
 
 /**
  * Performs an assertion when a prompt has been transcribed.

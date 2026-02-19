@@ -1,5 +1,5 @@
+import { isAnything, type When } from "ivr-tester";
 import Joi from "joi";
-import { isAnything, When } from "ivr-tester";
 
 const typeValue = "isAnything" as const;
 
@@ -12,7 +12,7 @@ export const jsonWhenPromptIsAnything = {
   schema: Joi.object<JsonWhenPromptIsAnything>({
     type: Joi.valid(typeValue).required(),
   }),
-  converter(json: JsonWhenPromptIsAnything): When {
+  converter(_json: JsonWhenPromptIsAnything): When {
     return isAnything();
   },
 };

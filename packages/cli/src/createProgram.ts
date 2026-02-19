@@ -1,4 +1,4 @@
-import commander from "commander";
+import type commander from "commander";
 
 export interface ExitableProgram {
   exit(message: string): void;
@@ -20,7 +20,7 @@ export interface Program extends ExitableProgram {
  */
 export function createProgram(
   command: commander.Command,
-  suppressProcessExit: boolean
+  suppressProcessExit: boolean,
 ): Program {
   if (suppressProcessExit) {
     command.exitOverride();

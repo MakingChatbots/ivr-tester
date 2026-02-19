@@ -1,14 +1,13 @@
-import { Server } from "ws";
-import { WebSocketEvents } from "../src/call/TwilioCall";
+import { createWriteStream } from "node:fs";
+import * as path from "node:path";
 import ngrok from "ngrok";
-import { createWriteStream } from "fs";
-import * as path from "path";
+import { Server } from "ws";
 import { TwilioCallServer } from "../src/testing/TwilioCallServer";
 
 function startServer(
   port: number,
-  url: string,
-  recordingDir: string
+  _url: string,
+  recordingDir: string,
 ): Promise<void> {
   return new Promise((resolve, reject) => {
     const wss = new Server({ port });
@@ -19,7 +18,7 @@ function startServer(
       console.log(`Saving raw audio stream to ${audioFilePath}`);
 
       const writeStream = createWriteStream(
-        path.join(recordingDir, `${Date.now()}.raw`)
+        path.join(recordingDir, `${Date.now()}.raw`),
       );
 
       ws.on("close", resolve);

@@ -1,16 +1,24 @@
-import { describe, test, expect, beforeEach, afterEach, vi, type Mock } from "vitest";
-import { Config } from "./configuration/Config";
-import { IvrTester } from "./testRunner";
+import { EventEmitter } from "node:events";
 import getPort from "get-port";
-import { Twilio } from "twilio";
+import type { Twilio } from "twilio";
 import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  type Mock,
+  test,
+  vi,
+} from "vitest";
+import waitForExpect from "wait-for-expect";
+import WebSocket from "ws";
+import type {
   TranscriberPlugin,
   TranscriptEvent,
 } from "./call/transcription/plugin/TranscriberPlugin";
-import { EventEmitter } from "events";
-import WebSocket from "ws";
-import waitForExpect from "wait-for-expect";
-import { IvrNumber } from "./configuration/call/IvrNumber";
+import type { Config } from "./configuration/Config";
+import type { IvrNumber } from "./configuration/call/IvrNumber";
+import { IvrTester } from "./testRunner";
 
 const waitForConnection = async (ws: WebSocket): Promise<void> =>
   new Promise((resolve) => ws.on("open", resolve));
@@ -64,7 +72,7 @@ describe("Test Runner", () => {
     commonConfig = {
       localServerPort: callServerPort,
       twilioAuth: { accountSid: "test", authToken: "test" },
-      twilioClientFactory: () => (twilioClient as unknown) as Twilio,
+      twilioClientFactory: () => twilioClient as unknown as Twilio,
       dtmfGenerator: { generate: vi.fn() },
       transcriber: {
         create: () => new TranscriberTestDouble(),
@@ -90,9 +98,9 @@ describe("Test Runner", () => {
     try {
       await ivrTester.run(
         { from: "1", to: "2" },
-        { name: "test name", steps: [] }
+        { name: "test name", steps: [] },
       );
-    } catch (err) {
+    } catch (_err) {
       /* Intentionally ignore*/
     }
 
@@ -100,7 +108,7 @@ describe("Test Runner", () => {
       expect.objectContaining({
         twiml:
           '<?xml version="1.0" encoding="UTF-8"?><Response><Connect><Stream url="wss://example.test/"><Parameter name="from" value="1"/><Parameter name="to" value="2"/></Stream></Connect></Response>',
-      })
+      }),
     );
   });
 
@@ -115,9 +123,9 @@ describe("Test Runner", () => {
     try {
       await ivrTester.run(
         { from: "1", to: "2" },
-        { name: "test name", steps: [] }
+        { name: "test name", steps: [] },
       );
-    } catch (err) {
+    } catch (_err) {
       /* Intentionally ignore*/
     }
 
@@ -125,7 +133,7 @@ describe("Test Runner", () => {
       expect.objectContaining({
         twiml:
           '<?xml version="1.0" encoding="UTF-8"?><Response><Connect><Stream url="ws://example.test/"><Parameter name="from" value="1"/><Parameter name="to" value="2"/></Stream></Connect></Response>',
-      })
+      }),
     );
   });
 
@@ -142,7 +150,7 @@ describe("Test Runner", () => {
         name: "test name",
         steps: [],
       });
-    } catch (err) {
+    } catch (_err) {
       /* Intentionally ignore*/
     }
 
@@ -159,8 +167,8 @@ describe("Test Runner", () => {
     await expect(() =>
       new IvrTester(commonConfig).run(
         { from: "1", to: "2" },
-        { name: "test name", steps: [] }
-      )
+        { name: "test name", steps: [] },
+      ),
     ).rejects.toThrowError(new Error("Error Occurred"));
   });
 
@@ -183,7 +191,7 @@ describe("Test Runner", () => {
     const ivrTester = new IvrTester(config);
     const runnerPromise = ivrTester.run(
       { from: "1", to: "2" },
-      { name: "test name", steps: [] }
+      { name: "test name", steps: [] },
     );
 
     // Wait for calls to be made

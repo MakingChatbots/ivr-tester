@@ -1,5 +1,5 @@
-import Joi, { ValidationError } from "joi";
-import {
+import Joi, { type ValidationError } from "joi";
+import type {
   JsonConfig,
   JsonConfigRecordingAudio,
   JsonConfigRecordingTranscription,
@@ -28,7 +28,7 @@ const jsonConfigSchema = Joi.object<JsonConfig>({
 }).required();
 
 export const validateConfig = (
-  config: unknown
+  config: unknown,
 ): { config?: JsonConfig; error?: ValidationError } => {
   const { error, value } = jsonConfigSchema.validate(config, {
     presence: "required",

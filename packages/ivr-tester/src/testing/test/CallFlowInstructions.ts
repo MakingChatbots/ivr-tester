@@ -1,7 +1,7 @@
-import { Call } from "../../call/Call";
-import { Emitter } from "../../Emitter";
-import { TranscriptionEvents } from "../../call/transcription/plugin/TranscriberPlugin";
-import { Step } from "../../configuration/scenario/Step";
+import type { Call } from "../../call/Call";
+import type { TranscriptionEvents } from "../../call/transcription/plugin/TranscriberPlugin";
+import type { Step } from "../../configuration/scenario/Step";
+import type { Emitter } from "../../Emitter";
 
 export interface SessionProgressEvent {
   transcription: string;
@@ -18,7 +18,7 @@ export interface TimeoutWaitingForMatchEvent {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface AllPromptsMatchedEvent {}
+export type AllPromptsMatchedEvent = {};
 
 export type CallFlowSessionEvents = {
   progress: SessionProgressEvent;
@@ -32,6 +32,6 @@ export type CallFlowSession = Emitter<CallFlowSessionEvents>;
 export interface CallFlowInstructions {
   runAgainstCallFlow(
     transcriber: Emitter<TranscriptionEvents>,
-    call: Call
+    call: Call,
   ): CallFlowSession;
 }

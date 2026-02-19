@@ -1,4 +1,4 @@
-import { Call } from "../../../../call/Call";
+import type { Call } from "../../../../call/Call";
 
 /**
  * An action performed when a condition is met

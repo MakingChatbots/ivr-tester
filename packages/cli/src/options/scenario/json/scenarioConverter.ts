@@ -1,20 +1,20 @@
-import { Scenario, Step, Then, When } from "ivr-tester";
-import { validateScenario } from "./validateJsonScenario";
-import {
+import type { Scenario, Step, Then, When } from "ivr-tester";
+import type {
   JsonScenario,
   JsonStep,
   JsonThen,
   JsonWhenPrompt,
 } from "./jsonScenario";
-import { jsonWhenPromptIsAnything } from "./whenPrompt/isAnything";
-import { jsonWhenPromptContains } from "./whenPrompt/contains";
 import { jsonThenDoNothing } from "./then/doNothing";
-import { jsonThenPress } from "./then/press";
 import { jsonThenHangUp } from "./then/hangUp";
-import { jsonWhenPromptContainsSimilarTo } from "./whenPrompt/containsSimilarTo";
-import { jsonWhenPromptSimilarTo } from "./whenPrompt/similarTo";
-import { jsonWhenPromptOr } from "./whenPrompt/or";
+import { jsonThenPress } from "./then/press";
+import { validateScenario } from "./validateJsonScenario";
 import { jsonWhenPromptAnd } from "./whenPrompt/and";
+import { jsonWhenPromptContains } from "./whenPrompt/contains";
+import { jsonWhenPromptContainsSimilarTo } from "./whenPrompt/containsSimilarTo";
+import { jsonWhenPromptIsAnything } from "./whenPrompt/isAnything";
+import { jsonWhenPromptOr } from "./whenPrompt/or";
+import { jsonWhenPromptSimilarTo } from "./whenPrompt/similarTo";
 
 export function convertWhen(jsonWhen: JsonWhenPrompt): When {
   switch (jsonWhen.type) {
@@ -32,7 +32,7 @@ export function convertWhen(jsonWhen: JsonWhenPrompt): When {
       return jsonWhenPromptAnd.converter(convertWhen)(jsonWhen);
     default:
       throw new Error(
-        `Factory for whenPrompt '${JSON.stringify(jsonWhen)}' does not exist`
+        `Factory for whenPrompt '${JSON.stringify(jsonWhen)}' does not exist`,
       );
   }
 }
@@ -47,7 +47,7 @@ function convertThen(jsonThen: JsonThen): Then {
       return jsonThenHangUp.converter(jsonThen);
     default:
       throw new Error(
-        `Factory for then '${JSON.stringify(jsonThen)}' does not exist`
+        `Factory for then '${JSON.stringify(jsonThen)}' does not exist`,
       );
   }
 }

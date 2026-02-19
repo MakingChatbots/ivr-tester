@@ -1,5 +1,5 @@
-import { AVAILABLE_REGIONS, LANGUAGES } from "aws-transcribe/dist/types";
-import { TranscriberFactory } from "ivr-tester";
+import type { AVAILABLE_REGIONS, LANGUAGES } from "aws-transcribe/dist/types";
+import type { TranscriberFactory } from "ivr-tester";
 import { AmazonTranscribe } from "./AmazonTranscribe";
 
 /**

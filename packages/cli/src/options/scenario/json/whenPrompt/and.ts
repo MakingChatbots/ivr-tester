@@ -1,9 +1,9 @@
+import { and, type When } from "ivr-tester";
 import Joi from "joi";
-import { and, When } from "ivr-tester";
-import { JsonWhenPrompt } from "../jsonScenario";
-import { jsonWhenPromptIsAnything } from "./isAnything";
+import type { JsonWhenPrompt } from "../jsonScenario";
 import { jsonWhenPromptContains } from "./contains";
 import { jsonWhenPromptContainsSimilarTo } from "./containsSimilarTo";
+import { jsonWhenPromptIsAnything } from "./isAnything";
 import { jsonWhenPromptSimilarTo } from "./similarTo";
 
 const typeValue = "and" as const;
@@ -23,8 +23,8 @@ export const jsonWhenPromptAnd = {
           jsonWhenPromptIsAnything.schema,
           jsonWhenPromptContains.schema,
           jsonWhenPromptContainsSimilarTo.schema,
-          jsonWhenPromptSimilarTo.schema
-        )
+          jsonWhenPromptSimilarTo.schema,
+        ),
       )
       .required(),
   }),

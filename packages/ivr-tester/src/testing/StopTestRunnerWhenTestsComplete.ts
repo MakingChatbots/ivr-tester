@@ -1,6 +1,6 @@
-import { IvrTesterPlugin } from "../plugins/IvrTesterPlugin";
-import { PluginHost } from "../plugins/PluginManager";
-import { TestRunner, TestSession } from "../testRunner";
+import type { IvrTesterPlugin } from "../plugins/IvrTesterPlugin";
+import type { PluginHost } from "../plugins/PluginManager";
+import type { TestRunner, TestSession } from "../testRunner";
 
 /** Stops the test run when all the tests complete */
 export class StopTestRunnerWhenTestsComplete implements IvrTesterPlugin {
@@ -17,11 +17,11 @@ export class StopTestRunnerWhenTestsComplete implements IvrTesterPlugin {
     this.totalRunning++;
     testSession.callFlowSession.on(
       "allPromptsMatched",
-      this.testSuccessful.bind(this)
+      this.testSuccessful.bind(this),
     );
     testSession.callFlowSession.on(
       "timeoutWaitingForMatch",
-      this.testFailed.bind(this)
+      this.testFailed.bind(this),
     );
   }
 

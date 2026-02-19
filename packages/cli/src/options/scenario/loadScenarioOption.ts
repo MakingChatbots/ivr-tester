@@ -1,11 +1,11 @@
-import { Scenario } from "ivr-tester";
+import type commander from "commander";
+import type { Scenario } from "ivr-tester";
+import type { JsonFileReader } from "../../fileSystem/jsonFileReader";
 import { scenarioConverter } from "./json/scenarioConverter";
-import commander from "commander";
-import { JsonFileReader } from "../../fileSystem/jsonFileReader";
 
 export function loadScenarioOption(
   options: commander.OptionValues,
-  jsonFileReader: JsonFileReader
+  jsonFileReader: JsonFileReader,
 ): Scenario {
   const jsonContent = jsonFileReader(options.scenarioPath);
 
@@ -13,7 +13,7 @@ export function loadScenarioOption(
     return scenarioConverter(jsonContent);
   } catch (error) {
     throw new Error(
-      `Invalid Scenario '${options.scenarioPath}. Reason: ${error.message}`
+      `Invalid Scenario '${options.scenarioPath}. Reason: ${error.message}`,
     );
   }
 }

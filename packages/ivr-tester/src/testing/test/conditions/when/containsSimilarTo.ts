@@ -1,6 +1,6 @@
-import { When } from "./When";
-import { similarTo } from "./similarTo";
 import { hasPart } from "./hasPart";
+import { similarTo } from "./similarTo";
+import type { When } from "./When";
 
 /**
  * Determines if there is a section of the transcript that is similar to a piece of text.
@@ -17,8 +17,7 @@ import { hasPart } from "./hasPart";
  * @param similarityThreshold - The degree of similarity is measured in a fraction between 0 and 1.
  * 0 indicates completely different strings, 1 indicates identical strings. The comparison is case-sensitive.
  */
-export const containsSimilarTo = (
-  similarText: string,
-  similarityThreshold = 0.8
-): When => (transcript: string) =>
-  hasPart(similarTo(similarText, similarityThreshold))(transcript);
+export const containsSimilarTo =
+  (similarText: string, similarityThreshold = 0.8): When =>
+  (transcript: string) =>
+    hasPart(similarTo(similarText, similarityThreshold))(transcript);

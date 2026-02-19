@@ -1,23 +1,24 @@
+import type internal from "node:stream";
 import { protos, SpeechClient } from "@google-cloud/speech";
 import {
-  TranscriberPlugin,
-  TranscriptEvent,
-  TranscriptionEvents,
+  type TranscriberPlugin,
+  type TranscriptEvent,
+  type TranscriptionEvents,
   TypedEmitter,
 } from "ivr-tester";
-import { Transcript } from "./Transcript";
-import internal from "stream";
 import { Debugger } from "./Debugger";
+import type { Transcript } from "./Transcript";
 
 export class GoogleSpeechToText
   extends TypedEmitter<TranscriptionEvents>
-  implements TranscriberPlugin {
+  implements TranscriberPlugin
+{
   private static readonly debug = Debugger.getPackageDebugger();
 
   private static createConfig(
     languageCode: string,
     speechPhrases: string[],
-    useEnhanced: boolean
+    useEnhanced: boolean,
   ): Readonly<protos.google.cloud.speech.v1.IStreamingRecognitionConfig> {
     return {
       config: {
@@ -41,13 +42,13 @@ export class GoogleSpeechToText
     languageCode: string,
     speechPhrases: string[] = [],
     useEnhanced = false,
-    private readonly speechClient = new SpeechClient()
+    private readonly speechClient = new SpeechClient(),
   ) {
     super();
     this.config = GoogleSpeechToText.createConfig(
       languageCode,
       speechPhrases,
-      useEnhanced
+      useEnhanced,
     );
 
     GoogleSpeechToText.debug("Configuration: %O", this.config);
@@ -68,7 +69,7 @@ export class GoogleSpeechToText
   }
 
   private createStream(): internal.Writable {
-    return (this.stream = this.speechClient
+    this.stream = this.speechClient
       .streamingRecognize(this.config)
       .on("error", (error) => {
         GoogleSpeechToText.debug(error);
@@ -88,7 +89,8 @@ export class GoogleSpeechToText
           GoogleSpeechToText.debug("Emitted: %O", event);
           this.emit("transcription", event);
         }
-      }));
+      });
+    return this.stream;
   }
 
   public getStream(): internal.Writable {

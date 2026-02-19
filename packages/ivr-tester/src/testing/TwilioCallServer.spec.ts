@@ -1,18 +1,26 @@
-import { describe, test, expect, beforeEach, afterEach, vi, type Mocked } from "vitest";
-import WebSocket from "ws";
-import { CallServer, TwilioCallServer } from "./TwilioCallServer";
-import { DtmfBufferGenerator } from "../call/dtmf/DtmfBufferGenerator";
+import { URL } from "node:url";
 import getPort from "get-port";
-import { URL } from "url";
-import waitForExpect from "wait-for-expect";
-import { TwilioCall } from "../call/TwilioCall";
 import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  type Mocked,
+  test,
+  vi,
+} from "vitest";
+import waitForExpect from "wait-for-expect";
+import WebSocket from "ws";
+import type { DtmfBufferGenerator } from "../call/dtmf/DtmfBufferGenerator";
+import { TwilioCall } from "../call/TwilioCall";
+import type { Scenario } from "../configuration/scenario/Scenario";
+import type {
   NoneAssigned,
   TestAssigned,
   TestAssigner,
 } from "./IteratingTestAssigner";
-import { TestExecutor } from "./TestExecutor";
-import { Scenario } from "../configuration/scenario/Scenario";
+import type { TestExecutor } from "./TestExecutor";
+import { type CallServer, TwilioCallServer } from "./TwilioCallServer";
 
 const waitForConnection = async (ws: WebSocket): Promise<void> =>
   new Promise((resolve) => ws.on("open", resolve));
@@ -57,7 +65,7 @@ describe("Call Server", () => {
     callServer = new TwilioCallServer(
       dtmfGenerator,
       testAssigner,
-      testExecutor
+      testExecutor,
     );
 
     const port = await getPort();
@@ -75,7 +83,7 @@ describe("Call Server", () => {
     callServer = new TwilioCallServer(
       dtmfGenerator,
       testAssigner,
-      testExecutor
+      testExecutor,
     );
 
     const serverUrl = await callServer.listen(await getPort());
@@ -84,7 +92,7 @@ describe("Call Server", () => {
     await waitForConnection(callConnection);
 
     await waitForExpect(() =>
-      expect(callConnection.readyState).toBe(callConnection.CLOSED)
+      expect(callConnection.readyState).toBe(callConnection.CLOSED),
     );
   });
 
@@ -99,7 +107,7 @@ describe("Call Server", () => {
     callServer = new TwilioCallServer(
       dtmfGenerator,
       testAssigner,
-      testExecutor
+      testExecutor,
     );
 
     const serverUrl = await callServer.listen(await getPort());
@@ -110,8 +118,8 @@ describe("Call Server", () => {
     await waitForExpect(() =>
       expect(testExecutor.startTest).toBeCalledWith(
         scenario,
-        expect.any(TwilioCall)
-      )
+        expect.any(TwilioCall),
+      ),
     );
   });
 });

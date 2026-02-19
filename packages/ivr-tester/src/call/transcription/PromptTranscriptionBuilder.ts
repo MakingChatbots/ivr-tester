@@ -1,4 +1,4 @@
-import { TranscriptEvent } from "./plugin/TranscriberPlugin";
+import type { TranscriptEvent } from "./plugin/TranscriberPlugin";
 
 export class PromptTranscriptionBuilder {
   private static readonly EMPTY_TRANSCRIPTION = "";
@@ -32,9 +32,8 @@ export class PromptTranscriptionBuilder {
     }
 
     // Return Merged finals and last partial
-    const lastTranscription = this.transcriptions[
-      this.transcriptions.length - 1
-    ];
+    const lastTranscription =
+      this.transcriptions[this.transcriptions.length - 1];
     const mergedFinals = this.transcriptions
       .filter((t) => t.isFinal)
       .map((t) => t.transcription)

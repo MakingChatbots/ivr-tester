@@ -1,17 +1,17 @@
-import { describe, test, expect, beforeEach, vi, type Mocked } from "vitest";
+import { EventEmitter } from "node:events";
+import FakeTimers from "@sinonjs/fake-timers";
+import { beforeEach, describe, expect, type Mocked, test, vi } from "vitest";
+import type { Call } from "../../call/Call";
+import type { TranscriberPlugin, TranscriptEvent } from "../../index";
+import { press } from "./conditions/then";
+import { contains } from "./conditions/when";
 import {
   inOrder,
-  MatchedCallback,
-  PromptFactory,
-  TimeoutCallback,
+  type MatchedCallback,
+  type PromptFactory,
+  type TimeoutCallback,
 } from "./inOrder";
-import { contains } from "./conditions/when";
-import { press } from "./conditions/then";
-import { TranscriberPlugin, TranscriptEvent } from "../../index";
-import { Call } from "../../call/Call";
-import { EventEmitter } from "events";
 import { PostSilencePrompt } from "./PostSilencePrompt";
-import FakeTimers from "@sinonjs/fake-timers";
 
 class TranscriberTestDouble extends EventEmitter implements TranscriberPlugin {
   public close(): void {
@@ -63,7 +63,7 @@ describe("ordered conditions", () => {
         matchedCallback,
         timeoutCallback,
         clock.setTimeout,
-        clock.clearTimeout
+        clock.clearTimeout,
       );
   });
 
@@ -79,7 +79,7 @@ describe("ordered conditions", () => {
           timeout: silenceAfterPrompt * 2,
         },
       ],
-      testPromptFactory
+      testPromptFactory,
     );
 
     promptContainer.runAgainstCallFlow(transcriberPlugin, call);
@@ -114,7 +114,7 @@ describe("ordered conditions", () => {
           timeout: silenceAfterPrompt * 2,
         },
       ],
-      testPromptFactory
+      testPromptFactory,
     );
 
     promptContainer.runAgainstCallFlow(transcriberPlugin, call);
@@ -147,7 +147,7 @@ describe("ordered conditions", () => {
           timeout: silenceAfterPrompt * 2,
         },
       ],
-      testPromptFactory
+      testPromptFactory,
     );
 
     promptContainer.runAgainstCallFlow(transcriberPlugin, call);
@@ -188,7 +188,7 @@ describe("ordered conditions", () => {
           timeout: silenceAfterPrompt * 2,
         },
       ],
-      testPromptFactory
+      testPromptFactory,
     );
 
     promptContainer.runAgainstCallFlow(transcriberPlugin, call);
@@ -234,7 +234,7 @@ describe("ordered conditions", () => {
           timeout: silenceAfterPrompt * 2,
         },
       ],
-      testPromptFactory
+      testPromptFactory,
     );
 
     promptContainer.runAgainstCallFlow(transcriberPlugin, call);
@@ -274,7 +274,7 @@ describe("ordered conditions", () => {
           timeout,
         },
       ],
-      testPromptFactory
+      testPromptFactory,
     );
 
     promptContainer.runAgainstCallFlow(transcriberPlugin, call);
@@ -288,7 +288,7 @@ describe("ordered conditions", () => {
     expect(call.sendDtmfTone).not.toHaveBeenCalled();
     expect(timeoutCallback).toHaveBeenCalledWith(
       expect.any(PostSilencePrompt),
-      "World"
+      "World",
     );
   });
 });

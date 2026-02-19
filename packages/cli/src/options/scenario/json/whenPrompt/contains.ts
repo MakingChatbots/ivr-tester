@@ -1,5 +1,5 @@
+import { contains, type When } from "ivr-tester";
 import Joi from "joi";
-import { contains, When } from "ivr-tester";
 
 const typeValue = "contains" as const;
 

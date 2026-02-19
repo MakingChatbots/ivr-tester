@@ -1,8 +1,8 @@
-import { Call } from "../call/Call";
-import { TestSession } from "../testRunner";
+import type { Call } from "../call/Call";
 import { CallTranscriber } from "../call/transcription/CallTranscriber";
-import { TranscriberFactory } from "../call/transcription/plugin/TranscriberFactory";
-import { Scenario } from "../configuration/scenario/Scenario";
+import type { TranscriberFactory } from "../call/transcription/plugin/TranscriberFactory";
+import type { Scenario } from "../configuration/scenario/Scenario";
+import type { TestSession } from "../testRunner";
 import { inOrder } from "./test/inOrder";
 
 export interface TestExecutor {
@@ -10,18 +10,18 @@ export interface TestExecutor {
 }
 
 export function testExecutor(
-  transcriberFactory: TranscriberFactory
+  transcriberFactory: TranscriberFactory,
 ): TestExecutor {
   return {
     startTest(scenario: Scenario, call: Call): TestSession {
       const callTranscriber = new CallTranscriber(
         call,
-        transcriberFactory.create()
+        transcriberFactory.create(),
       );
 
       const callFlowSession = inOrder(scenario.steps).runAgainstCallFlow(
         callTranscriber,
-        call
+        call,
       );
 
       return {

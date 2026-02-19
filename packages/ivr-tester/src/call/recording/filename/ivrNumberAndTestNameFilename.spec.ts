@@ -1,8 +1,7 @@
-import { test, expect } from "vitest";
+import { expect, test } from "vitest";
 import { sanitise } from "./ivrNumberAndTestNameFilename";
 
 test.each([
   ["example! - 123 ????.hello-test", "example---123-hello-test"],
 ])("'%s' sanitised is '%s'", (unsanitised, sanitised) =>
-  expect(sanitise(unsanitised)).toBe(sanitised)
-);
+  expect(sanitise(unsanitised)).toBe(sanitised));

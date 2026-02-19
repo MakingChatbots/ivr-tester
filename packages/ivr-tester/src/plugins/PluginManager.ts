@@ -1,8 +1,8 @@
-import { IvrTesterPlugin } from "./IvrTesterPlugin";
-import { CallServer, CallServerEvents } from "../testing/TwilioCallServer";
-import { Emitter, TypedEmitter } from "../Emitter";
-import { RequestedCall } from "../call/Caller";
-import { TestRunner } from "../testRunner";
+import type { RequestedCall } from "../call/Caller";
+import { type Emitter, TypedEmitter } from "../Emitter";
+import type { CallServer, CallServerEvents } from "../testing/TwilioCallServer";
+import type { TestRunner } from "../testRunner";
+import type { IvrTesterPlugin } from "./IvrTesterPlugin";
 
 export interface CallRequestedEvent {
   requestedCall: RequestedCall;
@@ -37,7 +37,8 @@ export interface PluginHost extends Omit<Emitter<PluginEvents>, "emit"> {
 
 export class PluginManager
   extends TypedEmitter<PluginEvents>
-  implements PluginHost {
+  implements PluginHost
+{
   private testRunner: TestRunner;
 
   constructor(private readonly plugins: IvrTesterPlugin[]) {

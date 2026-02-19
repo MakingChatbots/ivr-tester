@@ -1,12 +1,13 @@
-import ws, { AddressInfo, Server } from "ws";
+import { URL } from "node:url";
+import type ws from "ws";
+import { type AddressInfo, Server } from "ws";
+import type { Call } from "../call/Call";
+import type { DtmfBufferGenerator } from "../call/dtmf/DtmfBufferGenerator";
 import { TwilioCall } from "../call/TwilioCall";
-import { URL } from "url";
-import { DtmfBufferGenerator } from "../call/dtmf/DtmfBufferGenerator";
-import { Emitter, TypedEmitter } from "../Emitter";
-import { Call } from "../call/Call";
-import { TestAssigner } from "./IteratingTestAssigner";
-import { TestExecutor } from "./TestExecutor";
-import { TestSession } from "../testRunner";
+import { type Emitter, TypedEmitter } from "../Emitter";
+import type { TestSession } from "../testRunner";
+import type { TestAssigner } from "./IteratingTestAssigner";
+import type { TestExecutor } from "./TestExecutor";
 
 export type CallServerEvents = {
   callConnected: { call: Call };
@@ -24,7 +25,8 @@ export interface CallServer extends Emitter<CallServerEvents> {
 
 export class TwilioCallServer
   extends TypedEmitter<CallServerEvents>
-  implements CallServer {
+  implements CallServer
+{
   private static TestCouldNotBeAssignedReason = "TestCouldNotBeAssigned";
 
   private wss: Server;
@@ -32,7 +34,7 @@ export class TwilioCallServer
   constructor(
     private readonly dtmfBufferGenerator: DtmfBufferGenerator,
     private readonly testAssigner: TestAssigner,
-    private readonly testExecutor: TestExecutor
+    private readonly testExecutor: TestExecutor,
   ) {
     super();
   }
@@ -73,7 +75,7 @@ export class TwilioCallServer
         this.wss.off("error", onError);
 
         const localUrl = TwilioCallServer.convertToWebSocketUrl(
-          TwilioCallServer.formatServerUrl(this.wss)
+          TwilioCallServer.formatServerUrl(this.wss),
         );
         this.emit("listening", { localUrl });
 

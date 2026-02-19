@@ -1,17 +1,17 @@
-import { Step } from "../../configuration/scenario/Step";
-import {
+import { setTimeout } from "node:timers";
+import type { Call } from "../../call/Call";
+import { PromptTranscriptionBuilder } from "../../call/transcription/PromptTranscriptionBuilder";
+import type {
+  TranscriptEvent,
+  TranscriptionEvents,
+} from "../../call/transcription/plugin/TranscriberPlugin";
+import type { Step } from "../../configuration/scenario/Step";
+import { type Emitter, TypedEmitter } from "../../Emitter";
+import type {
   CallFlowInstructions,
   CallFlowSession,
   CallFlowSessionEvents,
 } from "./CallFlowInstructions";
-import { setTimeout } from "timers";
-import { Call } from "../../call/Call";
-import { PromptTranscriptionBuilder } from "../../call/transcription/PromptTranscriptionBuilder";
-import { Emitter, TypedEmitter } from "../../Emitter";
-import {
-  TranscriptEvent,
-  TranscriptionEvents,
-} from "../../call/transcription/plugin/TranscriberPlugin";
 import { PostSilencePrompt } from "./PostSilencePrompt";
 
 export interface Prompt {
@@ -23,7 +23,7 @@ export interface Prompt {
 
 export type MatchedCallback = (
   prompt: Prompt,
-  transcriptMatched: string
+  transcriptMatched: string,
 ) => void;
 
 export type TimeoutCallback = (prompt: Prompt, transcript: string) => void;
@@ -32,14 +32,14 @@ export type PromptFactory = (
   definition: Step,
   call: Call,
   matchedCallback: MatchedCallback,
-  timeoutCallback: TimeoutCallback
+  timeoutCallback: TimeoutCallback,
 ) => Prompt | undefined;
 
 const defaultPromptFactory: PromptFactory = (
   definition,
   call,
   matchedCallback,
-  timeoutCallback
+  timeoutCallback,
 ) =>
   new PostSilencePrompt(
     definition,
@@ -47,17 +47,18 @@ const defaultPromptFactory: PromptFactory = (
     matchedCallback,
     timeoutCallback,
     setTimeout,
-    clearTimeout
+    clearTimeout,
   );
 
 class RunningOrderedCallFlowInstructions
   extends TypedEmitter<CallFlowSessionEvents>
-  implements CallFlowSession {
+  implements CallFlowSession
+{
   constructor(
     private readonly promptDefinitions: ReadonlyArray<Step>,
     private readonly promptFactory: PromptFactory,
     private readonly transcriber: Emitter<TranscriptionEvents>,
-    private readonly call: Call
+    private readonly call: Call,
   ) {
     super();
     this.initialise();
@@ -80,7 +81,7 @@ class RunningOrderedCallFlowInstructions
     };
     const lastMatchedCallback: MatchedCallback = (
       prompt,
-      transcriptMatched
+      transcriptMatched,
     ) => {
       matchedCallback(prompt, transcriptMatched);
       this.emit("allPromptsMatched", {});
@@ -127,18 +128,18 @@ class RunningOrderedCallFlowInstructions
  */
 export function inOrder(
   promptDefinitions: ReadonlyArray<Step>,
-  promptFactory: PromptFactory = defaultPromptFactory
+  promptFactory: PromptFactory = defaultPromptFactory,
 ): CallFlowInstructions {
   return {
     runAgainstCallFlow: (
       transcriber: Emitter<TranscriptionEvents>,
-      call: Call
+      call: Call,
     ): CallFlowSession =>
       new RunningOrderedCallFlowInstructions(
         promptDefinitions,
         promptFactory,
         transcriber,
-        call
+        call,
       ),
   };
 }

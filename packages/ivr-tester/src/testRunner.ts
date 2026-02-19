@@ -1,26 +1,26 @@
-import { TwilioCallServer } from "./testing/TwilioCallServer";
-import { Config } from "./configuration/Config";
-import { PluginManager } from "./plugins/PluginManager";
-import { TwilioCaller } from "./call/TwilioCaller";
-import { IteratingTestAssigner } from "./testing/IteratingTestAssigner";
-import { mediaStreamRecorderPlugin } from "./call/recording/MediaStreamRecorder";
-import { testExecutor } from "./testing/TestExecutor";
 import { AudioPlaybackCaller } from "./call/AudioPlaybackCaller";
-import { Caller } from "./call/Caller";
-import { consoleUserInterface } from "./testing/ui/consoleUserInterface";
-import { StopTestRunnerWhenTestsComplete } from "./testing/StopTestRunnerWhenTestsComplete";
-import { CallFlowSession } from "./testing/test/CallFlowInstructions";
-import { callConnectedTimeout } from "./testing/callConnectedTimeout";
-import { Call } from "./call/Call";
+import type { Call } from "./call/Call";
+import type { Caller } from "./call/Caller";
+import { mediaStreamRecorderPlugin } from "./call/recording/MediaStreamRecorder";
 import { transcriptRecorderPlugin } from "./call/recording/TranscriptRecorder";
-import { Scenario } from "./configuration/scenario/Scenario";
-import { validateConfig } from "./configuration/validateConfig";
-import { validateAndEnrichScenario } from "./configuration/scenario/validateAndEnrichScenario";
-import { IvrNumber } from "./configuration/call/IvrNumber";
+import { TwilioCaller } from "./call/TwilioCaller";
+import type { Config } from "./configuration/Config";
+import type { IvrNumber } from "./configuration/call/IvrNumber";
 import {
-  TestSubject,
+  type TestSubject,
   validateTestSubject,
 } from "./configuration/call/validateTestSubject";
+import type { Scenario } from "./configuration/scenario/Scenario";
+import { validateAndEnrichScenario } from "./configuration/scenario/validateAndEnrichScenario";
+import { validateConfig } from "./configuration/validateConfig";
+import { PluginManager } from "./plugins/PluginManager";
+import { callConnectedTimeout } from "./testing/callConnectedTimeout";
+import { IteratingTestAssigner } from "./testing/IteratingTestAssigner";
+import { StopTestRunnerWhenTestsComplete } from "./testing/StopTestRunnerWhenTestsComplete";
+import { testExecutor } from "./testing/TestExecutor";
+import { TwilioCallServer } from "./testing/TwilioCallServer";
+import type { CallFlowSession } from "./testing/test/CallFlowInstructions";
+import { consoleUserInterface } from "./testing/ui/consoleUserInterface";
 
 export interface TestSession {
   readonly scenario: Scenario;
@@ -44,7 +44,7 @@ export interface TestRunnerManager {
 }
 
 function createTestRunnerManager(): TestRunnerManager {
-  let callback: OnStopCallback = undefined;
+  let callback: OnStopCallback;
   let stopped = false;
   let stoppedDueToFailure = false;
 
@@ -103,11 +103,11 @@ export class IvrTester implements RunnableTester {
 
   public async run(
     testSubject: TestSubject,
-    scenario: Scenario[] | Scenario
+    scenario: Scenario[] | Scenario,
   ): Promise<void> {
     if (this.running) {
       throw new Error(
-        "Instance of IvrTester can only run a single suite of scenarios"
+        "Instance of IvrTester can only run a single suite of scenarios",
       );
     }
     this.running = true;
@@ -128,11 +128,11 @@ export class IvrTester implements RunnableTester {
     const callServer = new TwilioCallServer(
       this.config.dtmfGenerator,
       new IteratingTestAssigner(scenarios),
-      testExecutor(this.config.transcriber)
+      testExecutor(this.config.transcriber),
     );
 
     const twilioClient = this.config.twilioClientFactory(
-      this.config.twilioAuth
+      this.config.twilioAuth,
     );
     const caller: Caller<IvrNumber | Buffer> = Buffer.isBuffer(testSubject)
       ? new AudioPlaybackCaller()
@@ -149,13 +149,13 @@ export class IvrTester implements RunnableTester {
         caller
           .call(testSubject, this.config.publicServerUrl || serverUrl)
           .then((callRequested) =>
-            this.pluginManager.callRequested(callRequested, scenarios.length)
+            this.pluginManager.callRequested(callRequested, scenarios.length),
           )
           .catch((error) => {
             this.pluginManager.callRequestErrored(new Error(error));
             throw error;
-          })
-      )
+          }),
+      ),
     );
 
     return new Promise((resolve, reject) => {
@@ -196,7 +196,7 @@ export class IvrTester implements RunnableTester {
     const checkResults = await this.config.transcriber.checkCanRun();
     if (checkResults.canRun === false) {
       throw new Error(
-        `Error with the transcriber you've chosen:\n${checkResults.reason}`
+        `Error with the transcriber you've chosen:\n${checkResults.reason}`,
       );
     }
   }

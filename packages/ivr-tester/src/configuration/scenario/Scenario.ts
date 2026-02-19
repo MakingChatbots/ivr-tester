@@ -1,4 +1,4 @@
-import { Step } from "./Step";
+import type { Step } from "./Step";
 
 export interface Scenario {
   name: string;

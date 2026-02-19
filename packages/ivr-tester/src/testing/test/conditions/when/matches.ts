@@ -1,4 +1,6 @@
-import { When } from "./When";
+import type { When } from "./When";
 
-export const matches = (pattern: RegExp): When => (transcript: string) =>
-  pattern.test(transcript);
+export const matches =
+  (pattern: RegExp): When =>
+  (transcript: string) =>
+    pattern.test(transcript);

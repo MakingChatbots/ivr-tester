@@ -1,6 +1,6 @@
-import { test, expect, describe } from "vitest";
+import { describe, expect, test } from "vitest";
+import type { JsonScenario } from "./jsonScenario";
 import { convertStep, scenarioConverter } from "./scenarioConverter";
-import { JsonScenario } from "./jsonScenario";
 
 test("JSON scenario converted to Scenario", () => {
   const jsonScenario: JsonScenario = {

@@ -1,9 +1,9 @@
-import ws from "ws";
-import { DtmfBufferGenerator } from "./dtmf/DtmfBufferGenerator";
-import { TwilioConnectionEvents } from "./twilio";
-import { Call, CallEvents } from "./Call";
+import type ws from "ws";
 import { Debugger } from "../Debugger";
 import { TypedEmitter } from "../Emitter";
+import type { Call, CallEvents } from "./Call";
+import type { DtmfBufferGenerator } from "./dtmf/DtmfBufferGenerator";
+import { TwilioConnectionEvents } from "./twilio";
 
 export enum WebSocketEvents {
   Message = "message",
@@ -16,22 +16,21 @@ export class TwilioCall extends TypedEmitter<CallEvents> implements Call {
   private readonly processMessageReference: (message: string) => void;
   private readonly serverClosedConnectionReference: (
     a: number,
-    b: string
+    b: string,
   ) => void;
 
   private streamSid: string | undefined;
 
   constructor(
     private readonly connection: ws,
-    private readonly dtmfGenerator: DtmfBufferGenerator
+    private readonly dtmfGenerator: DtmfBufferGenerator,
   ) {
     super();
     this.processMessageReference = this.processMessage.bind(this);
     connection.on(WebSocketEvents.Message, this.processMessageReference);
 
-    this.serverClosedConnectionReference = this.serverClosedConnection.bind(
-      this
-    );
+    this.serverClosedConnectionReference =
+      this.serverClosedConnection.bind(this);
     connection.on(WebSocketEvents.Close, this.serverClosedConnectionReference);
   }
 
@@ -60,7 +59,7 @@ export class TwilioCall extends TypedEmitter<CallEvents> implements Call {
     this.connection.off(WebSocketEvents.Message, this.processMessageReference);
     this.connection.off(
       WebSocketEvents.Close,
-      this.serverClosedConnectionReference
+      this.serverClosedConnectionReference,
     );
   }
 
@@ -74,7 +73,7 @@ export class TwilioCall extends TypedEmitter<CallEvents> implements Call {
         this.streamSid = data.streamSid;
         this.connection.off(
           WebSocketEvents.Message,
-          this.processMessageReference
+          this.processMessageReference,
         );
         break;
       case TwilioConnectionEvents.Mark:
@@ -92,7 +91,7 @@ export class TwilioCall extends TypedEmitter<CallEvents> implements Call {
   public sendDtmfTone(dtmfSequence: string): void {
     this.sendMedia(
       this.dtmfGenerator.generate(dtmfSequence),
-      `dtmf-${dtmfSequence}`
+      `dtmf-${dtmfSequence}`,
     );
     TwilioCall.debug(`DTMF tone for ${dtmfSequence} sent`);
   }

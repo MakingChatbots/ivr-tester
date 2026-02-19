@@ -1,4 +1,4 @@
-import { FilenameFactory } from "ivr-tester/dist/call/recording/filename/FilenameFactory";
+import type { FilenameFactory } from "ivr-tester/dist/call/recording/filename/FilenameFactory";
 
 export interface JsonConfigRecordingAudio {
   outputPath: string;

@@ -1,19 +1,19 @@
-import path from "path";
-import { readFileSync } from "fs";
-import { DtmfBufferGenerator } from "./DtmfBufferGenerator";
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import type { DtmfBufferGenerator } from "./DtmfBufferGenerator";
 import { convertToDtmfArray, dtmfSequenceValidator } from "./dtmfSequenceUtils";
 
 export class UlawDtmfBufferGenerator implements DtmfBufferGenerator {
   private static readonly DEFAULT_RAW_BASE_PATH = path.join(
     __dirname,
-    "./raw/"
+    "./raw/",
   );
 
   private readonly paths = new Map<string, string>();
   private readonly rawCache = new Map<string, Buffer>();
 
   constructor(
-    rawFilesBasePath: string = UlawDtmfBufferGenerator.DEFAULT_RAW_BASE_PATH
+    rawFilesBasePath: string = UlawDtmfBufferGenerator.DEFAULT_RAW_BASE_PATH,
   ) {
     this.initiatePathsToRawFiles(rawFilesBasePath);
   }

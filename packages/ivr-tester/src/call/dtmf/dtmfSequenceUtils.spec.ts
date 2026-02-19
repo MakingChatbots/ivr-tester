@@ -1,4 +1,4 @@
-import { test, expect } from "vitest";
+import { expect, test } from "vitest";
 import { convertToDtmfArray, dtmfSequenceValidator } from "./dtmfSequenceUtils";
 
 test.each([
@@ -14,8 +14,7 @@ test.each([
   ["W", ["w"]],
   [["W"], ["w"]],
 ])("convertToDtmfArray ('%s') = '%s'", (dtmfSequence, expected) =>
-  expect(convertToDtmfArray(dtmfSequence as any)).toStrictEqual(expected)
-);
+  expect(convertToDtmfArray(dtmfSequence as any)).toStrictEqual(expected));
 
 test.each([
   ["123", { valid: true }],
@@ -50,5 +49,4 @@ test.each([
     },
   ],
 ])("dtmfSequenceValidator ('%s') = '%s'", (dtmfSequence, expected) =>
-  expect(dtmfSequenceValidator(dtmfSequence as any)).toStrictEqual(expected)
-);
+  expect(dtmfSequenceValidator(dtmfSequence as any)).toStrictEqual(expected));

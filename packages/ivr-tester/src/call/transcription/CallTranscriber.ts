@@ -1,13 +1,13 @@
+import { Debugger } from "../../Debugger";
+import { TypedEmitter } from "../../Emitter";
+import type { Call } from "../Call";
 import { WebSocketEvents } from "../TwilioCall";
 import { TwilioConnectionEvents } from "../twilio";
-import {
+import type {
   TranscriberPlugin,
   TranscriptEvent,
   TranscriptionEvents,
 } from "./plugin/TranscriberPlugin";
-import { Debugger } from "../../Debugger";
-import { TypedEmitter } from "../../Emitter";
-import { Call } from "../Call";
 
 export class CallTranscriber extends TypedEmitter<TranscriptionEvents> {
   private static debug = Debugger.getPackageDebugger();
@@ -17,7 +17,7 @@ export class CallTranscriber extends TypedEmitter<TranscriptionEvents> {
 
   constructor(
     private readonly call: Call,
-    private readonly transcriber: TranscriberPlugin
+    private readonly transcriber: TranscriberPlugin,
   ) {
     super();
     this.processMessageRef = this.processMessage.bind(this);

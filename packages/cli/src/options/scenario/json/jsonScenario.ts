@@ -1,12 +1,12 @@
-import { JsonWhenPromptIsAnything } from "./whenPrompt/isAnything";
-import { JsonWhenPromptContains } from "./whenPrompt/contains";
-import { JsonThenDoNothing } from "./then/doNothing";
-import { JsonThenPress } from "./then/press";
-import { JsonThenHangUp } from "./then/hangUp";
-import { JsonWhenPromptContainsSimilarTo } from "./whenPrompt/containsSimilarTo";
-import { JsonWhenPromptSimilarTo } from "./whenPrompt/similarTo";
-import { JsonWhenPromptOr } from "./whenPrompt/or";
-import { JsonWhenPromptAnd } from "./whenPrompt/and";
+import type { JsonThenDoNothing } from "./then/doNothing";
+import type { JsonThenHangUp } from "./then/hangUp";
+import type { JsonThenPress } from "./then/press";
+import type { JsonWhenPromptAnd } from "./whenPrompt/and";
+import type { JsonWhenPromptContains } from "./whenPrompt/contains";
+import type { JsonWhenPromptContainsSimilarTo } from "./whenPrompt/containsSimilarTo";
+import type { JsonWhenPromptIsAnything } from "./whenPrompt/isAnything";
+import type { JsonWhenPromptOr } from "./whenPrompt/or";
+import type { JsonWhenPromptSimilarTo } from "./whenPrompt/similarTo";
 
 export type JsonWhenPrompt =
   | JsonWhenPromptIsAnything

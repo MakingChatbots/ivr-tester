@@ -1,5 +1,5 @@
-import { FilenameFactory, StreamDetails } from "./FilenameFactory";
-import { Scenario } from "../../../configuration/scenario/Scenario";
+import type { Scenario } from "../../../configuration/scenario/Scenario";
+import type { FilenameFactory, StreamDetails } from "./FilenameFactory";
 
 export function sanitise(text: string): string {
   return `${text}`
@@ -14,8 +14,10 @@ export function sanitise(text: string): string {
 export const ivrNumberAndTestNameFilename: FilenameFactory = (
   { call }: StreamDetails,
   scenario: Scenario,
-  suffix?: string
+  suffix?: string,
 ) =>
   sanitise(
-    [`${Date.now()}`, call.to, scenario.name, suffix].filter((e) => e).join("-")
+    [`${Date.now()}`, call.to, scenario.name, suffix]
+      .filter((e) => e)
+      .join("-"),
   );

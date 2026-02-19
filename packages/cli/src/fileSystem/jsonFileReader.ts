@@ -1,17 +1,17 @@
-import { readFileSync } from "fs";
+import type { readFileSync } from "node:fs";
 
 export type JsonFileReader = (path: string) => Record<string, unknown>;
 
 export function createJsonFileReader(
-  fsReadFileSync: typeof readFileSync
+  fsReadFileSync: typeof readFileSync,
 ): JsonFileReader {
-  return function (path: string): Record<string, unknown> {
+  return (path: string): Record<string, unknown> => {
     let content: Buffer;
     try {
       content = fsReadFileSync(path);
     } catch (error) {
       throw new Error(
-        `Failed to read file '${path}'. Reason: ${error.message}`
+        `Failed to read file '${path}'. Reason: ${error.message}`,
       );
     }
 
@@ -20,7 +20,7 @@ export function createJsonFileReader(
       jsonContent = JSON.parse(content.toString("utf-8"));
     } catch (error) {
       throw new Error(
-        `File '${path}' not valid JSON. Reason: ${error.message}`
+        `File '${path}' not valid JSON. Reason: ${error.message}`,
       );
     }
 

@@ -1,18 +1,18 @@
+import { accessSync, readFileSync } from "node:fs";
 import { Command } from "commander";
-import { accessSync, readFileSync } from "fs";
 import {
-  Config,
-  IvrNumber,
+  type Config,
+  type IvrNumber,
   IvrTester,
-  RunnableTester,
-  Scenario,
+  type RunnableTester,
+  type Scenario,
 } from "ivr-tester";
 import ngrok from "ngrok";
-import { createProgram, Program } from "./createProgram";
-import { loadScenarioOption } from "./options/scenario/loadScenarioOption";
-import { loadConfigOption } from "./options/config/loadConfigOption";
+import { createProgram, type Program } from "./createProgram";
 import { createJsonFileReader } from "./fileSystem/jsonFileReader";
 import { readableFileValidator } from "./fileSystem/readableFileValidator";
+import { loadConfigOption } from "./options/config/loadConfigOption";
+import { loadScenarioOption } from "./options/scenario/loadScenarioOption";
 
 export type IvrTesterFactory = (config: Config) => RunnableTester;
 
@@ -39,26 +39,26 @@ export function createCli({
 }: Dependencies = {}): Cli {
   program.command.requiredOption(
     "-f, --from <phoneNumber>",
-    "Phone number calling from e.g. +441234567890"
+    "Phone number calling from e.g. +441234567890",
   );
   program.command.requiredOption(
     "-t, --to <phoneNumber>",
-    "Phone number to be called e.g. +441234567890"
+    "Phone number to be called e.g. +441234567890",
   );
   program.command.requiredOption<string>(
     "-c, --config-path <filePath>",
     "path of the config file",
-    readableFileValidator(fsAccessSync)
+    readableFileValidator(fsAccessSync),
   );
   program.command.requiredOption<string>(
     "-s, --scenario-path <filePath>",
     "path of the scenario file",
-    readableFileValidator(fsAccessSync)
+    readableFileValidator(fsAccessSync),
   );
 
   const jsonFileReader = createJsonFileReader(fsReadFileSync);
 
-  return async function (args: string[]): Promise<void> {
+  return async (args: string[]): Promise<void> => {
     program.command.parse(args);
 
     const options = program.command.opts();
@@ -85,7 +85,7 @@ export function createCli({
     const url = await ngrokServer.connect(config.localServerPort);
     await ivrTesterFactory({ ...config, publicServerUrl: url }).run(
       call,
-      scenario
+      scenario,
     );
   };
 }

@@ -1,14 +1,14 @@
+import path from "node:path";
 import {
-  Config,
+  type Config,
   contains,
   doNothing,
-  IvrNumber,
+  type IvrNumber,
   IvrTester,
-  Scenario,
+  type Scenario,
 } from "ivr-tester";
 import { googleSpeechToText } from "ivr-tester-transcriber-google-speech-to-text";
 import ngrok from "ngrok";
-import path from "path";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require("dotenv").config();
@@ -58,6 +58,6 @@ ngrok
     new IvrTester({ ...config, publicServerUrl: url })
       .run(call, scenario)
       .then(() => process.exit())
-      .catch(catchError)
+      .catch(catchError),
   )
   .catch(catchError);

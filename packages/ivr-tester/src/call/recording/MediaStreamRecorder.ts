@@ -1,15 +1,18 @@
-import * as fs from "fs";
-import { createWriteStream, mkdirSync, WriteStream } from "fs";
-import * as path from "path";
-import { WebSocketEvents } from "../TwilioCall";
-import { TwilioConnectionEvents } from "../twilio";
-import { FilenameFactory } from "./filename/FilenameFactory";
-import { ivrNumberAndTestNameFilename } from "./filename/ivrNumberAndTestNameFilename";
-import { Config } from "../../configuration/Config";
+import * as fs from "node:fs";
+import { createWriteStream, mkdirSync, type WriteStream } from "node:fs";
+import * as path from "node:path";
+import type { Config } from "../../configuration/Config";
 import { ConfigurationError } from "../../configuration/ConfigurationError";
-import { TwilioCaller, TwilioMediaStreamStartEvent } from "../TwilioCaller";
-import { IvrTesterPlugin } from "../../plugins/IvrTesterPlugin";
-import { TestSession } from "../../testRunner";
+import type { IvrTesterPlugin } from "../../plugins/IvrTesterPlugin";
+import type { TestSession } from "../../testRunner";
+import { WebSocketEvents } from "../TwilioCall";
+import {
+  TwilioCaller,
+  type TwilioMediaStreamStartEvent,
+} from "../TwilioCaller";
+import { TwilioConnectionEvents } from "../twilio";
+import type { FilenameFactory } from "./filename/FilenameFactory";
+import { ivrNumberAndTestNameFilename } from "./filename/ivrNumberAndTestNameFilename";
 
 export interface RecorderConfig {
   outputPath: string;
@@ -33,14 +36,14 @@ export const mediaStreamRecorderPlugin = (config: Config): IvrTesterPlugin => {
   if (!recorderConfig.outputPath) {
     throw new ConfigurationError(
       "recording.audio.outputPath",
-      "Path must be defined"
+      "Path must be defined",
     );
   }
 
   if (!fs.existsSync(recorderConfig.outputPath)) {
     throw new ConfigurationError(
       "recording.audio.outputPath",
-      "Path does not exist"
+      "Path does not exist",
     );
   }
 
@@ -63,7 +66,7 @@ export class MediaStreamRecorder {
 
   constructor(
     private readonly testSession: TestSession,
-    private readonly config: RecorderConfig
+    private readonly config: RecorderConfig,
   ) {
     this.processMessageRef = this.processMessage.bind(this);
     this.closeRef = this.close.bind(this);
@@ -98,7 +101,7 @@ export class MediaStreamRecorder {
           sid: event.streamSid,
           call,
         },
-        this.testSession.scenario
+        this.testSession.scenario,
       );
     }
 

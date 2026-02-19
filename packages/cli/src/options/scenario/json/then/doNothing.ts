@@ -1,5 +1,5 @@
+import { doNothing, type Then } from "ivr-tester";
 import Joi from "joi";
-import { doNothing, Then } from "ivr-tester";
 
 const typeValue = "doNothing" as const;
 
@@ -12,7 +12,7 @@ export const jsonThenDoNothing = {
   schema: Joi.object<JsonThenDoNothing>({
     type: Joi.valid(typeValue).required(),
   }),
-  converter(json: JsonThenDoNothing): Then {
+  converter(_json: JsonThenDoNothing): Then {
     return doNothing();
   },
 };

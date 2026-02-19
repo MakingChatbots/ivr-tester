@@ -1,11 +1,18 @@
-import { describe, test, expect, beforeEach, vi, type MockedFunction } from "vitest";
-import { Cli, createCli } from "../src/cli";
-import * as fs from "fs";
-import { accessSync, readFileSync } from "fs";
+import type { accessSync, readFileSync } from "node:fs";
+import * as fs from "node:fs";
 import { Command } from "commander";
+import {
+  beforeEach,
+  describe,
+  expect,
+  type MockedFunction,
+  test,
+  vi,
+} from "vitest";
+import { type Cli, createCli } from "../src/cli";
 import { createProgram } from "../src/createProgram";
-import { JsonScenario } from "../src/options/scenario/json/jsonScenario";
-import { JsonConfig } from "../src/options/config/json/JsonConfig";
+import type { JsonConfig } from "../src/options/config/json/JsonConfig";
+import type { JsonScenario } from "../src/options/scenario/json/jsonScenario";
 
 describe("Config file validated", () => {
   const validScenarioFilePath = "/test/path/scenario.json";
@@ -63,13 +70,13 @@ describe("Config file validated", () => {
         ...["--to", "9876543210"],
         ...["--scenario-path", validScenarioFilePath],
       ]);
-    } catch (err) {
+    } catch (_err) {
       cliThrewError = true;
     }
 
     expect(cliThrewError).toBe(true);
     expect(capturedOutput.errOut).toContain(
-      "error: required option '-c, --config-path <filePath>' not specified\n"
+      "error: required option '-c, --config-path <filePath>' not specified\n",
     );
   });
 
@@ -89,13 +96,13 @@ describe("Config file validated", () => {
         ...["--config-path", configFilePath],
         ...["--scenario-path", "/test/path/scenario.json"],
       ]);
-    } catch (err) {
+    } catch (_err) {
       cliThrewError = true;
     }
 
     expect(cliThrewError).toBe(true);
     expect(capturedOutput.errOut).toContain(
-      "error: option '-c, --config-path <filePath>' argument '/test/path/config.json' is invalid. File '/test/path/config.json' is not readable\n"
+      "error: option '-c, --config-path <filePath>' argument '/test/path/config.json' is invalid. File '/test/path/config.json' is not readable\n",
     );
     expect(fsAccessSync).toBeCalledWith(configFilePath, fs.constants.R_OK);
   });
@@ -125,7 +132,7 @@ describe("Config file validated", () => {
 
     expect(cliThrewError).toBe(true);
     expect(capturedOutput.errOut).toContain(
-      "Failed to read file '/test/path/config.json'. Reason: Test Error Message\n"
+      "Failed to read file '/test/path/config.json'. Reason: Test Error Message\n",
     );
     expect(fsReadFileSync).toBeCalledWith(configFilePath);
   });
@@ -155,7 +162,7 @@ describe("Config file validated", () => {
 
     expect(cliThrewError).toBe(true);
     expect(capturedOutput.errOut[0]).toMatch(
-      /File '\/test\/path\/config\.json' not valid JSON\. Reason: /
+      /File '\/test\/path\/config\.json' not valid JSON\. Reason: /,
     );
   });
 
@@ -190,7 +197,7 @@ describe("Config file validated", () => {
 
     expect(cliThrewError).toBe(true);
     expect(capturedOutput.errOut[0]).toMatch(
-      /Invalid config '\/test\/path\/config\.json\. Reason: /
+      /Invalid config '\/test\/path\/config\.json\. Reason: /,
     );
   });
 });

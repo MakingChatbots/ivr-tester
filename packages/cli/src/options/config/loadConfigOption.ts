@@ -1,9 +1,9 @@
-import { Config, TranscriberFactory } from "ivr-tester";
-import commander from "commander";
-import { JsonFileReader } from "../../fileSystem/jsonFileReader";
-import { JsonConfigTranscriber } from "./json/JsonConfig";
+import type commander from "commander";
+import type { Config, TranscriberFactory } from "ivr-tester";
+import type { TwilioClientAuth } from "ivr-tester/dist/call/twilio";
+import type { JsonFileReader } from "../../fileSystem/jsonFileReader";
+import type { JsonConfigTranscriber } from "./json/JsonConfig";
 import { validateConfig } from "./json/validateJsonConfig";
-import { TwilioClientAuth } from "ivr-tester/dist/call/twilio";
 
 const MODULE_PREFIX = "ivr-tester-transcriber-";
 
@@ -14,7 +14,7 @@ function validateTwilioClientAuth(env: NodeJS.ProcessEnv): {
   const accountSid = env.TWILIO_ACCOUNT_SID;
   const authToken = env.TWILIO_AUTH_TOKEN;
 
-  let error;
+  let error: Error | undefined;
   if (!accountSid && authToken) {
     error = new Error("TWILIO_ACCOUNT_SID environment variable must be set");
   }
@@ -23,7 +23,7 @@ function validateTwilioClientAuth(env: NodeJS.ProcessEnv): {
   }
   if (!accountSid && !authToken) {
     error = new Error(
-      "TWILIO_ACCOUNT_SID and TWILIO_AUTH_TOKEN environment variables must be set"
+      "TWILIO_ACCOUNT_SID and TWILIO_AUTH_TOKEN environment variables must be set",
     );
   }
 
@@ -41,10 +41,10 @@ function validateTwilioClientAuth(env: NodeJS.ProcessEnv): {
 export function loadConfigOption(
   options: commander.OptionValues,
   jsonFileReader: JsonFileReader,
-  moduleRequire: NodeJS.Require
+  moduleRequire: NodeJS.Require,
 ): Config {
   function loadTranscriber(
-    transcriber: JsonConfigTranscriber
+    transcriber: JsonConfigTranscriber,
   ): TranscriberFactory {
     const transcriberModuleName = `${MODULE_PREFIX}${transcriber.name}`;
 
@@ -54,7 +54,7 @@ export function loadConfigOption(
     } catch (error) {
       if (error.code === "MODULE_NOT_FOUND") {
         throw new Error(
-          `Cannot find module '${error.moduleName}' for the transcriber '${transcriber.name}'`
+          `Cannot find module '${error.moduleName}' for the transcriber '${transcriber.name}'`,
         );
       }
       throw error;
@@ -62,7 +62,7 @@ export function loadConfigOption(
 
     if (typeof factory.default !== "function") {
       throw new Error(
-        `Transcriber loaded does not have a default export '${transcriberModuleName}'. Contact the author of this package`
+        `Transcriber loaded does not have a default export '${transcriberModuleName}'. Contact the author of this package`,
       );
     }
 

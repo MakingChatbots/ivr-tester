@@ -1,5 +1,5 @@
 import { SpeechClient } from "@google-cloud/speech";
-import { TranscriberFactory } from "ivr-tester";
+import type { TranscriberFactory } from "ivr-tester";
 import { GoogleSpeechToText } from "./GoogleSpeechToText";
 
 /**
@@ -39,14 +39,14 @@ export const googleSpeechToText = (
     speechPhrases = [],
     useEnhanced = false,
   }: GoogleSpeechToTextOptions = {},
-  speechClient = new SpeechClient()
+  speechClient = new SpeechClient(),
 ): TranscriberFactory => ({
   create: () =>
     new GoogleSpeechToText(
       languageCode,
       speechPhrases,
       useEnhanced,
-      speechClient
+      speechClient,
     ),
   checkCanRun: async () => {
     try {

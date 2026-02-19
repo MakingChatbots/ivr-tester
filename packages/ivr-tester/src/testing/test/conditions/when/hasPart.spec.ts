@@ -1,6 +1,6 @@
-import { test, expect, vi, type Mocked } from "vitest";
-import { When } from "./When";
+import { expect, type Mocked, test, vi } from "vitest";
 import { hasPart } from "./hasPart";
+import type { When } from "./When";
 
 test("part calls matcher with every part of a sentence", () => {
   const mockWhen: Mocked<When> = vi.fn();

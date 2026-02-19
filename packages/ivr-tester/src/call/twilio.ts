@@ -1,4 +1,4 @@
-import { Twilio } from "twilio";
+import type { Twilio } from "twilio";
 
 export enum TwilioConnectionEvents {
   MediaStreamStart = "start",

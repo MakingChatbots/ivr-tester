@@ -22,9 +22,11 @@ export function convertToDtmfArray(dtmfSequence: string | string[]): string[] {
   if (Array.isArray(dtmfSequence)) {
     const sequence: string[] = [];
 
-    dtmfSequence
-      .filter((d) => typeof d === "string")
-      .forEach((e) => sequence.push(...e.split("")));
+    for (const d of dtmfSequence) {
+      if (typeof d === "string") {
+        sequence.push(...d.split(""));
+      }
+    }
 
     return sequence.map((c) => c.toLocaleLowerCase());
   }
@@ -36,7 +38,7 @@ const isArrayOfString = (x: unknown[]): x is string[] =>
   Array.isArray(x) && x.every((e) => typeof e === "string");
 
 export function dtmfSequenceValidator(
-  possibleDtmfSequence: string | string[]
+  possibleDtmfSequence: string | string[],
 ): { valid: true } | { valid: false; reason: string } {
   if (
     typeof possibleDtmfSequence !== "string" &&
@@ -54,7 +56,7 @@ export function dtmfSequenceValidator(
   }
 
   const invalidDigits = dtmfSequence.filter(
-    (c) => !validDtmfDigits.includes(c.toLocaleLowerCase())
+    (c) => !validDtmfDigits.includes(c.toLocaleLowerCase()),
   );
   if (invalidDigits.length > 0) {
     return {

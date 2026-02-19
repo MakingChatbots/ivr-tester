@@ -1,4 +1,4 @@
-import { test, expect } from "vitest";
+import { expect, test } from "vitest";
 import { similarTo } from "./similarTo";
 
 test.each([
@@ -18,5 +18,4 @@ test.each([
     false,
   ],
 ])("similarTo ('%s')", (transcript, actual, expected) =>
-  expect(similarTo(actual)(transcript)).toBe(expected)
-);
+  expect(similarTo(actual)(transcript)).toBe(expected));

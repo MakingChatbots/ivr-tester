@@ -1,9 +1,9 @@
-import { describe, test, expect, beforeEach, vi, type Mocked } from "vitest";
-import { StopTestRunnerWhenTestsComplete } from "./StopTestRunnerWhenTestsComplete";
-import { PluginEvents, PluginHost } from "../plugins/PluginManager";
+import { beforeEach, describe, expect, type Mocked, test, vi } from "vitest";
 import { TypedEmitter } from "../Emitter";
-import { TestRunner, TestSession } from "../testRunner";
-import {
+import type { PluginEvents, PluginHost } from "../plugins/PluginManager";
+import type { TestRunner, TestSession } from "../testRunner";
+import { StopTestRunnerWhenTestsComplete } from "./StopTestRunnerWhenTestsComplete";
+import type {
   CallFlowSession,
   CallFlowSessionEvents,
 } from "./test/CallFlowInstructions";
@@ -14,7 +14,8 @@ class StubCallFlowSession
 
 class StubPluginManager
   extends TypedEmitter<PluginEvents>
-  implements PluginHost {
+  implements PluginHost
+{
   abortTests(): void {
     // Intentionally empty
   }

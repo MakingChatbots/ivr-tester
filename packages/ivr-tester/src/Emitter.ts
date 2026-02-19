@@ -1,4 +1,4 @@
-import { EventEmitter } from "events";
+import { EventEmitter } from "node:events";
 
 // https://rjzaworski.com/2019/10/event-emitters-in-typescript
 
@@ -18,7 +18,7 @@ export class TypedEmitter<T extends EventMap> implements Emitter<T> {
 
   public on<K extends EventKey<T>>(
     eventName: K,
-    fn: EventReceiver<T[K]>
+    fn: EventReceiver<T[K]>,
   ): TypedEmitter<T> {
     this.emitter.on(eventName, fn);
     return this;
@@ -26,7 +26,7 @@ export class TypedEmitter<T extends EventMap> implements Emitter<T> {
 
   public off<K extends EventKey<T>>(
     eventName: K,
-    fn: EventReceiver<T[K]>
+    fn: EventReceiver<T[K]>,
   ): TypedEmitter<T> {
     this.emitter.off(eventName, fn);
     return this;

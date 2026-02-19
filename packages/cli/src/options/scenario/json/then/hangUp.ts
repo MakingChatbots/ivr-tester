@@ -1,5 +1,5 @@
+import { hangUp, type Then } from "ivr-tester";
 import Joi from "joi";
-import { hangUp, Then } from "ivr-tester";
 
 const typeValue = "hangUp" as const;
 
@@ -12,7 +12,7 @@ export const jsonThenHangUp = {
   schema: Joi.object<JsonThenHangUp>({
     type: Joi.valid(typeValue).required(),
   }),
-  converter(json: JsonThenHangUp): Then {
+  converter(_json: JsonThenHangUp): Then {
     return hangUp();
   },
 };

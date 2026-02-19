@@ -1,5 +1,5 @@
+import { press, type Then } from "ivr-tester";
 import Joi from "joi";
-import { press, Then } from "ivr-tester";
 
 const typeValue = "press" as const;
 

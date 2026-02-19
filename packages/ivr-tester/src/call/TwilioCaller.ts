@@ -1,10 +1,10 @@
-import { URL } from "url";
-import { Twilio, twiml } from "twilio";
-import { Call, TwilioConnectionEvents } from "./twilio";
-import VoiceResponse from "twilio/lib/twiml/VoiceResponse";
+import type { URL } from "node:url";
+import { type Twilio, twiml } from "twilio";
+import type VoiceResponse from "twilio/lib/twiml/VoiceResponse";
+import type { IvrNumber } from "../configuration/call/IvrNumber";
 import { Debugger } from "../Debugger";
-import { Caller, RequestedCall } from "./Caller";
-import { IvrNumber } from "../configuration/call/IvrNumber";
+import type { Caller, RequestedCall } from "./Caller";
+import type { Call, TwilioConnectionEvents } from "./twilio";
 
 export interface TwilioMediaStreamStartEvent {
   event: TwilioConnectionEvents.MediaStreamStart;
@@ -31,7 +31,7 @@ export class TwilioCaller implements Caller<IvrNumber> {
 
     if (!from || !to) {
       throw new Error(
-        "Start Media event does not contain from/to custom parameters"
+        "Start Media event does not contain from/to custom parameters",
       );
     }
 
@@ -40,7 +40,7 @@ export class TwilioCaller implements Caller<IvrNumber> {
 
   public async call(
     call: IvrNumber,
-    streamUrl: URL | string
+    streamUrl: URL | string,
   ): Promise<RequestedCall> {
     const response = new twiml.VoiceResponse();
     const connect = response.connect();

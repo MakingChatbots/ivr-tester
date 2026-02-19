@@ -1,10 +1,10 @@
-import Joi, { ValidationError } from "joi";
-import { Config } from "./Config";
-import { TwilioCallServer } from "../testing/TwilioCallServer";
+import Joi, { type ValidationError } from "joi";
 import { Twilio } from "twilio";
-import { DtmfBufferGenerator } from "../call/dtmf/DtmfBufferGenerator";
+import type { DtmfBufferGenerator } from "../call/dtmf/DtmfBufferGenerator";
 import { UlawDtmfBufferGenerator } from "../call/dtmf/UlawDtmfBufferGenerator";
-import { TwilioClientFactory } from "../call/twilio";
+import type { TwilioClientFactory } from "../call/twilio";
+import { TwilioCallServer } from "../testing/TwilioCallServer";
+import type { Config } from "./Config";
 
 const defaultTwilioFactory: TwilioClientFactory = (auth) =>
   new Twilio(auth.accountSid, auth.authToken);
@@ -40,13 +40,13 @@ const schema = Joi.object<Config>({
 });
 
 export const validateConfig = (
-  config: Config
+  config: Config,
 ): { config?: Config; error?: ValidationError } => {
   const { error, value } = schema.validate(config, { presence: "required" });
 
   if (value.publicServerUrl) {
     value.publicServerUrl = TwilioCallServer.convertToWebSocketUrl(
-      value.publicServerUrl
+      value.publicServerUrl,
     ).toString();
   }
 

@@ -1,6 +1,6 @@
-import { URL } from "url";
-import { Caller, RequestedCall } from "./Caller";
+import type { URL } from "node:url";
 import WebSocket from "ws";
+import type { Caller, RequestedCall } from "./Caller";
 import { TwilioConnectionEvents } from "./twilio";
 
 export class AudioPlaybackCaller implements Caller<Buffer> {
@@ -11,7 +11,7 @@ export class AudioPlaybackCaller implements Caller<Buffer> {
 
   public async call(
     mulawAudio: Buffer,
-    streamUrl: URL | string
+    streamUrl: URL | string,
   ): Promise<RequestedCall> {
     this.streamCounter++;
 
@@ -27,12 +27,15 @@ export class AudioPlaybackCaller implements Caller<Buffer> {
         buffer.push(item);
         if (buffer.length >= AudioPlaybackCaller.bufferSize) {
           ws.send(
-            AudioPlaybackCaller.createMediaEvent(streamSid, Buffer.from(buffer))
+            AudioPlaybackCaller.createMediaEvent(
+              streamSid,
+              Buffer.from(buffer),
+            ),
           );
 
           buffer = [];
           await new Promise((resolve) =>
-            setTimeout(resolve, AudioPlaybackCaller.msBetweenSendingBuffer)
+            setTimeout(resolve, AudioPlaybackCaller.msBetweenSendingBuffer),
           );
         }
       }

@@ -1,21 +1,22 @@
-import {
-  TranscriberPlugin,
-  TranscriptEvent,
-  TranscriptionEvents,
-  TypedEmitter,
-} from "ivr-tester";
 import { AwsTranscribe, StreamingClient } from "aws-transcribe";
-import { WaveFile } from "wavefile";
-import {
+import type {
   AVAILABLE_REGIONS,
   LANGUAGES,
   TranscribeStreamConfig,
 } from "aws-transcribe/dist/types";
+import {
+  type TranscriberPlugin,
+  type TranscriptEvent,
+  type TranscriptionEvents,
+  TypedEmitter,
+} from "ivr-tester";
+import { WaveFile } from "wavefile";
 import { Debugger } from "./Debugger";
 
 export class AmazonTranscribe
   extends TypedEmitter<TranscriptionEvents>
-  implements TranscriberPlugin {
+  implements TranscriberPlugin
+{
   private static readonly debug = Debugger.getPackageDebugger();
 
   private readonly config: TranscribeStreamConfig;
@@ -24,7 +25,7 @@ export class AmazonTranscribe
 
   constructor(
     private readonly region: AVAILABLE_REGIONS,
-    private readonly languageCode: LANGUAGES
+    private readonly languageCode: LANGUAGES,
   ) {
     super();
     this.config = {
@@ -41,7 +42,7 @@ export class AmazonTranscribe
     wav.fromScratch(1, 8000, "8m", data);
     wav.fromMuLaw();
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+    // @ts-expect-error
     return Buffer.from(wav.data.samples);
   }
 
@@ -61,10 +62,10 @@ export class AmazonTranscribe
     return client
       .createStreamingClient(this.config)
       .on(StreamingClient.EVENTS.OPEN, () =>
-        AmazonTranscribe.debug("Connection with Amazon opened")
+        AmazonTranscribe.debug("Connection with Amazon opened"),
       )
       .on(StreamingClient.EVENTS.CLOSE, () =>
-        AmazonTranscribe.debug("Connection with Amazon closed")
+        AmazonTranscribe.debug("Connection with Amazon closed"),
       )
       .on(StreamingClient.EVENTS.ERROR, (error) => {
         AmazonTranscribe.debug(error);

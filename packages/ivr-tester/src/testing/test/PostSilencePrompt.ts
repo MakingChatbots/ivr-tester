@@ -1,8 +1,8 @@
-import { setTimeout } from "timers";
-import { Step } from "../../configuration/scenario/Step";
-import { Call } from "../../call/Call";
-import { PromptTranscriptionBuilder } from "../../call/transcription/PromptTranscriptionBuilder";
-import { MatchedCallback, Prompt, TimeoutCallback } from "./inOrder";
+import type { setTimeout } from "node:timers";
+import type { Call } from "../../call/Call";
+import type { PromptTranscriptionBuilder } from "../../call/transcription/PromptTranscriptionBuilder";
+import type { Step } from "../../configuration/scenario/Step";
+import type { MatchedCallback, Prompt, TimeoutCallback } from "./inOrder";
 
 export class PostSilencePrompt implements Prompt {
   private timeoutTimer: ReturnType<typeof setTimeout>;
@@ -20,7 +20,7 @@ export class PostSilencePrompt implements Prompt {
     private readonly matchedCallback: MatchedCallback,
     private readonly timeoutCallback: TimeoutCallback,
     private readonly timeoutSet: typeof setTimeout,
-    private readonly timeoutClear: typeof clearTimeout
+    private readonly timeoutClear: typeof clearTimeout,
   ) {}
 
   public setNext(prompt: Prompt): Prompt {
@@ -48,7 +48,7 @@ export class PostSilencePrompt implements Prompt {
   }
 
   private processUpdatedTranscript(
-    transcriptEvent: PromptTranscriptionBuilder
+    transcriptEvent: PromptTranscriptionBuilder,
   ): void {
     this.clearSilenceAfterPromptTimer();
 

@@ -1,6 +1,6 @@
-import { IvrTesterPlugin } from "../plugins/IvrTesterPlugin";
-import { PluginHost } from "../plugins/PluginManager";
-import { Config } from "../configuration/Config";
+import type { Config } from "../configuration/Config";
+import type { IvrTesterPlugin } from "../plugins/IvrTesterPlugin";
+import type { PluginHost } from "../plugins/PluginManager";
 
 export const callConnectedTimeout = ({
   msTimeoutWaitingForCall,
@@ -13,7 +13,7 @@ export const callConnectedTimeout = ({
         clearTimeout(timeoutCallbackId);
         timeoutCallbackId = setTimeout(() => {
           pluginHost.abortTests(
-            `call did not connect after ${msTimeoutWaitingForCall / 1000}s`
+            `call did not connect after ${msTimeoutWaitingForCall / 1000}s`,
           );
         }, msTimeoutWaitingForCall);
       });

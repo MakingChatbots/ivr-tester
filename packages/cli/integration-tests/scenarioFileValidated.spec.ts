@@ -1,10 +1,16 @@
-import { describe, test, expect, beforeEach, vi, type MockedFunction } from "vitest";
-import { Cli, createCli } from "../src/cli";
-import { accessSync, readFileSync } from "fs";
+import fs, { type accessSync, type readFileSync } from "node:fs";
 import { Command } from "commander";
-import { createProgram, Program } from "../src/createProgram";
-import { JsonConfig } from "../src/options/config/json/JsonConfig";
-import fs from "fs";
+import {
+  beforeEach,
+  describe,
+  expect,
+  type MockedFunction,
+  test,
+  vi,
+} from "vitest";
+import { type Cli, createCli } from "../src/cli";
+import { createProgram, type Program } from "../src/createProgram";
+import type { JsonConfig } from "../src/options/config/json/JsonConfig";
 
 describe("Scenario file validated", () => {
   const validConfigFilePath = "/test/path/config.json";
@@ -43,9 +49,9 @@ describe("Scenario file validated", () => {
       writeErr: (str) => capturedOutput.errOut.push(str),
     });
 
-    const requireModule = (vi.fn().mockReturnValue({
+    const requireModule = vi.fn().mockReturnValue({
       default: () => vi.fn(),
-    }) as unknown) as MockedFunction<NodeJS.Require>;
+    }) as unknown as MockedFunction<NodeJS.Require>;
 
     cli = createCli({
       program,
@@ -58,10 +64,7 @@ describe("Scenario file validated", () => {
   test("User shown error is scenario file is not readable", async () => {
     const scenarioFilePath = "/test/path/scenario.json";
 
-    fsAccessSync.mockImplementation(((
-      path: fs.PathLike,
-      mode?: number
-    ) => {
+    fsAccessSync.mockImplementation(((path: fs.PathLike, mode?: number) => {
       if (path === scenarioFilePath && mode === fs.constants.R_OK) {
         throw new Error("Not readable");
       }
@@ -82,7 +85,7 @@ describe("Scenario file validated", () => {
 
     expect(cliThrewError).toBe(true);
     expect(capturedOutput.errOut).toContain(
-      "error: option '-s, --scenario-path <filePath>' argument '/test/path/scenario.json' is invalid. File '/test/path/scenario.json' is not readable\n"
+      "error: option '-s, --scenario-path <filePath>' argument '/test/path/scenario.json' is invalid. File '/test/path/scenario.json' is not readable\n",
     );
     expect(fsAccessSync).toBeCalledWith(scenarioFilePath, fs.constants.R_OK);
   });
@@ -112,7 +115,7 @@ describe("Scenario file validated", () => {
 
     expect(cliThrewError).toBe(true);
     expect(capturedOutput.errOut).toContain(
-      "Failed to read file '/test/path/scenario.json'. Reason: Test Error Message\n"
+      "Failed to read file '/test/path/scenario.json'. Reason: Test Error Message\n",
     );
     expect(fsReadFileSync).toBeCalledWith(scenarioFilePath);
   });
@@ -142,7 +145,7 @@ describe("Scenario file validated", () => {
 
     expect(cliThrewError).toBe(true);
     expect(capturedOutput.errOut[0]).toMatch(
-      /File '\/test\/path\/scenario\.json' not valid JSON\. Reason: /
+      /File '\/test\/path\/scenario\.json' not valid JSON\. Reason: /,
     );
     expect(fsReadFileSync).toBeCalledWith(scenarioFilePath);
   });

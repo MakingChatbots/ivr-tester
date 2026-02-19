@@ -1,5 +1,5 @@
-import { test, expect } from "vitest";
-import { JsonScenario } from "./jsonScenario";
+import { expect, test } from "vitest";
+import type { JsonScenario } from "./jsonScenario";
 import { validateScenario } from "./validateJsonScenario";
 
 test("Return JSON scenario if no errors", () => {
@@ -31,14 +31,14 @@ test("Return errors if invalid", () => {
       {
         whenPrompt: {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
+          // @ts-expect-error
           type: "ns",
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
+          // @ts-expect-error
           value: "",
         },
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
+        // @ts-expect-error
         then: { type: "do" },
         silenceAfterPrompt: 3000,
         timeout: 4000,
