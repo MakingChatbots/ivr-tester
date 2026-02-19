@@ -5,7 +5,7 @@
   "license": "MIT",
   "devDependencies": {
     "@biomejs/biome": "^2.4.3",
-    "vitest": "^3.0.5"
+    "vitest": "^4.0.18"
   },
   "workspaces": [
     "packages/*",

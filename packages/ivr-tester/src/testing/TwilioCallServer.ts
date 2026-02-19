@@ -1,6 +1,6 @@
 import { URL } from "node:url";
 import type ws from "ws";
-import { type AddressInfo, Server } from "ws";
+import { type AddressInfo, WebSocketServer } from "ws";
 import type { Call } from "../call/Call";
 import type { DtmfBufferGenerator } from "../call/dtmf/DtmfBufferGenerator";
 import { TwilioCall } from "../call/TwilioCall";
@@ -29,7 +29,7 @@ export class TwilioCallServer
 {
   private static TestCouldNotBeAssignedReason = "TestCouldNotBeAssigned";
 
-  private wss: Server;
+  private wss: WebSocketServer;
 
   constructor(
     private readonly dtmfBufferGenerator: DtmfBufferGenerator,
@@ -39,7 +39,7 @@ export class TwilioCallServer
     super();
   }
 
-  private static formatServerUrl(server: Server): URL {
+  private static formatServerUrl(server: WebSocketServer): URL {
     const address = server.address() as AddressInfo;
 
     switch (address.family) {
@@ -65,7 +65,7 @@ export class TwilioCallServer
       throw new Error("Server already started");
     }
 
-    this.wss = new Server({ port });
+    this.wss = new WebSocketServer({ port });
 
     return new Promise<URL>((resolve, reject) => {
       const onError = (err: Error) => reject(err);
@@ -93,6 +93,10 @@ export class TwilioCallServer
       if (!this.wss) {
         resolve();
         return;
+      }
+
+      for (const client of this.wss.clients) {
+        client.terminate();
       }
 
       this.wss.close((err) => {
