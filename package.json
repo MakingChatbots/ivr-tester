@@ -12,7 +12,8 @@
     "examples/*"
   ],
   "scripts": {
-    "build": "npm run build --workspaces --if-present",
+    "build": "npm run build -w packages/ivr-tester && npm run build --workspaces --if-present",
+    "prepare": "npm run build",
     "lint": "biome check .",
     "test": "npm run test --workspaces --if-present",
     "test:integration": "npm run test:integration -w packages/cli",

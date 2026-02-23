@@ -27,8 +27,7 @@
     "test:integration": "vitest run integration-tests",
     "clean": "rimraf dist/",
     "build": "npm run clean && tsc -p tsconfig.build.json --declaration",
-    "lint": "biome check .",
-    "prepare": "npm run build"
+    "lint": "biome check ."
   },
   "files": [
     "/dist"

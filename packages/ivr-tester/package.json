@@ -26,8 +26,7 @@
     "postbuild": "npm run copy:dtmf-tones",
     "lint": "biome check .",
     "copy:dtmf-tones": "copyfiles -u 1 src/**/dtmf/**/*.raw dist",
-    "tool:audio-server": "node --require ts-node/register tools/audio-server.ts",
-    "prepare": "npm run build"
+    "tool:audio-server": "node --require ts-node/register tools/audio-server.ts"
   },
   "files": [
     "/dist"

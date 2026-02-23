@@ -21,8 +21,7 @@
     "test:integration": "vitest run __tests__",
     "clean": "rimraf dist/",
     "build": "npm run clean && tsc --declaration",
-    "lint": "biome check .",
-    "prepare": "npm run build"
+    "lint": "biome check ."
   },
   "files": [
     "/dist"

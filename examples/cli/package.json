@@ -5,7 +5,7 @@
   "description": "Example of using IVR Tester's CLI",
   "license": "MIT",
   "scripts": {
-    "build": "npm install && chmod +x node_modules/.bin/ivr-tester",
+    "build": "echo 'No build step required'",
     "execute:keys-read-back": "export env $(cat .env | xargs) && ivr-tester -f $FROM_PHONE_NUMBER -t $TO_PHONE_NUMBER -c config.json -s scenarios/keys-read-back.json"
   },
   "dependencies": {
