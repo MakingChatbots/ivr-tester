@@ -30,7 +30,7 @@ function isTwilioClientAuth(subject: object): subject is TwilioClientAuth {
 
 /**
  * Despite the name this manages the interaction with an IVR call flow
- * e.g. making a call, sets up transcriber, cleanup, Twilio costs reporting etc
+ * e.g. making a call, sets up transcriber, clean-up, Twilio costs reporting etc
  *
  * It is up to the implementor of the {@link CallInteractor} to manage how it will
  * interact with the call

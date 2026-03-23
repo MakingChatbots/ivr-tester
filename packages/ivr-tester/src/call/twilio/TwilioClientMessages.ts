@@ -7,7 +7,7 @@ export enum TwilioClientMessageEventTypes {
 }
 
 /**
- * To send media back to Twilio, you must provide a similarly formattedmedia message. The payload must be encoded
+ * To send media back to Twilio, you must provide a similarly formatted media message. The payload must be encoded
  * audio/x-mulaw with a sample rate of 8000 and base64 encoded. The audio can be of any size.
  *
  * The media messages will be buffered and played in the order received. If you'd like interrupt the buffered audio,

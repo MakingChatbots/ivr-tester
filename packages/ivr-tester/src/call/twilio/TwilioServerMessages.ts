@@ -112,7 +112,7 @@ export interface ServerStartMessage {
 }
 
 /**
- * The mark event is sent only during bi-directional streaming by using the <Connect> verb.
+ * The mark event is sent only during bidirectional streaming by using the <Connect> verb.
  * It is used to track, or label, when media has completed.
  *
  * @see https://www.twilio.com/docs/voice/twiml/stream#message-mark
