@@ -1,17 +1,8 @@
 # IVR Tester
 
-IVR Tester is an open-source and extensible library for automating IVR testing
+[![npm](https://img.shields.io/npm/v/ivr-tester)](https://www.npmjs.com/package/ivr-tester)
 
----
-[
-![npm](https://img.shields.io/npm/v/ivr-tester)
-](https://www.npmjs.com/package/ivr-tester)
----
-
-Here's it phoning an IVR phone line and interacting as if it were a customer: 
-<p align="center">
-  <img src="doc/assets/demo.gif">
-</p>
+An open-source and extensible library for automating IVR testing.
 
 Features:
 * Fully automates testing call flows
@@ -19,7 +10,7 @@ Features:
 * Expressive test definitions help document call flow
 * Record audio of tests
 * Record transcriptions of tests
-* Supports Google Speech-to-Text and AWS Transcript for transcribing calls
+* Supports Google Speech-to-Text for transcribing calls
 * Open-source
 
 ## What can it do
@@ -127,19 +118,12 @@ Under the hood this orchestrates:
  2. Transcribing the voice responses from the flow - using [Google Speech-to-Text](https://cloud.google.com/speech-to-text)
  3. Using the test to conditionally respond with DTMF tones to transcripts
 
-## Unsupported sending DTMF
+## Limited DTMF support
 
-Sending DTMF tones over Twilio's outbound MediaStream isn't supported. This is unfortunate as it is the very stream we
-use to connect to the IVR flows we want to test:
+Sending DTMF tones over Twilio's outbound MediaStream [isn't supported](https://www.twilio.com/docs/voice/media-streams#bidirectional-media-streams):
 
-> DTMF is supported with bidirectional Media Streams only in the inbound direction, from Twilio toward your media server. Sending DTMF outbound from your media server toward Twilio is not supported.
->
-> -- [Source](https://www.twilio.com/docs/voice/media-streams#bidirectional-media-streams)
+> ... Sending DTMF outbound from your media server toward Twilio is not supported.
 
-In some cases sending DTMF does work, but it depends on the service you're testing e.g. Twilio will not recognise DTMF
-tones sent via a test, yet Genesys Cloud will.
-
-
-## License
-
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSketchingDev%2Fivr-tester.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FSketchingDev%2Fivr-tester?ref=badge_large)
+This is unfortunate as it is the very stream we use to connect to the IVR flows we want to test. However, in some cases
+sending DTMF does work. It seems to depend on the service you're testing e.g. Twilio will not recognise DTMF tones sent via
+a test, yet Genesys Cloud will.
