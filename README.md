@@ -1,8 +1,9 @@
 # IVR Tester
 
 [![npm](https://img.shields.io/npm/v/ivr-tester)](https://www.npmjs.com/package/ivr-tester)
+[![Follow me on LinkedIn for updates](https://img.shields.io/badge/Follow%20for%20updates-LinkedIn-blue)](https://www.linkedin.com/in/lucas-woodward-the-dev/)
 
-An open-source and extensible library for automating IVR testing.
+An extensible library for testing your IVR call flows.
 
 Features:
 * Fully automates testing call flows
@@ -85,13 +86,13 @@ expect(result.foundInGreeting).toContain('recorded');
 
 ## Quick Start
 
-1. [Create a Twilio account](https://www.twilio.com/referral/9E7LvU) (referral link for $10 free if you upgrade), load it with money and rent a phone number
-   1. Store an [authentication token](https://support.twilio.com/hc/en-us/articles/223136027-Auth-Tokens-and-How-to-Change-Them) in environment variables:
+1. [Create a Twilio account](https://www.twilio.com/), load it with money and rent a phone number
+   1. Store an [authentication token](https://help.twilio.com/articles/223136027-Auth-Tokens-and-How-to-Change-Them) in environment variables:
    ```shell
    export TWILIO_ACCOUNT_SID=ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
    export TWILIO_AUTH_TOKEN=your_auth_token
    ```
-2. Configure your environment for [Google](packages/transcriber-google-speech-to-text)'s transcription service
+2. Configure your environment for [Google's transcription service](packages/transcriber-google-speech-to-text)
 3. Install and start ngrok
    ```shell
    npm install ngrok -g
