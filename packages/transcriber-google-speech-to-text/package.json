@@ -30,7 +30,7 @@
     "/dist"
   ],
   "dependencies": {
-    "@google-cloud/speech": "^7.2.1",
+    "@google-cloud/speech": "^7.3.0",
     "debug": "^4.4.3"
   },
   "devDependencies": {
