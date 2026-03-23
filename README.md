@@ -4,16 +4,27 @@
 ![](https://github.com/SketchingDev/ivr-tester/workflows/On%20Push/badge.svg)
 [![Follow me on LinkedIn for updates](https://img.shields.io/badge/Follow%20for%20updates-LinkedIn-blue)](https://www.linkedin.com/in/lucas-woodward-the-dev/)
 
-
-
-<p align="center">
-  Automate the testing of your IVR call flows!
-</p>
-
-[Follow me on LinkedIn](https://www.linkedin.com/in/lucas-woodward-the-dev/) to learn about updates to this project
-
 IVR Tester automates the testing of IVR flows by calling them, interpreting prompts and replying with DTMF tones based
 on fluent test definitions.
+
+
+---
+
+❤️ Rewrite underway (23rd March 2026)
+
+I am showing this project some love over at branch [v1-rewrite](https://github.com/MakingChatbots/ivr-tester/tree/v1-rewrite).
+
+What to expect:
+
+* Improved testing tools
+* AI testing to simulate customer behaviour
+* Continued support for repeatable static tests
+* and more...
+
+[Subscribe to my newsletter](https://makingchatbots.com) to learn when it is released.
+
+---
+
 
 <p align="center">
   <img src="doc/assets/demo.gif">
