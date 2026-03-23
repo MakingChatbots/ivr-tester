@@ -3,7 +3,9 @@
 IVR Tester is an open-source and extensible library for automating IVR testing
 
 ---
-![npm](https://img.shields.io/npm/v/ivr-tester)](https://www.npmjs.com/package/ivr-tester)
+[
+![npm](https://img.shields.io/npm/v/ivr-tester)
+](https://www.npmjs.com/package/ivr-tester)
 ---
 
 Here's it phoning an IVR phone line and interacting as if it were a customer: 
