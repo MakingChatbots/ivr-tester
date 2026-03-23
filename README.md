@@ -3,9 +3,7 @@
 IVR Tester is an open-source and extensible library for automating IVR testing
 
 ---
-[![npm](https://img.shields.io/npm/v/ivr-tester)](https://www.npmjs.com/package/ivr-tester)
-![](https://github.com/SketchingDev/ivr-tester/workflows/On%20Push/badge.svg)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSketchingDev%2Fivr-tester.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FSketchingDev%2Fivr-tester?ref=badge_shield)
+![npm](https://img.shields.io/npm/v/ivr-tester)](https://www.npmjs.com/package/ivr-tester)
 ---
 
 Here's it phoning an IVR phone line and interacting as if it were a customer: 
@@ -100,7 +98,7 @@ expect(result.foundInGreeting).toContain('recorded');
    export TWILIO_ACCOUNT_SID=ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
    export TWILIO_AUTH_TOKEN=your_auth_token
    ```
-2. Configure your environment for either [Google](packages/transcriber-google-speech-to-text) or [Amazon's](packages/transcriber-amazon-transcribe) transcription service
+2. Configure your environment for [Google](packages/transcriber-google-speech-to-text)'s transcription service
 3. Install and start ngrok
    ```shell
    npm install ngrok -g
@@ -126,6 +124,19 @@ Under the hood this orchestrates:
  1. Establishing a bi-directional audio stream of the call to the IVR flow - using [Twilio](https://www.twilio.com/)
  2. Transcribing the voice responses from the flow - using [Google Speech-to-Text](https://cloud.google.com/speech-to-text)
  3. Using the test to conditionally respond with DTMF tones to transcripts
+
+## Unsupported sending DTMF
+
+Sending DTMF tones over Twilio's outbound MediaStream isn't supported. This is unfortunate as it is the very stream we
+use to connect to the IVR flows we want to test:
+
+> DTMF is supported with bidirectional Media Streams only in the inbound direction, from Twilio toward your media server. Sending DTMF outbound from your media server toward Twilio is not supported.
+>
+> -- [Source](https://www.twilio.com/docs/voice/media-streams#bidirectional-media-streams)
+
+In some cases sending DTMF does work, but it depends on the service you're testing e.g. Twilio will not recognise DTMF
+tones sent via a test, yet Genesys Cloud will.
+
 
 ## License
 

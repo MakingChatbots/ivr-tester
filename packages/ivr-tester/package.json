@@ -38,7 +38,7 @@
     "ws": "^8.19.0"
   },
   "peerDependencies": {
-    "twilio": ">=3"
+    "twilio": "5.13.0"
   },
   "devDependencies": {
     "@types/debug": "^4.1.12",
