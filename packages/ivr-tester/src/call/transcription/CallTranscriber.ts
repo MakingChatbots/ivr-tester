@@ -1,5 +1,5 @@
-import { WebSocketEvents } from "../TwilioCall";
-import { TwilioConnectionEvents } from "../twilio";
+import { WebSocketEvents } from "../twilio/TwilioCall";
+import { TwilioConnectionEvents } from "../twilio/twilio";
 import {
   TranscriberPlugin,
   TranscriptEvent,
@@ -50,7 +50,6 @@ export class CallTranscriber extends TypedEmitter<TranscriptionEvents> {
 
   private collects(event: TranscriptEvent) {
     CallTranscriber.debug("Transcript: %s", event.transcription);
-
     this.emit("transcription", event);
   }
 }

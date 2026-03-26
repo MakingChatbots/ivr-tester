@@ -20,6 +20,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest src",
+    "test:integration": "jest __tests__/integration",
     "clean": "rimraf dist/",
     "build:dtmf-tones": "./generate-dtmf-tones.sh",
     "build": "yarn clean && tsc -p tsconfig.build.json --declaration",
@@ -44,16 +45,16 @@
     "ws": "^7.4.4"
   },
   "devDependencies": {
-    "@sinonjs/fake-timers": "^7.0.2",
+    "@sinonjs/fake-timers": "^7.1.2",
     "@types/debug": "^4.1.5",
     "@types/express": "^4.17.11",
-    "@types/jest": "^26.0.14",
+    "@types/jest": "^26.0.24",
     "@types/node": "^14.6.4",
     "@types/string-similarity": "^4.0.0",
     "@types/ws": "^7.4.0",
     "copyfiles": "^2.4.0",
     "get-port": "^5.1.1",
-    "jest": "^26.4.2",
+    "jest": "^26.6.3",
     "ngrok": "^3.4.0",
     "prettier": "^2.2.1",
     "rimraf": "^3.0.2",

@@ -1,19 +1,11 @@
-export * from "./testing/test/conditions/when";
-export * from "./testing/test/conditions/then";
-export * from "./configuration/scenario/Step";
-
-export * from "./testing/ui/consoleUserInterface";
 export * from "./plugins/IvrTesterPlugin";
-export * from "./testing/StopTestRunnerWhenTestsComplete";
 export * from "./Emitter";
-
-export * from "./testRunner";
-
+export * from "./IvrTester";
 export * from "./configuration/Config";
-
 export * from "./call/transcription/plugin/TranscriberPlugin";
 export * from "./call/transcription/plugin/TranscriberFactory";
-
-export { Scenario } from "./configuration/scenario/Scenario";
-export { PluginManager } from "./plugins/PluginManager";
+export { FilenameFactory } from "./plugins/recording/filename/FilenameFactory";
 export { IvrNumber } from "./configuration/call/IvrNumber";
+export { CallFuzzerInteraction } from "./interactions/CallFuzzerInteraction";
+export { TwilioClientAuth } from "./call/twilio/twilio";
+export { Call } from "./call/Call";

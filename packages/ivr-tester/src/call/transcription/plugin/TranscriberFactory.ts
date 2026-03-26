@@ -20,7 +20,7 @@ export interface TranscriberFactory {
    * everything it needs to work properly when a call is connected
    * e.g. credentials
    */
-  checkCanRun: () => Promise<CanRunCheck> | CanRunCheck; // TODO Rename as 'preflightChecks'?
+  checkCanRun: () => Promise<CanRunCheck> | CanRunCheck;
 
   /**
    * Creates the transcriber. This will be called once per call.
