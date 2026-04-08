@@ -1,15 +1,11 @@
 import { randomUUID } from 'node:crypto';
 import { URL } from 'node:url';
-import twilio, { type Twilio } from 'twilio';
 import type ws from 'ws';
 import { type AddressInfo, Server } from 'ws';
-import type { Call } from './call/Call';
 import type { Caller } from './call/Caller';
-import { TwilioCall } from './call/twilio/TwilioCall';
-import { TwilioCaller } from './call/twilio/TwilioCaller';
-import type { TwilioClientAuth } from './call/twilio/twilio';
+import type { CallStreamAdapter } from './call/CallStreamAdapter';
 import type { CallInteractor } from './call-interactors/CallInteractor';
-import type { Config } from './configuration/Config';
+import type { CallStreamAdapterFactory, Config } from './configuration/Config';
 import type { IvrNumber } from './configuration/call/IvrNumber';
 import { type Subject, validateSubject } from './configuration/call/validateSubject';
 import { validateConfig } from './configuration/validateConfig';
@@ -21,12 +17,8 @@ export interface RunnableTester {
 }
 
 type CallsConnectEvents = {
-  callConnected: { call: Call; callId: string };
+  callConnected: { call: CallStreamAdapter; callId: string };
 };
-
-function isTwilioClientAuth(subject: object): subject is TwilioClientAuth {
-  return 'accountSid' in subject && 'authToken' in subject;
-}
 
 /**
  * Despite the name this manages the interaction with an IVR call flow
@@ -40,12 +32,12 @@ export class IvrTester implements RunnableTester {
 
   private readonly config: Config;
   private readonly callsConnected: TypedEmitter<CallsConnectEvents>;
-  private readonly twilioClient: Twilio;
 
   private wss: Server | undefined = undefined;
   private wssUrls: { httpUrl: URL; wsUrl: URL } | undefined = undefined;
 
   private caller: Caller<IvrNumber | Buffer>;
+  private callStreamAdapterFactory: CallStreamAdapterFactory;
 
   constructor(readonly configuration: Config) {
     const result = validateConfig(configuration);
@@ -59,11 +51,8 @@ export class IvrTester implements RunnableTester {
     this.config = result.config;
     this.callsConnected = new TypedEmitter<CallsConnectEvents>();
 
-    this.twilioClient = isTwilioClientAuth(this.config.twilio)
-      ? twilio(this.config.twilio.accountSid, this.config.twilio.authToken)
-      : this.config.twilio;
-
-    this.caller = new TwilioCaller(this.twilioClient);
+    this.caller = configuration.caller;
+    this.callStreamAdapterFactory = configuration.callStreamAdapterFactory;
   }
 
   private static formatServerUrl(server: Server): URL {
@@ -118,7 +107,7 @@ export class IvrTester implements RunnableTester {
     // TODO Start timeout, or add Global timeout value to connected call
     // TODO What to do if call doesn't contain Call ID
 
-    const call = new TwilioCall(callWebSocket);
+    const call = this.callStreamAdapterFactory(callWebSocket);
     call.on('callMediaStreamStarted', (e) => {
       if (!e.callId) {
         IvrTester.debug(

@@ -1,4 +1,4 @@
-import type { Call } from '../../call/Call';
+import type { CallStreamAdapter } from '../../call/CallStreamAdapter';
 import type {
   TranscriptEvent,
   TranscriptionEvents,
@@ -22,7 +22,7 @@ export type TimeoutCallback = (prompt: Prompt, transcript: string) => void;
 
 export type PromptFactory = (
   definition: Step,
-  call: Call,
+  call: CallStreamAdapter,
   matchedCallback: MatchedCallback,
   timeoutCallback: TimeoutCallback,
   timeoutSet: typeof setTimeout,
@@ -54,7 +54,7 @@ export class RunningOrderedCallFlowInstructions
     private readonly promptDefinitions: ReadonlyArray<Step>,
     private readonly promptFactory: PromptFactory,
     private readonly transcriber: Emitter<TranscriptionEvents>,
-    private readonly call: Call,
+    private readonly call: CallStreamAdapter,
     private readonly timeoutSet: typeof setTimeout,
     private readonly timeoutClear: typeof clearTimeout,
   ) {

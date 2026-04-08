@@ -1,4 +1,4 @@
-import type { Call } from '../../../../call/Call';
+import type { CallStreamAdapter } from '../../../../call/CallStreamAdapter';
 
 /**
  * An action performed when a condition is met
@@ -15,5 +15,5 @@ export interface Then {
   /**
    * Performs the action to the call
    */
-  do(call: Call): void;
+  do(call: CallStreamAdapter): void;
 }

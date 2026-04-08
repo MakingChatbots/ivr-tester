@@ -1,19 +1,14 @@
 import Joi, { type ValidationError } from 'joi';
-import type { Twilio } from 'twilio';
-import type { TwilioClientAuth } from '../call/twilio/twilio';
+import type { Caller } from '../call/Caller';
 import { IvrTester } from '../IvrTester';
-import type { Config } from './Config';
+import type { CallStreamAdapterFactory, Config } from './Config';
+import type { IvrNumber } from './call/IvrNumber';
 
 const schema = Joi.object<Config>({
   localServerPort: Joi.number().port().optional().default(8080),
   publicServerUrl: Joi.string().uri().optional(),
-  twilio: Joi.alternatives(
-    Joi.object<Twilio>(),
-    Joi.object<TwilioClientAuth>({
-      accountSid: Joi.string().required(),
-      authToken: Joi.string().required(),
-    }),
-  ).required(),
+  caller: Joi.object<Caller<IvrNumber | Buffer>>().required(),
+  callStreamAdapterFactory: Joi.function<CallStreamAdapterFactory>().required(),
 });
 
 export const validateConfig = (config: Config): { config?: Config; error?: ValidationError } => {

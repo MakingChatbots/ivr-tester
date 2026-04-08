@@ -1,7 +1,8 @@
 import type ws from 'ws';
+import type { CallStreamAdapterFactory } from '../../configuration/Config';
 import { Debugger } from '../../Debugger';
 import { TypedEmitter } from '../../Emitter';
-import type { Call, CallEvents } from '../Call';
+import { type CallEvents, type CallStreamAdapter, WebSocketEvents } from '../CallStreamAdapter';
 import { TwilioCaller } from './TwilioCaller';
 import {
   type ClientMarkMessage,
@@ -10,12 +11,10 @@ import {
 } from './TwilioClientMessages';
 import { TwilioServerMessageEventTypes, type TwilioServerMessages } from './TwilioServerMessages';
 
-export enum WebSocketEvents {
-  Message = 'message',
-  Close = 'close',
-}
+export const TwilioCallStreamAdapterFactory: CallStreamAdapterFactory = (ws) =>
+  new TwilioCallStreamAdapter(ws);
 
-export class TwilioCall extends TypedEmitter<CallEvents> implements Call {
+export class TwilioCallStreamAdapter extends TypedEmitter<CallEvents> implements CallStreamAdapter {
   private static debug = Debugger.getTwilioDebugger();
 
   private readonly processMessageReference: (message: string) => void;
@@ -64,7 +63,7 @@ export class TwilioCall extends TypedEmitter<CallEvents> implements Call {
     switch (data.event) {
       case TwilioServerMessageEventTypes.Start:
         try {
-          TwilioCall.debug('Media stream started %O', data);
+          TwilioCallStreamAdapter.debug('Media stream started %O', data);
 
           const callId = TwilioCaller.extractRoutingIdCustomParameter(data);
 
@@ -83,10 +82,10 @@ export class TwilioCall extends TypedEmitter<CallEvents> implements Call {
         }
         break;
       case TwilioServerMessageEventTypes.Mark:
-        TwilioCall.debug('Mark event %O', data);
+        TwilioCallStreamAdapter.debug('Mark event %O', data);
         break;
       case TwilioServerMessageEventTypes.Stop:
-        TwilioCall.debug('Call ended %O', data);
+        TwilioCallStreamAdapter.debug('Call ended %O', data);
 
         this.closeConnection();
         this.emit('callClosed', { by: 'caller' });
@@ -112,7 +111,7 @@ export class TwilioCall extends TypedEmitter<CallEvents> implements Call {
     };
 
     this.connection.send(JSON.stringify(message));
-    TwilioCall.debug('Sent media to call', {
+    TwilioCallStreamAdapter.debug('Sent media to call', {
       name: name ? name : '',
     });
 
@@ -125,7 +124,7 @@ export class TwilioCall extends TypedEmitter<CallEvents> implements Call {
         },
       };
       this.connection.send(JSON.stringify(markMessage));
-      TwilioCall.debug('Sent media mark event %O', markMessage);
+      TwilioCallStreamAdapter.debug('Sent media mark event %O', markMessage);
     }
   }
 

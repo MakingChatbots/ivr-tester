@@ -1,6 +1,11 @@
 import type ws from 'ws';
 import type { TypedEmitter } from '../Emitter';
 
+export enum WebSocketEvents {
+  Message = 'message',
+  Close = 'close',
+}
+
 /**
  * Event indicating when the call's media stream starts. It is only
  * at this point that the call receives details about the call.
@@ -23,7 +28,7 @@ export type CallEvents = {
 /**
  * Represents an active call
  */
-export interface Call extends TypedEmitter<CallEvents> {
+export interface CallStreamAdapter extends TypedEmitter<CallEvents> {
   /**
    * Sends 8 bit PCM encoded (MULAW) at 8000 Hertz media to call
    */

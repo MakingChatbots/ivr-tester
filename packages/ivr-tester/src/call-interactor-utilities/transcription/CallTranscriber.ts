@@ -1,10 +1,9 @@
 import { clearInterval } from 'node:timers';
-import type { Call } from '../../call/Call';
-import { WebSocketEvents } from '../../call/twilio/TwilioCall';
+import { type CallStreamAdapter, WebSocketEvents } from '../../call/CallStreamAdapter';
 import {
-  TwilioServerMessageEventTypes,
-  type TwilioServerMessages,
-} from '../../call/twilio/TwilioServerMessages';
+  CallStreamServerMessageEventTypes,
+  type CallStreamServerMessages,
+} from '../../call/CallStreamServerMessages';
 import { Debugger } from '../../Debugger';
 import { TypedEmitter } from '../../Emitter';
 import { type DtmfBufferGenerator, UlawDtmfBufferGenerator } from '../dtmf';
@@ -26,7 +25,7 @@ export class CallTranscriber extends TypedEmitter<TranscriptionEvents & CallTran
   private readonly closeRef: () => void;
 
   constructor(
-    private readonly call: Call,
+    private readonly call: CallStreamAdapter,
     private readonly transcriber: TranscriberPlugin,
     private readonly intervalSet: typeof setInterval = setInterval,
     private readonly intervalClear: typeof clearInterval = clearInterval,
@@ -44,8 +43,8 @@ export class CallTranscriber extends TypedEmitter<TranscriptionEvents & CallTran
   }
 
   private processMessage(message: string) {
-    const data = JSON.parse(message) as TwilioServerMessages;
-    if (data.event === TwilioServerMessageEventTypes.Media) {
+    const data = JSON.parse(message) as CallStreamServerMessages;
+    if (data.event === CallStreamServerMessageEventTypes.Media) {
       this.transcriber.transcribe(Buffer.from(data.media.payload, 'base64'));
     }
   }

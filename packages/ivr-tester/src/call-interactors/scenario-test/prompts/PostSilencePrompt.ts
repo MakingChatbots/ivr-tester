@@ -1,4 +1,4 @@
-import type { Call } from '../../../call/Call';
+import type { CallStreamAdapter } from '../../../call/CallStreamAdapter';
 import type { MatchedCallback, Prompt, TimeoutCallback } from '../inOrder';
 import type { Step } from '../scenario-definition/Step';
 import type { PromptTranscriptionBuilder } from './PromptTranscriptionBuilder';
@@ -15,7 +15,7 @@ export class PostSilencePrompt implements Prompt {
 
   constructor(
     public readonly definition: Step,
-    private readonly call: Call,
+    private readonly call: CallStreamAdapter,
     private readonly matchedCallback: MatchedCallback,
     private readonly timeoutCallback: TimeoutCallback,
     private readonly timeoutSet: typeof setTimeout,

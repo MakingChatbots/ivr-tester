@@ -1,7 +1,7 @@
-import type { Call } from '../../../../call/Call';
+import type { CallStreamAdapter } from '../../../../call/CallStreamAdapter';
 import type { Then } from './Then';
 
 export const hangUp = (): Then => ({
-  do: (call: Call) => call.close('Then directive'),
+  do: (call: CallStreamAdapter) => call.close('Then directive'),
   describe: () => 'hang-up',
 });

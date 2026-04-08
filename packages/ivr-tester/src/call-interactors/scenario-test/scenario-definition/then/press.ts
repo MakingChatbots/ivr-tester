@@ -1,4 +1,4 @@
-import type { Call } from '../../../../call/Call';
+import type { CallStreamAdapter } from '../../../../call/CallStreamAdapter';
 import {
   type DtmfBufferGenerator,
   type SupportedTone,
@@ -21,7 +21,7 @@ export const press = (
   }
 
   return {
-    do: (call: Call) => call.sendMedia(dtmfGenerator.generate(dtmfSequence)),
+    do: (call: CallStreamAdapter) => call.sendMedia(dtmfGenerator.generate(dtmfSequence)),
     describe: () => {
       return dtmfSequence.length === 1
         ? `press key ${dtmfSequence.join()}`

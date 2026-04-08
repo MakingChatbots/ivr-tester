@@ -1,4 +1,4 @@
-export { Call } from './call/Call';
+export { CallStreamAdapter } from './call/CallStreamAdapter';
 export { TwilioClientAuth } from './call/twilio/twilio';
 export * from './call-interactor-utilities/dtmf';
 // Call Interactor Utilities

@@ -1,5 +1,9 @@
-import type { Twilio } from 'twilio';
-import type { TwilioClientAuth } from '../call/twilio/twilio';
+import type ws from 'ws';
+import type { Caller } from '../call/Caller';
+import type { CallStreamAdapter } from '../call/CallStreamAdapter';
+import type { IvrNumber } from './call/IvrNumber';
+
+export type CallStreamAdapterFactory = (callWebSocket: ws) => CallStreamAdapter;
 
 export interface Config {
   /**
@@ -8,10 +12,15 @@ export interface Config {
   localServerPort?: number | undefined;
 
   /**
-   * Twilio client used to initiate the call to the IVR or the authentication details
-   * to be used by the client
+   * Initiates the call. IVR Tester expects a call to this will result a bidirectional
+   * WebSocket connection to the publicServerUrl.
    */
-  twilio: Twilio | TwilioClientAuth;
+  caller: Caller<IvrNumber | Buffer>;
+
+  /**
+   * Handles a vendor specific bidirectional audio stream
+   */
+  callStreamAdapterFactory: CallStreamAdapterFactory;
 
   /**
    * URL of the server that is publicly accessible. This is the
