@@ -1,9 +1,12 @@
-import { describe, test, expect, vi, beforeAll, beforeEach, afterEach } from 'vitest';
 import * as fs from 'node:fs';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import type { TranscriberPlugin, TranscriptEvent } from 'ivr-tester';
-import { googleSpeechToText } from '../src';
-import { Debugger } from '../src/Debugger';
+import { afterEach, beforeAll, beforeEach, describe, expect, test, vi } from 'vitest';
+import { Debugger } from '../src/Debugger.js';
+import { googleSpeechToText } from '../src/index.js';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const sendAudioChunksToTranscriber = async (audioFile: Buffer, transcriber: TranscriberPlugin) => {
   const msBetweenSendingBuffer = 250;

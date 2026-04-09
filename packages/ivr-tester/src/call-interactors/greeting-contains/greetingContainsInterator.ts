@@ -1,10 +1,10 @@
-import { ArgumentUndefinedError } from '../../ArgumentUndefinedError';
+import { ArgumentUndefinedError } from '../../ArgumentUndefinedError.js';
 import {
   CallTranscriber,
   type TranscriberFactory,
-} from '../../call-interactor-utilities/transcription';
-import type { CallInteractor } from '../CallInteractor';
-import { PromptTranscriptionBuilder } from '../scenario-test/prompts/PromptTranscriptionBuilder';
+} from '../../call-interactor-utilities/transcription/index.js';
+import type { CallInteractor } from '../CallInteractor.js';
+import { PromptTranscriptionBuilder } from '../scenario-test/prompts/PromptTranscriptionBuilder.js';
 
 export interface GreetingMsgInteractorResult {
   foundInGreeting: string[];

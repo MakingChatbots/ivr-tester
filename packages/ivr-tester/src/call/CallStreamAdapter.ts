@@ -1,5 +1,5 @@
 import type ws from 'ws';
-import type { TypedEmitter } from '../Emitter';
+import type { TypedEmitter } from '../Emitter.js';
 
 export enum WebSocketEvents {
   Message = 'message',

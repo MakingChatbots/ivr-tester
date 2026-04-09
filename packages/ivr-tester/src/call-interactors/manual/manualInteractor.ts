@@ -2,14 +2,14 @@ import { clearInterval } from 'node:timers';
 import {
   type DtmfBufferGenerator,
   UlawDtmfBufferGenerator,
-} from '../../call-interactor-utilities/dtmf';
+} from '../../call-interactor-utilities/dtmf/index.js';
 import {
   CallTranscriber,
   type TranscriberFactory,
-} from '../../call-interactor-utilities/transcription';
-import { Debugger } from '../../Debugger';
-import type { CallInteractor } from '../CallInteractor';
-import { PromptTranscriptionBuilder } from '../scenario-test/prompts/PromptTranscriptionBuilder';
+} from '../../call-interactor-utilities/transcription/index.js';
+import { Debugger } from '../../Debugger.js';
+import type { CallInteractor } from '../CallInteractor.js';
+import { PromptTranscriptionBuilder } from '../scenario-test/prompts/PromptTranscriptionBuilder.js';
 
 export interface ManualInteractorConfig {
   readonly transcriberFactory: TranscriberFactory;

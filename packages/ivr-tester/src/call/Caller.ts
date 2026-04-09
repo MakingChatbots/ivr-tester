@@ -1,7 +1,7 @@
 import type { URL } from 'node:url';
 import type ws from 'ws';
-import type { IvrNumber } from '../configuration/call/IvrNumber';
-import type { CallStreamAdapter } from './CallStreamAdapter';
+import type { IvrNumber } from '../configuration/call/IvrNumber.js';
+import type { CallStreamAdapter } from './CallStreamAdapter.js';
 
 export interface AudioPlaybackCall {
   type: 'audio-playback';

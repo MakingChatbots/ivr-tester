@@ -1,6 +1,6 @@
 import { test, expect, vi, type Mock } from 'vitest';
-import { hasPart } from './hasPart';
-import type { When } from './When';
+import { hasPart } from './hasPart.js';
+import type { When } from './When.js';
 
 test('part calls matcher with every part of a sentence', () => {
   const mockWhen: Mock<When> = vi.fn();

@@ -1,5 +1,5 @@
 import { compareTwoStrings } from 'string-similarity';
-import type { When } from './When';
+import type { When } from './When.js';
 
 /**
  * Compares two strings to determine if they're similar.

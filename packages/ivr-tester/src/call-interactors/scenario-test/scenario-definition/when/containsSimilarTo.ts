@@ -1,6 +1,6 @@
-import { hasPart } from './hasPart';
-import { similarTo } from './similarTo';
-import type { When } from './When';
+import { hasPart } from './hasPart.js';
+import { similarTo } from './similarTo.js';
+import type { When } from './When.js';
 
 /**
  * Determines if there is a section of the transcript that is similar to a piece of text.

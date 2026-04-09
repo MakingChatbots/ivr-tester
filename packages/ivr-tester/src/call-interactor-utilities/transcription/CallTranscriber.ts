@@ -1,17 +1,17 @@
 import { clearInterval } from 'node:timers';
-import { type CallStreamAdapter, WebSocketEvents } from '../../call/CallStreamAdapter';
+import { type CallStreamAdapter, WebSocketEvents } from '../../call/CallStreamAdapter.js';
 import {
   CallStreamServerMessageEventTypes,
   type CallStreamServerMessages,
-} from '../../call/CallStreamServerMessages';
-import { Debugger } from '../../Debugger';
-import { TypedEmitter } from '../../Emitter';
-import { type DtmfBufferGenerator, UlawDtmfBufferGenerator } from '../dtmf';
+} from '../../call/CallStreamServerMessages.js';
+import { Debugger } from '../../Debugger.js';
+import { TypedEmitter } from '../../Emitter.js';
+import { type DtmfBufferGenerator, UlawDtmfBufferGenerator } from '../dtmf/index.js';
 import type {
   TranscriberPlugin,
   TranscriptEvent,
   TranscriptionEvents,
-} from './plugin/TranscriberPlugin';
+} from './plugin/TranscriberPlugin.js';
 
 export type CallTranscriberEvents = {
   callAndTranscriberFinished: undefined;

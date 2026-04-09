@@ -1,7 +1,7 @@
-export { CallTranscriber } from './CallTranscriber';
-export { CannotRun, CanRun, CanRunCheck, TranscriberFactory } from './plugin/TranscriberFactory';
+export { CallTranscriber } from './CallTranscriber.js';
+export { CannotRun, CanRun, CanRunCheck, TranscriberFactory } from './plugin/TranscriberFactory.js';
 export {
   TranscriberPlugin,
   TranscriptEvent,
   TranscriptionEvents,
-} from './plugin/TranscriberPlugin';
+} from './plugin/TranscriberPlugin.js';

@@ -1,16 +1,18 @@
 import { randomUUID } from 'node:crypto';
 import { URL } from 'node:url';
-import type ws from 'ws';
-import { type AddressInfo, Server } from 'ws';
-import type { Caller } from './call/Caller';
-import type { CallStreamAdapter } from './call/CallStreamAdapter';
-import type { CallInteractor } from './call-interactors/CallInteractor';
-import type { Config } from './configuration/Config';
-import type { IvrNumber } from './configuration/call/IvrNumber';
-import { type Subject, validateSubject } from './configuration/call/validateSubject';
-import { validateConfig } from './configuration/validateConfig';
-import { Debugger } from './Debugger';
-import { TypedEmitter } from './Emitter';
+
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+import ws = require('ws');
+
+import type { Caller } from './call/Caller.js';
+import type { CallStreamAdapter } from './call/CallStreamAdapter.js';
+import type { CallInteractor } from './call-interactors/CallInteractor.js';
+import type { Config } from './configuration/Config.js';
+import type { IvrNumber } from './configuration/call/IvrNumber.js';
+import { type Subject, validateSubject } from './configuration/call/validateSubject.js';
+import { validateConfig } from './configuration/validateConfig.js';
+import { Debugger } from './Debugger.js';
+import { TypedEmitter } from './Emitter.js';
 
 export interface RunnableTester {
   run<T>(subject: Subject, callInteractor: CallInteractor<T>): Promise<T>;
@@ -33,7 +35,7 @@ export class IvrTester implements RunnableTester {
   private readonly config: Config;
   private readonly callsConnected: TypedEmitter<CallsConnectEvents>;
 
-  private wss: Server | undefined = undefined;
+  private wss: ws.Server | undefined = undefined;
   private wssUrls: { httpUrl: URL; wsUrl: URL } | undefined = undefined;
 
   private readonly caller: Caller<IvrNumber | Buffer>;
@@ -53,8 +55,8 @@ export class IvrTester implements RunnableTester {
     this.caller = configuration.caller;
   }
 
-  private static formatServerUrl(server: Server): URL {
-    const address = server.address() as AddressInfo;
+  private static formatServerUrl(server: ws.Server): URL {
+    const address = server.address() as ws.AddressInfo;
 
     switch (address.family) {
       case 'IPv4':
@@ -74,7 +76,7 @@ export class IvrTester implements RunnableTester {
     return streamUrl;
   }
 
-  private static async waitUntilListening(wss: Server): Promise<{ httpUrl: URL; wsUrl: URL }> {
+  private static async waitUntilListening(wss: ws.Server): Promise<{ httpUrl: URL; wsUrl: URL }> {
     return new Promise<{ httpUrl: URL; wsUrl: URL }>((resolve, reject) => {
       const onError = (err: Error) => reject(err);
 
@@ -92,7 +94,7 @@ export class IvrTester implements RunnableTester {
 
   public async startServer(): Promise<{ httpUrl: URL; wsUrl: URL }> {
     if (!this.wss) {
-      this.wss = new Server({ port: this.config.localServerPort });
+      this.wss = new ws.Server({ port: this.config.localServerPort });
       this.wss.on('connection', (ws) => this.callConnected(ws));
 
       this.wssUrls = await IvrTester.waitUntilListening(this.wss);

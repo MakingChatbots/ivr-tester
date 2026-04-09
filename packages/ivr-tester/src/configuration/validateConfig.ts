@@ -1,8 +1,8 @@
 import Joi, { type ValidationError } from 'joi';
-import type { Caller } from '../call/Caller';
-import { IvrTester } from '../IvrTester';
-import type { Config } from './Config';
-import type { IvrNumber } from './call/IvrNumber';
+import type { Caller } from '../call/Caller.js';
+import { IvrTester } from '../IvrTester.js';
+import type { Config } from './Config.js';
+import type { IvrNumber } from './call/IvrNumber.js';
 
 const schema = Joi.object<Config>({
   localServerPort: Joi.number().port().optional().default(8080),

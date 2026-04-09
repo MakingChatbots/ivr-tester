@@ -1,14 +1,13 @@
 import type { URL } from 'node:url';
 import { type Twilio, twiml } from 'twilio';
-import type VoiceResponse from 'twilio/lib/twiml/VoiceResponse';
 import type ws from 'ws';
-import { ArgumentUndefinedError } from '../../ArgumentUndefinedError';
-import type { IvrNumber } from '../../configuration/call/IvrNumber';
-import { Debugger } from '../../Debugger';
-import type { Caller, RequestedCall } from '../Caller';
-import type { CallStreamAdapter } from '../CallStreamAdapter';
-import { TwilioCallStreamAdapter } from './TwilioCallStreamAdapter';
-import type { ServerStartMessage } from './TwilioServerMessages';
+import { ArgumentUndefinedError } from '../../ArgumentUndefinedError.js';
+import type { IvrNumber } from '../../configuration/call/IvrNumber.js';
+import { Debugger } from '../../Debugger.js';
+import type { Caller, RequestedCall } from '../Caller.js';
+import type { CallStreamAdapter } from '../CallStreamAdapter.js';
+import { TwilioCallStreamAdapter } from './TwilioCallStreamAdapter.js';
+import type { ServerStartMessage } from './TwilioServerMessages.js';
 
 export class TwilioCaller implements Caller<IvrNumber> {
   private static readonly debug = Debugger.getTwilioDebugger();
@@ -24,8 +23,7 @@ export class TwilioCaller implements Caller<IvrNumber> {
     return new TwilioCallStreamAdapter(callWebSocket);
   }
 
-  private static addCallIdCustomParameter(stream: VoiceResponse.Stream, callId: string): void {
-    // TODO Adding parameters throws a warning, but is even done here https://www.twilio.com/blog/media-streams-public-beta
+  private static addCallIdCustomParameter(stream: InstanceType<typeof twiml.VoiceResponse.Stream>, callId: string): void {
     stream.parameter({ name: TwilioCaller.CallIdCustomerParameterKey, value: callId });
   }
 

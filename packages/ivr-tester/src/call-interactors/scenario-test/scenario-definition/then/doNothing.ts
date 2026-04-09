@@ -1,4 +1,4 @@
-import type { Then } from './Then';
+import type { Then } from './Then.js';
 
 export const doNothing = (): Then => ({
   do: () => {

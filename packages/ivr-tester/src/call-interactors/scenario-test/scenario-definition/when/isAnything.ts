@@ -1,4 +1,4 @@
-import type { When } from './When';
+import type { When } from './When.js';
 
 /**
  * Always evaluates as true

@@ -1,4 +1,4 @@
-import type { CallStreamAdapter } from '../../../../call/CallStreamAdapter';
+import type { CallStreamAdapter } from '../../../../call/CallStreamAdapter.js';
 
 /**
  * An action performed when a condition is met

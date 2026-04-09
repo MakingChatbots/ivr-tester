@@ -1,5 +1,5 @@
 import { test, expect } from 'vitest';
-import { matches } from './matches';
+import { matches } from './matches.js';
 
 test.each([
   [

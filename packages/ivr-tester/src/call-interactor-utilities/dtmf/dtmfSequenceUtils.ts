@@ -1,4 +1,4 @@
-import type { SupportedTone } from './DtmfBufferGenerator';
+import type { SupportedTone } from './DtmfBufferGenerator.js';
 
 const validDtmfDigits: ReadonlyArray<SupportedTone> = [
   '0',

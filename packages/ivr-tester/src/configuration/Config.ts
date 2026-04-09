@@ -1,5 +1,5 @@
-import type { Caller } from '../call/Caller';
-import type { IvrNumber } from './call/IvrNumber';
+import type { Caller } from '../call/Caller.js';
+import type { IvrNumber } from './call/IvrNumber.js';
 
 export interface Config {
   /**

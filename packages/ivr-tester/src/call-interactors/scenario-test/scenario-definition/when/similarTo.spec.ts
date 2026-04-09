@@ -1,5 +1,5 @@
 import { test, expect } from 'vitest';
-import { similarTo } from './similarTo';
+import { similarTo } from './similarTo.js';
 
 test.each([
   [

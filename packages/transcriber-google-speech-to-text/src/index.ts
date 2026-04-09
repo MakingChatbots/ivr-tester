@@ -1,6 +1,6 @@
 import { SpeechClient } from '@google-cloud/speech';
 import type { TranscriberFactory } from 'ivr-tester';
-import { GoogleSpeechToText } from './GoogleSpeechToText';
+import { GoogleSpeechToText } from './GoogleSpeechToText.js';
 
 /**
  * Options used when starting a transcription stream to Google's Speech-to-Text service. See [Google's documentation

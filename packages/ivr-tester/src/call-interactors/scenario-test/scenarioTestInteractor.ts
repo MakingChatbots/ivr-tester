@@ -1,12 +1,12 @@
 import {
   CallTranscriber,
   type TranscriberFactory,
-} from '../../call-interactor-utilities/transcription';
-import { Debugger } from '../../Debugger';
-import type { CallInteractor } from '../CallInteractor';
-import { defaultPromptFactory, RunningOrderedCallFlowInstructions } from './inOrder';
-import type { Scenario } from './scenario-definition/Scenario';
-import { validateScenario } from './validateScenario';
+} from '../../call-interactor-utilities/transcription/index.js';
+import { Debugger } from '../../Debugger.js';
+import type { CallInteractor } from '../CallInteractor.js';
+import { defaultPromptFactory, RunningOrderedCallFlowInstructions } from './inOrder.js';
+import type { Scenario } from './scenario-definition/Scenario.js';
+import { validateScenario } from './validateScenario.js';
 
 export interface ScenarioTestInteractorSuccessResult {
   scenario: Scenario;

@@ -1,1 +1,1 @@
-export { ManualInteractorConfig, manualInteractor } from './manualInteractor';
+export { ManualInteractorConfig, manualInteractor } from './manualInteractor.js';

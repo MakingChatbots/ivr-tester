@@ -1,14 +1,14 @@
 import type ws from 'ws';
-import { Debugger } from '../../Debugger';
-import { TypedEmitter } from '../../Emitter';
-import { type CallEvents, type CallStreamAdapter, WebSocketEvents } from '../CallStreamAdapter';
-import { TwilioCaller } from './TwilioCaller';
+import { Debugger } from '../../Debugger.js';
+import { TypedEmitter } from '../../Emitter.js';
+import { type CallEvents, type CallStreamAdapter, WebSocketEvents } from '../CallStreamAdapter.js';
+import { TwilioCaller } from './TwilioCaller.js';
 import {
   type ClientMarkMessage,
   type ClientMediaMessage,
   TwilioClientMessageEventTypes,
-} from './TwilioClientMessages';
-import { TwilioServerMessageEventTypes, type TwilioServerMessages } from './TwilioServerMessages';
+} from './TwilioClientMessages.js';
+import { TwilioServerMessageEventTypes, type TwilioServerMessages } from './TwilioServerMessages.js';
 
 export class TwilioCallStreamAdapter extends TypedEmitter<CallEvents> implements CallStreamAdapter {
   private static readonly debug = Debugger.getTwilioDebugger();

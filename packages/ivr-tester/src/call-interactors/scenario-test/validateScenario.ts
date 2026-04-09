@@ -1,7 +1,7 @@
 import Joi, { type ValidationError } from 'joi';
-import type { Scenario } from './scenario-definition/Scenario';
-import type { Step } from './scenario-definition/Step';
-import type { Then } from './scenario-definition/then';
+import type { Scenario } from './scenario-definition/Scenario.js';
+import type { Step } from './scenario-definition/Step.js';
+import type { Then } from './scenario-definition/then/index.js';
 
 const schema = Joi.object<Scenario>({
   name: Joi.string().required(),

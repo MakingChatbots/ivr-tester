@@ -1,5 +1,5 @@
 import { test, expect } from 'vitest';
-import { contains } from './contains';
+import { contains } from './contains.js';
 
 test('can be configured to be case sensitive', () => {
   const transcript = 'Hello World';

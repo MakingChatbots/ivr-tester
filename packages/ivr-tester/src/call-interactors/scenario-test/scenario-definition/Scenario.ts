@@ -1,4 +1,4 @@
-import type { Step } from './Step';
+import type { Step } from './Step.js';
 
 export interface Scenario {
   name: string;

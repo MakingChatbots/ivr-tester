@@ -1,7 +1,7 @@
-import type { CallStreamAdapter } from '../../../call/CallStreamAdapter';
-import type { MatchedCallback, Prompt, TimeoutCallback } from '../inOrder';
-import type { Step } from '../scenario-definition/Step';
-import type { PromptTranscriptionBuilder } from './PromptTranscriptionBuilder';
+import type { CallStreamAdapter } from '../../../call/CallStreamAdapter.js';
+import type { MatchedCallback, Prompt, TimeoutCallback } from '../inOrder.js';
+import type { Step } from '../scenario-definition/Step.js';
+import type { PromptTranscriptionBuilder } from './PromptTranscriptionBuilder.js';
 
 export class PostSilencePrompt implements Prompt {
   private timeoutTimer: ReturnType<typeof setTimeout>;

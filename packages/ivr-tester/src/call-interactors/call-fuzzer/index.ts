@@ -1,1 +1,1 @@
-export { CallFuzzerInteractorConfig, callFuzzerInteractor } from './CallFuzzerInteractor';
+export { CallFuzzerInteractorConfig, callFuzzerInteractor } from './CallFuzzerInteractor.js';

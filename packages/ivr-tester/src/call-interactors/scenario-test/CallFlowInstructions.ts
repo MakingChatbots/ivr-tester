@@ -1,5 +1,5 @@
-import type { Emitter } from '../../Emitter';
-import type { Step } from './scenario-definition/Step';
+import type { Emitter } from '../../Emitter.js';
+import type { Step } from './scenario-definition/Step.js';
 
 export interface SessionProgressEvent {
   transcription: string;

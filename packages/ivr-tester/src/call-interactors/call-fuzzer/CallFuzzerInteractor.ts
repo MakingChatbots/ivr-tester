@@ -3,8 +3,8 @@ import {
   type DtmfBufferGenerator,
   type SupportedTone,
   UlawDtmfBufferGenerator,
-} from '../../call-interactor-utilities/dtmf';
-import type { CallInteractor } from '../CallInteractor';
+} from '../../call-interactor-utilities/dtmf/index.js';
+import type { CallInteractor } from '../CallInteractor.js';
 
 function getRandomTone(tones: SupportedTone[]): SupportedTone {
   return tones[Math.floor(Math.random() * tones.length)];

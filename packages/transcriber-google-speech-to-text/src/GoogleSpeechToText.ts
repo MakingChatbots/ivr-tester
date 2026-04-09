@@ -6,8 +6,8 @@ import {
   type TranscriptionEvents,
   TypedEmitter,
 } from 'ivr-tester';
-import { Debugger } from './Debugger';
-import type { Transcript } from './Transcript';
+import { Debugger } from './Debugger.js';
+import type { Transcript } from './Transcript.js';
 
 export class GoogleSpeechToText
   extends TypedEmitter<TranscriptionEvents>

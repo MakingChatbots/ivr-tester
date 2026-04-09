@@ -1,4 +1,4 @@
-import type { Emitter } from '../../../Emitter';
+import type { Emitter } from '../../../Emitter.js';
 
 export interface TranscriptEvent {
   /**

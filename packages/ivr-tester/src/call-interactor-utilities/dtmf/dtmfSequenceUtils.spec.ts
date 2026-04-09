@@ -1,5 +1,5 @@
 import { test, expect } from 'vitest';
-import { dtmfSequenceValidator } from './dtmfSequenceUtils';
+import { dtmfSequenceValidator } from './dtmfSequenceUtils.js';
 
 test.each([
   ['123', { valid: false, reason: "DTMF sequence '123' must be an array of strings" }],

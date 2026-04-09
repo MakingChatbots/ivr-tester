@@ -1,6 +1,6 @@
 import { test, expect } from 'vitest';
-import { and } from './and';
-import { contains } from './contains';
+import { and } from './and.js';
+import { contains } from './contains.js';
 
 test('passes if both conditions match', () => {
   expect(and(contains('this'), contains('test'))('this is a test')).toBe(true);

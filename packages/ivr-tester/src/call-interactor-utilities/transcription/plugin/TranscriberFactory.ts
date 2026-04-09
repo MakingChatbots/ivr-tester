@@ -1,4 +1,4 @@
-import type { TranscriberPlugin } from './TranscriberPlugin';
+import type { TranscriberPlugin } from './TranscriberPlugin.js';
 
 export interface CanRun {
   canRun: true;

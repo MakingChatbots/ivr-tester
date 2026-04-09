@@ -1,5 +1,5 @@
 import { test, expect } from 'vitest';
-import { containsSimilarTo } from './containsSimilarTo';
+import { containsSimilarTo } from './containsSimilarTo.js';
 
 test('contains similar to', () => {
   expect(containsSimilarTo('world')('hello world')).toBe(true);

@@ -1,5 +1,5 @@
-import type { Then } from './then';
-import type { When } from './when';
+import type { Then } from './then/index.js';
+import type { When } from './when/index.js';
 
 /**
  * Performs an assertion when a prompt has been transcribed.

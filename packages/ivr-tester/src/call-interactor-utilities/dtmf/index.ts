@@ -1,2 +1,2 @@
-export { DtmfBufferGenerator, SupportedTone } from './DtmfBufferGenerator';
-export { UlawDtmfBufferGenerator } from './UlawDtmfBufferGenerator';
+export { DtmfBufferGenerator, SupportedTone } from './DtmfBufferGenerator.js';
+export { UlawDtmfBufferGenerator } from './UlawDtmfBufferGenerator.js';

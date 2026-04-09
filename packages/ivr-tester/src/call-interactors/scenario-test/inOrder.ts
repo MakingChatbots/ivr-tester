@@ -1,13 +1,13 @@
-import type { CallStreamAdapter } from '../../call/CallStreamAdapter';
+import type { CallStreamAdapter } from '../../call/CallStreamAdapter.js';
 import type {
   TranscriptEvent,
   TranscriptionEvents,
-} from '../../call-interactor-utilities/transcription';
-import { type Emitter, TypedEmitter } from '../../Emitter';
-import type { CallFlowSession, CallFlowSessionEvents } from './CallFlowInstructions';
-import { PostSilencePrompt } from './prompts/PostSilencePrompt';
-import { PromptTranscriptionBuilder } from './prompts/PromptTranscriptionBuilder';
-import type { Step } from './scenario-definition/Step';
+} from '../../call-interactor-utilities/transcription/index.js';
+import { type Emitter, TypedEmitter } from '../../Emitter.js';
+import type { CallFlowSession, CallFlowSessionEvents } from './CallFlowInstructions.js';
+import { PostSilencePrompt } from './prompts/PostSilencePrompt.js';
+import { PromptTranscriptionBuilder } from './prompts/PromptTranscriptionBuilder.js';
+import type { Step } from './scenario-definition/Step.js';
 
 export interface Prompt {
   readonly definition: Step;
