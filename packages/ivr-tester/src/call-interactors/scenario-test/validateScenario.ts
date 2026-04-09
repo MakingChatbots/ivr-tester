@@ -1,26 +1,27 @@
-import Joi, { type ValidationError } from 'joi';
+import { type ZodError, z } from 'zod';
 import type { Scenario } from './scenario-definition/Scenario.js';
-import type { Step } from './scenario-definition/Step.js';
 import type { Then } from './scenario-definition/then/index.js';
 
-const schema = Joi.object<Scenario>({
-  name: Joi.string().required(),
-  steps: Joi.array().items(
-    Joi.object<Step>({
-      whenPrompt: Joi.function().required(),
-      then: Joi.object<Then>().required(),
-      silenceAfterPrompt: Joi.number().required(),
-      timeout: Joi.number().required(),
+const schema = z.object({
+  name: z.string(),
+  steps: z.array(
+    z.object({
+      whenPrompt: z.function(),
+      then: z.custom<Then>((val) => val != null),
+      silenceAfterPrompt: z.number(),
+      timeout: z.number(),
     }),
   ),
-}).required();
+});
 
 export const validateScenario = (
   scenario: Scenario,
-): { scenario?: Scenario; error?: ValidationError } => {
-  const { error, value } = schema.validate(scenario, {
-    presence: 'required',
-  });
+): { scenario?: Scenario; error?: ZodError } => {
+  const result = schema.safeParse(scenario);
 
-  return { scenario: value, error };
+  if (!result.success) {
+    return { error: result.error };
+  }
+
+  return { scenario: result.data as Scenario };
 };

@@ -1,17 +1,19 @@
-import Joi, { type ValidationError } from 'joi';
+import { type ZodError, z } from 'zod';
 import type { IvrNumber } from './IvrNumber.js';
 
-const schema = Joi.object<IvrNumber>({
-  from: Joi.string().required(),
-  to: Joi.string().required(),
+const schema = z.object({
+  from: z.string(),
+  to: z.string(),
 });
 
 export type Subject = IvrNumber;
 
-export const validateSubject = (subject: Subject): { error?: ValidationError } => {
-  const { error } = schema.validate(subject, {
-    presence: 'required',
-  });
+export const validateSubject = (subject: Subject): { error?: ZodError } => {
+  const result = schema.safeParse(subject);
 
-  return { error };
+  if (!result.success) {
+    return { error: result.error };
+  }
+
+  return {};
 };
