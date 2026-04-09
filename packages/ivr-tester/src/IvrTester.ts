@@ -5,7 +5,7 @@ import { type AddressInfo, Server } from 'ws';
 import type { Caller } from './call/Caller';
 import type { CallStreamAdapter } from './call/CallStreamAdapter';
 import type { CallInteractor } from './call-interactors/CallInteractor';
-import type { CallStreamAdapterFactory, Config } from './configuration/Config';
+import type { Config } from './configuration/Config';
 import type { IvrNumber } from './configuration/call/IvrNumber';
 import { type Subject, validateSubject } from './configuration/call/validateSubject';
 import { validateConfig } from './configuration/validateConfig';
@@ -28,7 +28,7 @@ type CallsConnectEvents = {
  * interact with the call
  */
 export class IvrTester implements RunnableTester {
-  private static debug = Debugger.getPackageDebugger();
+  private static readonly debug = Debugger.getPackageDebugger();
 
   private readonly config: Config;
   private readonly callsConnected: TypedEmitter<CallsConnectEvents>;
@@ -36,8 +36,7 @@ export class IvrTester implements RunnableTester {
   private wss: Server | undefined = undefined;
   private wssUrls: { httpUrl: URL; wsUrl: URL } | undefined = undefined;
 
-  private caller: Caller<IvrNumber | Buffer>;
-  private callStreamAdapterFactory: CallStreamAdapterFactory;
+  private readonly caller: Caller<IvrNumber | Buffer>;
 
   constructor(readonly configuration: Config) {
     const result = validateConfig(configuration);
@@ -52,7 +51,6 @@ export class IvrTester implements RunnableTester {
     this.callsConnected = new TypedEmitter<CallsConnectEvents>();
 
     this.caller = configuration.caller;
-    this.callStreamAdapterFactory = configuration.callStreamAdapterFactory;
   }
 
   private static formatServerUrl(server: Server): URL {
@@ -107,7 +105,7 @@ export class IvrTester implements RunnableTester {
     // TODO Start timeout, or add Global timeout value to connected call
     // TODO What to do if call doesn't contain Call ID
 
-    const call = this.callStreamAdapterFactory(callWebSocket);
+    const call = this.caller.callStreamReceived(callWebSocket);
     call.on('callMediaStreamStarted', (e) => {
       if (!e.callId) {
         IvrTester.debug(

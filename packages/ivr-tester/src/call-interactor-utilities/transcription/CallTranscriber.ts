@@ -18,8 +18,8 @@ export type CallTranscriberEvents = {
 };
 
 export class CallTranscriber extends TypedEmitter<TranscriptionEvents & CallTranscriberEvents> {
-  private static debug = Debugger.getPackageDebugger();
-  private static TimeToWaitForTranscription = 4000;
+  private static readonly debug = Debugger.getPackageDebugger();
+  private static readonly TimeToWaitForTranscription = 4000;
 
   private readonly processMessageRef: (message: string) => void;
   private readonly closeRef: () => void;

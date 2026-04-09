@@ -1,9 +1,5 @@
-import type ws from 'ws';
 import type { Caller } from '../call/Caller';
-import type { CallStreamAdapter } from '../call/CallStreamAdapter';
 import type { IvrNumber } from './call/IvrNumber';
-
-export type CallStreamAdapterFactory = (callWebSocket: ws) => CallStreamAdapter;
 
 export interface Config {
   /**
@@ -12,15 +8,11 @@ export interface Config {
   localServerPort?: number | undefined;
 
   /**
-   * Initiates the call. IVR Tester expects a call to this will result a bidirectional
-   * WebSocket connection to the publicServerUrl.
+   * Provides the ability to:
+   * 1. Initiate the call
+   * 2. Handle the WebSocket callback to the publicServerUrl, for the bidirectional audio stream.
    */
   caller: Caller<IvrNumber | Buffer>;
-
-  /**
-   * Handles a vendor specific bidirectional audio stream
-   */
-  callStreamAdapterFactory: CallStreamAdapterFactory;
 
   /**
    * URL of the server that is publicly accessible. This is the

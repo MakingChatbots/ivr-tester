@@ -1,5 +1,4 @@
 import type ws from 'ws';
-import type { CallStreamAdapterFactory } from '../../configuration/Config';
 import { Debugger } from '../../Debugger';
 import { TypedEmitter } from '../../Emitter';
 import { type CallEvents, type CallStreamAdapter, WebSocketEvents } from '../CallStreamAdapter';
@@ -11,11 +10,8 @@ import {
 } from './TwilioClientMessages';
 import { TwilioServerMessageEventTypes, type TwilioServerMessages } from './TwilioServerMessages';
 
-export const TwilioCallStreamAdapterFactory: CallStreamAdapterFactory = (ws) =>
-  new TwilioCallStreamAdapter(ws);
-
 export class TwilioCallStreamAdapter extends TypedEmitter<CallEvents> implements CallStreamAdapter {
-  private static debug = Debugger.getTwilioDebugger();
+  private static readonly debug = Debugger.getTwilioDebugger();
 
   private readonly processMessageReference: (message: string) => void;
   private readonly serverClosedConnectionReference: (a: number, b: string) => void;

@@ -1,7 +1,7 @@
 import debug from 'debug';
 
 export class Debugger {
-  private static packageName = 'ivr-tester';
+  private static readonly packageName = 'ivr-tester';
 
   private static getDebugger(feature: string): debug.Debugger {
     return debug(`${Debugger.packageName}:${feature}`);
