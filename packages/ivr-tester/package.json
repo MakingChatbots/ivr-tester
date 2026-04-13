@@ -11,6 +11,7 @@
   "homepage": "https://github.com/SketchingDev/ivr-tester#ivr-tester",
   "keywords": [
     "IVR",
+    "IVR testing",
     "Interactive Voice Response",
     "call flow",
     "call",
@@ -31,7 +32,8 @@
     "build:dtmf-tones": "./generate-dtmf-tones.sh",
     "build": "npm run clean && tsc -p tsconfig.build.json --declaration && npm run copy:dtmf-tones",
     "lint": "biome check --write src/",
-    "copy:dtmf-tones": "copyfiles -u 1 src/**/dtmf/**/*.raw dist"
+    "copy:dtmf-tones": "copyfiles -u 1 src/**/dtmf/**/*.raw dist",
+    "open-tunnel": "cloudflared tunnel --metrics localhost:8081 --url http://localhost:8080"
   },
   "files": [
     "/dist"

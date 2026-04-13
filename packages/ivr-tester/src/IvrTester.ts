@@ -1,21 +1,21 @@
 import { randomUUID } from 'node:crypto';
 import { URL } from 'node:url';
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-import ws = require('ws');
-
+import z from 'zod';
 import type { Caller } from './call/Caller.js';
 import type { CallStreamAdapter } from './call/CallStreamAdapter.js';
 import type { CallInteractor } from './call-interactors/CallInteractor.js';
-import type { Config } from './configuration/Config.js';
 import type { IvrNumber } from './configuration/call/IvrNumber.js';
-import { type Subject, validateSubject } from './configuration/call/validateSubject.js';
-import { validateConfig } from './configuration/validateConfig.js';
 import { Debugger } from './Debugger.js';
 import { TypedEmitter } from './Emitter.js';
 
+import ws = require('ws');
+
 export interface RunnableTester {
-  run<T>(subject: Subject, callInteractor: CallInteractor<T>): Promise<T>;
+  run<T>(
+    callInteractor: CallInteractor<T>,
+    config: { subject: IvrNumber; publicServerUrl?: string },
+  ): Promise<T>;
 }
 
 type CallsConnectEvents = {
@@ -32,7 +32,6 @@ type CallsConnectEvents = {
 export class IvrTester implements RunnableTester {
   private static readonly debug = Debugger.getPackageDebugger();
 
-  private readonly config: Config;
   private readonly callsConnected: TypedEmitter<CallsConnectEvents>;
 
   private wss: ws.Server | undefined = undefined;
@@ -40,19 +39,9 @@ export class IvrTester implements RunnableTester {
 
   private readonly caller: Caller<IvrNumber | Buffer>;
 
-  constructor(readonly configuration: Config) {
-    const result = validateConfig(configuration);
-    if (result.error) {
-      throw result.error;
-    }
-    if (!result.config) {
-      throw new Error('Error loading configuration');
-    }
-
-    this.config = result.config;
+  constructor({ caller }: { caller: Caller<IvrNumber | Buffer> }) {
+    this.caller = caller;
     this.callsConnected = new TypedEmitter<CallsConnectEvents>();
-
-    this.caller = configuration.caller;
   }
 
   private static formatServerUrl(server: ws.Server): URL {
@@ -92,9 +81,17 @@ export class IvrTester implements RunnableTester {
     });
   }
 
-  public async startServer(): Promise<{ httpUrl: URL; wsUrl: URL }> {
+  /**
+   * @param localServerPort Port that the server listens on. Defaults to 8080
+   */
+  public async startServer(localServerPort = 8080): Promise<{ httpUrl: URL; wsUrl: URL }> {
+    const portValidation = z.number().int().min(0).max(65535).safeParse(localServerPort);
+    if (portValidation.success === false) {
+      throw new Error(`localServerPort: ${portValidation.error.message}`);
+    }
+
     if (!this.wss) {
-      this.wss = new ws.Server({ port: this.config.localServerPort });
+      this.wss = new ws.Server({ port: localServerPort });
       this.wss.on('connection', (ws) => this.callConnected(ws));
 
       this.wssUrls = await IvrTester.waitUntilListening(this.wss);
@@ -142,26 +139,38 @@ export class IvrTester implements RunnableTester {
     });
   }
 
+  /**
+   * @param config.publicServerUrl URL of the server that is publicly accessible.
+   *     This is the server that Twilio connects to when creating the bidirectional stream of the call.
+   */
   public async run<T>(
-    subject: Subject,
     callInteractor: CallInteractor<T>,
-    config?: {
-      publicServerUrl: string;
-    },
+    config: { subject: IvrNumber; publicServerUrl?: string },
   ): Promise<T> {
-    const publicServerUrl = config?.publicServerUrl
-      ? IvrTester.convertToWebSocketUrl(config.publicServerUrl).toString()
-      : undefined;
+    const publicServerUrlValidation = z
+      .url()
+      .optional()
+      .transform((arg) => (arg ? IvrTester.convertToWebSocketUrl(arg).toString() : undefined))
+      .safeParse(config.publicServerUrl);
+    if (publicServerUrlValidation.error) {
+      throw new Error(`publicServerUrl: ${publicServerUrlValidation.error.message}`);
+    }
 
-    const subjectValidationResult = validateSubject(subject);
-    if (subjectValidationResult.error) {
-      throw subjectValidationResult.error;
+    const subjectValidation = z
+      .object({
+        from: z.string(),
+        to: z.string(),
+      })
+      .safeParse(config.subject);
+
+    if (subjectValidation.error) {
+      throw new Error(`subject: ${subjectValidation.error.message}`);
     }
 
     const callId = randomUUID();
     await this.caller.call(
-      subject,
-      publicServerUrl || this.config.publicServerUrl || this.wssUrls.wsUrl,
+      config.subject,
+      publicServerUrlValidation.data || this.wssUrls.wsUrl,
       callId,
     );
 
