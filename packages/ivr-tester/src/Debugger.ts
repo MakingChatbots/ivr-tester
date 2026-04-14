@@ -18,4 +18,8 @@ export class Debugger {
   public static getTwilioDebugger(): debug.Debugger {
     return Debugger.getDebugger('twilio');
   }
+
+  public static getCloudflareUtilityDebugger(): debug.Debugger {
+    return Debugger.getDebugger('cloudflare');
+  }
 }

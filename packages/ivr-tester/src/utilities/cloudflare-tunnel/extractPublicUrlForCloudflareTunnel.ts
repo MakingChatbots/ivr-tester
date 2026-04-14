@@ -1,5 +1,8 @@
 import { setTimeout } from 'node:timers/promises';
+import { Debugger } from '../../Debugger.js';
 import { CloudflareTunnelMetricsClient } from './CloudflareTunnelMetricsClient.js';
+
+const debug = Debugger.getCloudflareUtilityDebugger();
 
 export async function extractPublicUrlForCloudflareTunnel(
   metricsBaseUrl = 'http://127.0.0.1:8081',
@@ -8,27 +11,23 @@ export async function extractPublicUrlForCloudflareTunnel(
   const client = new CloudflareTunnelMetricsClient(metricsBaseUrl);
 
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
-    console.log('Attempt number', attempt);
-
     const { closedConnections, totalConnections } = await client.getConnectionsCount();
 
     if (closedConnections === undefined || totalConnections === undefined) {
-      console.log('Connection counts not defined');
+      debug('Connection counts not defined');
       await setTimeout(delayMs);
       continue;
     }
 
     if (closedConnections >= totalConnections) {
-      console.log(
-        `closedConnections: ${closedConnections} >= totalConnections: ${totalConnections}`,
-      );
+      debug(`closedConnections: ${closedConnections} >= totalConnections: ${totalConnections}`);
       await setTimeout(delayMs);
       continue;
     }
 
     const publicUrl = await client.getHostname();
     if (!publicUrl) {
-      console.log('Could not find get public URL');
+      debug('Could not find get public URL');
       await setTimeout(delayMs);
       continue;
     }

@@ -5,5 +5,6 @@ export { hasPart } from './hasPart.js';
 export { isAnything } from './isAnything.js';
 export { matches } from './matches.js';
 export { or } from './or.js';
+export { provided } from './provided.js';
 export { similarTo } from './similarTo.js';
 export { When } from './When.js';
