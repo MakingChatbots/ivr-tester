@@ -1,7 +1,7 @@
 import { setTimeout } from 'node:timers/promises';
 import { CloudflareTunnelMetricsClient } from './CloudflareTunnelMetricsClient.js';
 
-export async function extractPublicUrl(
+export async function extractPublicUrlForCloudflareTunnel(
   metricsBaseUrl = 'http://127.0.0.1:8081',
   { maxAttempts = 10, delayMs = 1000 } = {},
 ): Promise<string> {
@@ -10,8 +10,7 @@ export async function extractPublicUrl(
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     console.log('Attempt number', attempt);
 
-    const { closedConnections, totalConnections } =
-      await client.getConnectionsCount();
+    const { closedConnections, totalConnections } = await client.getConnectionsCount();
 
     if (closedConnections === undefined || totalConnections === undefined) {
       console.log('Connection counts not defined');
@@ -37,7 +36,5 @@ export async function extractPublicUrl(
     return publicUrl;
   }
 
-  throw new Error(
-    `Failed to extract public URL after ${maxAttempts} attempts`,
-  );
+  throw new Error(`Failed to extract public URL after ${maxAttempts} attempts`);
 }

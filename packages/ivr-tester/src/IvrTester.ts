@@ -13,8 +13,8 @@ import ws = require('ws');
 
 export interface RunnableTester {
   run<T>(
+    context: { subject: IvrNumber; publicServerUrl?: string },
     callInteractor: CallInteractor<T>,
-    config: { subject: IvrNumber; publicServerUrl?: string },
   ): Promise<T>;
 }
 
@@ -39,7 +39,7 @@ export class IvrTester implements RunnableTester {
 
   private readonly caller: Caller<IvrNumber | Buffer>;
 
-  constructor({ caller }: { caller: Caller<IvrNumber | Buffer> }) {
+  constructor(caller: Caller<IvrNumber | Buffer>) {
     this.caller = caller;
     this.callsConnected = new TypedEmitter<CallsConnectEvents>();
   }
@@ -140,18 +140,18 @@ export class IvrTester implements RunnableTester {
   }
 
   /**
-   * @param config.publicServerUrl URL of the server that is publicly accessible.
+   * @param context.publicServerUrl URL of the server that is publicly accessible.
    *     This is the server that Twilio connects to when creating the bidirectional stream of the call.
    */
   public async run<T>(
+    context: { subject: IvrNumber; publicServerUrl?: string },
     callInteractor: CallInteractor<T>,
-    config: { subject: IvrNumber; publicServerUrl?: string },
   ): Promise<T> {
     const publicServerUrlValidation = z
       .url()
       .optional()
       .transform((arg) => (arg ? IvrTester.convertToWebSocketUrl(arg).toString() : undefined))
-      .safeParse(config.publicServerUrl);
+      .safeParse(context.publicServerUrl);
     if (publicServerUrlValidation.error) {
       throw new Error(`publicServerUrl: ${publicServerUrlValidation.error.message}`);
     }
@@ -161,7 +161,7 @@ export class IvrTester implements RunnableTester {
         from: z.string(),
         to: z.string(),
       })
-      .safeParse(config.subject);
+      .safeParse(context.subject);
 
     if (subjectValidation.error) {
       throw new Error(`subject: ${subjectValidation.error.message}`);
@@ -169,7 +169,7 @@ export class IvrTester implements RunnableTester {
 
     const callId = randomUUID();
     await this.caller.call(
-      config.subject,
+      context.subject,
       publicServerUrlValidation.data || this.wssUrls.wsUrl,
       callId,
     );

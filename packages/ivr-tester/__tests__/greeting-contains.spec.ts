@@ -148,10 +148,11 @@ describe('Caller with WebSocket streaming and greetingContainsInteractor', () =>
 
   test('detects a matching word in the transcribed audio stream', async () => {
     caller = new WebSocketCaller();
-    ivrTester = new IvrTester({ caller });
+    ivrTester = new IvrTester(caller);
     await ivrTester.startServer(0);
 
     const result = await ivrTester.run(
+      { subject: { to: '+00000000000', from: '+11111111111' } },
       greetingContainsInteractor({
         wordsToListenFor: ['welcome'],
         transcriberFactory: createTranscriberFactory('Hello welcome to our service'),
@@ -159,7 +160,6 @@ describe('Caller with WebSocket streaming and greetingContainsInteractor', () =>
         intervalSet: fastIntervalSet,
         intervalClear: clearInterval,
       }),
-      { subject: { to: '+00000000000', from: '+11111111111' } },
     );
 
     expect(result.foundInGreeting).toContain('welcome');
@@ -168,10 +168,11 @@ describe('Caller with WebSocket streaming and greetingContainsInteractor', () =>
 
   test('returns empty when greeting does not contain the target word', async () => {
     caller = new WebSocketCaller();
-    ivrTester = new IvrTester({ caller });
+    ivrTester = new IvrTester(caller);
     await ivrTester.startServer(0);
 
     const result = await ivrTester.run(
+      { subject: { to: '+00000000000', from: '+11111111111' } },
       greetingContainsInteractor({
         wordsToListenFor: ['goodbye'],
         transcriberFactory: createTranscriberFactory('Hello welcome to our service'),
@@ -179,7 +180,6 @@ describe('Caller with WebSocket streaming and greetingContainsInteractor', () =>
         intervalSet: fastIntervalSet,
         intervalClear: clearInterval,
       }),
-      { subject: { to: '+00000000000', from: '+11111111111' } },
     );
 
     expect(result.foundInGreeting).toEqual([]);

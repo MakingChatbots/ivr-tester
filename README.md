@@ -34,9 +34,16 @@ Tester it will:
 If there is a variation to this scenario then it reports the deviation and stops.
 
 ```typescript
+const ivrTester = new IvrTester(
+  new TwilioCaller(twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN))
+);
+
+await ivrTester.startServer(8080);
+
 const result = await ivrTester.run(
-  { from: "0123 456 789", to: "0123 123 123" },
+  { from: "+00000000000", to: "+001111111111" },
   scenarioTestInteractor({
+    transcriber: googleSpeechToText({ languageCode: "en-GB" }),
     scenario: {
       name: 'Scenario times out waiting for prompt',
       steps: [
@@ -51,12 +58,13 @@ const result = await ivrTester.run(
           then: hangUp(),
           silenceAfterPrompt: 1000,
           timeout: 5000,
-        },
-      ],
-    },
-    transcriber: googleSpeechToText({ languageCode: "en-GB" })
+        }
+      ]
+    }
   })
 )
+
+await ivrTester.stopServer();
 ```
 
 ### Check the greeting message
@@ -69,19 +77,27 @@ This is useful if you want to check a greeting contains a regulatory requirement
 informing customers that the line is open/closed, as the example below does:
 
 ```typescript
+const ivrTester = new IvrTester(
+  new TwilioCaller(twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN))
+);
+
+await ivrTester.startServer(8080);
+
 const result = await ivrTester.run(
-  { from: "0123 456 789", to: "0123 123 123" },
+  { from: "+00000000000", to: "+001111111111" },
   greetingContainsInteractor({
+    transcriber: googleSpeechToText({ languageCode: "en-GB" }),
     maxTimeToListenMs: 5000,
     wordsToListenFor: [
       'recorded', // Open lines say '... all calls are recorded ...'
       'closed' // Closed lines say '... phone line is currently closed ...'
     ],
-    transcriber: googleSpeechToText({ languageCode: "en-GB" })
   })
 );
 
 expect(result.foundInGreeting).toContain('recorded');
+
+await ivrTester.stopServer();
 ```
 
 ## Quick Start
