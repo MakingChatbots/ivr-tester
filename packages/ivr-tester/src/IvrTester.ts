@@ -179,11 +179,13 @@ export class IvrTester implements RunnableTester {
 
     // Wait for call to connect with same Call ID
     return new Promise((resolve, reject) => {
-      this.callsConnected.on('callConnected', (e) => {
+      const listener = (e: { call: CallStreamAdapter; callId: string }) => {
         if (e.callId === callId) {
+          this.callsConnected.off('callConnected', listener);
           callInteractor(e.call).then(resolve).catch(reject);
         }
-      });
+      };
+      this.callsConnected.on('callConnected', listener);
     });
   }
 }
