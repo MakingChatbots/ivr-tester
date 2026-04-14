@@ -1,5 +1,5 @@
 import type ws from 'ws';
-import type { TypedEmitter } from '../Emitter.js';
+import type { Emitter } from '../Emitter.js';
 
 export enum WebSocketEvents {
   Message = 'message',
@@ -28,7 +28,7 @@ export type CallEvents = {
 /**
  * Represents an active call
  */
-export interface CallStreamAdapter extends TypedEmitter<CallEvents> {
+export interface CallStreamAdapter extends Emitter<CallEvents> {
   /**
    * Sends 8 bit PCM encoded (MULAW) at 8000 Hertz media to call
    */
