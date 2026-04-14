@@ -15,7 +15,6 @@ export interface TimeoutWaitingForMatchEvent {
   promptDefinition?: Step;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export type AllPromptsMatchedEvent = {};
 
 export type CallFlowSessionEvents = {
