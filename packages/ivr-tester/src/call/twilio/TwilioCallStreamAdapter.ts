@@ -74,7 +74,7 @@ export class TwilioCallStreamAdapter extends TypedEmitter<CallEvents> implements
             by: 'ivr-tester',
             reason: 'Failed to extract stream parameters',
           });
-          throw err;
+          TwilioCallStreamAdapter.debug('Failed to process Start message: %O', err);
         }
         break;
       case TwilioServerMessageEventTypes.Mark:
