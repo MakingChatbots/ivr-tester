@@ -2,4 +2,4 @@ export {
   GreetingContainsInteractorConfig,
   GreetingMsgInteractorResult,
   greetingContainsInteractor,
-} from './greetingContainsInterator.js';
+} from './greetingContainsInteractor.js';
