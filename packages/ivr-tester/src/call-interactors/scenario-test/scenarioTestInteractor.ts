@@ -25,7 +25,6 @@ export type ScenarioTestInteractorResult =
 
 export interface ScenarioTestInteractorConfig {
   readonly scenario: Scenario;
-  // readonly dtmfGenerator: DtmfBufferGenerator;
   readonly transcriberFactory: TranscriberFactory;
   readonly timeoutSet?: typeof setTimeout;
   readonly timeoutClear?: typeof clearTimeout;
@@ -36,7 +35,6 @@ export interface ScenarioTestInteractorConfig {
  */
 export const scenarioTestInteractor = ({
   scenario,
-  // dtmfGenerator,
   transcriberFactory,
   timeoutSet = setTimeout,
   timeoutClear = clearTimeout,
