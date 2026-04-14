@@ -43,6 +43,6 @@ export class CloudflareTunnelMetricsClient {
     const match = metrics.match(
       /cloudflared_tunnel_user_hostnames_counts\{userHostname="(.+?)"} \d+/,
     );
-    return match[1];
+    return match?.[1];
   }
 }
