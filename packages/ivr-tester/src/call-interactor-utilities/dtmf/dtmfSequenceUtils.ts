@@ -25,7 +25,6 @@ export function dtmfSequenceValidator(
   if (!isArrayOfString(possibleDtmfSequence)) {
     return {
       valid: false,
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       reason: `DTMF sequence '${possibleDtmfSequence}' must be an array of strings`,
     };
   }
@@ -35,14 +34,11 @@ export function dtmfSequenceValidator(
   }
 
   const invalidDigits = possibleDtmfSequence.filter(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    (c) => !validDtmfDigits.includes(c.toLocaleLowerCase()),
+    (c) => !validDtmfDigits.includes(c.toLocaleLowerCase() as SupportedTone),
   );
   if (invalidDigits.length > 0) {
     return {
       valid: false,
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       reason: `DTMF sequence '${possibleDtmfSequence}' contains invalid digit(s) '${invalidDigits}'. The valid digits are '${validDtmfDigits}'`,
     };
   }
