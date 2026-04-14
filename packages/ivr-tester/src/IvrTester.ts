@@ -147,6 +147,10 @@ export class IvrTester implements RunnableTester {
     context: { subject: IvrNumber; publicServerUrl?: string },
     callInteractor: CallInteractor<T>,
   ): Promise<T> {
+    if (!this.wssUrls) {
+      throw new Error('startServer must be called first');
+    }
+
     const publicServerUrlValidation = z
       .url()
       .optional()
