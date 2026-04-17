@@ -18,12 +18,12 @@ export class CloudflareTunnelMetricsClient {
 
   private static getClosedConnections(metrics: string): number | undefined {
     const match = metrics.match(/quic_client_closed_connections (\d+)/);
-    return match ? parseInt(match[1]) : undefined;
+    return match ? parseInt(match[1], 10) : undefined;
   }
 
   private static getTotalConnections(metrics: string): number | undefined {
     const match = metrics.match(/quic_client_total_connections (\d+)/);
-    return match ? parseInt(match[1]) : undefined;
+    return match ? parseInt(match[1], 10) : undefined;
   }
 
   public async getConnectionsCount(): Promise<{

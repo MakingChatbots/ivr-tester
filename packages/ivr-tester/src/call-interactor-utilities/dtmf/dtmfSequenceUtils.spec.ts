@@ -1,4 +1,4 @@
-import { test, expect } from 'vitest';
+import { expect, test } from 'vitest';
 import { dtmfSequenceValidator } from './dtmfSequenceUtils.js';
 
 test.each([

@@ -14,9 +14,7 @@ const schema = z.object({
   ),
 });
 
-export const validateScenario = (
-  scenario: Scenario,
-): { scenario?: Scenario; error?: ZodError } => {
+export const validateScenario = (scenario: Scenario): { scenario?: Scenario; error?: ZodError } => {
   const result = schema.safeParse(scenario);
 
   if (!result.success) {

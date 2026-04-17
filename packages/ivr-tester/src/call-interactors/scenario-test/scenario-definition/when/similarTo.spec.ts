@@ -1,4 +1,4 @@
-import { test, expect } from 'vitest';
+import { expect, test } from 'vitest';
 import { similarTo } from './similarTo.js';
 
 test.each([

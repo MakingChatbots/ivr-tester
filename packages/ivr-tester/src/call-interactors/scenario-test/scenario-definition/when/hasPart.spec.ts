@@ -1,4 +1,4 @@
-import { test, expect, vi, type Mock } from 'vitest';
+import { expect, type Mock, test, vi } from 'vitest';
 import { hasPart } from './hasPart.js';
 import type { When } from './When.js';
 

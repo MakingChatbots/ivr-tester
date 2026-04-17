@@ -1,4 +1,4 @@
-import { test, expect } from 'vitest';
+import { expect, test } from 'vitest';
 import { contains } from './contains.js';
 
 test('can be configured to be case sensitive', () => {

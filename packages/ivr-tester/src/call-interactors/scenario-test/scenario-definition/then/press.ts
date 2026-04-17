@@ -1,10 +1,10 @@
 import type { CallStreamAdapter } from '../../../../call/CallStreamAdapter.js';
+import { dtmfSequenceValidator } from '../../../../call-interactor-utilities/dtmf/dtmfSequenceUtils.js';
 import {
   type DtmfBufferGenerator,
   type SupportedTone,
   UlawDtmfBufferGenerator,
 } from '../../../../call-interactor-utilities/dtmf/index.js';
-import { dtmfSequenceValidator } from '../../../../call-interactor-utilities/dtmf/dtmfSequenceUtils.js';
 import type { Then } from './Then.js';
 
 /**
