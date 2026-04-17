@@ -23,6 +23,14 @@
     "enabled": true,
     "rules": {
       "recommended": true,
+      "style": {
+        "useConsistentMemberAccessibility": {
+          "level": "error",
+          "options": {
+            "accessibility": "explicit"
+          }
+        }
+      },
       "complexity": {
         "noStaticOnlyClass": "off",
         "noBannedTypes": "off"

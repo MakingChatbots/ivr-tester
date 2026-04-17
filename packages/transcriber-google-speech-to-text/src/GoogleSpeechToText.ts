@@ -37,7 +37,7 @@ export class GoogleSpeechToText
   private readonly config: Readonly<protos.google.cloud.speech.v1.IStreamingRecognitionConfig>;
   private stream: internal.Writable;
 
-  constructor(
+  public constructor(
     languageCode: string,
     speechPhrases: string[] = [],
     useEnhanced = false,

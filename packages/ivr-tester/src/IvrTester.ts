@@ -39,7 +39,7 @@ export class IvrTester implements RunnableTester {
 
   private readonly caller: Caller<IvrNumber | Buffer>;
 
-  constructor(caller: Caller<IvrNumber | Buffer>) {
+  public constructor(caller: Caller<IvrNumber | Buffer>) {
     this.caller = caller;
     this.callsConnected = new TypedEmitter<CallsConnectEvents>();
   }

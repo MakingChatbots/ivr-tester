@@ -12,7 +12,7 @@ const sendAudioChunksToTranscriber = async (audioFile: Buffer, transcriber: Tran
   const msBetweenSendingBuffer = 250;
   const bufferSize = 5000;
 
-  // Kludge to slow down the rate at which data is sent to AWS
+  // Kludge to slow down the rate at which data is sent to Google
   let buffer: number[] = [];
   for (const item of Array.from(audioFile)) {
     buffer.push(item);

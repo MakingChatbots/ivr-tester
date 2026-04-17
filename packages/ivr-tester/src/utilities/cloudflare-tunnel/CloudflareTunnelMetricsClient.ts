@@ -6,7 +6,7 @@
  * @see https://prometheus.io/docs/concepts/data_model/
  */
 export class CloudflareTunnelMetricsClient {
-  constructor(
+  public constructor(
     private readonly baseUrl: string,
     private readonly fetchFn: typeof fetch = fetch,
   ) {}

@@ -50,7 +50,7 @@ export class RunningOrderedCallFlowInstructions
   extends TypedEmitter<CallFlowSessionEvents>
   implements CallFlowSession
 {
-  constructor(
+  public constructor(
     private readonly promptDefinitions: ReadonlyArray<Step>,
     private readonly promptFactory: PromptFactory,
     private readonly transcriber: Emitter<TranscriptionEvents>,

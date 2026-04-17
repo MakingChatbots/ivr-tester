@@ -8,7 +8,10 @@ import {
   type ClientMediaMessage,
   TwilioClientMessageEventTypes,
 } from './TwilioClientMessages.js';
-import { TwilioServerMessageEventTypes, type TwilioServerMessages } from './TwilioServerMessages.js';
+import {
+  TwilioServerMessageEventTypes,
+  type TwilioServerMessages,
+} from './TwilioServerMessages.js';
 
 export class TwilioCallStreamAdapter extends TypedEmitter<CallEvents> implements CallStreamAdapter {
   private static readonly debug = Debugger.getTwilioDebugger();
@@ -18,7 +21,7 @@ export class TwilioCallStreamAdapter extends TypedEmitter<CallEvents> implements
 
   private streamSid: string | undefined;
 
-  constructor(private readonly connection: ws) {
+  public constructor(private readonly connection: ws) {
     super();
     this.processMessageReference = this.processMessage.bind(this);
     connection.on(WebSocketEvents.Message, this.processMessageReference);

@@ -13,7 +13,7 @@ export class TwilioCaller implements Caller<IvrNumber> {
   private static readonly debug = Debugger.getTwilioDebugger();
   private static readonly CallIdCustomerParameterKey = 'CallId';
 
-  constructor(private readonly twilioClient: Twilio) {
+  public constructor(private readonly twilioClient: Twilio) {
     if (!twilioClient) {
       throw new ArgumentUndefinedError('twilioClient');
     }
@@ -23,7 +23,10 @@ export class TwilioCaller implements Caller<IvrNumber> {
     return new TwilioCallStreamAdapter(callWebSocket);
   }
 
-  private static addCallIdCustomParameter(stream: InstanceType<typeof twiml.VoiceResponse.Stream>, callId: string): void {
+  private static addCallIdCustomParameter(
+    stream: InstanceType<typeof twiml.VoiceResponse.Stream>,
+    callId: string,
+  ): void {
     stream.parameter({ name: TwilioCaller.CallIdCustomerParameterKey, value: callId });
   }
 

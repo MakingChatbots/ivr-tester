@@ -3,6 +3,7 @@ export { TwilioClientAuth } from './call/twilio/twilio.js';
 export * from './call-interactor-utilities/dtmf/index.js';
 export * from './call-interactor-utilities/transcription/index.js';
 export { CallInteractor } from './call-interactors/CallInteractor.js';
+export { CallStreamHandler } from './call-interactors/CallStreamHandler.js';
 export * from './call-interactors/call-fuzzer/index.js';
 export * from './call-interactors/greeting-contains/index.js';
 export * from './call-interactors/manual/index.js';

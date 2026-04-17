@@ -24,7 +24,7 @@ export class CallTranscriber extends TypedEmitter<TranscriptionEvents & CallTran
   private readonly processMessageRef: (message: string) => void;
   private readonly closeRef: () => void;
 
-  constructor(
+  public constructor(
     private readonly call: CallStreamAdapter,
     private readonly transcriber: TranscriberPlugin,
     private readonly intervalSet: typeof setInterval = setInterval,

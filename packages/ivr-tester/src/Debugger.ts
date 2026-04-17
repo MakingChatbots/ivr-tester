@@ -19,6 +19,10 @@ export class Debugger {
     return Debugger.getDebugger('twilio');
   }
 
+  public static getSoxUtilityDebugger(): debug.Debugger {
+    return Debugger.getDebugger('sox');
+  }
+
   public static getCloudflareUtilityDebugger(): debug.Debugger {
     return Debugger.getDebugger('cloudflare');
   }

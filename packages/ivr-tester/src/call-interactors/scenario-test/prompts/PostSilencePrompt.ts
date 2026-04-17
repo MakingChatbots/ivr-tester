@@ -13,7 +13,7 @@ export class PostSilencePrompt implements Prompt {
   private skipPrompt = false;
   private nextPrompt: Prompt;
 
-  constructor(
+  public constructor(
     public readonly definition: Step,
     private readonly call: CallStreamAdapter,
     private readonly matchedCallback: MatchedCallback,

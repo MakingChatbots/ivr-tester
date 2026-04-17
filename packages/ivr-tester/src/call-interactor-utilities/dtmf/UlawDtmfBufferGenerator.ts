@@ -12,7 +12,7 @@ export class UlawDtmfBufferGenerator implements DtmfBufferGenerator {
   private readonly paths = new Map<SupportedTone, string>();
   private readonly rawCache = new Map<string, Buffer>();
 
-  constructor(rawFilesBasePath: string = UlawDtmfBufferGenerator.DEFAULT_RAW_BASE_PATH) {
+  public constructor(rawFilesBasePath: string = UlawDtmfBufferGenerator.DEFAULT_RAW_BASE_PATH) {
     this.initiatePathsToRawFiles(rawFilesBasePath);
   }
 

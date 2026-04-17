@@ -26,7 +26,7 @@ class WebSocketCaller implements Caller<IvrNumber | Buffer> {
   private client: WebSocket | undefined;
   private mediaInterval: ReturnType<typeof setInterval> | undefined;
 
-  async call(
+  public async call(
     call: IvrNumber | Buffer,
     streamUrl: URL | string,
     callId: string,
@@ -83,11 +83,11 @@ class WebSocketCaller implements Caller<IvrNumber | Buffer> {
     return { type: 'telephony', call: call as IvrNumber };
   }
 
-  callStreamReceived(callWebSocket: ws): CallStreamAdapter {
+  public callStreamReceived(callWebSocket: ws): CallStreamAdapter {
     return new TwilioCallStreamAdapter(callWebSocket);
   }
 
-  cleanup(): void {
+  public cleanup(): void {
     if (this.mediaInterval) clearInterval(this.mediaInterval);
     if (this.client?.readyState === WebSocket.OPEN) this.client.close();
   }
@@ -103,11 +103,11 @@ class StubTranscriberPlugin
 {
   private hasEmitted = false;
 
-  constructor(private readonly transcript: string) {
+  public constructor(private readonly transcript: string) {
     super();
   }
 
-  transcribe(_payload: Buffer): void {
+  public transcribe(_payload: Buffer): void {
     if (!this.hasEmitted) {
       this.hasEmitted = true;
       this.emit('transcription', {
@@ -117,8 +117,8 @@ class StubTranscriberPlugin
     }
   }
 
-  transcriptionComplete(): void {}
-  close(): void {}
+  public transcriptionComplete(): void {}
+  public close(): void {}
 }
 
 function createTranscriberFactory(transcript: string): TranscriberFactory {
